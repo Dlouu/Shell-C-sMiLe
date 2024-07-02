@@ -6,7 +6,7 @@
 #    By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/06 13:02:03 by mbaumgar          #+#    #+#              #
-#    Updated: 2024/07/02 11:43:32 by mbaumgar         ###   ########.fr        #
+#    Updated: 2024/07/02 11:48:25 by mbaumgar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -116,13 +116,13 @@ main: fclean
 nils: fclean
 	cd ..
 	git add .
-	git commit -m "${m}"
+	git commit -m "Nils : ${m}"
 	git push origin nils
 
 dlou: fclean
 	cd ..
 	git add .
-	git commit -m "${m}"
+	git commit -m "Dlou : ${m}"
 	git push origin dlou
 
 .PHONY: all clean fclean re uwu norminette leak thread main nils dlou
