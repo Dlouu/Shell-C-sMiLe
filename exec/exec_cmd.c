@@ -6,23 +6,36 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:54:36 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/02 13:47:02 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/02 17:19:21 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-// mon main de test
-
-int main()
+void find_builtin(t_ms **test)
 {
-	t_ms bite;
+	t_ms *temp;
 
-	bite.content = "ls";
-	bite.token = 2;
-	ft_printf("%d\n", bite.token);
-	ft_printf("%s\n", bite.content);
+	temp = *test;
+	//ft_printf("debug\n");
+	if (ft_strncmp((*test)->content, "cd", 2) == 0) 
+		ft_cd(test);
+	else if (ft_strncmp((*test)->content, "echo", 4) == 0)
+		(*test)->builtin = 1;
+	else if (ft_strncmp((*test)->content, "env", 3) == 0)
+		(*test)->builtin = 1;
+	else if (ft_strncmp((*test)->content, "pwd", 3) == 0)
+		ft_pwd(test);
+	else if (ft_strncmp((*test)->content, "export", 6) == 0)
+		(*test)->builtin = 1;
+	else if (ft_strncmp((*test)->content, "unset", 5) == 0)
+		(*test)->builtin = 1;
+	else if (ft_strncmp((*test)->content, "exit", 4) == 0)
+		(*test)->builtin = 1;
+	else
+		(*test)->builtin = 0;
 }
+
 
 /* notes :
 Builtin pwd, env echo en first (conseil de Max)

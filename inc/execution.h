@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:59 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/02 13:35:43 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/02 19:25:10 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,44 @@
 #define EXECUTION_H
 
 #include "../inc/minishell.h"
+#include <limits.h>
+#include <errno.h>
+#include <string.h>
+#include <stdio.h>
 
 typedef struct s_ms_list //nom temporaire de test
 {
+	int		exit_code;
 	char	*content; //cmd etc.
 	int		token; // (des entiers)
 	int		builtin; // 0 ou 1 (Si 1, alors cest un builtin sinon cmd de base)
-	int		index;
-} 			t_ms;
+	int		index; // echo -n -nnn. echo = 0, -n = 1, -nnn = 2
+	struct s_ms_list	*next;
+	struct s_ms_list	*prev;
+}	t_ms;
+
+//exec_cmd.c
+
+void	find_builtin(t_ms **test);
+
+//vractest.c
+
+t_ms	*create_list(int argc, char **argv);
+void 	is_builtin(t_ms **test);
+
+//cd
+
+int		ft_cd_which_arg(t_ms **lst);
+int		ft_cd(t_ms **test);
+char	*find_path(char **envp, char *varenv);
+
+// pwd
+
+int		ft_pwd(t_ms **lst);
+
+//utils.c
+void	free_lst(t_ms **a_stack);
+void	error_message(const char *message, int status_code);
+
 
 #endif

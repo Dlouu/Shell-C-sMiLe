@@ -6,8 +6,27 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:50:11 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/02 13:46:48 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/02 19:25:22 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void	error_message(const char *message, int exit_status)
+{
+	ft_printf(message);
+	exit(exit_status);
+}
+
+void	free_lst(t_ms **a_stack)
+{
+	t_ms	*tmp;
+
+	while (a_stack && *a_stack)
+	{
+		tmp = *a_stack;
+		*a_stack = (*a_stack)->next;
+		free(tmp);
+	}
+	a_stack = NULL;
+}

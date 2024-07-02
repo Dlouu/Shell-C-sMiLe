@@ -6,7 +6,7 @@
 #    By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/06 13:02:03 by mbaumgar          #+#    #+#              #
-#    Updated: 2024/07/02 13:34:21 by niabraha         ###   ########.fr        #
+#    Updated: 2024/07/02 15:38:17 by niabraha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,7 @@ SRC			= minishell.c \
 			builtin/pwd.c \
 			builtin/unset.c \
 			exec/exec_cmd.c \
+			exec/vractest.c \
 			utils/execution.c \
 			utils/parsing.c \
 			utils/utils.c 
