@@ -6,7 +6,7 @@
 #    By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/06 13:02:03 by mbaumgar          #+#    #+#              #
-#    Updated: 2024/07/01 17:26:54 by mbaumgar         ###   ########.fr        #
+#    Updated: 2024/07/02 11:43:32 by mbaumgar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -107,10 +107,22 @@ leak: re
 thread: re
 	${CC} ${CFLAGS} ${DBG_THREAD} -o ${NAME} ${OBJ}
 
-git: fclean
+main: fclean
 	cd ..
 	git add .
 	git commit -m "${m}"
-	git push
+	git push origin main
 
-.PHONY: all clean fclean re uwu norminette leak thread git
+nils: fclean
+	cd ..
+	git add .
+	git commit -m "${m}"
+	git push origin nils
+
+dlou: fclean
+	cd ..
+	git add .
+	git commit -m "${m}"
+	git push origin dlou
+
+.PHONY: all clean fclean re uwu norminette leak thread main nils dlou
