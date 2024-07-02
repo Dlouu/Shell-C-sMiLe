@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:59 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/02 12:12:34 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/02 13:35:43 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,12 @@
 
 #include "../inc/minishell.h"
 
-typedef struct s_ms_list
+typedef struct s_ms_list //nom temporaire de test
 {
-	int		status_code;
-	char	*content;
-	char	*token;
-	int		critical;
-	int		builtin;
-}
+	char	*content; //cmd etc.
+	int		token; // (des entiers)
+	int		builtin; // 0 ou 1 (Si 1, alors cest un builtin sinon cmd de base)
+	int		index;
+} 			t_ms;
 
 #endif
-
