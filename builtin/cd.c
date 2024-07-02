@@ -6,12 +6,16 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:04 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/02 11:56:21 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/02 12:06:06 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+int	ft_cd()
+{
+	return (0);
+}
 
 /* notes :
 cd ..
