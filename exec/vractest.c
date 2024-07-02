@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:37:25 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/02 18:23:40 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/02 19:50:26 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,11 @@ t_ms	*create_list(int argc, char **argv)
 	}
 } */
 
-int main(int argc, char **argv)
+int main(int argc, char **argv, char **envp)
 {
 	t_ms *test;
 
 	test = create_list(argc, argv);
 	//print_lst(test);
-	find_builtin(&test);
+	find_builtin(&test, envp);
 }

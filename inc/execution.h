@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:59 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/02 19:25:10 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/02 19:51:16 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_ms_list //nom temporaire de test
 
 //exec_cmd.c
 
-void	find_builtin(t_ms **test);
+void	find_builtin(t_ms **test, char **envp);
 
 //vractest.c
 
@@ -45,8 +45,12 @@ void 	is_builtin(t_ms **test);
 //cd
 
 int		ft_cd_which_arg(t_ms **lst);
-int		ft_cd(t_ms **test);
+int		ft_cd(t_ms **lst);
 char	*find_path(char **envp, char *varenv);
+
+// env
+
+int	ft_env(t_ms **lst, char **envp);
 
 // pwd
 
