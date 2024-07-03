@@ -6,7 +6,7 @@
 #    By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/17 15:23:09 by mbaumgar          #+#    #+#              #
-#    Updated: 2024/07/01 17:15:35 by mbaumgar         ###   ########.fr        #
+#    Updated: 2024/07/03 17:15:52 by mbaumgar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,8 @@ SRC		= ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
 		ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c \
 		ft_lstclear.c ft_lstiter.c ft_lstmap.c ft_lstsplit.c ft_printf.c \
 		pf_arg_char.c pf_arg_int.c pf_arg_str.c pf_arg_ptr.c \
-		pf_arg_hex.c pf_arg_uint.c pf_arg_pcent.c
+		pf_arg_hex.c pf_arg_uint.c pf_arg_pcent.c \
+		ft_alloc.c fr_alloc_warper.c
 		
 OBJ		= ${SRC:%.c=${OUT_DIR}%.o}
 

@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:58:46 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/05/14 13:11:52 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/03 17:15:51 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,23 @@
 # include <stddef.h>
 # include <stdlib.h>
 # include "ft_printf.h"
+
+typedef enum e_alloc_code
+{
+	FALSE,
+	TRUE,
+	ALLOC,
+	FREE,
+	CLEAR,
+	SIZE
+}	t_alloc_code;
+
+typedef struct s_alloc
+{
+	void	*ptr;
+	int		critical;
+	t_alloc	*next;
+}	t_alloc;
 
 typedef struct s_list
 {
@@ -93,5 +110,11 @@ void		ft_lstiter(t_list *lst, void (*f)(void *));
 t_list		*ft_lstlast(t_list *lst);
 t_list		*ft_lstnew(void *content);
 t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+
+//allocator
+void		*walloc(int size, int critical);
+void		wclear(int free_critical);
+void		wfree(void *ptr);
+void		*allocator(int size, int action, void *ptr, int critical);
 
 #endif

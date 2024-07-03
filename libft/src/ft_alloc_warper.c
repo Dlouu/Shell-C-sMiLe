@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   typedefs.h                                         :+:      :+:    :+:   */
+/*   ft_alloc_warper.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/01 16:15:01 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/03 17:15:50 by mbaumgar         ###   ########.fr       */
+/*   Created: 2024/07/03 14:04:50 by mbaumgar          #+#    #+#             */
+/*   Updated: 2024/07/03 17:05:37 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TYPEDEFS_H
-# define TYPEDEFS_H
+#include "../inc/libft.h"
 
-typedef enum e_token
+void	*walloc(int size, int critical)
 {
-	COMMAND,
-	BUILTIN,
-	ARG,
-	REDIR_LEFT,
-	REDIR_RIGHT,
-	REDIR_DOUBLE_LEFT,
-	REDIR_DOUBLE_RIGHT,
-	PIPE,
-	FILENAME,
-}	t_token;
+	return (ft_allocator(size, ALLOC, NULL, critical));
+}
 
-#endif
+void	wclear(int free_critical)
+{
+	if (free_critical)
+		ft_allocator(0, CLEAR, NULL, TRUE);
+	else
+		ft_allocator(0, CLEAR, NULL, FALSE);
+}
+
+void	wfree(void *ptr)
+{
+	ft_allocator(0, FREE, ptr, 0);
+}
