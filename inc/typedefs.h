@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   typedefs.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:15:01 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/03 13:25:41 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/03 13:32:26 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef enum e_token
 	REDIR_DOUBLE_LEFT,
 	REDIR_DOUBLE_RIGHT,
 	PIPE,
-	FILEE, // changer le nomde la variable FILE? cree des bugs chez moi, FILE est un terme deja utilise
+	FILENAME,
 }	t_token;
 
 #endif
