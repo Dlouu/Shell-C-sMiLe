@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:59 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/02 19:51:16 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/03 15:42:24 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_ms_list //nom temporaire de test
 	int		token; // (des entiers)
 	int		builtin; // 0 ou 1 (Si 1, alors cest un builtin sinon cmd de base)
 	int		index; // echo -n -nnn. echo = 0, -n = 1, -nnn = 2
+	int 	size;
 	struct s_ms_list	*next;
 	struct s_ms_list	*prev;
 }	t_ms;
@@ -48,9 +49,13 @@ int		ft_cd_which_arg(t_ms **lst);
 int		ft_cd(t_ms **lst);
 char	*find_path(char **envp, char *varenv);
 
+//echo
+
+int		ft_echo(t_ms **lst);
+
 // env
 
-int	ft_env(t_ms **lst, char **envp);
+int		ft_env(t_ms **lst, char **envp);
 
 // pwd
 

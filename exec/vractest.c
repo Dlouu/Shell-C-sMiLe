@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:37:25 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/02 19:50:26 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/03 15:44:58 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static void	create_head(t_ms *head, char **argv)
 	head->content = argv[1];
 	is_builtin(&head);
 	head->next = NULL;
+	head->size = 1;
 }
 
 t_ms	*create_list(int argc, char **argv)
@@ -47,13 +48,13 @@ t_ms	*create_list(int argc, char **argv)
 	t_ms	*temp;
 	int		i;
 
-	i = 2;
+	i = 1;
 	head = (t_ms *)malloc(sizeof(t_ms));
 	if (!head)
 		return (NULL);
 	create_head(head, argv);
 	temp = head;
-	while (i < argc)
+	while (++i < argc)
 	{
 		temp->next = (t_ms *)malloc(sizeof(t_ms));
 		if (!temp->next)
@@ -62,10 +63,8 @@ t_ms	*create_list(int argc, char **argv)
 		temp->content = argv[i];
 		is_builtin(&temp);
 		temp->next = NULL;
-		i++;
 	}
 	return (head);
-
 }
 
 /* static void print_lst(t_ms *head)
