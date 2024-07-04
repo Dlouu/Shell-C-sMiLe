@@ -6,73 +6,62 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 16:44:14 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/03 17:15:42 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/04 11:07:40 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/libft.h"
 
-// t_alloc	*find_alloc_ptr(t_alloc *allocs, void *ptr)
-// {
-// 	t_alloc	*tmp;
-
-// 	tmp = allocs;
-// 	while (tmp)
-// 	{
-// 		if (tmp->ptr == ptr)
-// 			return (tmp);
-// 		tmp = tmp->next;
-// 	}
-// 	return (NULL);
-// }
-
-int	al_lstdelone(t_alloc *lst, void *ptr)
+void	al_lstadd(t_alloc **al_lst, t_alloc *new)
 {
-	t_alloc	*tmp;
-	t_alloc	*prev;
+	if (!*al_lst || !new)
+		return ;
+	new->next = *al_lst;
+	*al_lst = new;
+}
 
-	tmp = lst;
-	prev = NULL;
-	while (tmp)
+int	al_lstdelone(t_alloc **al_lst_head, t_alloc *al_to_del)
+{
+	t_alloc	*temp;
+	t_alloc	*next;
+
+	temp = *al_lst_head;
+	next = NULL;
+	while (temp)
 	{
-		if (tmp->ptr == ptr)
+		if (temp == al_to_del)
 		{
-			if (prev)
-				prev->next = tmp->next;
-			else
-				lst = tmp->next;
-			free(tmp);
+			free(temp->ptr);	// ou wfree ?
+			free(temp);			// ou wfree ?
+			temp = temp->next;
 			return (1);
 		}
-		prev = tmp;
-		tmp = tmp->next;
+		else
+			temp = temp->next;
 	}
 	return (0);
 }
 
-t_alloc	*al_lstlast(t_alloc *lst)
+void	al_lstclear(t_alloc **al_lst, int free_critical)
 {
-	t_alloc	*tmp;
+	t_alloc	*temp;
+	t_alloc	*temp_next;
 
-	tmp = lst;
-	if (!tmp)
-		return (NULL);
-	while (tmp->next)
-		tmp = tmp->next;
-	return (tmp);
-}
-
-void	al_lstadd_back(t_alloc **alst, t_alloc *new)
-{
-	t_alloc	*tmp;
-
-	if (!*alst)
-	{
-		*alst = new;
+	if (!*al_lst)
 		return ;
+	while (temp)
+	{
+		if (temp->critical == TRUE && free_critical == 1 || \
+			temp->critical == FALSE)
+		{
+			temp->next = temp_next;
+			wfree(temp->ptr);
+			wfree(temp);
+		}
+		temp = temp_next;
+		*al_lst = temp;
 	}
-	tmp = al_lstlast(*alst);
-	tmp->next = new;
+	al_lst = NULL;
 }
 
 t_alloc	*al_lstnew(void *content, int critical)
