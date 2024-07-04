@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:58:46 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/03 17:32:39 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/04 12:27:37 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,14 @@ typedef enum e_alloc_code
 	SIZE
 }	t_alloc_code;
 
-typedef struct s_alloc
+typedef struct s_alloc t_alloc;
+
+struct s_alloc
 {
 	void	*ptr;
 	int		critical;
 	t_alloc	*next;
-}	t_alloc;
+};
 
 typedef struct s_list
 {
@@ -115,6 +117,10 @@ t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 void		*walloc(int size, int critical);
 void		wclear(int free_critical);
 void		wfree(void *ptr);
-void		*allocator(int size, int action, void *ptr, int critical);
+void		*ft_allocator(int size, t_alloc_code code, void *ptr, int critical);
+void		al_lstadd(t_alloc **al_lst, t_alloc *new);
+int			al_lstdelone(t_alloc **al_lst_head, t_alloc *al_to_del);
+void		al_lstclear(t_alloc **al_lst, int free_critical);
+t_alloc		*al_lstnew(void *content, int critical);
 
 #endif

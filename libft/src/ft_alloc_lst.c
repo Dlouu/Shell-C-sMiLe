@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 16:44:14 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/04 11:07:40 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/04 12:42:32 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,19 +49,21 @@ void	al_lstclear(t_alloc **al_lst, int free_critical)
 
 	if (!*al_lst)
 		return ;
+	temp = *al_lst;
+	temp_next = NULL;
 	while (temp)
 	{
-		if (temp->critical == TRUE && free_critical == 1 || \
+		if ((temp->critical == TRUE && free_critical) || \
 			temp->critical == FALSE)
 		{
-			temp->next = temp_next;
+			temp_next = temp->next;
 			wfree(temp->ptr);
 			wfree(temp);
 		}
 		temp = temp_next;
 		*al_lst = temp;
 	}
-	al_lst = NULL;
+	*al_lst = NULL;
 }
 
 t_alloc	*al_lstnew(void *content, int critical)

@@ -6,13 +6,13 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:04:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/03 17:15:46 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/04 12:42:01 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/libft.h"
 
-void	*new_alloc(t_alloc *allocs, int size, int critical)
+static void	*new_alloc(t_alloc *allocs, int size, int critical)
 {
 	void	*new_malloc;
 	t_alloc	*lst_allocs;
@@ -32,65 +32,39 @@ void	*new_alloc(t_alloc *allocs, int size, int critical)
 		wclear(1);
 		exit(1);
 	}
-	al_lstadd_back(allocs, lst_allocs);
+	al_lstadd(&allocs, lst_allocs);
 	return (new_malloc);
 }
 
-void	clear_alloc(t_list *allocs, int free_critical)
+static void	free_alloc(t_alloc **allocs)
 {
-	t_alloc	*tmp;
+	t_alloc	*temp;
 
-	while (allocs)
+	if (!*allocs)
+		return ;
+	while (*allocs)
 	{
-		tmp = allocs;
-		if (free_critical || !tmp->critical)
-			free(tmp->ptr);
-		free(tmp);
-		allocs = allocs->next;
-	}
-}
-
-void	free_alloc(void *allocs)
-{
-	t_alloc	*tmp;
-
-	while (allocs)
-	{
-		tmp = allocs;
-		if (tmp->ptr == allocs)
+		temp = *allocs;
+		if (temp->ptr == *allocs)
 		{
-			al_lstdelone(allocs, tmp);
-			// free(tmp->ptr);
-			// free(tmp);
+			al_lstdelone(allocs, temp);
+			// free(temp->ptr);
+			// free(temp);
 			return ;
 		}
-		allocs = tmp->next;
+		*allocs = temp->next;
 	}
 }
 
-int	size_alloc(t_alloc *lst_allocs)
+void	*ft_allocator(int size, t_alloc_code code, void *ptr, int critical)
 {
-	int		size;
-
-	size = 0;
-	while (lst_allocs)
-	{
-		size++;
-		lst_allocs = lst_allocs->next;
-	}
-	return (size);
-}
-
-void	allocator(int size, t_alloc_code code, void *ptr, int critical)
-{
-	static t_list	*lst_allocs;
+	static t_alloc	*lst_allocs;
 
 	if (code == ALLOC)
-		return (new_alloc(&lst_allocs, size, critical));
+		return (new_alloc(lst_allocs, size, critical));
 	else if (code == CLEAR)
-		return (clear_alloc(&lst_allocs, critical));
+		al_lstclear(&lst_allocs, critical);
 	else if (code == FREE)
-		return (free_alloc(ptr));
-	else if (code == SIZE)
-		return (size_alloc(&lst_allocs));
+		free_alloc(ptr);
+	return (NULL);
 }
