@@ -6,30 +6,50 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:06 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/03 16:33:01 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/04 19:21:41 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/*
+valide + valide  echo -n -n bite (bite sans saut de ligne)
+valide + pas valide echo -n -n5 bite (-n5 bite sans saut de ligne)
+pas valide + valide saut de ligne
+pas valide + pas valide
+
+tant que y'a -n ou -nnnn je skip, j'ecris des que ca change. sans \name
+sinon jecris tout
+*/
+
 
 #include "../inc/minishell.h"
 
 int	ft_echo(t_ms **lst)
 {
-	if ((*lst)->next == NULL)
-		return (write(1, "\n", 1), 0);
-	(*lst) = (*lst)->next;
-	if (ft_strncmp((*lst)->content, "-n\0", 3) == 0)
+	int		n_flag;
+	t_ms	*tmp;
+
+	n_flag = 0;
+	tmp = (*lst)->next; // skip echo a enlever plus tard
+	while (tmp != NULL)
 	{
-		while ((*lst)->next != NULL)
+		if (tmp->content[0] == '-')
 		{
-			(*lst) = (*lst)->next;
-			write(1, (*lst)->content, ft_strlen((*lst)->content));
-			if ((*lst)->next != NULL)
+			int i = 1;
+			while (tmp->content[i] == 'n')
+				i++;
+			if (tmp->content[i] == '\0')
+				n_flag = 1;
+		}
+		else
+		{
+			write(1, tmp->content, ft_strlen(tmp->content));
+			if (tmp->next != NULL)
 				write(1, " ", 1);
 		}
-		write(1, "", 0);
+		tmp = tmp->next;
 	}
-	else
-		ft_printf("gros caca\n");
+	if (n_flag == 0)
+		write(1, "\n", 1);
 	return (0);
 }
 
