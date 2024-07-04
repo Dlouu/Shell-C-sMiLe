@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:58:46 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/04 12:27:37 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/04 16:09:53 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdlib.h>
 # include "ft_printf.h"
 
+typedef struct s_alloc	t_alloc;
+
 typedef enum e_alloc_code
 {
 	FALSE,
@@ -28,14 +30,12 @@ typedef enum e_alloc_code
 	SIZE
 }	t_alloc_code;
 
-typedef struct s_alloc t_alloc;
-
-struct s_alloc
+typedef struct s_alloc
 {
-	void	*ptr;
-	int		critical;
-	t_alloc	*next;
-};
+	void			*ptr;
+	int				critical;
+	struct s_alloc	*next;
+}	t_alloc;
 
 typedef struct s_list
 {
