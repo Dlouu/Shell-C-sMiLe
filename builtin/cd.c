@@ -6,38 +6,27 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:04 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/02 20:01:37 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/03 17:37:59 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-// char	*find_path(char **envp, char *varenv)
-// {
-// 	char	**all_paths;
-// 	char	*final_path;
-// 	int		i;
+char	*find_env(char **envp, char *varenv)
+{
+	int		i;
+	int		len;
 
-// 	i = 0;
-// 	while (ft_strncmp(envp[i], varenv, 5) != 0)
-// 		i++;
-// 	all_paths = ft_split(envp[i] + 5, ':');
-// 	while (*all_paths)
-// 	{
-// 		final_path = getcwd(*all_paths, 4096);
-// 		if (!final_path)
-// 		{
-// 			ft_printf("pas de chemin :(");
-// 			exit(EXIT_FAILURE);
-// 		}
-// 		return (final_path);
-// 	}
-// 	i = -1;
-// 	while (all_paths[++i])
-// 			free(all_paths[i]);
-// 	free(all_paths);
-// 	return (NULL);
-// }
+	i = 0;
+	len = ft_strlen(varenv);
+	while (envp[i])
+	{
+		if (ft_strncmp(envp[i], varenv, len) == 0)
+			return (envp[i] + len + 1);
+		i++;
+	}
+	return (NULL);
+}
 
 
 // /* int	ft_cd_which_arg(t_ms **lst)
