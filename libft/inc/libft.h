@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:58:46 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/04 16:09:53 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:48:28 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,18 +89,18 @@ void		*ft_calloc(size_t nmemb, size_t size);
 
 char		*ft_strchr(const char *s, int c);
 char		*ft_strrchr(const char *s, int c);
-char		*ft_strdup(const char *s);
+char		*ft_strdup(const char *s, int critical);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 char		*ft_strnstr(const char *big, const char *little, size_t len);
 char		*ft_strjoin(char const *s1, char const *s2);
 char		*ft_free_strjoin(char *s1, char *s2);
-char		*ft_strtrim(char const *s1, char const *set);
+char		*ft_strtrim(char const *s1, char const *set, int critical);
 char		*ft_itoa(int n);
 char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 
-char		**ft_split(char const *s, char c);
-char		**ft_strdup_array(char **to_copy, int height);
-char		**ft_lstsplit(t_list *lst);
+char		**ft_split(char const *s, char c, int critical);
+char		**ft_strdup_array(char **to_copy, int height, int critical);
+char		**ft_lstsplit(t_list *lst, int critical);
 
 //t_list
 int			ft_lstsize(t_list *lst);

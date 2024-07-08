@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/04 15:58:20 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:00:42 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,18 @@
 // 	(void)argc;
 // 	(void)argv;
 // 	(void)env;
-// 	ft_printf("Shell-C_sMiLe\n\ntest:\n");
-// 	char *line = walloc(5, 1);
-// 	line[0] = 'a';
-// 	line[1] = 'b';
-// 	line[2] = 'c';
-// 	line[3] = '\0';
-// 	ft_printf("line: %s\n", line);
-// 	char *line2 = walloc(5, 0);
-// 	line2[0] = 'd';
-// 	line2[1] = 'e';
-// 	line2[2] = 'f';
-// 	line2[3] = '\0';
-// 	ft_printf("line: %s\n", line);
-// 	ft_printf("line: %s\n", line2);
-// 	wclear(0);
-// 	ft_printf("line: %s\n", line);
-// 	ft_printf("line: %p\n", line2);
-// 	wclear(1);
-// 	ft_printf("line: %p\n", line);
-// 	ft_printf("line: %p\n", line2);
+// 	char **tab = walloc(sizeof(char *) * 4, 1);
+// 	tab[0] = ft_strdup("hello", 1);
+// 	tab[1] = ft_strdup("world", 1);
+// 	tab[2] = ft_strdup("42", 1);
+// 	tab[3] = NULL;
+// 	char **tab2 = walloc(sizeof(char *) * 4, 0);
+// 	tab2[0] = ft_strdup("ji", 0);
+// 	tab2[1] = ft_strdup("pepey", 0);
+// 	tab2[2] = NULL;
+// 	ft_printf("%s\n", tab[0]);
+// 	ft_printf("%s\n", tab2[0]);
+// 	wfree(tab[0]);
+// 	ft_printf("%p\n", tab[0]);
 // 	return (0);
 // }

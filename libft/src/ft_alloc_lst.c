@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 16:44:14 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/04 15:37:15 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:22:32 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,25 @@ int	al_lstdelone(t_alloc **al_lst_head, t_alloc *al_to_del)
 {
 	t_alloc	*temp;
 	t_alloc	*next;
+	t_alloc	*prev;
 
-	temp = *al_lst_head;
+	prev = *al_lst_head;
 	next = NULL;
+	temp = *al_lst_head;
 	while (temp)
 	{
 		if (temp == al_to_del)
 		{
+			if (temp == *al_lst_head)
+				*al_lst_head = next;
 			next = temp->next;
+			prev->next = next;
 			free(temp->ptr);
 			free(temp);
-			temp = next;
 			return (1);
 		}
-		else
-			temp = temp->next;
+		prev = temp;
+		temp = temp->next;
 	}
 	return (0);
 }
@@ -49,7 +53,6 @@ void	al_lstclear(t_alloc **al_lst, int free_critical)
 	if (!*al_lst)
 		return ;
 	temp = *al_lst;
-	next = NULL;
 	while (temp)
 	{
 		next = temp->next;
