@@ -71,7 +71,10 @@ unset
 	if any, is unset. Readonly variables and functions may not be unset.
 	Some shell variables lose their special behavior if they are unset;
 	such behavior is noted in the description of the individual variables.
-	The return status is zero unless a name is readonly or may not be unset. 
+	The return status is zero unless a name is readonly or may not be unset.
+
+env
+
 
 
 echo

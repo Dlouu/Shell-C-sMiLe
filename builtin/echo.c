@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:06 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/08 19:16:29 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/08 20:45:03 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static int	is_flag_n(const char *content)
 
 	i = 1;
 	if (content[0] != '-')
+		return (0);
+	if (content[0] == '-' && content[1] == '\0')
 		return (0);
 	while (content[i] == 'n')
 		i++;
