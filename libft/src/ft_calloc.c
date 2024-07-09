@@ -6,13 +6,13 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:49:16 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/03/06 12:47:53 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/09 14:55:58 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/libft.h"
 
-void	*ft_calloc(size_t nmemb, size_t size)
+void	*ft_calloc(size_t nmemb, size_t size, int critical)
 {
 	char	*ptr;
 	size_t	max;
@@ -20,7 +20,7 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	max = (size_t)-1;
 	if (size != 0 && nmemb > (max / size))
 		return (NULL);
-	ptr = malloc(nmemb * size);
+	ptr = walloc(nmemb * size, critical);
 	if (!ptr)
 		return (NULL);
 	ft_bzero(ptr, nmemb * size);

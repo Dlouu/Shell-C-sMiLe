@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:58:46 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/08 16:48:28 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/09 15:27:47 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,18 +85,18 @@ void		*ft_memcpy(void *dest, const void *src, size_t n);
 void		*ft_memmove(void *dest, const void *src, size_t n);
 void		*ft_memset(void *s, int c, size_t n);
 void		*ft_memchr(const void *s, int c, size_t n);
-void		*ft_calloc(size_t nmemb, size_t size);
+void		*ft_calloc(size_t nmemb, size_t size, int critical);
 
 char		*ft_strchr(const char *s, int c);
 char		*ft_strrchr(const char *s, int c);
 char		*ft_strdup(const char *s, int critical);
-char		*ft_substr(char const *s, unsigned int start, size_t len);
+char		*ft_substr(char const *s, unsigned int start, size_t len, int crt);
 char		*ft_strnstr(const char *big, const char *little, size_t len);
-char		*ft_strjoin(char const *s1, char const *s2);
-char		*ft_free_strjoin(char *s1, char *s2);
+char		*ft_strjoin(char const *s1, char const *s2, int critical);
+char		*ft_free_strjoin(char *s1, char *s2, int critical);
 char		*ft_strtrim(char const *s1, char const *set, int critical);
-char		*ft_itoa(int n);
-char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
+char		*ft_itoa(int n, int critical);
+char		*ft_strmapi(char const *s, char (*f)(unsigned int, char), int crt);
 
 char		**ft_split(char const *s, char c, int critical);
 char		**ft_strdup_array(char **to_copy, int height, int critical);
@@ -110,7 +110,7 @@ void		ft_lstdelone(t_list *lst, void (*del)(void *));
 void		ft_lstclear(t_list **lst, void (*del)(void *));
 void		ft_lstiter(t_list *lst, void (*f)(void *));
 t_list		*ft_lstlast(t_list *lst);
-t_list		*ft_lstnew(void *content);
+t_list		*ft_lstnew(void *content, int critical);
 t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 //allocator
