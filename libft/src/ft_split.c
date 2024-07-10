@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 12:04:26 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/08 16:45:21 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/10 14:57:31 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	**ft_split(char const *s, char c, int critical)
 	{
 		while (*s && *s == c)
 			s++;
-		result[i] = ft_substr(s, 0, ft_len_str(s, c));
+		result[i] = ft_substr(s, 0, ft_len_str(s, c), critical);
 		if (!(result[i]))
 			return (ft_free(result));
 		s += ft_len_str(s, c);

@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 14:05:48 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/08 16:41:19 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/10 14:57:14 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ft_strtrim(char const *s1, char const *set, int critical)
 	len = ft_strlen(s1);
 	while (ft_strrchr(set, s1[len]) && len > 0)
 		len--;
-	str = ft_substr(s1, 0, len + 1);
+	str = ft_substr(s1, 0, len + 1, critical);
 	if (!str)
 		return (NULL);
 	return (str);

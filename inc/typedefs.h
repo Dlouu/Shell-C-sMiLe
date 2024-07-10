@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:15:01 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/03 17:15:50 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/10 15:21:02 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,11 @@ typedef enum e_token
 	PIPE,
 	FILENAME,
 }	t_token;
+
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+}	t_env;
 
 #endif
