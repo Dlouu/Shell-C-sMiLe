@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:59 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/12 18:51:59 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/12 18:54:38 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <string.h>
 # include <stdio.h>
 
+//que mettre des noms avec test a la fin pour mes structures ^.^
+
 typedef struct s_ms_test //nom temporaire de test
 {
 	char				*content; //cmd etc.
@@ -34,12 +36,12 @@ typedef struct s_ms_test //nom temporaire de test
 	struct s_ms_test	*prev;
 }						t_test;
 
-typedef struct s_ms_env
+typedef struct s_ms_env_test
 {
 	char				*key; //SHELL PATH OLDPWD
 	char				*value; // /bin/bash /bin /home/niabraha
-	struct s_ms_env		*next;
-}						t_env;
+	struct s_ms_env_test		*next;
+}						t_env_test;
 
 //exec_cmd.c
 
