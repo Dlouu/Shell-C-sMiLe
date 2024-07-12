@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 16:44:14 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/04 12:42:32 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:22:32 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	al_lstadd(t_alloc **al_lst, t_alloc *new)
 {
-	if (!*al_lst || !new)
-		return ;
 	new->next = *al_lst;
 	*al_lst = new;
 }
@@ -24,20 +22,25 @@ int	al_lstdelone(t_alloc **al_lst_head, t_alloc *al_to_del)
 {
 	t_alloc	*temp;
 	t_alloc	*next;
+	t_alloc	*prev;
 
-	temp = *al_lst_head;
+	prev = *al_lst_head;
 	next = NULL;
+	temp = *al_lst_head;
 	while (temp)
 	{
 		if (temp == al_to_del)
 		{
-			free(temp->ptr);	// ou wfree ?
-			free(temp);			// ou wfree ?
-			temp = temp->next;
+			if (temp == *al_lst_head)
+				*al_lst_head = next;
+			next = temp->next;
+			prev->next = next;
+			free(temp->ptr);
+			free(temp);
 			return (1);
 		}
-		else
-			temp = temp->next;
+		prev = temp;
+		temp = temp->next;
 	}
 	return (0);
 }
@@ -45,25 +48,24 @@ int	al_lstdelone(t_alloc **al_lst_head, t_alloc *al_to_del)
 void	al_lstclear(t_alloc **al_lst, int free_critical)
 {
 	t_alloc	*temp;
-	t_alloc	*temp_next;
+	t_alloc	*next;
 
 	if (!*al_lst)
 		return ;
 	temp = *al_lst;
-	temp_next = NULL;
 	while (temp)
 	{
+		next = temp->next;
 		if ((temp->critical == TRUE && free_critical) || \
 			temp->critical == FALSE)
 		{
-			temp_next = temp->next;
-			wfree(temp->ptr);
-			wfree(temp);
+			if (temp == *al_lst)
+				*al_lst = next;
+			free(temp->ptr);
+			free(temp);
 		}
-		temp = temp_next;
-		*al_lst = temp;
+		temp = next;
 	}
-	*al_lst = NULL;
 }
 
 t_alloc	*al_lstnew(void *content, int critical)

@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 12:04:26 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/03/06 12:49:13 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:47:46 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ static void	*ft_free(char **result)
 	i = 0;
 	while (result[i])
 	{
-		free(result[i]);
+		wfree(result[i]);
 		i++;
 	}
-	free(result);
+	wfree(result);
 	return (NULL);
 }
 
-char	**ft_lstsplit(t_list *lst)
+char	**ft_lstsplit(t_list *lst, int critical)
 {
 	char	**tab;
 	int		i;
@@ -36,18 +36,18 @@ char	**ft_lstsplit(t_list *lst)
 	if (!lst)
 		return (NULL);
 	temp_lst = lst;
-	tab = (char **)malloc(sizeof(char *) * (ft_lstsize(lst) + 1));
+	tab = (char **)walloc(sizeof(char *) * (ft_lstsize(lst) + 1), critical);
 	if (!tab)
 		return (NULL);
 	while (temp_lst != NULL)
 	{
-		tab[i] = ft_strdup(temp_lst->content);
+		tab[i] = ft_strdup(temp_lst->content, critical);
 		if (!tab[i])
 			return (ft_free(tab));
 		i++;
 		temp_lst = temp_lst->next;
 	}
 	tab[i] = NULL;
-	ft_lstclear(&lst, free);
+	ft_lstclear(&lst, wfree);
 	return (tab);
 }

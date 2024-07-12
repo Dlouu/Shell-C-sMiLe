@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 12:04:26 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/03/06 12:50:30 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/10 14:57:31 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,14 @@ static void	*ft_free(char **result)
 	i = 0;
 	while (result[i])
 	{
-		free(result[i]);
+		wfree(result[i]);
 		i++;
 	}
-	free(result);
+	wfree(result);
 	return (NULL);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c, int critical)
 {
 	int		i;
 	int		count_str;
@@ -62,14 +62,14 @@ char	**ft_split(char const *s, char c)
 	if (!s)
 		return (NULL);
 	count_str = ft_count_str(s, c);
-	result = (char **)malloc(sizeof(char *) * (count_str + 1));
+	result = (char **)walloc(sizeof(char *) * (count_str + 1), critical);
 	if (!result)
 		return (NULL);
 	while (count_str > i)
 	{
 		while (*s && *s == c)
 			s++;
-		result[i] = ft_substr(s, 0, ft_len_str(s, c));
+		result[i] = ft_substr(s, 0, ft_len_str(s, c), critical);
 		if (!(result[i]))
 			return (ft_free(result));
 		s += ft_len_str(s, c);

@@ -6,13 +6,13 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:04:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/04 12:42:01 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:33:15 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/libft.h"
 
-static void	*new_alloc(t_alloc *allocs, int size, int critical)
+static void	*new_alloc(t_alloc **allocs, int size, int critical)
 {
 	void	*new_malloc;
 	t_alloc	*lst_allocs;
@@ -32,27 +32,28 @@ static void	*new_alloc(t_alloc *allocs, int size, int critical)
 		wclear(1);
 		exit(1);
 	}
-	al_lstadd(&allocs, lst_allocs);
+	al_lstadd(allocs, lst_allocs);
 	return (new_malloc);
 }
 
-static void	free_alloc(t_alloc **allocs)
+static void	free_alloc(t_alloc **allocs, void *ptr)
 {
 	t_alloc	*temp;
+	t_alloc	*next;
 
 	if (!*allocs)
 		return ;
-	while (*allocs)
+	temp = *allocs;
+	while (temp)
 	{
-		temp = *allocs;
-		if (temp->ptr == *allocs)
+		next = temp->next;
+		if (ptr == temp->ptr)
 		{
 			al_lstdelone(allocs, temp);
-			// free(temp->ptr);
-			// free(temp);
+			temp = next;
 			return ;
 		}
-		*allocs = temp->next;
+		temp = next;
 	}
 }
 
@@ -61,10 +62,10 @@ void	*ft_allocator(int size, t_alloc_code code, void *ptr, int critical)
 	static t_alloc	*lst_allocs;
 
 	if (code == ALLOC)
-		return (new_alloc(lst_allocs, size, critical));
+		return (new_alloc(&lst_allocs, size, critical));
 	else if (code == CLEAR)
 		al_lstclear(&lst_allocs, critical);
 	else if (code == FREE)
-		free_alloc(ptr);
+		free_alloc(&lst_allocs, ptr);
 	return (NULL);
 }

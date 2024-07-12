@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 17:40:12 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/01 16:23:42 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/09 15:27:45 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #include "../inc/get_next_line.h"
 
-static char	*get_current_line(char **cached)
+static char	*get_current_line(char **cached, int critical)
 {
 	int		i;
 	char	*temp;
@@ -25,26 +25,26 @@ static char	*get_current_line(char **cached)
 		i++;
 	if ((*cached)[i] == '\n')
 		i++;
-	next_line = ft_substr(*cached, 0, i);
-	temp = ft_substr(*cached, i, ft_strlen(*cached));
-	free(*cached);
+	next_line = ft_substr(*cached, 0, i, critical);
+	temp = ft_substr(*cached, i, ft_strlen(*cached), critical);
+	wfree(*cached);
 	*cached = temp;
 	if (!temp || !next_line || !ft_strlen(next_line))
 	{
-		free(next_line);
-		free(*cached);
+		wfree(next_line);
+		wfree(*cached);
 		*cached = NULL;
 		return (NULL);
 	}
 	return (next_line);
 }
 
-static char	*start_buffer(char **buffer, char **cached)
+static char	*start_buffer(char **buffer, char **cached, int critical)
 {
-	*buffer = (char *)malloc((sizeof(char) * BUFFER_SIZE) + 1);
+	*buffer = (char *)walloc((sizeof(char) * BUFFER_SIZE) + 1, critical);
 	if (!(*buffer))
 	{
-		free(*cached);
+		wfree(*cached);
 		*cached = NULL;
 		return (NULL);
 	}
@@ -53,26 +53,26 @@ static char	*start_buffer(char **buffer, char **cached)
 
 static char	*reading_error(char *buffer, char **cached)
 {
-	free(*cached);
+	wfree(*cached);
 	*cached = NULL;
-	return (free(buffer), NULL);
+	return (wfree(buffer), NULL);
 }
 
-static void	fill_cache(char *buffer, char **cached)
+static void	fill_cache(char *buffer, char **cached, int critical)
 {
 	char	*temp;
 
 	if (!(*cached))
-		*cached = ft_substr(buffer, 0, ft_strlen(buffer));
+		*cached = ft_substr(buffer, 0, ft_strlen(buffer), critical);
 	else
 	{
-		temp = ft_strjoin(*cached, buffer);
-		free(*cached);
+		temp = ft_strjoin(*cached, buffer, critical);
+		wfree(*cached);
 		*cached = temp;
 	}
 }
 
-char	*get_next_line(int fd, int free_static_please)
+char	*get_next_line(int fd, int free_static_please, int critical)
 {
 	int			reading;
 	char		*buffer;
@@ -80,10 +80,10 @@ char	*get_next_line(int fd, int free_static_please)
 
 	reading = 1;
 	if (cached[fd] && free_static_please)
-		return (free(cached[fd]), cached[fd] = NULL, NULL);
+		return (wfree(cached[fd]), cached[fd] = NULL, NULL);
 	if (fd < 0 || BUFFER_SIZE <= 0 || fd >= 1048576)
 		return (NULL);
-	if (start_buffer(&buffer, &cached[fd]) == NULL)
+	if (start_buffer(&buffer, &cached[fd], critical) == NULL)
 		return (NULL);
 	while (reading >= 0)
 	{
@@ -91,11 +91,11 @@ char	*get_next_line(int fd, int free_static_please)
 		reading = read(fd, buffer, BUFFER_SIZE);
 		if (reading < 0)
 			return (reading_error(buffer, &cached[fd]));
-		fill_cache(buffer, &cached[fd]);
+		fill_cache(buffer, &cached[fd], critical);
 		if (cached[fd] && (ft_strchr(cached[fd], '\n') || (reading == 0)))
 		{
-			free(buffer);
-			return (get_current_line(&cached[fd]));
+			wfree(buffer);
+			return (get_current_line(&cached[fd], critical));
 		}
 	}
 	return (NULL);

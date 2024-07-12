@@ -6,13 +6,14 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 14:47:51 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/03/06 12:49:03 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/10 14:58:26 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/libft.h"
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *), \
+		int critical)
 {
 	t_list	*new;
 	t_list	*temp;
@@ -24,7 +25,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	while (lst)
 	{
 		f_temp = (*f)(lst->content);
-		temp = ft_lstnew(f_temp);
+		temp = ft_lstnew(f_temp, critical);
 		if (!temp)
 		{
 			ft_lstclear(&new, (*del));

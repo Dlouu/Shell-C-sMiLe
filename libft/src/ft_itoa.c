@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:05:32 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/03/06 12:48:31 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/09 14:57:40 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	ft_nlen(int n)
 	return (len);
 }
 
-char	*ft_itoa(int n)
+char	*ft_itoa(int n, int critical)
 {
 	int		len;
 	char	*str;
@@ -35,7 +35,7 @@ char	*ft_itoa(int n)
 
 	len = ft_nlen(n);
 	nb = n;
-	str = (char *)malloc(sizeof(char) * (len + 1));
+	str = (char *)walloc(sizeof(char) * (len + 1), critical);
 	if (!str)
 		return (NULL);
 	if (n == 0)

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+         #
+#    By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/06 13:02:03 by mbaumgar          #+#    #+#              #
-#    Updated: 2024/07/02 15:38:17 by niabraha         ###   ########.fr        #
+#    Updated: 2024/07/04 14:09:18 by mbaumgar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -106,10 +106,10 @@ norminette:
 	norminette src/*
 
 leak: re
-	${CC} ${CFLAGS} ${DBG_LEAK} -o ${NAME} ${OBJ}
+	${CC} ${CFLAGS} ${DBG_LEAK} -o ${NAME} ${OBJ} ${LFT}
 
 thread: re
-	${CC} ${CFLAGS} ${DBG_THREAD} -o ${NAME} ${OBJ}
+	${CC} ${CFLAGS} ${DBG_THREAD} -o ${NAME} ${OBJ} ${LFT}
 
 main: fclean
 	cd ..
