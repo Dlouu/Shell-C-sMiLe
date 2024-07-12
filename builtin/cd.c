@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:04 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/03 17:37:59 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/12 16:12:02 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ char	*find_env(char **envp, char *varenv)
 }
 
 
-// /* int	ft_cd_which_arg(t_ms **lst)
+// /* int	ft_cd_which_arg(t_test **lst)
 // {
 // 	if ((*lst)->next->content == "..")
 // 		ft_cd_dot_dot();
 // } */
 
-int	ft_cd(t_ms **lst)
+int	ft_cd(t_test **lst)
 {
 // 	char	path_max[4096]; // trouver ce foutu max path
 // 	char	*home_path;

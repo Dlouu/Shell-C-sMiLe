@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:37:25 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/03 15:44:58 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/12 17:13:27 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //mon main de test
 
-void is_builtin(t_ms **test)
+void is_builtin(t_test **test)
 {
 	if (ft_strncmp((*test)->content, "cd", 2) == 0) 
 		(*test)->builtin = 1;
@@ -34,7 +34,7 @@ void is_builtin(t_ms **test)
 		(*test)->builtin = 0;
 }
 
-static void	create_head(t_ms *head, char **argv)
+static void	create_head(t_test *head, char **argv)
 {
 	head->content = argv[1];
 	is_builtin(&head);
@@ -42,21 +42,21 @@ static void	create_head(t_ms *head, char **argv)
 	head->size = 1;
 }
 
-t_ms	*create_list(int argc, char **argv)
+t_test	*create_list(int argc, char **argv)
 {
-	t_ms	*head;
-	t_ms	*temp;
+	t_test	*head;
+	t_test	*temp;
 	int		i;
 
 	i = 1;
-	head = (t_ms *)malloc(sizeof(t_ms));
+	head = (t_test *)malloc(sizeof(t_test));
 	if (!head)
 		return (NULL);
 	create_head(head, argv);
 	temp = head;
 	while (++i < argc)
 	{
-		temp->next = (t_ms *)malloc(sizeof(t_ms));
+		temp->next = (t_test *)malloc(sizeof(t_test));
 		if (!temp->next)
 			return(free_lst(&head), NULL);
 		temp = temp->next;
@@ -67,9 +67,9 @@ t_ms	*create_list(int argc, char **argv)
 	return (head);
 }
 
-/* static void print_lst(t_ms *head)
+/* static void print_lst(t_test *head)
 {
-	t_ms *temp;
+	t_test *temp;
 
 	temp = head;
 	while (temp)
@@ -80,11 +80,66 @@ t_ms	*create_list(int argc, char **argv)
 	}
 } */
 
+void print_env(t_env *env)
+{
+	t_env *temp;
+
+	temp = env;
+	while (temp)
+	{
+		ft_printf("temp->key = %s\n", temp->key);
+		ft_printf("temp->value = %s\n", temp->value);
+		temp = temp->next;
+	}
+}
+
+t_env	*free_env(t_env **env)
+{
+	t_env *temp;
+
+	while (*env)
+	{
+		temp = *env;
+		*env = (*env)->next;
+		free(temp);
+	}
+	return (NULL);
+}
+
+t_env	*create_env(char **envp)
+{
+	t_env	*head;
+	t_env	*temp;
+	int		i;
+
+	i = 0;
+	head = (t_env *)malloc(sizeof(t_env));
+	if (!head)
+		return (NULL);
+	head->key = envp[i];
+	head->value = envp[i];
+	head->next = NULL;
+	temp = head;
+	while (envp[++i])
+	{
+		temp->next = (t_env *)malloc(sizeof(t_env));
+		if (!temp->next)
+			return(free_env(&head), NULL);
+		temp = temp->next;
+		temp->key = envp[i];
+		temp->value = envp[i];
+		temp->next = NULL;
+	}
+	return (head);
+}
+
 int main(int argc, char **argv, char **envp)
 {
-	t_ms *test;
+	t_test *test;
+	t_env 	*env;
 
 	test = create_list(argc, argv);
-	//print_lst(test);
+	env = create_env(envp);
+	print_env(env);
 	find_builtin(&test, envp);
 }

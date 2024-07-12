@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:50:11 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/02 19:25:22 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/12 16:12:02 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void	error_message(const char *message, int exit_status)
 	exit(exit_status);
 }
 
-void	free_lst(t_ms **a_stack)
+void	free_lst(t_test **a_stack)
 {
-	t_ms	*tmp;
+	t_test	*tmp;
 
 	while (a_stack && *a_stack)
 	{

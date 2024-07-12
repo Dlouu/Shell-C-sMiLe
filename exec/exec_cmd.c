@@ -6,15 +6,15 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:54:36 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/03 17:39:55 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/12 16:12:02 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	find_builtin(t_ms **test, char **envp)
+void	find_builtin(t_test **test, char **envp)
 {
-	t_ms	*temp;
+	t_test	*temp;
 
 	temp = *test;
 	if (ft_strncmp((*test)->content, "cd", 2) == 0)

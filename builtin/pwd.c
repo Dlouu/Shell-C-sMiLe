@@ -6,13 +6,13 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:18 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/04 15:40:45 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/12 16:12:02 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	ft_pwd(t_ms **lst)
+int	ft_pwd(t_test **lst)
 {
 	char	*path;
 

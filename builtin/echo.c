@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:06 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/08 20:45:03 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/12 16:12:02 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ static int	is_flag_n(const char *content)
 	return (content[i] == '\0');
 }
 
-int	ft_echo(t_ms **lst)
+int	ft_echo(t_test **lst)
 {
-	t_ms	*current;
+	t_test	*current;
 	int		flag_n;
 
 	current = *lst;
