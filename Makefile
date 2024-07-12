@@ -21,6 +21,7 @@ ARFLAGS 	= -crs
 RM			= rm -rf
 CFLAGS		= -Wall -Werror -Wextra
 DBG_LEAK	= -fsanitize=address -fsanitize=leak -g3
+DBG_ADDRESS	= -fsanitize=address -g3
 DBG_THREAD	= -fsanitize=thread -g3
 
 LFT			= ./libft/libft.a
@@ -108,6 +109,9 @@ norminette:
 leak: re
 	${CC} ${CFLAGS} ${DBG_LEAK} -o ${NAME} ${OBJ} ${LFT}
 
+address: re
+	${CC} ${CFLAGS} ${DBG_ADDRESS} -o ${NAME} ${OBJ} ${LFT}
+
 thread: re
 	${CC} ${CFLAGS} ${DBG_THREAD} -o ${NAME} ${OBJ} ${LFT}
 
@@ -129,4 +133,4 @@ dlou: fclean
 	git commit -m "Dlou : ${m}"
 	git push origin dlou
 
-.PHONY: all clean fclean re uwu norminette leak thread main nils dlou
+.PHONY: all clean fclean re uwu norminette leak address thread main nils dlou

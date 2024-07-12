@@ -40,12 +40,12 @@ typedef struct s_env
 {
 	char			*key; //PATH
 	char			*value; // /usr/bin:/bin:/usr/sbin:/sbin
-	struct s_env	*next;
+	// struct s_env	*next;
 }	t_env;
 
 typedef struct s_ms
 {
-	struct s_env	*env;
+	t_list			*env;
 	struct s_token	*token;
 	int				exit_code;
 }	t_ms;
