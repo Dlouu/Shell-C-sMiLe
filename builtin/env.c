@@ -6,11 +6,16 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:09 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/02 20:07:03 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/12 15:41:56 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+
+/*
+regarder les typesdef
+*/
 
 int	ft_env(t_ms **lst, char **envp)
 {
