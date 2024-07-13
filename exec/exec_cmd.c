@@ -12,14 +12,14 @@
 
 #include "../inc/minishell.h"
 
-void	find_builtin(t_test **test, char **envp)
+void	find_builtin(t_ms *ms, t_test **test)
 {
 	if (ft_strncmp((*test)->content, "cd", 2) == 0)
 		ft_cd(test);
 	else if (ft_strncmp((*test)->content, "echo", 4) == 0)
 		ft_echo(test);
 	else if (ft_strncmp((*test)->content, "env", 3) == 0)
-		ft_env(test, envp);
+		ft_env(ms);
 	else if (ft_strncmp((*test)->content, "pwd", 3) == 0)
 		ft_pwd(test);
 	else if (ft_strncmp((*test)->content, "export", 6) == 0)

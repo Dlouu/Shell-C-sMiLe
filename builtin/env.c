@@ -19,15 +19,15 @@ utiliser t_ms pour chopper env
 
 int	ft_env(t_ms *ms)
 {
-	char *bla;
-
-	bla = ms->env->content->key;
-	while (ms->env->content)
+	t_list *temp;
+	
+	temp = ms->env;
+	while (temp->next != NULL)
 	{
-		ft_putstr_fd(((t_env *)ms->env->content)->key, 1);
+		ft_putstr_fd(((t_env *)temp->content)->key, 1);
 		ft_putstr_fd("=", 1);
-		ft_putendl_fd(((t_env *)ms->env->content)->value, 1);
-		ms->env->content = ms->env->content->next;
+		ft_putendl_fd(((t_env *)temp->content)->value, 1);
+		temp = temp->next;
 	}
 	return (0);
 }

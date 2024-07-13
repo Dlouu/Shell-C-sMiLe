@@ -45,7 +45,7 @@ typedef struct s_ms_env_test
 
 //exec_cmd.c
 
-void	find_builtin(t_test **test, char **envp);
+void	find_builtin(t_ms *ms, t_test **test);
 
 //vractest.c
 
@@ -65,7 +65,7 @@ int		ft_echo(t_test **lst);
 
 // env
 
-int	ft_env(t_ms *ms);
+int		ft_env(t_ms *ms);
 
 // pwd
 
@@ -74,5 +74,8 @@ int		ft_pwd(t_test **lst);
 //utils.c
 void	free_lst(t_test **a_stack);
 void	error_message(const char *message, int status_code);
+
+//test - A EFFACER
+int		main_test(t_ms *ms, int argc, char **argv);
 
 #endif

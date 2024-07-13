@@ -81,10 +81,11 @@ t_test	*create_list(int argc, char **argv)
 } */
 
 
-int main_test(int argc, char **argv)
+int main_test(t_ms *ms, int argc, char **argv)
 {
 	t_test *test;
 
 	test = create_list(argc, argv);
-	find_builtin(&test, envp);
+	find_builtin(ms, &test);
+	return (0);
 }
