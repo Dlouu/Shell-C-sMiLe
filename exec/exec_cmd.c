@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:54:36 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/12 16:12:02 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/13 15:24:00 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void	find_builtin(t_test **test, char **envp)
 {
-	t_test	*temp;
-
-	temp = *test;
 	if (ft_strncmp((*test)->content, "cd", 2) == 0)
 		ft_cd(test);
 	else if (ft_strncmp((*test)->content, "echo", 4) == 0)
