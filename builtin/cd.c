@@ -3,53 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:04 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/12 16:12:02 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/14 17:53:48 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	*find_env(char **envp, char *varenv)
-{
-	int		i;
-	int		len;
 
-	i = 0;
-	len = ft_strlen(varenv);
-	while (envp[i])
-	{
-		if (ft_strncmp(envp[i], varenv, len) == 0)
-			return (envp[i] + len + 1);
-		i++;
-	}
-	return (NULL);
-}
-
-
-// /* int	ft_cd_which_arg(t_test **lst)
-// {
-// 	if ((*lst)->next->content == "..")
-// 		ft_cd_dot_dot();
-// } */
 
 int	ft_cd(t_test **lst)
 {
-// 	char	path_max[4096]; // trouver ce foutu max path
-// 	char	*home_path;
+	char *old_path_to_env;
 
-// 	if ((*lst)->next == NULL) //|| (*lst)->next->content = "~")
-// 	{
-// 		home_path = find_path(envp, "HOME=");
-// 		if (!home_path)
-// 			ft_printf("oupsi :(\n"); //add errno
-// 		ft_printf("%s\n", home_path);
-// 		(*lst)->exit_code = 0;
-// 	}
-// /* 	else
-// 		ft_cd_which_arg(&lst); */
+	(*lst)->exit_code = 0;
+	old_path_to_env = getcwd(NULL, 4096);
+	if (!old_path_to_env)
+		return ((*lst)->exit_code);
+	printf("old_path = %s\n", old_path_to_env);
 	return ((*lst)->exit_code);
 }
 
