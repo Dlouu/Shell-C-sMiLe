@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:15:01 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/12 18:47:14 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/15 10:38:06 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ typedef struct s_env
 {
 	char			*key; //PATH
 	char			*value; // /usr/bin:/bin:/usr/sbin:/sbin
-	// struct s_env	*next;
 }	t_env;
 
 typedef struct s_ms
