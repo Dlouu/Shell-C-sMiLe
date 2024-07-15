@@ -6,7 +6,7 @@
 #    By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/06 13:02:03 by mbaumgar          #+#    #+#              #
-#    Updated: 2024/07/04 14:09:18 by mbaumgar         ###   ########.fr        #
+#    Updated: 2024/07/15 16:34:31 by mbaumgar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,8 @@ SRC			= minishell.c \
 			exec/vractest.c \
 			utils/execution.c \
 			utils/parsing.c \
+			utils/token_lst.c \
+			utils/envp.c \
 			utils/utils.c 
 
 OBJ			= ${SRC:%.c=${OUT_DIR}%.o}
