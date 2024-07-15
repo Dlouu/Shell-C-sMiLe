@@ -6,7 +6,7 @@
 #    By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/06 13:02:03 by mbaumgar          #+#    #+#              #
-#    Updated: 2024/07/15 16:34:31 by mbaumgar         ###   ########.fr        #
+#    Updated: 2024/07/15 17:24:32 by mbaumgar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ DBG_ADDRESS	= -fsanitize=address -g3
 DBG_THREAD	= -fsanitize=thread -g3
 
 LFT			= ./libft/libft.a
+LIBS		= -lreadline
 LIBFT		= ./libft
 MAKE_LIBFT	= ${MAKE} --no-print-directory -C ${LIBFT}
 
@@ -59,10 +60,8 @@ SRC			= minishell.c \
 			exec/exec_cmd.c \
 			exec/vractest.c \
 			utils/execution.c \
-			utils/parsing.c \
 			utils/token_lst.c \
-			utils/envp.c \
-			utils/utils.c 
+			utils/envp.c
 
 OBJ			= ${SRC:%.c=${OUT_DIR}%.o}
 
@@ -76,7 +75,7 @@ ${LFT}:
 	@${MAKE_LIBFT}
 
 ${NAME}: ${LFT} ${OBJ}
-	${CC} ${CFLAGS} -o ${NAME} ${OBJ} ${LFT}
+	${CC} ${CFLAGS} -o ${NAME} ${OBJ} ${LFT} ${LIBS}
 	@echo "${MAUVE}\n. - . - . - . - . - . - . - .${END}\n"
 	@echo "${DUCK}        S h e l l - C\n          s M i L e${END}\n"
 	@echo "${MAUVE}        f x X K i N g\n          r E a d Y${END}\n"

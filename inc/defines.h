@@ -6,11 +6,14 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:08:55 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/03 17:15:48 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/15 17:30:16 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DEFINES_H
 # define DEFINES_H
+
+# define MAUVE "\033[0;34m"
+# define END "\033[m"
 
 #endif
