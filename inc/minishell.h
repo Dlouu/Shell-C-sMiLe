@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:02:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/16 16:52:05 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/17 11:38:07 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,5 @@
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-
-//void	lexer(t_ms *ms, char *prompt, int argc, char **argv);
 
 #endif

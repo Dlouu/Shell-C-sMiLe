@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   defines.h                                          :+:      :+:    :+:   */
+/*   ft_ispipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/01 16:08:55 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/17 14:39:29 by mbaumgar         ###   ########.fr       */
+/*   Created: 2023/10/27 13:05:50 by mbaumgar          #+#    #+#             */
+/*   Updated: 2024/07/17 13:05:16 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEFINES_H
-# define DEFINES_H
+#include "../inc/libft.h"
 
-# define MAUVE "\033[0;34m"
-# define END "\033[m"
-
-# define SQUOTE 1
-# define DQUOTE 2
-
-# define RCHEVRON 1
-# define LCHEVRON 2
-
-# define ERR_QUOTE 1
-
-#endif
+int	ft_ispipe(int c)
+{
+	if (c == '|')
+		return (1);
+	return (0);
+}

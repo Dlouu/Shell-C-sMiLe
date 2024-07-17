@@ -6,7 +6,7 @@
 #    By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/17 15:23:09 by mbaumgar          #+#    #+#              #
-#    Updated: 2024/07/08 16:04:23 by mbaumgar         ###   ########.fr        #
+#    Updated: 2024/07/17 13:31:13 by mbaumgar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,8 @@ SRC_DIR	= ./src/
 OUT_DIR	= ./bin/
 
 SRC		= ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
+		ft_isquote.c ft_ischevron.c ft_isblank.c ft_islove.c ft_ispunct.c \
+		ft_issign.c ft_isspace.c ft_ispipe.c ft_isseparator.c \
 		ft_strlen.c ft_memset.c ft_bzero.c	ft_memcpy.c ft_memmove.c ft_abs.c \
 		ft_strlcpy.c ft_strlcat.c ft_toupper.c ft_tolower.c ft_strchr.c \
 		ft_strrchr.c ft_strncmp.c ft_memchr.c ft_memcmp.c ft_strnstr.c \
