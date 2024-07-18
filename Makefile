@@ -6,7 +6,7 @@
 #    By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/06 13:02:03 by mbaumgar          #+#    #+#              #
-#    Updated: 2024/07/18 11:19:53 by mbaumgar         ###   ########.fr        #
+#    Updated: 2024/07/18 14:47:52 by mbaumgar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ OUT_DIR		= ./bin/
 SRC			= minishell.c \
 			parsing/parser.c \
 			parsing/lexer.c \
+			parsing/tokenizer.c \
 			parsing/expander.c \
 			builtin/cd.c \
 			builtin/echo.c \

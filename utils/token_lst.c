@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:22:57 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/18 13:34:40 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/18 14:38:08 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ void	tk_lstadd(t_token **tk_lst, t_token *new)
 	if (!new)
 		return ;
 	if (!*tk_lst)
+	{
 		*tk_lst = new;
+		new->index = 0;
+	}
 	else
 	{
 		temp = *tk_lst;
@@ -45,6 +48,7 @@ void	tk_lstadd(t_token **tk_lst, t_token *new)
 			temp = temp->next;
 		temp->next = new;
 		new->prev = temp;
+		new->index = new->prev->index + 1;
 	}
 }
 
@@ -70,7 +74,8 @@ void	tk_lstprint(t_token *token_lst)
 	i = 1;
 	while (token_lst)
 	{
-		printf("token #%d: %s\n", i, token_lst->content);
+		printf("token #%d %s      [type:%d]\n", token_lst->index, \
+		token_lst->content, token_lst->type);
 		token_lst = token_lst->next;
 		i++;
 	}

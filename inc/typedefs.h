@@ -6,12 +6,17 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:15:01 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/18 13:33:56 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/18 14:53:59 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TYPEDEFS_H
 # define TYPEDEFS_H
+
+//0 COMMAND			1 BUILTIN		2 ARG
+//3 REDIR_LEFT		4 REDIR_RIGHT
+//5 REDIR_D_LEFT 	6 REDIR_DOUBLE_RIGHT
+//7 PIPE 			8 FILENAME
 
 typedef enum e_token
 {

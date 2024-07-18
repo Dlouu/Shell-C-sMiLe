@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/18 13:23:57 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/18 14:05:22 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	main(int argc, char **argv, char **envp)
 			wclear(0);
 			continue ;
 		}
+		tokenizer(ms, ms->token_lexed);
 		free(prompt);
 	}
 	(void)argc;
