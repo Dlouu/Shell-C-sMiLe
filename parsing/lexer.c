@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:18:23 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/18 11:12:24 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/18 11:33:51 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	node_size(char *prompt, int i, int *start)
 	return (i);
 }
 
-int	lexer(char *prompt)
+int	lexer(t_ms **ms, char *prompt)
 {
 	t_token	*token_lst;
 	t_token	*new;
@@ -122,5 +122,6 @@ int	lexer(char *prompt)
 		tk_lstadd(&token_lst, new);
 	}
 	tk_lstprint(token_lst);
+	(*ms)->token_lexed = token_lst;
 	return (0);
 }

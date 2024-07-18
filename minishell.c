@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/18 11:12:16 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/18 11:28:49 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		//main_test(ms, argc, argv);
 		add_history(prompt);
-		if (lexer(prompt) == ERR_QUOTE)
+		if (lexer(&ms, prompt) == ERR_QUOTE)
 		{
 			ms->exit_code = 2;
 			printf("Quote error\n");

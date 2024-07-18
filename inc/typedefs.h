@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:15:01 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/15 10:38:06 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/18 11:26:14 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_ms
 {
 	t_list			*env;
 	struct s_token	*token;
+	struct s_token	*token_lexed;
 	int				exit_code;
 }	t_ms;
 
