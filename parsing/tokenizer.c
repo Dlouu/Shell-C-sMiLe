@@ -16,12 +16,17 @@
 void	tokenizer(t_ms *ms, t_token *lexed_token)
 {
 	t_token	*tk;
+	int command;
 
 	tk = lexed_token;
+	command = 1;
 	while (tk)
 	{
 		if (tk->content[0] == '|')
+		{
 			tk->type = PIPE;
+			command = 1;
+		}
 		else if (tk->content[0] == '>')
 		{
 			if (tk->content[1] == '>')
@@ -36,16 +41,19 @@ void	tokenizer(t_ms *ms, t_token *lexed_token)
 			else
 				tk->type = REDIR_LEFT;
 		}
-		else if ((tk->type == -1 && ((tk->index == 0) || (tk->prev && \
-		tk->prev->type == PIPE) || ((tk->prev && tk->prev->type == FILENAME) \
-		&& (tk->index == 2 || (tk->prev->prev->prev && \
-		tk->prev->prev->prev->type == PIPE))))))
-			tk->type = COMMAND;
-		else if (tk->prev && (tk->prev->type >= 3 && tk->prev->type <= 6))
+		else if (tk->type == -1 && (tk->prev && (tk->prev->type >= 3 && \
+		tk->prev->type <= 6)))
+			tk->type = FILENAME;
+		else if (command && (tk->type == -1))
 		{
-			if (tk->type == -1)
-				tk->type = FILENAME;
+			tk->type = COMMAND;
+			command = 0;
 		}
+		// else if ((tk->type == -1 && ((tk->index == 0) || (tk->prev && \
+		// tk->prev->type == PIPE) || ((tk->prev && tk->prev->type == FILENAME) \
+		// && (tk->index == 2 || (tk->prev->prev->prev && \
+		// tk->prev->prev->prev->type == PIPE))))))
+			// tk->type = COMMAND;
 		else
 		{
 			if (tk->type == -1)
