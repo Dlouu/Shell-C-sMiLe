@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:58:46 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/17 13:30:48 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/18 13:41:01 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int			ft_isspace(int c);
 int			ft_isascii(int c);
 int			ft_islove(int c);
 int			ft_isseparator(int c);
+int			ft_issplitable(int c);
 int			ft_ispunct(int c);
 int			ft_isprint(int c);
 int			ft_ischevron(int c);

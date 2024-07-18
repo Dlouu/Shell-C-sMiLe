@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:13:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/18 11:33:51 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/18 13:18:55 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ void	tk_lstadd(t_token **tk_lst, t_token *new);
 void	tk_lstclear(t_token **tk_lst);
 void	tk_lstprint(t_token *token_lst);
 
-int		lexer(t_ms **ms, char *prompt);
+int		lexer(t_ms *ms, char *prompt);
 
 #endif

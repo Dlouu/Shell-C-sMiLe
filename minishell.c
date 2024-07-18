@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/18 11:28:49 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/18 13:23:57 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 //lexer(token)
 //parser (virer double pipe, redir vide, etc)
 //bonne liste dans l'ordre
-//expander (variable et quotes)
+//expander (variable et quotes) 
+// $t = trim - '$t' ???? - "$t" expand value
 //nils
 
 int	main(int argc, char **argv, char **envp)
@@ -25,6 +26,7 @@ int	main(int argc, char **argv, char **envp)
 	char	*prompt;
 
 	ms = walloc(sizeof(t_ms), TRUE);
+	ms->blank_after_quote = 0;
 	get_envp(ms, envp);
 	while (1)
 	{
@@ -33,7 +35,7 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		//main_test(ms, argc, argv);
 		add_history(prompt);
-		if (lexer(&ms, prompt) == ERR_QUOTE)
+		if (lexer(ms, prompt) == ERR_QUOTE)
 		{
 			ms->exit_code = 2;
 			printf("Quote error\n");

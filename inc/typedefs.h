@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:15:01 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/18 11:26:14 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/18 13:33:56 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ typedef struct s_token //nom temporaire de test
 	int				type; // (des entiers) COMMAND, BUILTIN, ARG, ...
 	int				index; // echo -n -nnn. echo = 0, -n = 1, -nnn = 2
 	int				builtin; // 1 si builtin, 0 sinon
+	int				blank_after_quote;
+	int				squote;
+	int				dquote;
 	struct s_token	*next;
 	struct s_token	*prev;
 }	t_token;
@@ -47,6 +50,7 @@ typedef struct s_ms
 	t_list			*env;
 	struct s_token	*token;
 	struct s_token	*token_lexed;
+	int				blank_after_quote;
 	int				exit_code;
 }	t_ms;
 

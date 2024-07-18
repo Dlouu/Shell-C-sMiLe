@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:18:23 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/18 11:33:51 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/18 13:41:44 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	check_nb_quote(char *prompt, int i)
 	return (quote);
 }
 
-int	check_quotes(char *prompt, int *i)
+int	check_quotes(t_ms *ms, char *prompt, int *i)
 {
 	if (ft_isquote(prompt[*i]) == SQUOTE)
 	{
@@ -50,6 +50,8 @@ int	check_quotes(char *prompt, int *i)
 		while (prompt[*i] && (ft_isquote(prompt[*i]) != SQUOTE))
 			(*i)++;
 		(*i)++;
+		if (ft_issplitable(prompt[*i]) == 1)
+			ms->blank_after_quote = 1;
 	}
 	else if (ft_isquote(prompt[*i]) == DQUOTE)
 	{
@@ -57,6 +59,8 @@ int	check_quotes(char *prompt, int *i)
 		while (prompt[*i] && (ft_isquote(prompt[*i]) != DQUOTE))
 			(*i)++;
 		(*i)++;
+		if (ft_issplitable(prompt[*i]) == 1)
+			ms->blank_after_quote = 1;
 	}
 	return (*i);
 }
@@ -78,7 +82,7 @@ int	check_chevrons(char *prompt, int *i)
 	return (*i);
 }
 
-int	node_size(char *prompt, int i, int *start)
+int	node_size(t_ms *ms, char *prompt, int i, int *start)
 {
 	while (prompt[i] && ft_isblank(prompt[i]))
 		i++;
@@ -88,7 +92,7 @@ int	node_size(char *prompt, int i, int *start)
 	if (ft_ispipe(prompt[i]))
 		i++;
 	else if (ft_isquote(prompt[i]))
-		check_quotes(prompt, &i);
+		check_quotes(ms, prompt, &i);
 	else if (ft_ischevron(prompt[i]))
 		check_chevrons(prompt, &i);
 	else
@@ -99,7 +103,7 @@ int	node_size(char *prompt, int i, int *start)
 	return (i);
 }
 
-int	lexer(t_ms **ms, char *prompt)
+int	lexer(t_ms *ms, char *prompt)
 {
 	t_token	*token_lst;
 	t_token	*new;
@@ -114,14 +118,17 @@ int	lexer(t_ms **ms, char *prompt)
 	i = 0;
 	while (prompt[i])
 	{
-		i = node_size(prompt, i, &start);
+		i = node_size(ms, prompt, i, &start);
 		if (i == -1)
 			break ;
 		content = ft_substr(prompt, start, i - start, FALSE);
 		new = tk_lstnew(content);
+		printf("blank_after_quote = %d\n", ms->blank_after_quote);
+		new->blank_after_quote = 1;
+		ms->blank_after_quote = 0;
 		tk_lstadd(&token_lst, new);
 	}
 	tk_lstprint(token_lst);
-	(*ms)->token_lexed = token_lst;
+	ms->token_lexed = token_lst;
 	return (0);
 }
