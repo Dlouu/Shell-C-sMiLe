@@ -6,7 +6,7 @@
 #    By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/06 13:02:03 by mbaumgar          #+#    #+#              #
-#    Updated: 2024/07/17 10:54:45 by mbaumgar         ###   ########.fr        #
+#    Updated: 2024/07/18 11:19:53 by mbaumgar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -103,9 +103,17 @@ uwu: re
 
 norminette:
 	@echo "\n"
-	norminette inc/*
+	norminette libft/inc/*
 	@echo "\n"
-	norminette src/*
+	norminette inc/d* inc/m* inc/p* inc/t*
+	@echo "\n"
+	norminette libft/src/*
+	@echo "\n"
+	norminette parsing/*
+	@echo "\n"
+	norminette utils/*
+	@echo "\n"
+	norminette minishell.c
 
 leak: re
 	${CC} ${CFLAGS} ${DBG_LEAK} -o ${NAME} ${OBJ} ${LFT}

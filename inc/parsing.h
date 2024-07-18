@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:13:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/17 13:45:40 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/18 11:11:29 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ char	*find_env_value(t_list *env, char *key);
 t_token	*tk_lstnew(char *content);
 void	tk_lstadd(t_token **tk_lst, t_token *new);
 void	tk_lstclear(t_token **tk_lst);
+void	tk_lstprint(t_token *token_lst);
 
 int		lexer(char *prompt);
 

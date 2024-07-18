@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tk_lst.c                                           :+:      :+:    :+:   */
+/*   token_lst.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:22:57 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/15 16:29:20 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/18 11:11:15 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,18 @@ void	tk_lstclear(t_token **tk_lst)
 		wfree((*tk_lst)->content);
 		wfree(*tk_lst);
 		*tk_lst = temp;
+	}
+}
+
+void	tk_lstprint(t_token *token_lst)
+{
+	int	i;
+
+	i = 1;
+	while (token_lst)
+	{
+		printf("token #%d: %s\n", i, token_lst->content);
+		token_lst = token_lst->next;
+		i++;
 	}
 }

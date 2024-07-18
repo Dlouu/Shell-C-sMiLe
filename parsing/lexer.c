@@ -6,26 +6,19 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:18:23 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/17 16:36:07 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/18 11:12:24 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 #include "../inc/typedefs.h"
 
-//split
-//lexer(token)
-//parser (virer double pipe, redir vide, etc)
-//bonne liste dans l'ordre
-//expander (variable et quotes)
-//nils
-
 int	check_nb_quote(char *prompt, int i)
 {
 	int	quote;
 
 	quote = 0;
-	while (prompt[i++])
+	while (prompt[++i])
 	{
 		if (ft_isquote(prompt[i]) == SQUOTE)
 		{
@@ -85,6 +78,27 @@ int	check_chevrons(char *prompt, int *i)
 	return (*i);
 }
 
+int	node_size(char *prompt, int i, int *start)
+{
+	while (prompt[i] && ft_isblank(prompt[i]))
+		i++;
+	if (prompt[i] == '\0')
+		return (-1);
+	*start = i;
+	if (ft_ispipe(prompt[i]))
+		i++;
+	else if (ft_isquote(prompt[i]))
+		check_quotes(prompt, &i);
+	else if (ft_ischevron(prompt[i]))
+		check_chevrons(prompt, &i);
+	else
+	{
+		while (prompt[i] && !ft_isseparator(prompt[i]))
+			i++;
+	}
+	return (i);
+}
+
 int	lexer(char *prompt)
 {
 	t_token	*token_lst;
@@ -93,37 +107,20 @@ int	lexer(char *prompt)
 	int		i;
 	int		start;
 
-	i = 0;
+	i = -1;
 	token_lst = NULL;
-	if (!check_nb_quote(prompt, i))
+	if (check_nb_quote(prompt, i) != 0)
 		return (ERR_QUOTE);
+	i = 0;
 	while (prompt[i])
 	{
-		while (prompt[i] && ft_isblank(prompt[i]))
-			i++;
-		start = i;
-		if (ft_ispipe(prompt[i]))
-			i++;
-		else if (ft_isquote(prompt[i]))
-			check_quotes(prompt, &i);
-		else if (ft_ischevron(prompt[i]))
-			check_chevrons(prompt, &i);
-		else
-		{
-			while (prompt[i] && !ft_isseparator(prompt[i]))
-				i++;
-		}
+		i = node_size(prompt, i, &start);
+		if (i == -1)
+			break ;
 		content = ft_substr(prompt, start, i - start, FALSE);
 		new = tk_lstnew(content);
 		tk_lstadd(&token_lst, new);
 	}
-	printf("token_lst:\n");
-	i = 1;
-	while (token_lst)
-	{
-		printf("content #%d: %s\n", i, token_lst->content);
-		token_lst = token_lst->next;
-		i++;
-	}
+	tk_lstprint(token_lst);
 	return (0);
 }
