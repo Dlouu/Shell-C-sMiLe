@@ -6,7 +6,7 @@
 #    By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/06 13:02:03 by mbaumgar          #+#    #+#              #
-#    Updated: 2024/07/04 14:09:18 by mbaumgar         ###   ########.fr        #
+#    Updated: 2024/07/18 14:47:52 by mbaumgar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ DBG_ADDRESS	= -fsanitize=address -g3
 DBG_THREAD	= -fsanitize=thread -g3
 
 LFT			= ./libft/libft.a
+LIBS		= -lreadline
 LIBFT		= ./libft
 MAKE_LIBFT	= ${MAKE} --no-print-directory -C ${LIBFT}
 
@@ -48,6 +49,7 @@ OUT_DIR		= ./bin/
 SRC			= minishell.c \
 			parsing/parser.c \
 			parsing/lexer.c \
+			parsing/tokenizer.c \
 			parsing/expander.c \
 			builtin/cd.c \
 			builtin/echo.c \
@@ -59,8 +61,8 @@ SRC			= minishell.c \
 			exec/exec_cmd.c \
 			exec/vractest.c \
 			utils/execution.c \
-			utils/parsing.c \
-			utils/utils.c 
+			utils/token_lst.c \
+			utils/envp.c
 
 OBJ			= ${SRC:%.c=${OUT_DIR}%.o}
 
@@ -74,7 +76,7 @@ ${LFT}:
 	@${MAKE_LIBFT}
 
 ${NAME}: ${LFT} ${OBJ}
-	${CC} ${CFLAGS} -o ${NAME} ${OBJ} ${LFT}
+	${CC} ${CFLAGS} -o ${NAME} ${OBJ} ${LFT} ${LIBS}
 	@echo "${MAUVE}\n. - . - . - . - . - . - . - .${END}\n"
 	@echo "${DUCK}        S h e l l - C\n          s M i L e${END}\n"
 	@echo "${MAUVE}        f x X K i N g\n          r E a d Y${END}\n"
@@ -102,9 +104,17 @@ uwu: re
 
 norminette:
 	@echo "\n"
-	norminette inc/*
+	norminette libft/inc/*
 	@echo "\n"
-	norminette src/*
+	norminette inc/d* inc/m* inc/p* inc/t*
+	@echo "\n"
+	norminette libft/src/*
+	@echo "\n"
+	norminette parsing/*
+	@echo "\n"
+	norminette utils/*
+	@echo "\n"
+	norminette minishell.c
 
 leak: re
 	${CC} ${CFLAGS} ${DBG_LEAK} -o ${NAME} ${OBJ} ${LFT}

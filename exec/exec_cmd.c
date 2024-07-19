@@ -6,23 +6,20 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:54:36 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/12 23:30:25 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/19 09:45:07 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	find_builtin(t_test **test, char **envp)
+void	find_builtin(t_ms *ms, t_test **test)
 {
-	t_test	*temp;
-
-	temp = *test;
 	if (ft_strncmp((*test)->content, "cd", 2) == 0)
 		ft_cd(test, envp);
 	else if (ft_strncmp((*test)->content, "echo", 4) == 0)
 		ft_echo(test);
 	else if (ft_strncmp((*test)->content, "env", 3) == 0)
-		ft_env(test, envp);
+		ft_env(ms);
 	else if (ft_strncmp((*test)->content, "pwd", 3) == 0)
 		ft_pwd(test);
 	else if (ft_strncmp((*test)->content, "export", 6) == 0)

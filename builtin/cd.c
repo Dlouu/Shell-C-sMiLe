@@ -6,62 +6,50 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:04 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/12 23:42:53 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/19 09:43:50 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	*find_path(char **envp, char *varenv)
+char	*find_env(char **envp, char *varenv)
 {
 	int		i;
-	char	*path;
+	int		len;
 
 	i = 0;
+	len = ft_strlen(varenv);
 	while (envp[i])
 	{
-		if (ft_strncmp(envp[i], varenv, ft_strlen(varenv)) == 0)
-		{
-			path = ft_strdup(envp[i], 0);
-			return (path);
-		}
+		if (ft_strncmp(envp[i], varenv, len) == 0)
+			return (envp[i] + len + 1);
 		i++;
 	}
 	return (NULL);
 }
 
-int	ft_cd(t_test **lst, char **envp)
-{
-	char	*path;
-	char	*home;
-	char	*oldpwd;
-	char	*pwd;
 
-	home = find_path(envp, "HOME=");
-	oldpwd = find_path(envp, "OLDPWD=");
-	pwd = find_path(envp, "PWD=");
-	if (!(*lst)->next)
-		path = home;
-	else if (ft_strncmp((*lst)->next->content, "-", 1) == 0)
-		path = oldpwd;
-	else
-		path = (*lst)->next->content;
-	if (chdir(path) == -1)
-	{
-		ft_printf("cd: %s: %s\n", path, strerror(errno));
-		(*lst)->exit_code = 1;
-	}
-	else
-	{
-		if (ft_strncmp((*lst)->next->content, "-", 1) == 0)
-			ft_printf("%s\n", oldpwd + 7);
-		else
-			ft_printf("%s\n", path + 5);
-		(*lst)->exit_code = 0;
-	}
-	free(home);
-	free(oldpwd);
-	free(pwd);
+// /* int	ft_cd_which_arg(t_test **lst)
+// {
+// 	if ((*lst)->next->content == "..")
+// 		ft_cd_dot_dot();
+// } */
+
+int	ft_cd(t_test **lst)
+{
+// 	char	path_max[4096]; // trouver ce foutu max path
+// 	char	*home_path;
+
+// 	if ((*lst)->next == NULL) //|| (*lst)->next->content = "~")
+// 	{
+// 		home_path = find_path(envp, "HOME=");
+// 		if (!home_path)
+// 			ft_printf("oupsi :(\n"); //add errno
+// 		ft_printf("%s\n", home_path);
+// 		(*lst)->exit_code = 0;
+// 	}
+// /* 	else
+// 		ft_cd_which_arg(&lst); */
 	return ((*lst)->exit_code);
 }
 

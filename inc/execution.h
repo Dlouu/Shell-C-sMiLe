@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:59 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/12 22:09:06 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/19 09:45:39 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct s_ms_env_test
 
 //exec_cmd.c
 
-void	find_builtin(t_test **test, char **envp);
+void	find_builtin(t_ms *ms, t_test **test);
 
 //vractest.c
 
@@ -64,7 +64,7 @@ int		ft_echo(t_test **lst);
 
 // env
 
-int		ft_env(t_test **lst, char **envp);
+int		ft_env(t_ms *ms);
 
 // pwd
 
@@ -73,5 +73,8 @@ int		ft_pwd(t_test **lst);
 //utils.c
 void	free_lst(t_test **a_stack);
 void	error_message(const char *message, int status_code);
+
+//test - A EFFACER
+int		main_test(t_ms *ms, int argc, char **argv);
 
 #endif
