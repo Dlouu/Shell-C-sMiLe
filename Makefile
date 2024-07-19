@@ -6,7 +6,7 @@
 #    By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/06 13:02:03 by mbaumgar          #+#    #+#              #
-#    Updated: 2024/07/18 14:47:52 by mbaumgar         ###   ########.fr        #
+#    Updated: 2024/07/19 13:20:39 by mbaumgar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -112,7 +112,7 @@ norminette:
 	@echo "\n"
 	norminette parsing/*
 	@echo "\n"
-	norminette utils/*
+	norminette utils/en* utils/tok*
 	@echo "\n"
 	norminette minishell.c
 

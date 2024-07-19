@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/19 12:00:31 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/19 13:21:41 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 //parser (virer double pipe, redir vide, etc) now
 //bonne liste dans l'ordre
 //expander (variable et quotes) 
-// $t = trim - '$t' ???? - "$t" expand value
+//$t = trim - '$t' ???? - "$t" expand value
+//retoken et builtin
 //nils
 
 int	main(int argc, char **argv, char **envp)
@@ -38,7 +39,7 @@ int	main(int argc, char **argv, char **envp)
 		if (lexer(ms, prompt) == ERR_QUOTE)
 		{
 			ms->exit_code = 2;
-			printf("Quote error\n");
+			printf("Parsing error : unclosed quote.\n");
 			free(prompt);
 			wclear(0);
 			continue ;

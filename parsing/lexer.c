@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:18:23 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/18 14:34:35 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/19 13:21:01 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,6 @@ int	lexer(t_ms *ms, char *prompt)
 		ms->blank_after_quote = 0;
 		tk_lstadd(&token_lst, new);
 	}
-	//tk_lstprint(token_lst);
 	ms->token_lexed = token_lst;
 	return (0);
 }
