@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:59 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/12 18:54:38 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/12 22:09:06 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ typedef struct s_ms_test //nom temporaire de test
 
 typedef struct s_ms_env_test
 {
-	char				*key; //SHELL PATH OLDPWD
-	char				*value; // /bin/bash /bin /home/niabraha
+	char						*key; //SHELL PATH OLDPWD
+	char						*value; // /bin/bash /bin /home/niabraha
 	struct s_ms_env_test		*next;
-}						t_env_test;
+}								t_env_test;
 
 //exec_cmd.c
 
@@ -55,9 +55,8 @@ void	is_builtin(t_test **test);
 //cd
 
 int		ft_cd_which_arg(t_test **lst);
-int		ft_cd(t_test **lst);
+int		ft_cd(t_test **lst, char **envp);
 char	*find_path(char **envp, char *varenv);
-char	*find_env(char **envp, char *varenv);
 
 //echo
 

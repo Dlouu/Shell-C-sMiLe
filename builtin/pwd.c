@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:18 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/12 16:12:02 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/12 23:24:17 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_pwd(t_test **lst)
 	path = getcwd(NULL, 4096);
 	if (!path)
 		return ((*lst)->exit_code);
-	ft_printf("%s\n", path);
+	write(1, path, ft_strlen(path));
 	free(path);
 	return ((*lst)->exit_code);
 }

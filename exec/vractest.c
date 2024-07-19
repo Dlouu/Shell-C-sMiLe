@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:37:25 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/12 17:13:27 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/12 22:09:56 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ t_test	*create_list(int argc, char **argv)
 	}
 } */
 
-void print_env(t_env *env)
+/* void print_env(t_env *env)
 {
 	t_env *temp;
 
@@ -91,7 +91,7 @@ void print_env(t_env *env)
 		ft_printf("temp->value = %s\n", temp->value);
 		temp = temp->next;
 	}
-}
+} */
 
 t_env	*free_env(t_env **env)
 {
@@ -140,6 +140,6 @@ int main(int argc, char **argv, char **envp)
 
 	test = create_list(argc, argv);
 	env = create_env(envp);
-	print_env(env);
+	//print_env(env);
 	find_builtin(&test, envp);
 }

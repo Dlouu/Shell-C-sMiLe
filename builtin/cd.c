@@ -6,50 +6,62 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:04 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/12 16:12:02 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/12 23:42:53 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	*find_env(char **envp, char *varenv)
+char	*find_path(char **envp, char *varenv)
 {
 	int		i;
-	int		len;
+	char	*path;
 
 	i = 0;
-	len = ft_strlen(varenv);
 	while (envp[i])
 	{
-		if (ft_strncmp(envp[i], varenv, len) == 0)
-			return (envp[i] + len + 1);
+		if (ft_strncmp(envp[i], varenv, ft_strlen(varenv)) == 0)
+		{
+			path = ft_strdup(envp[i], 0);
+			return (path);
+		}
 		i++;
 	}
 	return (NULL);
 }
 
-
-// /* int	ft_cd_which_arg(t_test **lst)
-// {
-// 	if ((*lst)->next->content == "..")
-// 		ft_cd_dot_dot();
-// } */
-
-int	ft_cd(t_test **lst)
+int	ft_cd(t_test **lst, char **envp)
 {
-// 	char	path_max[4096]; // trouver ce foutu max path
-// 	char	*home_path;
+	char	*path;
+	char	*home;
+	char	*oldpwd;
+	char	*pwd;
 
-// 	if ((*lst)->next == NULL) //|| (*lst)->next->content = "~")
-// 	{
-// 		home_path = find_path(envp, "HOME=");
-// 		if (!home_path)
-// 			ft_printf("oupsi :(\n"); //add errno
-// 		ft_printf("%s\n", home_path);
-// 		(*lst)->exit_code = 0;
-// 	}
-// /* 	else
-// 		ft_cd_which_arg(&lst); */
+	home = find_path(envp, "HOME=");
+	oldpwd = find_path(envp, "OLDPWD=");
+	pwd = find_path(envp, "PWD=");
+	if (!(*lst)->next)
+		path = home;
+	else if (ft_strncmp((*lst)->next->content, "-", 1) == 0)
+		path = oldpwd;
+	else
+		path = (*lst)->next->content;
+	if (chdir(path) == -1)
+	{
+		ft_printf("cd: %s: %s\n", path, strerror(errno));
+		(*lst)->exit_code = 1;
+	}
+	else
+	{
+		if (ft_strncmp((*lst)->next->content, "-", 1) == 0)
+			ft_printf("%s\n", oldpwd + 7);
+		else
+			ft_printf("%s\n", path + 5);
+		(*lst)->exit_code = 0;
+	}
+	free(home);
+	free(oldpwd);
+	free(pwd);
 	return ((*lst)->exit_code);
 }
 

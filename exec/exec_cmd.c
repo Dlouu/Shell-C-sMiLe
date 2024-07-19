@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:54:36 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/12 16:12:02 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/12 23:30:25 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	find_builtin(t_test **test, char **envp)
 
 	temp = *test;
 	if (ft_strncmp((*test)->content, "cd", 2) == 0)
-		ft_cd(test);
+		ft_cd(test, envp);
 	else if (ft_strncmp((*test)->content, "echo", 4) == 0)
 		ft_echo(test);
 	else if (ft_strncmp((*test)->content, "env", 3) == 0)
