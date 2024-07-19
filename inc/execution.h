@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:59 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/19 09:45:39 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/19 10:08:41 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ typedef struct s_ms_test //nom temporaire de test
 
 typedef struct s_ms_env_test
 {
-	char						*key; //SHELL PATH OLDPWD
-	char						*value; // /bin/bash /bin /home/niabraha
+	char				*key; //SHELL PATH OLDPWD
+	char				*value; // /bin/bash /bin /home/niabraha
 	struct s_ms_env_test		*next;
-}								t_env_test;
+}						t_env_test;
 
 //exec_cmd.c
 
@@ -55,8 +55,9 @@ void	is_builtin(t_test **test);
 //cd
 
 int		ft_cd_which_arg(t_test **lst);
-int		ft_cd(t_test **lst, char **envp);
+int		ft_cd(t_test **lst);
 char	*find_path(char **envp, char *varenv);
+char	*find_env(char **envp, char *varenv);
 
 //echo
 
@@ -78,3 +79,4 @@ void	error_message(const char *message, int status_code);
 int		main_test(t_ms *ms, int argc, char **argv);
 
 #endif
+

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/18 14:05:22 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/19 10:22:01 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	main(int argc, char **argv, char **envp)
 		prompt = readline(MAUVE"<Shell-C_sMiLe> "END"$ ");
 		if (!prompt)
 			break ;
-		//main_test(ms, argc, argv);
+		main_test(ms, argc, argv);
 		add_history(prompt);
 		if (lexer(ms, prompt) == ERR_QUOTE)
 		{
@@ -43,7 +43,7 @@ int	main(int argc, char **argv, char **envp)
 			wclear(0);
 			continue ;
 		}
-		tokenizer(ms, ms->token_lexed);
+		//tokenizer(ms, ms->token_lexed);
 		free(prompt);
 	}
 	(void)argc;

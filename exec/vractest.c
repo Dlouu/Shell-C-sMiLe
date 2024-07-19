@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vractest.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:37:25 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/19 09:45:25 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/19 10:08:20 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,65 +80,13 @@ t_test	*create_list(int argc, char **argv)
 	}
 } */
 
-void print_env(t_env *env)
-{
-	t_env *temp;
 
-	temp = env;
-	while (temp)
-	{
-		ft_printf("temp->key = %s\n", temp->key);
-		ft_printf("temp->value = %s\n", temp->value);
-		temp = temp->next;
-	}
-}
-
-t_env	*free_env(t_env **env)
-{
-	t_env *temp;
-
-	while (*env)
-	{
-		temp = *env;
-		*env = (*env)->next;
-		free(temp);
-	}
-	return (NULL);
-}
-
-t_env	*create_env(char **envp)
-{
-	t_env	*head;
-	t_env	*temp;
-	int		i;
-
-	i = 0;
-	head = (t_env *)malloc(sizeof(t_env));
-	if (!head)
-		return (NULL);
-	head->key = envp[i];
-	head->value = envp[i];
-	head->next = NULL;
-	temp = head;
-	while (envp[++i])
-	{
-		temp->next = (t_env *)malloc(sizeof(t_env));
-		if (!temp->next)
-			return(free_env(&head), NULL);
-		temp = temp->next;
-		temp->key = envp[i];
-		temp->value = envp[i];
-		temp->next = NULL;
-	}
-	return (head);
-}
-
-int main(int argc, char **argv, char **envp)
+int main_test(t_ms *ms, int argc, char **argv)
 {
 	t_test *test;
 
 	test = create_list(argc, argv);
-	env = create_env(envp);
-	print_env(env);
-	find_builtin(&test, envp);
+	find_builtin(ms, &test);
+	return (0);
 }
+

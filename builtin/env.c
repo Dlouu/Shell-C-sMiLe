@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:09 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/13 15:46:52 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/19 10:23:24 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 /*
 arreter d'utiliser les structures de test
