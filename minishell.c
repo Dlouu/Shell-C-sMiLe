@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/19 10:22:01 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/19 12:00:31 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/minishell.h"
 
-//split
-//lexer(token)
-//parser (virer double pipe, redir vide, etc)
+//split ok 
+//lexer(token) ok
+//parser (virer double pipe, redir vide, etc) now
 //bonne liste dans l'ordre
 //expander (variable et quotes) 
 // $t = trim - '$t' ???? - "$t" expand value

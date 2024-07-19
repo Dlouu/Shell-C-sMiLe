@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tkizer.c                                        :+:      :+:    :+:   */
+/*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 14:03:41 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/18 14:39:06 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/19 11:52:29 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void	tokenizer(t_ms *ms, t_token *lexed_token)
 {
 	t_token	*tk;
-	int command;
+	int		command;
 
 	tk = lexed_token;
 	command = 1;
@@ -29,14 +29,14 @@ void	tokenizer(t_ms *ms, t_token *lexed_token)
 		}
 		else if (tk->content[0] == '>')
 		{
-			if (tk->content[1] == '>')
+			if (tk->content[1] && tk->content[1] == '>')
 				tk->type = REDIR_DOUBLE_RIGHT;
 			else
 				tk->type = REDIR_RIGHT;
 		}
 		else if (tk->content[0] == '<')
 		{
-			if (tk->content[1] == '<')
+			if (tk->content[1] && tk->content[1] == '<')
 				tk->type = REDIR_DOUBLE_LEFT;
 			else
 				tk->type = REDIR_LEFT;
@@ -49,11 +49,6 @@ void	tokenizer(t_ms *ms, t_token *lexed_token)
 			tk->type = COMMAND;
 			command = 0;
 		}
-		// else if ((tk->type == -1 && ((tk->index == 0) || (tk->prev && \
-		// tk->prev->type == PIPE) || ((tk->prev && tk->prev->type == FILENAME) \
-		// && (tk->index == 2 || (tk->prev->prev->prev && \
-		// tk->prev->prev->prev->type == PIPE))))))
-			// tk->type = COMMAND;
 		else
 		{
 			if (tk->type == -1)
