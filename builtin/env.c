@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:09 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/19 10:23:24 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/19 11:27:00 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_env(t_ms *ms)
 	t_list *temp;
 	
 	temp = ms->env;
-	while (temp->next != NULL)
+	while (temp)
 	{
 		ft_putstr_fd(((t_env *)temp->content)->key, 1);
 		ft_putstr_fd("=", 1);

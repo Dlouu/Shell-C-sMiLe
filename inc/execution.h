@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:59 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/19 10:08:41 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/19 11:42:50 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,10 @@ int		ft_env(t_ms *ms);
 // pwd
 
 int		ft_pwd(t_test **lst);
+
+// unset
+
+int		ft_unset(t_test *ms, const char *str);
 
 //utils.c
 void	free_lst(t_test **a_stack);
