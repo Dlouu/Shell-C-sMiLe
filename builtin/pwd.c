@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:18 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/19 10:07:31 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/23 02:26:18 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,3 @@ int	ft_pwd(t_test **lst)
 	free(path);
 	return ((*lst)->exit_code);
 }
-

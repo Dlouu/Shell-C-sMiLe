@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:54:36 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/19 10:08:06 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/23 02:24:31 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	find_builtin(t_ms *ms, t_test **test)
 	else if (ft_strncmp((*test)->content, "pwd", 3) == 0)
 		ft_pwd(test);
 	else if (ft_strncmp((*test)->content, "export", 6) == 0)
-		(*test)->builtin = 1;
+		ft_export(ms);
 	else if (ft_strncmp((*test)->content, "unset", 5) == 0)
-		(*test)->builtin = 1;
+		ft_unset(ms, test);
 	else if (ft_strncmp((*test)->content, "exit", 4) == 0)
 		(*test)->builtin = 1;
 	else

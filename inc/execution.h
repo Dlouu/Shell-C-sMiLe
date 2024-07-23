@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:59 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/19 11:42:50 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/23 02:28:28 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ typedef struct s_ms_test //nom temporaire de test
 
 typedef struct s_ms_env_test
 {
-	char				*key; //SHELL PATH OLDPWD
-	char				*value; // /bin/bash /bin /home/niabraha
-	struct s_ms_env_test		*next;
+	char					*key; //SHELL PATH OLDPWD
+	char					*value; // /bin/bash /bin /home/niabraha
+	struct s_ms_env_test	*next;
 }						t_env_test;
 
 //exec_cmd.c
@@ -63,9 +63,13 @@ char	*find_env(char **envp, char *varenv);
 
 int		ft_echo(t_test **lst);
 
-// env
+//env
 
 int		ft_env(t_ms *ms);
+
+//export
+
+int		ft_export(t_ms *ms);
 
 // pwd
 
@@ -83,4 +87,3 @@ void	error_message(const char *message, int status_code);
 int		main_test(t_ms *ms, int argc, char **argv);
 
 #endif
-
