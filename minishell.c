@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/23 04:42:02 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/23 06:15:29 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	main(int argc, char **argv, char **envp)
 	ms = walloc(sizeof(t_ms), TRUE);
 	ms->blank_after_quote = 0;
 	ms->pipe_count = 0;
+	(void)argc;
+	(void)argv;
 	get_envp(ms, envp);
 	while (1)
 	{
@@ -46,7 +48,7 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		}
 		tokenizer(ms, ms->token_lexed);
-		main_test(ms, argc, argv);
+		find_builtin(ms, ms->token);
 		ms->pipe_count = 0;
 		free(prompt);
 	}

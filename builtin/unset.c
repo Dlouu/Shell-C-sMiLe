@@ -6,15 +6,13 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:20 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/19 11:52:55 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/23 06:17:46 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-/* int	ft_unset(t_test **ms, const char *str)
+int ft_unset(t_ms *ms)
 {
-	printf("str = %s\n", ms->content);
-	printf("str = %s\n", str);
-	return (0);
-} */
+	return (ms->exit_code);
+}

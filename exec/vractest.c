@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vractest.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:37:25 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/19 10:08:20 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/23 06:14:06 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //mon main de test
 
-void is_builtin(t_test **test)
+/* void is_builtin(t_test **test)
 {
 	if (ft_strncmp((*test)->content, "cd", 2) == 0) 
 		(*test)->builtin = 1;
@@ -32,17 +32,17 @@ void is_builtin(t_test **test)
 		(*test)->builtin = 1;
 	else
 		(*test)->builtin = 0;
-}
+} */
 
-static void	create_head(t_test *head, char **argv)
+/* static void	create_head(t_test *head, char **argv)
 {
 	head->content = argv[1];
 	is_builtin(&head);
 	head->next = NULL;
 	head->size = 1;
-}
+} */
 
-t_test	*create_list(int argc, char **argv)
+/* t_test	*create_list(int argc, char **argv)
 {
 	t_test	*head;
 	t_test	*temp;
@@ -65,7 +65,7 @@ t_test	*create_list(int argc, char **argv)
 		temp->next = NULL;
 	}
 	return (head);
-}
+} */
 
 /* static void print_lst(t_test *head)
 {
@@ -81,12 +81,12 @@ t_test	*create_list(int argc, char **argv)
 } */
 
 
-int main_test(t_ms *ms, int argc, char **argv)
+/* int main_test(t_ms *ms, int argc, char **argv)
 {
 	t_test *test;
 
 	test = create_list(argc, argv);
 	find_builtin(ms, &test);
 	return (0);
-}
+} */
 

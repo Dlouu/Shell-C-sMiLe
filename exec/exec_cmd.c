@@ -6,30 +6,30 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:54:36 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/23 02:24:31 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/23 06:15:07 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	find_builtin(t_ms *ms, t_test **test)
+void	find_builtin(t_ms *ms, t_token **token)
 {
-	if (ft_strncmp((*test)->content, "cd", 2) == 0)
-		ft_cd(test);
-	else if (ft_strncmp((*test)->content, "echo", 4) == 0)
-		ft_echo(test);
-	else if (ft_strncmp((*test)->content, "env", 3) == 0)
+	if (ft_strncmp((*token)->content, "cd", 2) == 0)
+		ft_cd(ms);
+	else if (ft_strncmp((*token)->content, "echo", 4) == 0)
+		ft_echo(ms);
+	else if (ft_strncmp((*token)->content, "env", 3) == 0)
 		ft_env(ms);
-	else if (ft_strncmp((*test)->content, "pwd", 3) == 0)
-		ft_pwd(test);
-	else if (ft_strncmp((*test)->content, "export", 6) == 0)
+	else if (ft_strncmp((*token)->content, "pwd", 3) == 0)
+		ft_pwd(ms);
+	else if (ft_strncmp((*token)->content, "export", 6) == 0)
 		ft_export(ms);
-	else if (ft_strncmp((*test)->content, "unset", 5) == 0)
-		ft_unset(ms, test);
-	else if (ft_strncmp((*test)->content, "exit", 4) == 0)
-		(*test)->builtin = 1;
+	else if (ft_strncmp((*token)->content, "unset", 5) == 0)
+		ft_unset(ms);
+	else if (ft_strncmp((*token)->content, "exit", 4) == 0)
+		ft_exit(ms);
 	else
-		(*test)->builtin = 0;
+		(*token)->builtin = 0;
 }
 
 /* notes :

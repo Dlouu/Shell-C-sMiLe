@@ -6,22 +6,22 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:04 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/23 02:27:09 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/23 06:06:39 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	ft_cd(t_test **lst)
+int	ft_cd(t_ms *ms)
 {
 	char	*old_path_to_env;
 
-	(*lst)->exit_code = 0;
+	ms->exit_code = 0;
 	old_path_to_env = getcwd(NULL, 4096);
 	if (!old_path_to_env)
-		return ((*lst)->exit_code);
+		return (ms->exit_code);
 	printf("old_path = %s\n", old_path_to_env);
-	return ((*lst)->exit_code);
+	return (ms->exit_code);
 }
 
 // /* notes :

@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:59 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/23 02:28:28 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/23 06:16:19 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,27 +45,31 @@ typedef struct s_ms_env_test
 
 //exec_cmd.c
 
-void	find_builtin(t_ms *ms, t_test **test);
+void	find_builtin(t_ms *ms, t_token **token);
 
 //vractest.c
 
 t_test	*create_list(int argc, char **argv);
-void	is_builtin(t_test **test);
+void	is_builtin(t_ms *ms);
 
 //cd
 
 int		ft_cd_which_arg(t_test **lst);
-int		ft_cd(t_test **lst);
+int		ft_cd(t_ms *ms);
 char	*find_path(char **envp, char *varenv);
 char	*find_env(char **envp, char *varenv);
 
 //echo
 
-int		ft_echo(t_test **lst);
+int		ft_echo(t_ms *ms);
 
 //env
 
 int		ft_env(t_ms *ms);
+
+//exit
+
+int		ft_exit(t_ms *ms);
 
 //export
 
@@ -73,11 +77,11 @@ int		ft_export(t_ms *ms);
 
 // pwd
 
-int		ft_pwd(t_test **lst);
+int		ft_pwd(t_ms *ms);
 
 // unset
 
-int		ft_unset(t_test *ms, const char *str);
+int		ft_unset(t_ms *ms);
 
 //utils.c
 void	free_lst(t_test **a_stack);
