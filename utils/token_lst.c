@@ -67,13 +67,13 @@ void	tk_lstclear(t_token **tk_lst)
 	}
 }
 
-void	tk_lstprint(t_token **tk_lst)
+void	tk_lstprint(t_ms *ms, t_token **tk_lst)
 {
 	int			i;
 	t_token		*tk;
 
 	i = 0;
-	while (tk_lst[i])
+	while (i <= ms->pipe_count)
 	{
 		tk = tk_lst[i];
 		while (tk)
