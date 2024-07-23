@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/19 13:21:41 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/23 02:29:20 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 //$t = trim - '$t' ???? - "$t" expand value
 //retoken et builtin
 //nils
+//prompt = readline(MAUVE"<Shell-C_sMiLe> "END"$ ");
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -34,7 +35,6 @@ int	main(int argc, char **argv, char **envp)
 		prompt = readline(MAUVE"<Shell-C_sMiLe> "END"$ ");
 		if (!prompt)
 			break ;
-		main_test(ms, argc, argv);
 		add_history(prompt);
 		if (lexer(ms, prompt) == ERR_QUOTE)
 		{
@@ -44,11 +44,10 @@ int	main(int argc, char **argv, char **envp)
 			wclear(0);
 			continue ;
 		}
-		//tokenizer(ms, ms->token_lexed);
+		tokenizer(ms, ms->token_lexed);
+		main_test(ms, argc, argv);
 		free(prompt);
 	}
-	(void)argc;
-	(void)argv;
 	wclear(1);
 	return (0);
 }

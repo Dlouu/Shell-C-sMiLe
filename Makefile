@@ -6,7 +6,7 @@
 #    By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/06 13:02:03 by mbaumgar          #+#    #+#              #
-#    Updated: 2024/07/19 13:20:39 by mbaumgar         ###   ########.fr        #
+#    Updated: 2024/07/22 23:25:54 by mbaumgar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,8 +76,8 @@ ${LFT}:
 	@${MAKE_LIBFT}
 
 ${NAME}: ${LFT} ${OBJ}
-	${CC} ${CFLAGS} -o ${NAME} ${OBJ} ${LFT} ${LIBS}
-	@echo "${MAUVE}\n. - . - . - . - . - . - . - .${END}\n"
+	@${CC} ${CFLAGS} -o ${NAME} ${OBJ} ${LFT} ${LIBS}
+	@echo "${MAUVE}. - . - . - . - . - . - . - .${END}\n"
 	@echo "${DUCK}        S h e l l - C\n          s M i L e${END}\n"
 	@echo "${MAUVE}        f x X K i N g\n          r E a d Y${END}\n"
 	@echo "${DUCK}- . - . - . - . - . - . - . -${END}\n"
@@ -85,7 +85,7 @@ ${NAME}: ${LFT} ${OBJ}
 
 ${OUT_DIR}%.o: %.c
 	@mkdir -p ${@D}
-	${CC} ${CFLAGS} -g3 -c $< -o $@ 
+	@${CC} ${CFLAGS} -g3 -c $< -o $@ 
 
 clean:
 	@${MAKE_LIBFT} clean
