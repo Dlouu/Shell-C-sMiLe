@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:06 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/23 06:33:38 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/23 20:01:55 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	is_flag_n(const char *content)
 
 int	ft_echo(t_ms *ms)
 {
-	t_token	**current; 
+	t_token	**current;
 	int		flag_n;
 
 	current = ms->token;

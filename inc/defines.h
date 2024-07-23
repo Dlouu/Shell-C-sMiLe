@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:08:55 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/17 14:39:29 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/23 21:27:11 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,7 @@
 # define LCHEVRON 2
 
 # define ERR_QUOTE 1
+
+# define UNDERSCORE "_"
 
 #endif
