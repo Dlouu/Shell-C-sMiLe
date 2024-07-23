@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 14:03:41 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/23 04:49:46 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/23 05:23:10 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	split_pipe(t_ms *ms, t_token *lexed_token)
 			tk->next = NULL;
 			tk->index = index;
 			tk = temp->next;
+			tk->prev = NULL;
 		}
 		else
 		{
