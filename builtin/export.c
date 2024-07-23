@@ -6,11 +6,65 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:15 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/23 21:29:35 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/24 01:13:48 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+/* t_list *ft_add_var(t_ms *ms)
+{
+	t_list	*env;
+	t_token	*token;
+	t_env	*new_env;
+
+	env = ms->env;
+	token = ms->token;
+	while (token)
+	{
+		if (is_valid_key(((t_env *)env->content)->key))
+		{
+			if (find_env_node(env, token->content) == NULL)
+			{
+				ft_lstadd_back(&env, ft_lstnew(ft_strdup(token->content, FALSE), FALSE));
+			}
+			else if (find_env_node(env, token->content) != NULL)
+			{
+				ft_lstdelone(&env, wfree);
+				ft_lstadd_back(&env, ft_lstnew(ft_strdup(token->content, FALSE), FALSE));
+			}
+			else
+				ft_lstadd_back(&env, ft_lstnew(ft_strdup(token->content, FALSE), FALSE));
+		}
+		else
+		{
+			ft_putstr_fd("minishell: export: `", 2);
+			ft_putstr_fd(token->content, 2);
+			ft_putstr_fd("': not a valid identifier\n", 2);
+			ms->exit_code = 1;
+		}
+		token = token->next;
+	
+	}
+} */
+
+
+int is_valid_key(char *key)
+{
+	int i;
+
+	i = 0;
+	if (!ft_isalpha(key[i]) && key[i] != '_')
+		return (0);
+	i++;
+	while (key[i])
+	{
+		if (!ft_isalnum(key[i]) && key[i] != '_')
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 t_list *sort_list(t_list *lst, int (*cmp)(const char *, const char *, size_t))
 {
@@ -68,29 +122,32 @@ int	ft_export(t_ms *ms)
 {
 	t_list	*unsorted_env;
 	t_list	*sorted_env;
+	t_token **token;
+	//t_list	*new_var;
 
 	unsorted_env = ft_lstdup(ms->env);
 	sorted_env = sort_list(unsorted_env, ft_strncmp);
+	token = ms->token;
 	//si rien apres export --> ordre alphabetique
-	while (sorted_env)
+	if (!(*token)->next)
 	{
-		if (!ft_strncmp(((t_env *)sorted_env->content)->key, UNDERSCORE, \
-		ft_strlen(((t_env *)sorted_env->content)->key)))
+		while (sorted_env)
 		{
+			if (!ft_strncmp(((t_env *)sorted_env->content)->key, UNDERSCORE, \
+			ft_strlen(((t_env *)sorted_env->content)->key)))
+			{
+				sorted_env = sorted_env->next;
+				continue ;
+			}
+			ft_putstr_fd("declare -x ", 1);
+			ft_putstr_fd(((t_env *)sorted_env->content)->key, 1);
+			ft_putstr_fd("=\"", 1);
+			ft_putstr_fd(((t_env *)sorted_env->content)->value, 1);
+			ft_putstr_fd("\"\n", 1);
 			sorted_env = sorted_env->next;
-			continue ;
 		}
-		ft_putstr_fd("declare -x ", 1);
-		ft_putstr_fd(((t_env *)sorted_env->content)->key, 1);
-		ft_putstr_fd("=\"", 1);
-		ft_putstr_fd(((t_env *)sorted_env->content)->value, 1);
-		ft_putstr_fd("\"\n", 1);
-		sorted_env = sorted_env->next;
 	}
+/* 	else if ((*token)->next)
+		new_var = ft_add_var(ms); */
 	return (ms->exit_code);
 }
-/* notes :
-export = que pour créer
-c’est unset qui delete et attention si on spécifie pas de valeur
-voir avec alexis le expander “EOF” et EOF
-*/
