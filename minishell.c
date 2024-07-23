@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/23 06:15:29 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/23 06:59:45 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		}
 		tokenizer(ms, ms->token_lexed);
-		find_builtin(ms, ms->token);
+		find_builtin(ms, ms->token, envp);
 		ms->pipe_count = 0;
 		free(prompt);
 	}

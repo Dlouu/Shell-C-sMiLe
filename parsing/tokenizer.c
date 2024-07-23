@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 14:03:41 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/23 05:23:10 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/23 06:41:10 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,6 @@ void	tokenizer(t_ms *ms, t_token *lexed_token)
 	}
 	assign_quote_info(lexed_token);
 	split_pipe(ms, lexed_token);
-	tk_lstprint(ms, ms->token);
+	//tk_lstprint(ms, ms->token);
 	(void)ms;
 }
