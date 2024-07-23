@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:18:23 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/19 13:21:01 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/22 23:22:20 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	check_quotes(t_ms *ms, char *prompt, int *i)
 		while (prompt[*i] && (ft_isquote(prompt[*i]) != SQUOTE))
 			(*i)++;
 		(*i)++;
-		if (ft_issplitable(prompt[*i]) == 1)
+		if (ft_issplitable(prompt[*i]) == 1 || prompt[*i] == '\0')
 			ms->blank_after_quote = 1;
 	}
 	else if (ft_isquote(prompt[*i]) == DQUOTE)
@@ -59,7 +59,7 @@ int	check_quotes(t_ms *ms, char *prompt, int *i)
 		while (prompt[*i] && (ft_isquote(prompt[*i]) != DQUOTE))
 			(*i)++;
 		(*i)++;
-		if (ft_issplitable(prompt[*i]) == 1)
+		if (ft_issplitable(prompt[*i]) == 1 || prompt[*i] == '\0')
 			ms->blank_after_quote = 1;
 	}
 	return (*i);
@@ -123,7 +123,7 @@ int	lexer(t_ms *ms, char *prompt)
 			break ;
 		content = ft_substr(prompt, start, i - start, FALSE);
 		new = tk_lstnew(content);
-		new->blank_after_quote = 1;
+		new->blank_after_quote = ms->blank_after_quote;
 		ms->blank_after_quote = 0;
 		tk_lstadd(&token_lst, new);
 	}

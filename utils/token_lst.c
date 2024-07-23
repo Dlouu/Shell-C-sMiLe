@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_lst.c                                        :+:      :+:    :+:   */
+/*   tk.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:22:57 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/18 14:38:08 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/23 01:53:15 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,16 +67,22 @@ void	tk_lstclear(t_token **tk_lst)
 	}
 }
 
-void	tk_lstprint(t_token *token_lst)
+void	tk_lstprint(t_ms *ms, t_token **tk_lst)
 {
-	int	i;
+	int			i;
+	t_token		*tk;
 
-	i = 1;
-	while (token_lst)
+	i = 0;
+	while (i <= ms->pipe_count)
 	{
-		printf("token #%d %s      [type:%d]\n", token_lst->index, \
-		token_lst->content, token_lst->type);
-		token_lst = token_lst->next;
+		tk = tk_lst[i];
+		while (tk)
+		{
+			printf("lst #%d-index%d %s   [type:%d '%d' \"%d\" blank%d]\n", \
+			i, tk->index, tk->content, tk->type, \
+			tk->squote, tk->dquote, tk->blank_after_quote);
+			tk = tk->next;
+		}
 		i++;
 	}
 }
