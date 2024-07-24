@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:32:45 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/24 03:50:22 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/25 00:43:45 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,20 @@ void	add_env_node(t_ms *ms, char *key_and_value)
 	new_env->value = ft_substr(key_and_value, equals + 1, len, TRUE);
 	new = ft_lstnew(new_env, TRUE);
 	ft_lstadd_back(&ms->env, new);
+}
+
+int	env_node_exist(t_list *env, char *key)
+{
+	t_list	*tmp;
+
+	tmp = env;
+	while (tmp)
+	{
+		if (ft_strncmp(((t_env *)tmp->content)->key, key, ft_strlen(key)) == 0)
+			return (1);
+		tmp = tmp->next;
+	}
+	return (0);
 }
 
 t_list	*find_env_node(t_list *env, char *key)

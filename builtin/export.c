@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:15 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/24 05:32:33 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/25 00:48:32 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,9 @@ int	*ft_add_var(t_ms *ms)
 	t_list	*env;
 	t_token	**token;
 	t_list	*new_env;
-	int		equals;
-	int		len;
+	size_t		equals;
+	size_t		len;
+	char		*extracted_key;
 
 	env = ms->env;
 	token = NULL;
@@ -61,12 +62,13 @@ int	*ft_add_var(t_ms *ms)
 	{
 		if (is_valid_key((*token)->content))
 		{
-			if (find_env_node(env, (*token)->content) != NULL)
+			len = ft_strlen((*token)->content);
+			equals = find_index((*token)->content, '=');
+			extracted_key = ft_substr((*token)->content, 0, equals, FALSE);
+			if (find_env_node(env, extracted_key) != NULL)
 			{
-				len = ft_strlen((*token)->content);
-				new_env = find_env_node(env, (*token)->content);
+				new_env = find_env_node(env, extracted_key);
 				wfree(((t_env *)new_env->content)->value);
-				equals = find_index((*token)->content, '=');
 				((t_env *)new_env->content)->value = ft_substr((*token)->content, equals + 1, len, TRUE);
 			}
 			else
