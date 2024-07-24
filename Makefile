@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+         #
+#    By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/06 13:02:03 by mbaumgar          #+#    #+#              #
-#    Updated: 2024/07/23 08:10:58 by niabraha         ###   ########.fr        #
+#    Updated: 2024/07/24 03:24:40 by mbaumgar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,8 @@ SRC			= minishell.c \
 			exec/exec_cmd.c \
 			utils/execution.c \
 			utils/token_lst.c \
-			utils/envp.c
+			utils/envp.c \
+			utils/utils.c
 
 OBJ			= ${SRC:%.c=${OUT_DIR}%.o}
 

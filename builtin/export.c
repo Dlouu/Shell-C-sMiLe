@@ -3,73 +3,90 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:15 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/24 01:13:48 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/24 04:53:52 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-/* t_list *ft_add_var(t_ms *ms)
+//Faire un sas pour traiter differemment les VAR_ENV et VAR_EXPORT
+//si VAR_ENV on met juste le nom de la var
+//si VAR_EXPORT on met le nom de la var et la valeur
+//si y'a un egal il faut mettre ="" sinon juste le nom de la var (key)
+//export caca != export caca="" != caca=""
+
+int	is_valid_key(char *key)
 {
-	t_list	*env;
-	t_token	*token;
-	t_env	*new_env;
-
-	env = ms->env;
-	token = ms->token;
-	while (token)
-	{
-		if (is_valid_key(((t_env *)env->content)->key))
-		{
-			if (find_env_node(env, token->content) == NULL)
-			{
-				ft_lstadd_back(&env, ft_lstnew(ft_strdup(token->content, FALSE), FALSE));
-			}
-			else if (find_env_node(env, token->content) != NULL)
-			{
-				ft_lstdelone(&env, wfree);
-				ft_lstadd_back(&env, ft_lstnew(ft_strdup(token->content, FALSE), FALSE));
-			}
-			else
-				ft_lstadd_back(&env, ft_lstnew(ft_strdup(token->content, FALSE), FALSE));
-		}
-		else
-		{
-			ft_putstr_fd("minishell: export: `", 2);
-			ft_putstr_fd(token->content, 2);
-			ft_putstr_fd("': not a valid identifier\n", 2);
-			ms->exit_code = 1;
-		}
-		token = token->next;
-	
-	}
-} */
-
-
-int is_valid_key(char *key)
-{
-	int i;
+	size_t	i;
 
 	i = 0;
-	if (!ft_isalpha(key[i]) && key[i] != '_')
-		return (0);
-	i++;
-	while (key[i])
+	while (key[i] && key[i] != '=')
 	{
-		if (!ft_isalnum(key[i]) && key[i] != '_')
+		if (!ft_isalpha(key[i]) && key[i] != '_')
 			return (0);
 		i++;
+		while (key[i] && key[i] != '=')
+		{
+			if (!ft_isalnum(key[i]) && key[i] != '_')
+				return (0);
+			i++;
+		}
 	}
 	return (1);
 }
 
-t_list *sort_list(t_list *lst, int (*cmp)(const char *, const char *, size_t))
+//a check plus tard
+//ca duplique plutot que de modifier
+//check la facon dont est cast la t_env ou t_list si c'est ok
+//si y'a un egal il faut mettre ="" sinon juste le nom de la var (key)
+//export nom sans egal = liste de VAR (s'affiche dans export mais pas dans env)
+//meme comportement pour zzz=zzzz sans export devant
+int	*ft_add_var(t_ms *ms)
 {
-	t_list *sorted = NULL;
-	t_list *current = lst;
+	t_list	*env;
+	t_token	**token;
+	t_list	*new_env;
+	int		equals;
+	int		len;
+
+	env = ms->env;
+	token = NULL;
+	token = ms->token;
+	*token = (*ms->token)->next;
+	while (token && *token)
+	{
+		if (is_valid_key((*token)->content))
+		{
+			if (find_env_node(env, (*token)->content) != NULL)
+			{
+				len = ft_strlen((*token)->content);
+				new_env = find_env_node(env, (*token)->content);
+				wfree(((t_env *)new_env->content)->value);
+				equals = find_index((*token)->content, '=');
+				((t_env *)new_env->content)->value = ft_substr((*token)->content, equals + 1, len, TRUE);
+			}
+			else
+				add_env_node(ms, (*token)->content);
+		}
+		else
+		{
+			ft_putstr_fd("minishell: export: `", 2);
+			ft_putstr_fd((*token)->content, 2);
+			ft_putstr_fd("': not a valid identifier\n", 2);
+			ms->exit_code = 1;
+		}
+		*token = (*token)->next;
+	}
+	return (&ms->exit_code);
+}
+
+t_list	*sort_list(t_list *lst, int (*cmp)(const char *, const char *, size_t))
+{
+	t_list	*sorted = NULL;
+	t_list	*current = lst;
 
 	while (current != NULL)
 	{
@@ -123,7 +140,6 @@ int	ft_export(t_ms *ms)
 	t_list	*unsorted_env;
 	t_list	*sorted_env;
 	t_token **token;
-	//t_list	*new_var;
 
 	unsorted_env = ft_lstdup(ms->env);
 	sorted_env = sort_list(unsorted_env, ft_strncmp);
@@ -147,7 +163,7 @@ int	ft_export(t_ms *ms)
 			sorted_env = sorted_env->next;
 		}
 	}
-/* 	else if ((*token)->next)
-		new_var = ft_add_var(ms); */
+	else
+		ft_add_var(ms);
 	return (ms->exit_code);
 }

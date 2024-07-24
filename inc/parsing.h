@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:13:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/23 04:45:57 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/24 03:23:26 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int		find_index(char *str, char c);
 t_list	*get_envp(t_ms *ms, char **envp);
 t_list	*find_env_node(t_list *env, char *key);
 char	*find_env_value(t_list *env, char *key);
+void	del_env_node(t_list **env, char *key);
+void	add_env_node(t_ms *ms, char *key_and_value);
 
 //token lst_utils
 t_token	*tk_lstnew(char *content);

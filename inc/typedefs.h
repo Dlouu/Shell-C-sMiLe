@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:15:01 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/23 02:05:37 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/24 04:35:32 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 //0 COMMAND			1 BUILTIN		2 ARG
 //3 REDIR_LEFT		4 REDIR_RIGHT
 //5 REDIR_D_LEFT 	6 REDIR_DOUBLE_RIGHT
-//7 PIPE 			8 FILENAME
+//7 PIPE 			8 FILENAME		9 VAR
+//10 VAR_ENV		11 VAR_EXPORT
 
 typedef enum e_token
 {
@@ -29,6 +30,9 @@ typedef enum e_token
 	REDIR_DOUBLE_RIGHT,
 	PIPE,
 	FILENAME,
+	VAR,
+	VAR_ENV,
+	VAR_EXPORT
 }	t_token_code;
 
 typedef struct s_token //nom temporaire de test

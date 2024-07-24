@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/23 06:59:45 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/24 04:35:20 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 //retoken et builtin
 //nils
 //prompt = readline(MAUVE"<Shell-C_sMiLe> "END"$ ");
+//check si a=b c=d echo $a $c mettre le type en arg
+//VAR_ENV VAR_EXPORT
 
 int	main(int argc, char **argv, char **envp)
 {
