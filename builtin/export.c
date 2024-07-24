@@ -6,13 +6,13 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:15 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/24 04:53:52 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/24 05:32:33 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-//Faire un sas pour traiter differemment les VAR_ENV et VAR_EXPORT
+//Faire un sas pour traiter differemment les VAR, VAR_ENV et VAR_EXPORT
 //si VAR_ENV on met juste le nom de la var
 //si VAR_EXPORT on met le nom de la var et la valeur
 //si y'a un egal il faut mettre ="" sinon juste le nom de la var (key)
@@ -40,6 +40,7 @@ int	is_valid_key(char *key)
 
 //a check plus tard
 //ca duplique plutot que de modifier
+//c'est encore pire ca switch des var now aled
 //check la facon dont est cast la t_env ou t_list si c'est ok
 //si y'a un egal il faut mettre ="" sinon juste le nom de la var (key)
 //export nom sans egal = liste de VAR (s'affiche dans export mais pas dans env)
