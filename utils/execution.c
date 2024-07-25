@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:50:11 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/23 02:25:57 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/25 16:03:07 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ void	error_message(const char *message, int exit_status)
 	exit(exit_status);
 }
 
-void	free_lst(t_test **a_stack)
-{
-	t_test	*tmp;
+// void	free_lst(t_test **a_stack)
+// {
+// 	t_test	*tmp;
 
-	while (a_stack && *a_stack)
-	{
-		tmp = *a_stack;
-		*a_stack = (*a_stack)->next;
-		free(tmp);
-	}
-	a_stack = NULL;
-}
+// 	while (a_stack && *a_stack)
+// 	{
+// 		tmp = *a_stack;
+// 		*a_stack = (*a_stack)->next;
+// 		free(tmp);
+// 	}
+// 	a_stack = NULL;
+// }

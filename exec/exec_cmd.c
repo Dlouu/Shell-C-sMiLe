@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:54:36 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/23 08:10:22 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/07/25 16:12:45 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,6 @@ il faut check les valeurts de retour
 
 echo $PWD (copie de pwd donc faut pas l'use)
 (les utiliser une fois au lancement et en faire une copie)
+
+faut check les path pour voir si ya la cmd dedans et message d'erreur si pas dedans
 */

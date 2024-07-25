@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:15 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/25 00:48:32 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/25 16:11:55 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,12 @@ int	is_valid_key(char *key)
 //si y'a un egal il faut mettre ="" sinon juste le nom de la var (key)
 //export nom sans egal = liste de VAR (s'affiche dans export mais pas dans env)
 //meme comportement pour zzz=zzzz sans export devant
+/*
+export CACA
+si exist osef
+si exist pas on cree sans le =
+ */
+
 int	*ft_add_var(t_ms *ms)
 {
 	t_list	*env;
