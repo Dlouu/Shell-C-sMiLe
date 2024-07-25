@@ -6,12 +6,11 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:32:45 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/25 00:43:45 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/25 05:07:01 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-#include "../inc/typedefs.h"
 
 void	del_env_node(t_list **env, char *key)
 {

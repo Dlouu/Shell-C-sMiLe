@@ -6,12 +6,11 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:18:23 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/22 23:22:20 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/25 05:07:57 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-#include "../inc/typedefs.h"
 
 int	check_nb_quote(char *prompt, int i)
 {

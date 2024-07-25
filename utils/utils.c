@@ -6,12 +6,11 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 01:23:55 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/24 01:24:18 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/07/25 05:06:54 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-#include "../inc/typedefs.h"
 
 int	find_index(char *str, char c)
 {

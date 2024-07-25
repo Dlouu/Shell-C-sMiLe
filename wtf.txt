@@ -1,0 +1,7 @@
+- dans la gestion de l'export, les quotes ne doivent pas disparaitre
+- les variables d'environnements ne doivent pas etre redefinis si value inexistantes
+- particularit'es dans la gestion de l'exit si le premier arg est invalide, exit
+- le heredoc quoted 
+- "exit ++1515" > exit bien et renvoie un mauvais exit code par consequent.
+(Bash n'accepte pas les exit "++", idem pour "--").
+- "unset PWD" > "cd .." (detail : ne plus changer la variable PWD une fois unset.)
