@@ -53,7 +53,7 @@ int	is_valid_key(char *key)
 void	update_or_create_var(t_ms *ms, t_token **token)
 {
 	t_list	*env;
-	t_list	*new_env;
+	t_list	*env_to_update;
 	size_t	equals;
 	size_t	len;
 	char	*extracted_key;
@@ -64,9 +64,10 @@ void	update_or_create_var(t_ms *ms, t_token **token)
 	extracted_key = ft_substr((*token)->content, 0, equals, FALSE);
 	if (find_env_node(env, extracted_key) != NULL)
 	{
-		new_env = find_env_node(env, extracted_key);
-		wfree(((t_env *)new_env->data)->value);
-		((t_env *)new_env->data)->value = ft_substr((*token)->content, \
+		env_to_update = find_env_node(env, extracted_key);
+		//if (((t_env *)env_to_update->data)->value)
+		//	wfree(((t_env *)env_to_update->data)->value);
+		((t_env *)env_to_update->data)->value = ft_substr((*token)->content, \
 		equals + 1, len, TRUE);
 	}
 	else
@@ -77,7 +78,6 @@ int	*ft_add_var(t_ms *ms)
 {
 	t_token	**token;
 
-	token = NULL;
 	token = ms->token;
 	*token = (*ms->token)->next;
 	while (token && *token)
