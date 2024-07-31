@@ -24,17 +24,10 @@
 //check si a=b c=d echo $a $c mettre le type en arg
 //VAR_ENV VAR_EXPORT
 
-int	main(int argc, char **argv, char **envp)
+void	minishell_loop(t_ms *ms, char **envp)
 {
-	t_ms	*ms;
 	char	*prompt;
 
-	ms = walloc(sizeof(t_ms), TRUE);
-	ms->blank_after_quote = 0;
-	ms->pipe_count = 0;
-	(void)argc;
-	(void)argv;
-	get_envp(ms, envp);
 	while (1)
 	{
 		prompt = readline(MAUVE"<Shell-C_sMiLe> "END"$ ");
@@ -51,9 +44,23 @@ int	main(int argc, char **argv, char **envp)
 		}
 		tokenizer(ms, ms->token_lexed);
 		find_builtin(ms, ms->token, envp);
-		ms->pipe_count = 0;
 		free(prompt);
+		wclear(0);
 	}
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	t_ms	*ms;
+
+	if (argc != 1)
+		return (printf("Error : Minishell doesn't take arguments\n"), 1);
+	(void)argv;
+	ms = walloc(sizeof(t_ms), TRUE);
+	ms->blank_after_quote = 0;
+	ms->pipe_count = 0;
+	get_envp(ms, envp);
+	minishell_loop(ms, envp);
 	wclear(1);
 	return (0);
 }

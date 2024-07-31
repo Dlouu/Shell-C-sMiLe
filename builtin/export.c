@@ -20,6 +20,8 @@
 
 //sur mac : export caca    ->   caca=''       wtf
 
+//path si on en trouve pas au lancement, faut qu'on en assign un genre de base
+
 int	is_valid_key(char *key)
 {
 	size_t	i;
@@ -53,9 +55,9 @@ int	*ft_add_var(t_ms *ms)
 	t_list	*env;
 	t_token	**token;
 	t_list	*new_env;
-	size_t		equals;
-	size_t		len;
-	char		*extracted_key;
+	size_t	equals;
+	size_t	len;
+	char	*extracted_key;
 
 	env = ms->env;
 	token = NULL;
@@ -91,52 +93,60 @@ int	*ft_add_var(t_ms *ms)
 
 t_list	*sort_list(t_list *lst, int (*cmp)(const char *, const char *, size_t))
 {
-	t_list	*sorted = NULL;
-	t_list	*current = lst;
+	t_list	*sorted;
+	t_list	*current;
+	t_list	*temp;
+	t_list	*next;
 
+	sorted = NULL;
+	current = lst;
 	while (current != NULL)
 	{
-		t_list *next = current->next;
-
-		if (sorted == NULL || cmp(((t_env *)current->content)->key, ((t_env *)sorted->content)->key, ft_strlen(((t_env *)current->content)->key)) < 0)
+		next = current->next;
+		if (sorted == NULL || cmp(((t_env *)current->content)->key, \
+		((t_env *)sorted->content)->key, \
+		ft_strlen(((t_env *)current->content)->key)) < 0)
 		{
 			current->next = sorted;
 			sorted = current;
 		}
 		else
 		{
-			t_list *temp = sorted;
-			while (temp->next != NULL && cmp(((t_env *)temp->next->content)->key, ((t_env *)current->content)->key, ft_strlen(((t_env *)current->content)->key)) < 0)
-			{
+			temp = sorted;
+			while (temp->next != NULL && \
+			cmp(((t_env *)temp->next->content)->key, \
+			((t_env *)current->content)->key, \
+			ft_strlen(((t_env *)current->content)->key)) < 0)
 				temp = temp->next;
-			}
 			current->next = temp->next;
 			temp->next = current;
 		}
 		current = next;
 	}
-	return sorted;
+	return (sorted);
 }
 
-t_list *ft_lstdup(t_list *lst)
+t_list	*ft_lstdup(t_list *lst)
 {
-	t_list *head;
-	t_list *temp;
+	t_list	*head;
+	t_list	*tmp;
 
 	head = NULL;
 	while (lst)
 	{
-		temp = ft_lstnew(ft_strdup(lst->content, FALSE), FALSE);
-		((t_env *)temp->content)->key = ft_strdup(((t_env *)lst->content)->key, FALSE);
-		((t_env *)temp->content)->value = ft_strdup(((t_env *)lst->content)->value, FALSE);
-		if (!temp)
+		tmp = ft_lstnew(ft_strdup(lst->content, FALSE), FALSE);
+		((t_env *)tmp->content)->key = ft_strdup(((t_env *)lst->content)->key, \
+		FALSE);
+		((t_env *)tmp->content)->value = \
+		ft_strdup(((t_env *)lst->content)->value, FALSE);
+		if (!tmp)
 		{
 			ft_lstclear(&head, wfree);
 			return (NULL);
 		}
-		ft_lstadd_back(&head, temp);
+		ft_lstadd_back(&head, tmp);
 		lst = lst->next;
-		temp = temp->next;
+		tmp = tmp->next;
 	}
 	return (head);
 }
@@ -145,12 +155,11 @@ int	ft_export(t_ms *ms)
 {
 	t_list	*unsorted_env;
 	t_list	*sorted_env;
-	t_token **token;
+	t_token	**token;
 
 	unsorted_env = ft_lstdup(ms->env);
 	sorted_env = sort_list(unsorted_env, ft_strncmp);
 	token = ms->token;
-	//si rien apres export --> ordre alphabetique
 	if (!(*token)->next)
 	{
 		while (sorted_env)

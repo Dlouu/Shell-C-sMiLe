@@ -46,7 +46,7 @@ SRC		= ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
 		ft_atoi.c ft_atol.c ft_calloc.c ft_strdup.c ft_substr.c ft_strjoin.c \
 		ft_strtrim.c ft_split.c ft_itoa.c ft_strmapi.c ft_striteri.c \
 		ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c \
-		ft_putchar.c ft_putstr.c ft_putnbr.c ft_putnbr_base.c \
+		ft_putchar.c ft_putstr.c ft_putnbr.c ft_putnbr_base.c ft_strcmp.c \
 		ft_nlen_base.c ft_nlen_ubase.c ft_strdup_array.c ft_int_ovcheck.c \
 		ft_free_tab.c ft_free_strjoin.c ft_issign.c ft_isspace.c \
 		ft_lstnew.c ft_lstadd_front.c ft_lstsize.c \

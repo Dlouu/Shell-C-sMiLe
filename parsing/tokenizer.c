@@ -68,18 +68,14 @@ void	assign_quote_info(t_token *tk)
 			tk->content = ft_substr(tk->content, 1, len - 2, FALSE);
 		}
 		else
-		{
 			tk->squote = 0;
-		}
 		if (tk->content[0] == '\"' && tk->content[len - 1] == '\"')
 		{
 			tk->dquote = 1;
 			tk->content = ft_substr(tk->content, 1, len - 2, FALSE);
 		}
 		else
-		{
 			tk->dquote = 0;
-		}
 		tk = tk->next;
 	}
 }

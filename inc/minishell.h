@@ -30,7 +30,6 @@
 //5 REDIR_D_LEFT 	6 REDIR_DOUBLE_RIGHT
 //7 PIPE 			8 FILENAME		9 VAR
 //10 VAR_ENV		11 VAR_EXPORT
-
 typedef enum e_token
 {
 	COMMAND,
@@ -47,12 +46,16 @@ typedef enum e_token
 	VAR_EXPORT
 }	t_token_code;
 
-typedef struct s_token //nom temporaire de test
+//content : echo, cmd...
+//type : COMMAND, BUILTIN, ARG... enum de 0 a 11 t_token_code
+//index : echo -n -nnn. echo = 0, -n = 1, -nnn = 2
+//builtin : 1 si builtin, 0 sinon
+typedef struct s_token
 {
-	char			*content; //cmd etc.
-	int				type; // (des entiers) COMMAND, BUILTIN, ARG, ...
-	int				index; // echo -n -nnn. echo = 0, -n = 1, -nnn = 2
-	int				builtin; // 1 si builtin, 0 sinon
+	char			*content;
+	int				type;
+	int				index;
+	int				builtin;
 	int				blank_after_quote;
 	int				squote;
 	int				dquote;
@@ -60,10 +63,12 @@ typedef struct s_token //nom temporaire de test
 	struct s_token	*prev;
 }	t_token;
 
+//	*key	PATH
+//	*value	/usr/bin:/bin:/usr/sbin:/sbin
 typedef struct s_env
 {
-	char			*key; //PATH
-	char			*value; // /usr/bin:/bin:/usr/sbin:/sbin
+	char			*key;
+	char			*value;
 }	t_env;
 
 typedef struct s_ms

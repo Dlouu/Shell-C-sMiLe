@@ -48,6 +48,7 @@ static char	*find_path(char *cmd, char **envp)
 	return (NULL);
 }
 
+//dlou : au fait que veux dire execlp ?
 static void	ft_execlp(char *cmd, char **envp)
 {
 	char	*path;
@@ -58,23 +59,30 @@ static void	ft_execlp(char *cmd, char **envp)
 	execve(path, tab, envp);
 }
 
+//dlou: j'ai changé le path que tu avais déclaré dans un char*
+// en ms->path dans la structure
+// je sais plus la subtilité de quand on unset ou quoi
+// mais apparemment quand on lance un shell dans un shell faut mettre un path
+// par defaut
+
+//dlou : ATTENTION FAUT UTILISER STRCMP ET PAS STRNCMP car si on a un echo2
+// ou echonyayayay ça va faire echo j'ai add strcmp dans la lib et changé ici
 void	find_builtin(t_ms *ms, t_token **token, char **envp)
 {
-	ms->path = find_env_value(ms->env, "PATH"); //voir pour le faire avant
-	//et juste l'use ici, est-ce qu'il faut le free à la fin ?
-	if (ft_strncmp((*token)->content, "cd", 2) == 0)
+	ms->path = find_env_value(ms->env, "PATH");
+	if (ft_strcmp((*token)->content, "cd") == 0)
 		ft_cd(ms);
-	else if (ft_strncmp((*token)->content, "echo", 4) == 0)
+	else if (ft_strcmp((*token)->content, "echo") == 0)
 		ft_echo(ms);
-	else if (ft_strncmp((*token)->content, "env", 3) == 0)
+	else if (ft_strcmp((*token)->content, "env") == 0)
 		ft_env(ms);
-	else if (ft_strncmp((*token)->content, "pwd", 3) == 0)
+	else if (ft_strcmp((*token)->content, "pwd") == 0)
 		ft_pwd(ms);
-	else if (ft_strncmp((*token)->content, "export", 6) == 0)
+	else if (ft_strcmp((*token)->content, "export") == 0)
 		ft_export(ms);
-	else if (ft_strncmp((*token)->content, "unset", 5) == 0)
+	else if (ft_strcmp((*token)->content, "unset") == 0)
 		ft_unset(ms);
-	else if (ft_strncmp((*token)->content, "exit", 4) == 0)
+	else if (ft_strcmp((*token)->content, "exit") == 0)
 		ft_exit(ms);
 	else
 		ft_execlp((*token)->content, envp);
@@ -84,10 +92,12 @@ void	find_builtin(t_ms *ms, t_token **token, char **envp)
 Builtin pwd, env echo en first (conseil de Max)
 
 toutes les fonctions doivent renvoyer un INT
-il faut check les valeurts de retour
+il faut check les valeurs de retour
 
 echo $PWD (copie de pwd donc faut pas l'use)
 (les utiliser une fois au lancement et en faire une copie)
+utiliser getcwd
 
-faut check les path pour voir si ya la cmd dedans et message d'erreur si pas dedans
+faut check les path pour voir si ya la cmd dedans et message d'erreur
+si pas dedans
 */
