@@ -12,16 +12,40 @@
 
 #include "../inc/minishell.h"
 
-void	split_pipe(t_ms *ms, t_token *lexed_token)
+void	update_index(t_token **tk)
 {
-	t_token	*tk;
 	t_token	*temp;
-	t_token	**token_splitted;
-	t_token	**head;
-	int		i;
 	int		index;
 
 	index = 0;
+	while ((*tk)->next && (*tk)->next->type != PIPE)
+	{
+		(*tk)->index = index;
+		index++;
+		*tk = (*tk)->next;
+	}
+	if ((*tk)->next && (*tk)->next->type == PIPE)
+	{
+		temp = (*tk)->next;
+		(*tk)->next = NULL;
+		(*tk)->index = index;
+		*tk = temp->next;
+		(*tk)->prev = NULL;
+	}
+	else
+	{
+		(*tk)->index = index;
+		*tk = (*tk)->next;
+	}
+}
+
+void	split_pipe(t_ms *ms, t_token *lexed_token)
+{
+	t_token	*tk;
+	t_token	**token_splitted;
+	t_token	**head;
+	int		i;
+
 	tk = lexed_token;
 	i = 0;
 	token_splitted = NULL;
@@ -30,26 +54,7 @@ void	split_pipe(t_ms *ms, t_token *lexed_token)
 	while (tk)
 	{
 		token_splitted[i] = tk;
-		index = 0;
-		while (tk->next && tk->next->type != PIPE)
-		{
-			tk->index = index;
-			index++;
-			tk = tk->next;
-		}
-		if (tk->next && tk->next->type == PIPE)
-		{
-			temp = tk->next;
-			tk->next = NULL;
-			tk->index = index;
-			tk = temp->next;
-			tk->prev = NULL;
-		}
-		else
-		{
-			tk->index = index;
-			tk = tk->next;
-		}
+		update_index(&tk);
 		i++;
 	}
 	ms->token = head;
