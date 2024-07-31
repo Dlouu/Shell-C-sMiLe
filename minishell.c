@@ -37,7 +37,7 @@ void	minishell_loop(t_ms *ms, char **envp)
 		if (lexer(ms, prompt) == ERR_QUOTE)
 		{
 			ms->exit_code = 2;
-			printf("Parsing error : unclosed quote.\n");
+			printf("parsing error : unclosed quote.\n");
 			free(prompt);
 			wclear(0);
 			continue ;
@@ -54,7 +54,7 @@ int	main(int argc, char **argv, char **envp)
 	t_ms	*ms;
 
 	if (argc != 1)
-		return (printf("Error : Minishell doesn't take arguments\n"), 1);
+		return (printf("error : shell-C-smile doesn't take arguments\n"), 1);
 	(void)argv;
 	ms = walloc(sizeof(t_ms), TRUE);
 	ms->blank_after_quote = 0;

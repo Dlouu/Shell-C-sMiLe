@@ -21,7 +21,7 @@ static char	*check_path(char *cmd, char *path)
 	final_path = ft_strjoin(possible_path, cmd, FALSE);
 	if (access(final_path, F_OK) == 0)
 		return (final_path);
-	free(final_path);
+	wfree(final_path);
 	return (NULL);
 }
 
@@ -49,14 +49,22 @@ static char	*find_path(char *cmd, char **envp)
 }
 
 //dlou : au fait que veux dire execlp ?
-static void	ft_execlp(char *cmd, char **envp)
+static void	ft_execlp(t_ms *ms, char *cmd, char **envp)
 {
 	char	*path;
 	char	**tab;
 
 	tab = ft_split(cmd, ' ', FALSE);
 	path = find_path(tab[0], envp);
-	execve(path, tab, envp);
+	if (!path)
+	{
+		ft_putstr_fd("shell-C-smile: ", 2);
+		ft_putstr_fd(tab[0], 2);
+		ft_putstr_fd(": command not found\n", 2);
+		ms->exit_code = 127;
+	}
+	else
+		execve(path, tab, envp);
 }
 
 //dlou: j'ai changé le path que tu avais déclaré dans un char*
@@ -85,7 +93,7 @@ void	find_builtin(t_ms *ms, t_token **token, char **envp)
 	else if (ft_strcmp((*token)->content, "exit") == 0)
 		ft_exit(ms);
 	else
-		ft_execlp((*token)->content, envp);
+		ft_execlp(ms, (*token)->content, envp);
 }
 
 /* notes :
