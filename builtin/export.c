@@ -65,8 +65,8 @@ void	update_or_create_var(t_ms *ms, t_token **token)
 	if (find_env_node(env, extracted_key) != NULL)
 	{
 		env_to_update = find_env_node(env, extracted_key);
-		//if (((t_env *)env_to_update->data)->value)
-		//	wfree(((t_env *)env_to_update->data)->value);
+		if (((t_env *)env_to_update->data)->value)
+			wfree(((t_env *)env_to_update->data)->value);
 		((t_env *)env_to_update->data)->value = ft_substr((*token)->content, \
 		equals + 1, len, TRUE);
 	}
