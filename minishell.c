@@ -24,6 +24,20 @@
 //check si a=b c=d echo $a $c mettre le type en arg
 //VAR_ENV VAR_EXPORT
 
+int	empty_prompt(char *prompt)
+{
+	int	i;
+
+	i = -1;
+	while (prompt[++i])
+	{
+		if (!ft_isblank(prompt[i]))
+			return (0);
+	}
+	free(prompt);
+	return (1);
+}
+
 void	minishell_loop(t_ms *ms, char **envp)
 {
 	char	*prompt;
@@ -34,14 +48,8 @@ void	minishell_loop(t_ms *ms, char **envp)
 		if (!prompt)
 			break ;
 		add_history(prompt);
-		if (lexer(ms, prompt) == ERR_QUOTE)
-		{
-			ms->exit_code = 2;
-			printf("parsing error : unclosed quote.\n");
-			free(prompt);
-			wclear(0);
+		if (empty_prompt(prompt) || !lexer(ms, prompt))
 			continue ;
-		}
 		tokenizer(ms, ms->token_lexed);
 		find_builtin(ms, ms->token, envp);
 		free(prompt);
@@ -57,6 +65,7 @@ int	main(int argc, char **argv, char **envp)
 		return (printf("error : shell-C-smile doesn't take arguments\n"), 1);
 	(void)argv;
 	ms = walloc(sizeof(t_ms), TRUE);
+	ms->exit_code = 0;
 	ms->blank_after_quote = 0;
 	ms->pipe_count = 0;
 	get_envp(ms, envp);

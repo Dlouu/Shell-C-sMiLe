@@ -135,6 +135,7 @@ void	tokenizer(t_ms *ms, t_token *lexed_token)
 	}
 	assign_quote_info(lexed_token);
 	split_pipe(ms, lexed_token);
-	//tk_lstprint(ms, ms->token);
+	tk_lstprint(ms, ms->token);
+	printf("- - - -\n");
 	(void)ms;
 }

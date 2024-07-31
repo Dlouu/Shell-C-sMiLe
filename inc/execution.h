@@ -18,13 +18,29 @@
 //exec_cmd.c
 void	find_builtin(t_ms *ms, t_token **token, char **envp);
 
-//builtin
+//ft_cd
 int		ft_cd(t_ms *ms);
+
+//ft_echo
 int		ft_echo(t_ms *ms);
+
+//ft_env
 int		ft_env(t_ms *ms);
+
+//ft_exit
 int		ft_exit(t_ms *ms);
+
+//ft_export
 int		ft_export(t_ms *ms);
+int		is_valid_key(char *key);
+t_list	*sort_list(t_list *l, t_list *s, int (*c)(const char *, const char *));
+t_list	*ft_lstdup(t_list *lst);
+void	ft_putstr_export(char *key, char *value);
+
+//ft_pwd
 int		ft_pwd(t_ms *ms);
+
+//ft_unset
 int		ft_unset(t_ms *ms);
 
 #endif

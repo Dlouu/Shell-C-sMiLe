@@ -22,26 +22,6 @@
 
 //path si on en trouve pas au lancement, faut qu'on en assign un genre de base
 
-int	is_valid_key(char *key)
-{
-	size_t	i;
-
-	i = 0;
-	while (key[i] && key[i] != '=')
-	{
-		if (!ft_isalpha(key[i]) && key[i] != '_')
-			return (0);
-		i++;
-		while (key[i] && key[i] != '=')
-		{
-			if (!ft_isalnum(key[i]) && key[i] != '_')
-				return (0);
-			i++;
-		}
-	}
-	return (1);
-}
-
 //si y'a un egal il faut mettre ="" sinon juste le nom de la var (key)
 //export nom sans egal = liste de VAR (s'affiche dans export mais pas dans env)
 //meme comportement pour zzz=zzzz sans export devant
@@ -86,85 +66,14 @@ int	*ft_add_var(t_ms *ms)
 			update_or_create_var(ms, token);
 		else
 		{
-			ft_putstr_fd("minishell: export: `", 2);
-			ft_putstr_fd((*token)->content, 2);
-			ft_putstr_fd("': not a valid identifier\n", 2);
+			ft_putstr_fd("minishell: export: `", STDERR_FILENO);
+			ft_putstr_fd((*token)->content, STDERR_FILENO);
+			ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
 			ms->exit_code = 1;
 		}
 		*token = (*token)->next;
 	}
 	return (&ms->exit_code);
-}
-
-t_list	*sort_list(t_list *lst, int (*cmp)(const char *, const char *))
-{
-	t_list	*sorted;
-	t_list	*current;
-	t_list	*temp;
-	t_list	*next;
-
-	sorted = NULL;
-	current = lst;
-	while (current != NULL)
-	{
-		next = current->next;
-		if (sorted == NULL || cmp(((t_env *)current->data)->key, \
-		((t_env *)sorted->data)->key) < 0)
-		{
-			current->next = sorted;
-			sorted = current;
-		}
-		else
-		{
-			temp = sorted;
-			while (temp->next != NULL && cmp(((t_env *)temp->next->data)->key, \
-			((t_env *)current->data)->key) < 0)
-				temp = temp->next;
-			current->next = temp->next;
-			temp->next = current;
-		}
-		current = next;
-	}
-	return (sorted);
-}
-
-t_list	*ft_lstdup(t_list *lst)
-{
-	t_list	*head;
-	t_list	*tmp;
-
-	head = NULL;
-	while (lst)
-	{
-		tmp = ft_lstnew(ft_strdup(lst->data, FALSE), FALSE);
-		((t_env *)tmp->data)->key = ft_strdup(((t_env *)lst->data)->key, \
-		FALSE);
-		((t_env *)tmp->data)->value = \
-		ft_strdup(((t_env *)lst->data)->value, FALSE);
-		if (!tmp)
-		{
-			ft_lstclear(&head, wfree);
-			return (NULL);
-		}
-		ft_lstadd_back(&head, tmp);
-		lst = lst->next;
-		tmp = tmp->next;
-	}
-	return (head);
-}
-
-void	ft_putstr_export(char *key, char *value)
-{
-	ft_putstr_fd("declare -x ", 1);
-	ft_putstr_fd(key, 1);
-	if (value)
-	{
-		ft_putstr_fd("=\"", 1);
-		ft_putstr_fd(value, 1);
-		ft_putstr_fd("\"\n", 1);
-	}
-	else
-		ft_putstr_fd("\n", 1);
 }
 
 int	ft_export(t_ms *ms)
@@ -174,7 +83,7 @@ int	ft_export(t_ms *ms)
 	t_token	**token;
 
 	unsorted_env = ft_lstdup(ms->env);
-	sorted_env = sort_list(unsorted_env, ft_strcmp);
+	sorted_env = sort_list(unsorted_env, NULL, ft_strcmp);
 	token = ms->token;
 	if (!(*token)->next)
 	{

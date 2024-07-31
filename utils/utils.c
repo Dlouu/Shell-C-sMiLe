@@ -12,6 +12,15 @@
 
 #include "../inc/minishell.h"
 
+int	error_quote(t_ms *ms, char *prompt)
+{
+	ms->exit_code = 2;
+	printf("parsing error : unclosed quote.\n");
+	wclear(0);
+	free(prompt);
+	return (0);
+}
+
 int	find_index(char *str, char c)
 {
 	int	i;

@@ -61,8 +61,7 @@ void	al_lstclear(t_alloc **al_lst, int free_critical)
 		{
 			if (temp == *al_lst)
 				*al_lst = next;
-			free(temp->ptr);
-			free(temp);
+			al_lstdelone(al_lst, temp);
 		}
 		temp = next;
 	}

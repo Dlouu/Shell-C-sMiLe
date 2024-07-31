@@ -21,7 +21,6 @@ static char	*check_path(char *cmd, char *path)
 	final_path = ft_strjoin(possible_path, cmd, FALSE);
 	if (access(final_path, F_OK) == 0)
 		return (final_path);
-	//wfree(final_path);
 	return (NULL);
 }
 

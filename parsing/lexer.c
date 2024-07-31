@@ -113,7 +113,7 @@ int	lexer(t_ms *ms, char *prompt)
 	i = -1;
 	token_lst = NULL;
 	if (check_nb_quote(prompt, i) != 0)
-		return (ERR_QUOTE);
+		return (error_quote(ms, prompt));
 	i = 0;
 	while (prompt[i])
 	{
@@ -127,5 +127,5 @@ int	lexer(t_ms *ms, char *prompt)
 		tk_lstadd(&token_lst, new);
 	}
 	ms->token_lexed = token_lst;
-	return (0);
+	return (1);
 }
