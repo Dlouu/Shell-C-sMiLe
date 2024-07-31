@@ -69,6 +69,7 @@ typedef struct s_env
 typedef struct s_ms
 {
 	t_list			*env;
+	char			*path;
 	struct s_token	**token;
 	struct s_token	*token_lexed;
 	int				blank_after_quote;

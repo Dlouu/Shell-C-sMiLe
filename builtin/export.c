@@ -18,6 +18,8 @@
 //si y'a un egal il faut mettre ="" sinon juste le nom de la var (key)
 //export caca != export caca="" != caca=""
 
+//sur mac : export caca    ->   caca=''       wtf
+
 int	is_valid_key(char *key)
 {
 	size_t	i;
@@ -38,18 +40,13 @@ int	is_valid_key(char *key)
 	return (1);
 }
 
-//a check plus tard
-//ca duplique plutot que de modifier
-//c'est encore pire ca switch des var now aled
-//check la facon dont est cast la t_env ou t_list si c'est ok
 //si y'a un egal il faut mettre ="" sinon juste le nom de la var (key)
 //export nom sans egal = liste de VAR (s'affiche dans export mais pas dans env)
 //meme comportement pour zzz=zzzz sans export devant
-/*
-export CACA
-si exist osef
-si exist pas on cree sans le =
- */
+
+//export CACA
+//si exist osef
+//si exist pas on cree sans le =
 
 int	*ft_add_var(t_ms *ms)
 {

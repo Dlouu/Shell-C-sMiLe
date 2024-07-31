@@ -52,9 +52,7 @@ static void	ft_execlp(char *cmd, char **envp)
 {
 	char	*path;
 	char	**tab;
-	int		i;
 
-	i = -1;
 	tab = ft_split(cmd, ' ', FALSE);
 	path = find_path(tab[0], envp);
 	execve(path, tab, envp);
@@ -62,9 +60,8 @@ static void	ft_execlp(char *cmd, char **envp)
 
 void	find_builtin(t_ms *ms, t_token **token, char **envp)
 {
-	char	*path;
-
-	path = find_env_value(ms->env, "PATH");
+	ms->path = find_env_value(ms->env, "PATH"); //voir pour le faire avant
+	//et juste l'use ici, est-ce qu'il faut le free à la fin ?
 	if (ft_strncmp((*token)->content, "cd", 2) == 0)
 		ft_cd(ms);
 	else if (ft_strncmp((*token)->content, "echo", 4) == 0)
