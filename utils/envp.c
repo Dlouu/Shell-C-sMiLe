@@ -35,7 +35,7 @@ int	env_node_exist(t_list *env, char *key)
 	tmp = env;
 	while (tmp)
 	{
-		if (ft_strncmp(((t_env *)tmp->content)->key, key, ft_strlen(key)) == 0)
+		if (ft_strcmp(((t_env *)tmp->data)->key, key) == 0)
 			return (1);
 		tmp = tmp->next;
 	}
@@ -49,7 +49,7 @@ t_list	*find_env_node(t_list *env, char *key)
 	tmp = env;
 	while (tmp)
 	{
-		if (ft_strncmp(((t_env *)tmp->content)->key, key, ft_strlen(key)) == 0)
+		if (ft_strcmp(((t_env *)tmp->data)->key, key) == 0)
 			return (tmp);
 		tmp = tmp->next;
 	}
@@ -63,8 +63,8 @@ char	*find_env_value(t_list *env, char *key)
 	tmp = env;
 	while (tmp)
 	{
-		if (ft_strncmp(((t_env *)tmp->content)->key, key, ft_strlen(key)) == 0)
-			return (((t_env *)tmp->content)->value);
+		if (ft_strcmp(((t_env *)tmp->data)->key, key) == 0)
+			return (((t_env *)tmp->data)->value);
 		tmp = tmp->next;
 	}
 	return (NULL);

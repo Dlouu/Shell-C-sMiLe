@@ -21,15 +21,15 @@ void	del_env_node(t_list **env, char *key)
 	prev = NULL;
 	while (tmp)
 	{
-		if (ft_strncmp(((t_env *)tmp->content)->key, key, ft_strlen(key)) == 0)
+		if (ft_strncmp(((t_env *)tmp->data)->key, key, ft_strlen(key)) == 0)
 		{
 			if (prev)
 				prev->next = tmp->next;
 			else
 				*env = tmp->next;
-			wfree(((t_env *)tmp->content)->key);
-			wfree(((t_env *)tmp->content)->value);
-			wfree(tmp->content);
+			wfree(((t_env *)tmp->data)->key);
+			wfree(((t_env *)tmp->data)->value);
+			wfree(tmp->data);
 			wfree(tmp);
 			return ;
 		}

@@ -12,14 +12,14 @@
 
 #include "../inc/libft.h"
 
-t_list	*ft_lstnew(void *content, int critical)
+t_list	*ft_lstnew(void *data, int critical)
 {
 	t_list	*new_node;
 
 	new_node = walloc(sizeof(t_list), critical);
 	if (!new_node)
 		return (NULL);
-	new_node->content = content;
+	new_node->data = data;
 	new_node->next = NULL;
 	return (new_node);
 }

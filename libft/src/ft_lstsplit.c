@@ -41,7 +41,7 @@ char	**ft_lstsplit(t_list *lst, int critical)
 		return (NULL);
 	while (temp_lst != NULL)
 	{
-		tab[i] = ft_strdup(temp_lst->content, critical);
+		tab[i] = ft_strdup(temp_lst->data, critical);
 		if (!tab[i])
 			return (ft_free(tab));
 		i++;

@@ -50,35 +50,40 @@ int	is_valid_key(char *key)
 //si exist osef
 //si exist pas on cree sans le =
 
-int	*ft_add_var(t_ms *ms)
+void	update_or_create_var(t_ms *ms, t_token **token)
 {
 	t_list	*env;
-	t_token	**token;
 	t_list	*new_env;
 	size_t	equals;
 	size_t	len;
 	char	*extracted_key;
 
 	env = ms->env;
+	len = ft_strlen((*token)->content);
+	equals = find_index((*token)->content, '=');
+	extracted_key = ft_substr((*token)->content, 0, equals, FALSE);
+	if (find_env_node(env, extracted_key) != NULL)
+	{
+		new_env = find_env_node(env, extracted_key);
+		wfree(((t_env *)new_env->data)->value);
+		((t_env *)new_env->data)->value = ft_substr((*token)->content, \
+		equals + 1, len, TRUE);
+	}
+	else
+		add_env_node(ms, (*token)->content);
+}
+
+int	*ft_add_var(t_ms *ms)
+{
+	t_token	**token;
+
 	token = NULL;
 	token = ms->token;
 	*token = (*ms->token)->next;
 	while (token && *token)
 	{
 		if (is_valid_key((*token)->content))
-		{
-			len = ft_strlen((*token)->content);
-			equals = find_index((*token)->content, '=');
-			extracted_key = ft_substr((*token)->content, 0, equals, FALSE);
-			if (find_env_node(env, extracted_key) != NULL)
-			{
-				new_env = find_env_node(env, extracted_key);
-				wfree(((t_env *)new_env->content)->value);
-				((t_env *)new_env->content)->value = ft_substr((*token)->content, equals + 1, len, TRUE);
-			}
-			else
-				add_env_node(ms, (*token)->content);
-		}
+			update_or_create_var(ms, token);
 		else
 		{
 			ft_putstr_fd("minishell: export: `", 2);
@@ -91,7 +96,7 @@ int	*ft_add_var(t_ms *ms)
 	return (&ms->exit_code);
 }
 
-t_list	*sort_list(t_list *lst, int (*cmp)(const char *, const char *, size_t))
+t_list	*sort_list(t_list *lst, int (*cmp)(const char *, const char *))
 {
 	t_list	*sorted;
 	t_list	*current;
@@ -103,9 +108,8 @@ t_list	*sort_list(t_list *lst, int (*cmp)(const char *, const char *, size_t))
 	while (current != NULL)
 	{
 		next = current->next;
-		if (sorted == NULL || cmp(((t_env *)current->content)->key, \
-		((t_env *)sorted->content)->key, \
-		ft_strlen(((t_env *)current->content)->key)) < 0)
+		if (sorted == NULL || cmp(((t_env *)current->data)->key, \
+		((t_env *)sorted->data)->key) < 0)
 		{
 			current->next = sorted;
 			sorted = current;
@@ -113,10 +117,8 @@ t_list	*sort_list(t_list *lst, int (*cmp)(const char *, const char *, size_t))
 		else
 		{
 			temp = sorted;
-			while (temp->next != NULL && \
-			cmp(((t_env *)temp->next->content)->key, \
-			((t_env *)current->content)->key, \
-			ft_strlen(((t_env *)current->content)->key)) < 0)
+			while (temp->next != NULL && cmp(((t_env *)temp->next->data)->key, \
+			((t_env *)current->data)->key) < 0)
 				temp = temp->next;
 			current->next = temp->next;
 			temp->next = current;
@@ -134,11 +136,11 @@ t_list	*ft_lstdup(t_list *lst)
 	head = NULL;
 	while (lst)
 	{
-		tmp = ft_lstnew(ft_strdup(lst->content, FALSE), FALSE);
-		((t_env *)tmp->content)->key = ft_strdup(((t_env *)lst->content)->key, \
+		tmp = ft_lstnew(ft_strdup(lst->data, FALSE), FALSE);
+		((t_env *)tmp->data)->key = ft_strdup(((t_env *)lst->data)->key, \
 		FALSE);
-		((t_env *)tmp->content)->value = \
-		ft_strdup(((t_env *)lst->content)->value, FALSE);
+		((t_env *)tmp->data)->value = \
+		ft_strdup(((t_env *)lst->data)->value, FALSE);
 		if (!tmp)
 		{
 			ft_lstclear(&head, wfree);
@@ -151,6 +153,20 @@ t_list	*ft_lstdup(t_list *lst)
 	return (head);
 }
 
+void	ft_putstr_export(char *key, char *value)
+{
+	ft_putstr_fd("declare -x ", 1);
+	ft_putstr_fd(key, 1);
+	if (value)
+	{
+		ft_putstr_fd("=\"", 1);
+		ft_putstr_fd(value, 1);
+		ft_putstr_fd("\"\n", 1);
+	}
+	else
+		ft_putstr_fd("\n", 1);
+}
+
 int	ft_export(t_ms *ms)
 {
 	t_list	*unsorted_env;
@@ -158,23 +174,19 @@ int	ft_export(t_ms *ms)
 	t_token	**token;
 
 	unsorted_env = ft_lstdup(ms->env);
-	sorted_env = sort_list(unsorted_env, ft_strncmp);
+	sorted_env = sort_list(unsorted_env, ft_strcmp);
 	token = ms->token;
 	if (!(*token)->next)
 	{
 		while (sorted_env)
 		{
-			if (!ft_strncmp(((t_env *)sorted_env->content)->key, UNDERSCORE, \
-			ft_strlen(((t_env *)sorted_env->content)->key)))
+			if (!ft_strcmp(((t_env *)sorted_env->data)->key, UNDERSCORE))
 			{
 				sorted_env = sorted_env->next;
 				continue ;
 			}
-			ft_putstr_fd("declare -x ", 1);
-			ft_putstr_fd(((t_env *)sorted_env->content)->key, 1);
-			ft_putstr_fd("=\"", 1);
-			ft_putstr_fd(((t_env *)sorted_env->content)->value, 1);
-			ft_putstr_fd("\"\n", 1);
+			ft_putstr_export(((t_env *)sorted_env->data)->key, \
+			(((t_env *)sorted_env->data)->value));
 			sorted_env = sorted_env->next;
 		}
 	}

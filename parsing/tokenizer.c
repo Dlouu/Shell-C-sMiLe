@@ -48,7 +48,6 @@ void	split_pipe(t_ms *ms, t_token *lexed_token)
 
 	tk = lexed_token;
 	i = 0;
-	token_splitted = NULL;
 	token_splitted = walloc(sizeof(t_token *) * (ms->pipe_count + 1), FALSE);
 	head = token_splitted;
 	while (tk)

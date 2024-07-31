@@ -23,9 +23,9 @@ int	ft_env(t_ms *ms)
 	temp = ms->env;
 	while (temp)
 	{
-		ft_putstr_fd(((t_env *)temp->content)->key, 1);
+		ft_putstr_fd(((t_env *)temp->data)->key, 1);
 		ft_putstr_fd("=", 1);
-		ft_putendl_fd(((t_env *)temp->content)->value, 1);
+		ft_putendl_fd(((t_env *)temp->data)->value, 1);
 		temp = temp->next;
 	}
 	return (0);
