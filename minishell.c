@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/01 01:55:04 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/01 14:15:39 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,18 +60,24 @@ void	minishell_loop(t_ms *ms, char **envp)
 	}
 }
 
+void	minishell_init(t_ms *ms, char **argv, char **envp)
+{
+	ms->exit_code = 0;
+	ms->blank_after_quote = 0;
+	ms->pipe_count = 0;
+	get_envp(ms, envp);
+	//rl_catch_signals = 0; //only on linux
+	(void)argv;
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_ms	*ms;
 
 	if (argc != 1)
 		return (printf("error : shell-C-smile doesn't take arguments\n"), 1);
-	(void)argv;
 	ms = walloc(sizeof(t_ms), TRUE);
-	ms->exit_code = 0;
-	ms->blank_after_quote = 0;
-	ms->pipe_count = 0;
-	get_envp(ms, envp);
+	minishell_init(ms, argv, envp);
 	minishell_loop(ms, envp);
 	wclear(1);
 	return (0);

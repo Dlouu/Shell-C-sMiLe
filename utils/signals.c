@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 00:12:48 by dlou              #+#    #+#             */
-/*   Updated: 2024/08/01 02:00:22 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/01 14:29:33 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	sigint_handler(int signum)
 	if (signum == SIGINT)
 	{
 		write(STDOUT_FILENO, "^C\n", 3);
-		rl_replace_line("", 0);
+		//rl_replace_line("", 0); //only on linux
 		rl_on_new_line();
 		rl_redisplay();
 		g_signal = 130;
@@ -49,6 +49,12 @@ void	set_signals(int signum, int type, int flags, void (*handler)(int))
 		wclear(1);
 		exit(EXIT_FAILURE);
 	}
+}
+
+void	reset_default_signals(void)
+{
+	set_signals(SIGINT, SIG_DEFAULT, SIG_REST_SIGINFO, NULL);
+	set_signals(SIGQUIT, SIG_DEFAULT, SIG_REST_SIGINFO, NULL);
 }
 
 void	set_interactive_signals(void)
