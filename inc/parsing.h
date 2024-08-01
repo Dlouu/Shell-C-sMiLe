@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:13:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/01 01:39:03 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/01 17:34:29 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ typedef struct s_ms		t_ms;
 
 //parsing
 int		lexer(t_ms *ms, char *prompt);
-void	tokenizer(t_ms *ms, t_token *lexed_token);
+int		tokenizer(t_ms *ms, t_token *lexed_token);
+int		parser(t_ms *ms, t_token *lexed_token);
+void	split_pipe(t_ms *ms, t_token *lexed_token);
 
 //env
 t_list	*get_envp(t_ms *ms, char **envp);

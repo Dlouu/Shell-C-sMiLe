@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 14:03:41 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/25 05:07:49 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/01 17:34:17 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	assign_token_type(t_ms *ms, t_token *tk, int *command)
 		tk->type = FILENAME;
 }
 
-void	tokenizer(t_ms *ms, t_token *lexed_token)
+int	tokenizer(t_ms *ms, t_token *lexed_token)
 {
 	t_token	*tk;
 	int		command;
@@ -134,8 +134,5 @@ void	tokenizer(t_ms *ms, t_token *lexed_token)
 		tk = tk->next;
 	}
 	assign_quote_info(lexed_token);
-	split_pipe(ms, lexed_token);
-	tk_lstprint(ms, ms->token);
-	printf("- - - -\n");
-	(void)ms;
+	return (0);
 }

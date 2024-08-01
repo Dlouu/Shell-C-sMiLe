@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/01 14:15:39 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/01 17:37:51 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,13 @@ void	minishell_loop(t_ms *ms, char **envp)
 		if (!prompt)
 			break ;
 		add_history(prompt);
-		if (empty_prompt(prompt) || !lexer(ms, prompt))
+		if (empty_prompt(prompt) || !lexer(ms, prompt) || \
+		tokenizer(ms, ms->token_lexed) || !parser(ms, ms->token_lexed))
 			continue ;
-		tokenizer(ms, ms->token_lexed);
+		// voir si le int de tokenizer est ok car toujours vrai... :/ a adapter
+		// tokenizer(ms, ms->token_lexed);
+		// if (!parser(ms, ms->token_lexed))
+		// 	continue ;
 		find_builtin(ms, ms->token, envp);
 		free(prompt);
 		wclear(0);
@@ -67,6 +71,10 @@ void	minishell_init(t_ms *ms, char **argv, char **envp)
 	ms->pipe_count = 0;
 	get_envp(ms, envp);
 	//rl_catch_signals = 0; //only on linux
+	ft_putstr_fd("    ___ _        _ _   ___      __  __ _ _\n", 1);
+	ft_putstr_fd("🐚 / __| |_  ___| | | / __|  __|  \\/  (_) |  ___ \n", 1);
+	ft_putstr_fd("👀 \\__ \\ ' \\/ -_) | || (__  (_-< |\\/| | | |_/ -_)\n", 1);
+	ft_putstr_fd("😃 |___/_||_\\___|_|_| \\___| /__/_|  |_|_|___\\___|\n\n", 1);
 	(void)argv;
 }
 
