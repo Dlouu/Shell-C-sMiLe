@@ -6,7 +6,7 @@
 #    By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/06 13:02:03 by mbaumgar          #+#    #+#              #
-#    Updated: 2024/08/01 00:15:39 by mbaumgar         ###   ########.fr        #
+#    Updated: 2024/08/01 15:50:20 by mbaumgar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ MAKE_LIBFT	= ${MAKE} --no-print-directory -C ${LIBFT}
  
 DUCK		= \033[38;2;8;195;187m
 FLUO		= \033[38;2;223;255;0m
-MAUVE		= \033[0;34m
+BLU		= \033[0;34m
 RED			= \033[0;31m
 END			= \033[m
 
@@ -79,11 +79,9 @@ ${LFT}:
 
 ${NAME}: ${LFT} ${OBJ}
 	@${CC} ${CFLAGS} -o ${NAME} ${OBJ} ${LFT} ${LIBS}
-	@echo "${MAUVE}. - . - . - . - . - . - . - .${END}\n"
-	@echo "${DUCK}        S h e l l - C\n          s M i L e${END}\n"
-	@echo "${MAUVE}        f x X K i N g\n          r E a d Y${END}\n"
-	@echo "${DUCK}- . - . - . - . - . - . - . -${END}\n"
-	@echo "${FLUO}Enjoy.${END}"
+	@echo "${BLU}[${END} ${DUCK}Shell-[C]_sMiLe${END} ready! 🐚 • 👀 • 😃 ${BLU}]"
+	@echo "[${END} Launch it with ${FLUO}./minishell${END} command. ${BLU}]"
+	@echo "${END}"
 
 ${OUT_DIR}%.o: %.c
 	@mkdir -p ${@D}
