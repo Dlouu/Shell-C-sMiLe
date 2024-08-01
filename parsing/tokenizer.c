@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 14:03:41 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/01 17:34:17 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/01 18:26:43 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ void	update_index(t_token **tk)
 	}
 }
 
-void	split_pipe(t_ms *ms, t_token *lexed_token)
+void	split_pipe(t_ms *ms)
 {
 	t_token	*tk;
 	t_token	**token_splitted;
 	t_token	**head;
 	int		i;
 
-	tk = lexed_token;
+	tk = ms->token_lexed;
 	i = 0;
 	token_splitted = walloc(sizeof(t_token *) * (ms->pipe_count + 1), FALSE);
 	head = token_splitted;
@@ -111,12 +111,12 @@ void	assign_token_type(t_ms *ms, t_token *tk, int *command)
 		tk->type = FILENAME;
 }
 
-int	tokenizer(t_ms *ms, t_token *lexed_token)
+int	tokenizer(t_ms *ms)
 {
 	t_token	*tk;
 	int		command;
 
-	tk = lexed_token;
+	tk = ms->token_lexed;
 	command = 1;
 	while (tk)
 	{
@@ -133,6 +133,6 @@ int	tokenizer(t_ms *ms, t_token *lexed_token)
 		}
 		tk = tk->next;
 	}
-	assign_quote_info(lexed_token);
+	assign_quote_info(ms->token_lexed);
 	return (0);
 }

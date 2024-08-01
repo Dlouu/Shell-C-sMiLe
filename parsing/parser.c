@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:18:28 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/01 17:28:47 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/01 18:46:55 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,14 @@ int	check_types(t_token *token)
 	return (1);
 }
 
-int	parser(t_ms *ms, t_token *lexed_token)
+int	parser(t_ms *ms, char *prompt)
 {
+	t_token	*lexed_token;
+
+	lexed_token = ms->token_lexed;
 	if (!check_types(lexed_token))
-	{
-		ft_printf("minishell: syntax error\n");
-		ms->exit_code = 2;
-		wclear(0);
-		return (0);
-	}
-	split_pipe(ms, lexed_token);
+		return (error_free_prompt(ms, prompt, "syntax"));
+	split_pipe(ms);
 	tk_lstprint(ms, ms->token);
 	printf("- - - -\n");
 	return (1);

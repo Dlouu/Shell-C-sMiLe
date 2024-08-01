@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:18:23 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/01 17:34:11 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/01 18:42:42 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int	lexer(t_ms *ms, char *prompt)
 	i = -1;
 	token_lst = NULL;
 	if (check_nb_quote(prompt, i) != 0)
-		return (error_quote(ms, prompt));
+		return (error_free_prompt(ms, prompt, "unclosed quote"));
 	i = 0;
 	while (prompt[i])
 	{
