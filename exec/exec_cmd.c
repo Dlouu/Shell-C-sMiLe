@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:54:36 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/25 16:12:45 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/01 20:17:53 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,18 @@ static char	*find_path(char *cmd, char **envp)
 }
 
 //dlou : au fait que veux dire execlp ?
-static void	ft_execlp(t_ms *ms, char *cmd, char **envp)
+//j'ai fait une fonction qui recree les env en tableau à partir de la
+//liste chainée, je l'ai mis dans utils.c, je l'ai changé sur cette fonction 
+//et du coup tu ne te bases plus sur celle du debut mais celle modifiée
+//j'ai fait le truc !path et command not found
+static void	ft_execlp(t_ms *ms, char *cmd)
 {
 	char	*path;
 	char	**tab;
+	char	**envp;
 
 	tab = ft_split(cmd, ' ', FALSE);
+	envp = env_lst_to_tab(ms);
 	path = find_path(tab[0], envp);
 	if (!path)
 	{
@@ -74,7 +80,7 @@ static void	ft_execlp(t_ms *ms, char *cmd, char **envp)
 
 //dlou : ATTENTION FAUT UTILISER STRCMP ET PAS STRNCMP car si on a un echo2
 // ou echonyayayay ça va faire echo j'ai add strcmp dans la lib et changé ici
-void	find_builtin(t_ms *ms, t_token **token, char **envp)
+void	find_builtin(t_ms *ms, t_token **token)
 {
 	ms->path = find_env_value(ms->env, "PATH");
 	if (ft_strcmp((*token)->content, "cd") == 0)
@@ -92,7 +98,7 @@ void	find_builtin(t_ms *ms, t_token **token, char **envp)
 	else if (ft_strcmp((*token)->content, "exit") == 0)
 		ft_exit(ms);
 	else
-		ft_execlp(ms, (*token)->content, envp);
+		ft_execlp(ms, (*token)->content);
 }
 
 /* notes :

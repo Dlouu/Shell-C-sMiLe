@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:59 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/25 05:30:07 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/01 19:41:02 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "minishell.h"
 
 //exec_cmd.c
-void	find_builtin(t_ms *ms, t_token **token, char **envp);
+void	find_builtin(t_ms *ms, t_token **token);
 
 //ft_cd
 int		ft_cd(t_ms *ms);

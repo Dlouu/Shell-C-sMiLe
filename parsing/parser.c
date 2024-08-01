@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:18:28 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/01 18:46:55 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/01 19:34:52 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	check_types(t_token *token)
 	{
 		if (tk->type == PIPE)
 		{
-			if (!tk->next || (tk->next && tk->next->type == PIPE))
+			if (!tk->prev || !tk->next || (tk->next && tk->next->type == PIPE))
 				return (0);
 		}
 		else if (tk->type == REDIR_LEFT || tk->type == REDIR_DOUBLE_LEFT || \

@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/01 18:32:43 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/01 20:05:59 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	empty_prompt(char *prompt)
 	return (1);
 }
 
-void	minishell_loop(t_ms *ms, char **envp)
+int	minishell_loop(t_ms *ms)
 {
 	char	*prompt;
 
@@ -54,10 +54,11 @@ void	minishell_loop(t_ms *ms, char **envp)
 		if (empty_prompt(prompt) || !lexer(ms, prompt) || tokenizer(ms) \
 		|| !parser(ms, prompt))
 			continue ;
-		find_builtin(ms, ms->token, envp);
+		find_builtin(ms, ms->token);
 		free(prompt);
 		wclear(0);
 	}
+	return (ms->exit_code);
 }
 
 void	minishell_init(t_ms *ms, char **argv, char **envp)
@@ -70,7 +71,8 @@ void	minishell_init(t_ms *ms, char **argv, char **envp)
 	ft_putstr_fd("    ___ _        _ _   ___      __  __ _ _\n", 1);
 	ft_putstr_fd("🐚 / __| |_  ___| | | / __|  __|  \\/  (_) |  ___ \n", 1);
 	ft_putstr_fd("👀 \\__ \\ ' \\/ -_) | || (__  (_-< |\\/| | | |_/ -_)\n", 1);
-	ft_putstr_fd("😃 |___/_||_\\___|_|_| \\___| /__/_|  |_|_|___\\___|\n\n", 1);
+	ft_putstr_fd("😃 |___/_||_\\___|_|_| \\___| /__/_|  |_|_|___\\___|\n", 1);
+	ft_putstr_fd("                          by niabraha & mbaumgar\n", 1);
 	(void)argv;
 }
 
@@ -82,7 +84,7 @@ int	main(int argc, char **argv, char **envp)
 		return (printf("error : shell-C-smile doesn't take arguments\n"), 1);
 	ms = walloc(sizeof(t_ms), TRUE);
 	minishell_init(ms, argv, envp);
-	minishell_loop(ms, envp);
+	minishell_loop(ms);
 	wclear(1);
 	return (0);
 }
