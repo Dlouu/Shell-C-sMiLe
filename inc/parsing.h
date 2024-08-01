@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:13:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/25 05:32:10 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/01 01:39:03 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,6 @@ void	tk_lstprint(t_ms *ms, t_token **tk_lst);
 //utils
 int		error_quote(t_ms *ms, char *prompt);
 int		find_index(char *str, char c);
+void	set_interactive_signals(void);
 
 #endif

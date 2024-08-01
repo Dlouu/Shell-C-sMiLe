@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:02:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/25 05:28:24 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/01 01:43:53 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,12 @@
 # include <stdio.h>
 # include <limits.h>
 # include <errno.h>
+# include <signal.h>
 # include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+
+extern int	g_signal;
 
 //0 COMMAND			1 BUILTIN		2 ARG
 //3 REDIR_LEFT		4 REDIR_RIGHT
@@ -85,13 +88,16 @@ typedef struct s_ms
 # define MAUVE "\033[0;34m"
 # define END "\033[m"
 
+# define SIG_REST_SIGINFO 0
+# define SIG_DEFAULT 1
+# define SIG_IGNORE 2
+# define SIG_INTERACTIVE 3
+
 # define SQUOTE 1
 # define DQUOTE 2
 
 # define RCHEVRON 1
 # define LCHEVRON 2
-
-# define ERR_QUOTE 1
 
 # define UNDERSCORE "_"
 
