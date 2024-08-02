@@ -6,13 +6,13 @@
 /*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:06:12 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/02 02:08:20 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/02 10:50:30 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	expand_var(t_ms *ms, t_token *tk)
+void	expand_var_and_split(t_ms *ms, t_token *tk)
 {
 	(void)tk;
 	(void)ms;
@@ -81,9 +81,22 @@ void	expander(t_ms *ms)
 				else if (tk->dquote == 1)
 					expand_var_dquoted(ms, tk);
 				else
-					expand_var(ms, tk);
+					expand_var_and_split(ms, tk);
 			}
+			else if (tk->content[i] == '\\' && tk->content[i + 1] == '$')
+				i++;
+			else if (tk->content[i] == '=' && !tk->content[i + 1])
+				printf("recombiner l'argument et continuer de check les var\n");
+			else if (tk->dquote == 1 && tk->blank_after_quote == 0)
+				printf("recombiner l'argument et skip a la prochaine node ?\n");
 		}
 		tk = tk->next;
 	}
 }
+
+//recoller quand y'a un ='' ou =""
+//recoller quand dquote et !blank_after_quote
+//dans expander, split la fonction en 3 :
+//faire une fonction pour gerer les $
+//une pour les =
+//une pour les dquotes!blank
