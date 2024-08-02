@@ -6,18 +6,58 @@
 /*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:06:12 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/02 18:10:11 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/03 01:35:32 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	expand_var(t_ms *ms, t_token *tk)
+char	*get_var(char *var)
 {
-	(void)tk;
-	(void)ms;
-	printf("si var trouvé, faut mettre le env ici\n");
-	printf("on resplit si nécessaire\n");
+	int		i;
+	char	*key;
+
+	i = 1;
+	while (var[i] && var[i] != '$' && !ft_issplitable(var[i]))
+		i++;
+	key = ft_substr(var, 1, i - 1, FALSE);
+	return (key);
+}
+
+void	delete_var_name(char *key, t_token *tk, int *i)
+{
+	char	*left;
+	char	*right;
+	size_t	len;
+
+	len = ft_strlen(tk->content) - *i - ft_strlen(key) - 1;
+	left = ft_substr(tk->content, 0, *i, FALSE);
+	right = ft_substr(tk->content, *i + ft_strlen(key) + 1, len, FALSE);
+	tk->content = ft_strjoin(left, right, FALSE);
+	*i += ft_strlen(key) - 1;
+}
+
+void	expand_var(t_ms *ms, t_token *tk, int *i)
+{
+	char	*key;
+	char	*left;
+	char	*right;
+	char	*value;
+	size_t	len;
+
+	key = get_var(tk->content + *i);
+	if (find_env_node(ms->env, key))
+	{
+		value = find_env_value(ms->env, key);
+		len = 50;
+		left = ft_substr(tk->content, 0, *i, FALSE);
+		right = ft_substr(tk->content, *i + ft_strlen(key) + 1, len, FALSE);
+		tk->content = ft_strjoin(left, value, FALSE);
+		tk->content = ft_strjoin(tk->content, right, FALSE);
+		*i += ft_strlen(value) - 1;
+	}
+	else
+		delete_var_name(key, tk, i);
 }
 
 void	expand_var_dquoted(t_ms *ms, t_token *tk)
@@ -44,41 +84,36 @@ void	expand_exit_code(t_ms *ms, t_token *tk, int *i)
 	char	*exit_code;
 	char	*left;
 	char	*right;
-	char	*temp;
 	size_t	len;
 
-	temp = tk->content;
 	len = ft_strlen(tk->content) - *i - 2;
 	left = ft_substr(tk->content, 0, *i, FALSE);
 	exit_code = ft_itoa(ms->exit_code, FALSE);
 	right = ft_substr(tk->content, *i + 2, len, FALSE);
-	tk->content = ft_free_strjoin(left, exit_code, FALSE);
+	tk->content = ft_strjoin(left, exit_code, FALSE);
 	tk->content = ft_strjoin(tk->content, right, FALSE);
-	wfree(temp);
-	wfree(right);
-	*i += ft_strlen(exit_code) - 1;
+	*i += ft_strlen(exit_code) - 2;
 }
 
 void	expander(t_ms *ms, t_token *tk, int i)
 {
 	while (tk)
 	{
-		i = -1;
-		while (tk->content[++i])
+		i = 0;
+		while (tk->content[i])
 		{
 			if (tk->content[i] == '$' && tk->squote == 0)
 			{
-				if (tk->content[i + 1] == '?')
-					expand_exit_code(ms, tk, &i);
-				else if (!tk->content[i + 1])
+				if (!tk->content[i + 1])
 					break ;
+				else if (tk->content[i + 1] == '?')
+					expand_exit_code(ms, tk, &i);
 				else if (tk->content[i + 1] == '$')
 					expand_pid_number(ms, tk);
-				else if (tk->dquote == 1)
-					expand_var_dquoted(ms, tk);
 				else
-					expand_var(ms, tk);
+					expand_var(ms, tk, &i);
 			}
+			i++;
 		}
 		tk = tk->next;
 	}

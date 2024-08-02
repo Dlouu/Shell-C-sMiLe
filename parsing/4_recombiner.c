@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 11:48:01 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/02 18:54:30 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/03 01:38:46 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	recombiner(t_ms *ms, t_token **tk)
 {
 	(void)ms;
 	(void)tk;
-	//word_splitter(ms, tk);
+	//word_splitter(ms, tk); if !quoted !dquoted
 }
 
 //faut que ""echo"" soit un seul token, coller et reassigner cmd
