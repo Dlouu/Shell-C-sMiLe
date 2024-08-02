@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:06:12 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/02 10:50:30 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/02 11:45:57 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,8 @@ void	expand_exit_code(t_ms *ms, t_token *tk, int *i)
 	*i += ft_strlen(exit_code) - 1;
 }
 
-void	expander(t_ms *ms)
+void	expander(t_ms *ms, t_token *tk, int i)
 {
-	t_token	*tk;
-	int		i;
-
-	tk = ms->token_lexed;
 	while (tk)
 	{
 		i = -1;
@@ -83,16 +79,19 @@ void	expander(t_ms *ms)
 				else
 					expand_var_and_split(ms, tk);
 			}
-			else if (tk->content[i] == '\\' && tk->content[i + 1] == '$')
-				i++;
-			else if (tk->content[i] == '=' && !tk->content[i + 1])
-				printf("recombiner l'argument et continuer de check les var\n");
-			else if (tk->dquote == 1 && tk->blank_after_quote == 0)
-				printf("recombiner l'argument et skip a la prochaine node ?\n");
 		}
 		tk = tk->next;
 	}
 }
+
+/*
+else if (tk->content[i] == '\\' && tk->content[i + 1] == '$')
+	i++;
+else if (tk->content[i] == '=' && !tk->content[i + 1])
+	printf("recombiner l'argument et continuer de check les var\n");
+else if (tk->dquote == 1 && tk->blank_after_quote == 0)
+	printf("recombiner l'argument et skip a la prochaine node ?\n");
+*/
 
 //recoller quand y'a un ='' ou =""
 //recoller quand dquote et !blank_after_quote

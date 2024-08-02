@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 01:23:55 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/01 19:38:12 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/02 12:05:41 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,6 @@ char	**env_lst_to_tab(t_ms *ms)
 	return (envp);
 }
 
-int	error_free_prompt(t_ms *ms, char *prompt, char *error)
-{
-	ms->exit_code = 2;
-	ft_putstr_fd("shell-C-smile: ", STDERR_FILENO);
-	ft_putstr_fd(error, STDERR_FILENO);
-	ft_putendl_fd(" error", STDERR_FILENO);
-	wclear(0);
-	free(prompt);
-	return (0);
-}
-
 int	find_index(char *str, char c)
 {
 	int	i;
@@ -57,4 +46,31 @@ int	find_index(char *str, char c)
 	while (str[i] && str[i] != c)
 		i++;
 	return (i);
+}
+
+void	update_index(t_token **tk)
+{
+	t_token	*temp;
+	int		index;
+
+	index = 0;
+	while ((*tk)->next && (*tk)->next->type != PIPE)
+	{
+		(*tk)->index = index;
+		index++;
+		*tk = (*tk)->next;
+	}
+	if ((*tk)->next && (*tk)->next->type == PIPE)
+	{
+		temp = (*tk)->next;
+		(*tk)->next = NULL;
+		(*tk)->index = index;
+		*tk = temp->next;
+		(*tk)->prev = NULL;
+	}
+	else
+	{
+		(*tk)->index = index;
+		*tk = (*tk)->next;
+	}
 }

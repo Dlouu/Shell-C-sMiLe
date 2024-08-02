@@ -6,7 +6,7 @@
 #    By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/06 13:02:03 by mbaumgar          #+#    #+#              #
-#    Updated: 2024/08/01 15:50:20 by mbaumgar         ###   ########.fr        #
+#    Updated: 2024/08/02 12:16:23 by mbaumgar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ MAKE_LIBFT	= ${MAKE} --no-print-directory -C ${LIBFT}
  
 DUCK		= \033[38;2;8;195;187m
 FLUO		= \033[38;2;223;255;0m
-BLU		= \033[0;34m
+BLU			= \033[0;34m
 RED			= \033[0;31m
 END			= \033[m
 
@@ -47,10 +47,11 @@ SRC_DIR		= ./src/
 OUT_DIR		= ./bin/
 
 SRC			= minishell.c \
-			parsing/parser.c \
-			parsing/lexer.c \
-			parsing/tokenizer.c \
-			parsing/expander.c \
+			parsing/1_lexer.c \
+			parsing/2_tokenizer.c \
+			parsing/3_expander.c \
+			parsing/4_recombiner.c \
+			parsing/5_parser.c \
 			builtin/cd.c \
 			builtin/echo.c \
 			builtin/env.c \
@@ -60,6 +61,7 @@ SRC			= minishell.c \
 			builtin/pwd.c \
 			builtin/unset.c \
 			exec/exec_cmd.c \
+			utils/error.c \
 			utils/execution.c \
 			utils/token_lst.c \
 			utils/envp.c \

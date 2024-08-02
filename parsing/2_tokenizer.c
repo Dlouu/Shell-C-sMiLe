@@ -6,58 +6,11 @@
 /*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 14:03:41 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/01 21:37:32 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/02 12:01:10 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-void	update_index(t_token **tk)
-{
-	t_token	*temp;
-	int		index;
-
-	index = 0;
-	while ((*tk)->next && (*tk)->next->type != PIPE)
-	{
-		(*tk)->index = index;
-		index++;
-		*tk = (*tk)->next;
-	}
-	if ((*tk)->next && (*tk)->next->type == PIPE)
-	{
-		temp = (*tk)->next;
-		(*tk)->next = NULL;
-		(*tk)->index = index;
-		*tk = temp->next;
-		(*tk)->prev = NULL;
-	}
-	else
-	{
-		(*tk)->index = index;
-		*tk = (*tk)->next;
-	}
-}
-
-void	split_pipe(t_ms *ms)
-{
-	t_token	*tk;
-	t_token	**token_splitted;
-	t_token	**head;
-	int		i;
-
-	tk = ms->token_lexed;
-	i = 0;
-	token_splitted = walloc(sizeof(t_token *) * (ms->pipe_count + 1), FALSE);
-	head = token_splitted;
-	while (tk)
-	{
-		token_splitted[i] = tk;
-		update_index(&tk);
-		i++;
-	}
-	ms->token = head;
-}
 
 void	assign_quote_info(t_token *tk)
 {
@@ -119,7 +72,8 @@ int	tokenizer(t_ms *ms)
 	tk = ms->token_lexed;
 	command = 1;
 	assign_quote_info(ms->token_lexed);
-	expander(ms);
+	expander(ms, ms->token_lexed, 0);
+	recombiner(ms, &ms->token_lexed);
 	while (tk)
 	{
 		assign_token_type(ms, tk, &command);

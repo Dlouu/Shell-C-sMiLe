@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:13:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/01 21:37:08 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/02 12:00:34 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ typedef struct s_ms		t_ms;
 //parsing
 int		lexer(t_ms *ms, char *prompt);
 int		tokenizer(t_ms *ms);
+void	expander(t_ms *ms, t_token *tk, int i);
+void	recombiner(t_ms *ms, t_token **tk);
 int		parser(t_ms *ms, char *prompt);
-void	expander(t_ms *ms);
-void	split_pipe(t_ms *ms);
 
 //env
 char	**env_lst_to_tab(t_ms *ms);
@@ -44,7 +44,8 @@ void	tk_lstprint(t_ms *ms, t_token **tk_lst);
 
 //utils
 int		error_free_prompt(t_ms *ms, char *prompt, char *error);
-int		find_index(char *str, char c);
 void	set_interactive_signals(void);
+int		find_index(char *str, char c);
+void	update_index(t_token **tk);
 
 #endif

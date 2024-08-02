@@ -6,11 +6,31 @@
 /*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:18:28 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/01 19:34:52 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/02 12:02:35 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void	pipe_splitter(t_ms *ms)
+{
+	t_token	*tk;
+	t_token	**token_splitted;
+	t_token	**head;
+	int		i;
+
+	tk = ms->token_lexed;
+	i = 0;
+	token_splitted = walloc(sizeof(t_token *) * (ms->pipe_count + 1), FALSE);
+	head = token_splitted;
+	while (tk)
+	{
+		token_splitted[i] = tk;
+		update_index(&tk);
+		i++;
+	}
+	ms->token = head;
+}
 
 int	check_types(t_token *token)
 {
@@ -42,7 +62,8 @@ int	parser(t_ms *ms, char *prompt)
 	lexed_token = ms->token_lexed;
 	if (!check_types(lexed_token))
 		return (error_free_prompt(ms, prompt, "syntax"));
-	split_pipe(ms);
+	//sort_token(ms, &lexed_token);
+	pipe_splitter(ms);
 	tk_lstprint(ms, ms->token);
 	printf("- - - -\n");
 	return (1);
