@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   1_lexer.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:18:23 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/01 21:33:29 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/02 23:58:53 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,11 @@ int	check_nb_quote(char *prompt, int i)
 
 int	check_quotes(t_ms *ms, char *prompt, int *i)
 {
+	printf("%s\n", prompt);
 	if (ft_isquote(prompt[*i]) == SQUOTE)
 	{
+		if (prompt[(*i) - 1] && ft_issplitable(prompt[(*i) - 1]) == 1)
+			ms->blank_before_quote = 1;
 		(*i)++;
 		while (prompt[*i] && (ft_isquote(prompt[*i]) != SQUOTE))
 			(*i)++;
@@ -54,6 +57,8 @@ int	check_quotes(t_ms *ms, char *prompt, int *i)
 	}
 	else if (ft_isquote(prompt[*i]) == DQUOTE)
 	{
+		if (prompt[(*i) - 1] && ft_issplitable(prompt[(*i) - 1]) == 1)
+			ms->blank_before_quote = 1;
 		(*i)++;
 		while (prompt[*i] && (ft_isquote(prompt[*i]) != DQUOTE))
 			(*i)++;
@@ -102,16 +107,14 @@ int	node_size(t_ms *ms, char *prompt, int i, int *start)
 	return (i);
 }
 
-int	lexer(t_ms *ms, char *prompt)
+int	lexer(t_ms *ms, char *prompt, t_token *token_lst)
 {
-	t_token	*token_lst;
 	t_token	*new;
 	char	*content;
 	int		i;
 	int		start;
 
 	i = -1;
-	token_lst = NULL;
 	if (check_nb_quote(prompt, i) != 0)
 		return (error_free_prompt(ms, prompt, "unclosed quote"));
 	i = 0;
@@ -122,7 +125,9 @@ int	lexer(t_ms *ms, char *prompt)
 			break ;
 		content = ft_substr(prompt, start, i - start, FALSE);
 		new = tk_lstnew(content);
+		new->blank_before_quote = ms->blank_before_quote;
 		new->blank_after_quote = ms->blank_after_quote;
+		ms->blank_before_quote = 0;
 		ms->blank_after_quote = 0;
 		tk_lstadd(&token_lst, new);
 	}

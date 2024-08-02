@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/02 11:57:32 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/02 18:28:37 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	empty_prompt(char *prompt)
 void	minishell_init(t_ms *ms, char **argv, char **envp)
 {
 	ms->exit_code = 0;
+	ms->blank_before_quote = 0;
 	ms->blank_after_quote = 0;
 	ms->pipe_count = 0;
 	get_envp(ms, envp);
@@ -67,7 +68,7 @@ int	minishell_loop(t_ms *ms)
 		if (!prompt)
 			break ;
 		add_history(prompt);
-		if (empty_prompt(prompt) || !lexer(ms, prompt) || tokenizer(ms) \
+		if (empty_prompt(prompt) || !lexer(ms, prompt, NULL) || tokenizer(ms) \
 		|| !parser(ms, prompt))
 			continue ;
 		find_builtin(ms, ms->token);

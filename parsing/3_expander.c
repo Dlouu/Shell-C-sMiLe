@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expander.c                                         :+:      :+:    :+:   */
+/*   3_expander.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:06:12 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/02 11:45:57 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/02 18:10:11 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	expand_var_and_split(t_ms *ms, t_token *tk)
+void	expand_var(t_ms *ms, t_token *tk)
 {
 	(void)tk;
 	(void)ms;
@@ -77,7 +77,7 @@ void	expander(t_ms *ms, t_token *tk, int i)
 				else if (tk->dquote == 1)
 					expand_var_dquoted(ms, tk);
 				else
-					expand_var_and_split(ms, tk);
+					expand_var(ms, tk);
 			}
 		}
 		tk = tk->next;

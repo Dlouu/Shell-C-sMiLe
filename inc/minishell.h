@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:02:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/01 01:43:53 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/02 18:29:29 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_token
 	int				type;
 	int				index;
 	int				builtin;
+	int				blank_before_quote;
 	int				blank_after_quote;
 	int				squote;
 	int				dquote;
@@ -80,6 +81,7 @@ typedef struct s_ms
 	char			*path;
 	struct s_token	**token;
 	struct s_token	*token_lexed;
+	int				blank_before_quote;
 	int				blank_after_quote;
 	int				pipe_count;
 	int				exit_code;

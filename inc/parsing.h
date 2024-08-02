@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:13:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/02 12:00:34 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/02 18:26:47 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ typedef struct s_env	t_env;
 typedef struct s_ms		t_ms;
 
 //parsing
-int		lexer(t_ms *ms, char *prompt);
+int		lexer(t_ms *ms, char *prompt, t_token *token_lst);
 int		tokenizer(t_ms *ms);
 void	expander(t_ms *ms, t_token *tk, int i);
 void	recombiner(t_ms *ms, t_token **tk);
