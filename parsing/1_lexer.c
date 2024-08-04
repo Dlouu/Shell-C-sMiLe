@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:18:23 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/02 23:58:53 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/04 14:57:46 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int	check_nb_quote(char *prompt, int i)
 
 int	check_quotes(t_ms *ms, char *prompt, int *i)
 {
-	printf("%s\n", prompt);
 	if (ft_isquote(prompt[*i]) == SQUOTE)
 	{
 		if (prompt[(*i) - 1] && ft_issplitable(prompt[(*i) - 1]) == 1)

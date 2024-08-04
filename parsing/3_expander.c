@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:06:12 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/03 01:35:32 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/04 14:54:10 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ void	expand_var(t_ms *ms, t_token *tk, int *i)
 	key = get_var(tk->content + *i);
 	if (find_env_node(ms->env, key))
 	{
-		value = find_env_value(ms->env, key);
 		len = 50;
 		left = ft_substr(tk->content, 0, *i, FALSE);
+		value = find_env_value(ms->env, key);
 		right = ft_substr(tk->content, *i + ft_strlen(key) + 1, len, FALSE);
 		tk->content = ft_strjoin(left, value, FALSE);
 		tk->content = ft_strjoin(tk->content, right, FALSE);
@@ -60,23 +60,20 @@ void	expand_var(t_ms *ms, t_token *tk, int *i)
 		delete_var_name(key, tk, i);
 }
 
-void	expand_var_dquoted(t_ms *ms, t_token *tk)
+void	expand_pid_number(t_token *tk, int *i)
 {
-	(void)tk;
-	(void)ms;
-	printf("si var trouvé, faut mettre le env ici\n");
-	printf("mais on resplit pas\n");
-}
+	char	*pid;
+	char	*left;
+	char	*right;
+	size_t	len;
 
-//fautdra break par bloc de $$
-//$$$ = pid + $
-//$$ = pid
-//$$$$ = pid + pid
-void	expand_pid_number(t_ms *ms, t_token *tk)
-{
-	(void)tk;
-	(void)ms;
-	printf("$$ trouvé, faut mettre le pid ici\n");
+	len = ft_strlen(tk->content) - *i - 2;
+	left = ft_substr(tk->content, 0, *i, FALSE);
+	pid = ft_itoa(getpid(), FALSE);
+	right = ft_substr(tk->content, *i + 1, len, FALSE);
+	tk->content = ft_strjoin(left, pid, FALSE);
+	tk->content = ft_strjoin(tk->content, right, FALSE);
+	*i += ft_strlen(pid) - 2;
 }
 
 void	expand_exit_code(t_ms *ms, t_token *tk, int *i)
@@ -109,7 +106,7 @@ void	expander(t_ms *ms, t_token *tk, int i)
 				else if (tk->content[i + 1] == '?')
 					expand_exit_code(ms, tk, &i);
 				else if (tk->content[i + 1] == '$')
-					expand_pid_number(ms, tk);
+					expand_pid_number(tk, &i);
 				else
 					expand_var(ms, tk, &i);
 			}
