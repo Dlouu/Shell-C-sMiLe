@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 01:23:55 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/02 12:05:41 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/05 17:40:25 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+char	*get_var(char *var)
+{
+	int		i;
+	char	*key;
+
+	i = 1;
+	while (var[i] && var[i] != '$' && !ft_issplitable(var[i]))
+		i++;
+	key = ft_substr(var, 1, i - 1, FALSE);
+	return (key);
+}
 
 char	**env_lst_to_tab(t_ms *ms)
 {
@@ -45,6 +57,8 @@ int	find_index(char *str, char c)
 	i = 0;
 	while (str[i] && str[i] != c)
 		i++;
+	if (str[i] == '\0')
+		return (-1);
 	return (i);
 }
 

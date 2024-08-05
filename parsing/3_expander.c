@@ -3,26 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   3_expander.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:06:12 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/04 14:54:10 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/05 17:40:34 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-char	*get_var(char *var)
-{
-	int		i;
-	char	*key;
-
-	i = 1;
-	while (var[i] && var[i] != '$' && !ft_issplitable(var[i]))
-		i++;
-	key = ft_substr(var, 1, i - 1, FALSE);
-	return (key);
-}
 
 void	delete_var_name(char *key, t_token *tk, int *i)
 {
@@ -115,19 +103,3 @@ void	expander(t_ms *ms, t_token *tk, int i)
 		tk = tk->next;
 	}
 }
-
-/*
-else if (tk->content[i] == '\\' && tk->content[i + 1] == '$')
-	i++;
-else if (tk->content[i] == '=' && !tk->content[i + 1])
-	printf("recombiner l'argument et continuer de check les var\n");
-else if (tk->dquote == 1 && tk->blank_after_quote == 0)
-	printf("recombiner l'argument et skip a la prochaine node ?\n");
-*/
-
-//recoller quand y'a un ='' ou =""
-//recoller quand dquote et !blank_after_quote
-//dans expander, split la fonction en 3 :
-//faire une fonction pour gerer les $
-//une pour les =
-//une pour les dquotes!blank

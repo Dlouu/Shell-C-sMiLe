@@ -1,16 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   5_parser.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:18:28 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/02 12:02:35 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/05 17:37:27 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void	sort_token(t_ms *ms, t_token **lexed_token)
+{
+	(void)ms;
+	(void)lexed_token;
+}
 
 void	pipe_splitter(t_ms *ms)
 {
@@ -62,7 +68,7 @@ int	parser(t_ms *ms, char *prompt)
 	lexed_token = ms->token_lexed;
 	if (!check_types(lexed_token))
 		return (error_free_prompt(ms, prompt, "syntax"));
-	//sort_token(ms, &lexed_token);
+	sort_token(ms, &lexed_token);
 	pipe_splitter(ms);
 	tk_lstprint(ms, ms->token);
 	printf("- - - -\n");

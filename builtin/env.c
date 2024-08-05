@@ -3,17 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:09 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/23 02:27:37 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/05 17:24:15 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-arreter d'utiliser les structures de test
-utiliser t_ms pour chopper env
-*/
 #include "../inc/minishell.h"
 
 int	ft_env(t_ms *ms)
@@ -23,9 +19,12 @@ int	ft_env(t_ms *ms)
 	temp = ms->env;
 	while (temp)
 	{
-		ft_putstr_fd(((t_env *)temp->data)->key, 1);
-		ft_putstr_fd("=", 1);
-		ft_putendl_fd(((t_env *)temp->data)->value, 1);
+		if (((t_env *)temp->data)->value[0] != 26)
+		{
+			ft_putstr_fd(((t_env *)temp->data)->key, 1);
+			ft_putstr_fd("=", 1);
+			ft_putendl_fd(((t_env *)temp->data)->value, 1);
+		}
 		temp = temp->next;
 	}
 	return (0);

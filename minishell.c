@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/02 18:28:37 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/05 17:35:36 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,29 @@
 
 int	g_signal = 0;
 
-//split ok 
-//lexer(token) ok
-//parser (virer double pipe, redir vide, etc) now
-//bonne liste dans l'ordre
-//expander (variable et quotes) 
-//$t = trim - '$t' ???? - "$t" expand value
-//retoken et builtin
-//nils
-//prompt = readline(MAUVE"<Shell-C_sMiLe> "END"$ ");
-//check si a=b c=d echo $a $c mettre le type en arg
-//VAR_ENV VAR_EXPORT
+/*
+TRUCS A CHECK
+[_]	path si on en trouve pas au lancement, faut qu'on en assign un genre de base
+	genre /bin/bash ?
+[_]	si on unset USER est-ce que ca marche ?
+[_] si on unset PATH il faut que ca ne marche pas mais no segfault
+- - - - - - -
+PARSING
+[x]	lexer (creation de la liste)
+[x]	tokenizer (assigner les types)
+[x]	expander (expand les variables)
+[_]	recombiner (recoller les nodes "" et '' accolées)
+[_]	word_splitter (split les tokens "" expand)
+[_] token_sorter (sort les tokens dans l'ordre d'execution)
+[x] parsing
+- - - - - - -
+EXECUTION
+[~]	builtin reste exit, cd et unset
+[_]	fork
+[_]	pipe
+[_]	redirections > >> < <<
+[_]	waitpid cat | cat | ls
+*/
 
 int	empty_prompt(char *prompt)
 {
@@ -40,6 +52,9 @@ int	empty_prompt(char *prompt)
 	return (1);
 }
 
+// si t'arrives pas a compiler sur ton mac,
+// mets rl_catch_signals = 0; en commentaire ligne 65
+// et egalement dans le fichier utils/signal.c ligne 22
 void	minishell_init(t_ms *ms, char **argv, char **envp)
 {
 	ms->exit_code = 0;
@@ -47,7 +62,7 @@ void	minishell_init(t_ms *ms, char **argv, char **envp)
 	ms->blank_after_quote = 0;
 	ms->pipe_count = 0;
 	get_envp(ms, envp);
-	//rl_catch_signals = 0; //only on linux
+	rl_catch_signals = 0;
 	ft_putstr_fd("42 project | minishell | as beautiful as a shell~\n", 1);
 	ft_putstr_fd("    ___ _        _ _   ___      __  __ _ _\n", 1);
 	ft_putstr_fd("🐚 / __| |_  ___| | | / __|  __|  \\/  (_) |  ___\n", 1);

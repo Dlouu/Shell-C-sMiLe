@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
+/*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:15 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/25 16:11:55 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/05 17:06:40 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,15 @@ t_list	*ft_lstdup(t_list *lst)
 		tmp = ft_lstnew(ft_strdup(lst->data, FALSE), FALSE);
 		env = walloc(sizeof(t_env), FALSE);
 		tmp->data = env;
-		((t_env *)tmp->data)->key = ft_strdup(((t_env *)lst->data)->key, \
-		FALSE);
-		((t_env *)tmp->data)->value = \
-		ft_strdup(((t_env *)lst->data)->value, FALSE);
 		if (!tmp)
 		{
 			ft_lstclear(&head, wfree);
 			return (NULL);
 		}
+		((t_env *)tmp->data)->key = \
+		ft_strdup(((t_env *)lst->data)->key, FALSE);
+		((t_env *)tmp->data)->value = \
+		ft_strdup(((t_env *)lst->data)->value, FALSE);
 		ft_lstadd_back(&head, tmp);
 		lst = lst->next;
 		tmp = tmp->next;
@@ -93,12 +93,11 @@ void	ft_putstr_export(char *key, char *value)
 {
 	ft_putstr_fd("declare -x ", 1);
 	ft_putstr_fd(key, 1);
-	if (value)
+	if (value[0] != 26)
 	{
 		ft_putstr_fd("=\"", 1);
 		ft_putstr_fd(value, 1);
-		ft_putstr_fd("\"\n", 1);
+		ft_putstr_fd("\"", 1);
 	}
-	else
-		ft_putstr_fd("\n", 1);
+	ft_putstr_fd("\n", 1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:13:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/02 18:26:47 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/05 17:40:21 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ int		error_free_prompt(t_ms *ms, char *prompt, char *error);
 void	set_interactive_signals(void);
 int		find_index(char *str, char c);
 void	update_index(t_token **tk);
+char	*get_var(char *var);
 
 #endif
