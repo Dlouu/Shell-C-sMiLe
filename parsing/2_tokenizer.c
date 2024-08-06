@@ -6,28 +6,34 @@
 /*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 14:03:41 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/06 15:19:07 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/06 17:05:30 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	assign_command_type(t_token *tk, int *command)
+void	assign_command_type(t_token *tk, int *command, int i)
 {
+	static char	*builtin_cmd[] = \
+			{"cd", "echo", "env", "exit", "export", "pwd", "unset", NULL};
+
 	while (tk)
 	{
 		if (tk->type == ARG && *command == 1)
 		{
-			tk->type = COMMAND;
+			i = -1;
+			while (builtin_cmd[++i])
+			{
+				if (tk->content && ft_strcmp(tk->content, builtin_cmd[i]) == 0)
+				{
+					tk->type = BUILTIN;
+					tk->builtin = 1;
+					break ;
+				}
+			}
+			if (tk->type != BUILTIN)
+				tk->type = COMMAND;
 			*command = 0;
-			// if (is_builtin(tk->content))
-			// {
-			// 	tk->type = BUILTIN;
-			// 	tk->builtin = 1;
-			// }
-			// else
-			// 	tk->type = COMMAND;
-			// *command = 0;
 		}
 		else if (tk->type == PIPE)
 			*command = 1;
@@ -103,6 +109,6 @@ int	tokenizer(t_ms *ms)
 		assign_token_type(ms, tk);
 		tk = tk->next;
 	}
-	assign_command_type(ms->token_lexed, &command);
+	assign_command_type(ms->token_lexed, &command, 0);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   5_parser.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:18:28 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/05 17:37:27 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/06 17:38:45 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,5 @@ int	parser(t_ms *ms, char *prompt)
 	sort_token(ms, &lexed_token);
 	pipe_splitter(ms);
 	tk_lstprint(ms, ms->token);
-	printf("- - - -\n");
 	return (1);
 }

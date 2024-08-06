@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:13:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/05 17:40:21 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/06 17:13:36 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,10 @@ int		env_node_exist(t_list *env, char *key);
 //token lst_utils
 t_token	*tk_lstnew(char *content);
 void	tk_lstadd(t_token **tk_lst, t_token *new);
+void	tk_lstadd_here(t_token **tk_lst, t_token *here, t_token *new);
 void	tk_lstclear(t_token **tk_lst);
 void	tk_lstprint(t_ms *ms, t_token **tk_lst);
+void	tk_lstprint_type(t_token *tk);
 
 //utils
 int		error_free_prompt(t_ms *ms, char *prompt, char *error);

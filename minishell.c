@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/06 10:19:53 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/06 17:50:56 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ int	minishell_loop(t_ms *ms)
 			continue ;
 		find_builtin(ms, ms->token);
 		free(prompt);
+		ms->pipe_count = 0;
 		wclear(0);
 	}
 	return (ms->exit_code);
