@@ -1,16 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizer.c                                        :+:      :+:    :+:   */
+/*   2_tokenizer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 14:03:41 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/02 12:01:10 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:19:07 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void	assign_command_type(t_token *tk, int *command)
+{
+	while (tk)
+	{
+		if (tk->type == ARG && *command == 1)
+		{
+			tk->type = COMMAND;
+			*command = 0;
+			// if (is_builtin(tk->content))
+			// {
+			// 	tk->type = BUILTIN;
+			// 	tk->builtin = 1;
+			// }
+			// else
+			// 	tk->type = COMMAND;
+			// *command = 0;
+		}
+		else if (tk->type == PIPE)
+			*command = 1;
+		tk = tk->next;
+	}
+}
 
 void	assign_quote_info(t_token *tk)
 {
@@ -37,22 +60,21 @@ void	assign_quote_info(t_token *tk)
 	}
 }
 
-void	assign_token_type(t_ms *ms, t_token *tk, int *command)
+void	assign_token_type(t_ms *ms, t_token *tk)
 {
-	if (tk->content[0] == '|')
+	if (tk->type == -1 && tk->content[0] == '|')
 	{
 		tk->type = PIPE;
-		*command = 1;
 		ms->pipe_count++;
 	}
-	else if (tk->content[0] == '>')
+	else if (tk->type == -1 && tk->content[0] == '>')
 	{
 		if (tk->content[1] && tk->content[1] == '>')
 			tk->type = REDIR_DOUBLE_RIGHT;
 		else
 			tk->type = REDIR_RIGHT;
 	}
-	else if (tk->content[0] == '<')
+	else if (tk->type == -1 && tk->content[0] == '<')
 	{
 		if (tk->content[1] && tk->content[1] == '<')
 			tk->type = REDIR_DOUBLE_LEFT;
@@ -62,6 +84,8 @@ void	assign_token_type(t_ms *ms, t_token *tk, int *command)
 	else if (tk->type == -1 && (tk->prev && (tk->prev->type >= 3 && \
 	tk->prev->type <= 6)))
 		tk->type = FILENAME;
+	else if (tk->type == -1)
+		tk->type = ARG;
 }
 
 int	tokenizer(t_ms *ms)
@@ -76,18 +100,9 @@ int	tokenizer(t_ms *ms)
 	recombiner(ms, &ms->token_lexed);
 	while (tk)
 	{
-		assign_token_type(ms, tk, &command);
-		if (command && (tk->type == -1))
-		{
-			tk->type = COMMAND;
-			command = 0;
-		}
-		else
-		{
-			if (tk->type == -1)
-				tk->type = ARG;
-		}
+		assign_token_type(ms, tk);
 		tk = tk->next;
 	}
+	assign_command_type(ms->token_lexed, &command);
 	return (0);
 }

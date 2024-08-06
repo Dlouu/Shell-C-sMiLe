@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 05:24:42 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/02 18:56:20 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/06 10:25:53 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	tk_lstprint(t_ms *ms, t_token **tk_lst)
 		tk = tk_lst[i];
 		while (tk)
 		{
-			printf("lst #%d-index%d %s   [type:%d '%d' \"%d\" "\
+			printf("lst #%d-index%d [%s]   [type:%d '%d' \"%d\" "\
 			"blank %d-%d]\n", i, tk->index, tk->content, tk->type, \
 			tk->squote, tk->dquote, tk->blank_before_quote, \
 			tk->blank_after_quote);
