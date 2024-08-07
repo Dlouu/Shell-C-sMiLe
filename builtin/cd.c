@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:04 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/23 06:06:39 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/07 18:31:38 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,21 @@
 
 int	ft_cd(t_ms *ms)
 {
-	char	*old_path_to_env;
+/* 	char *path;
 
-	ms->exit_code = 0;
-	old_path_to_env = getcwd(NULL, 4096);
-	if (!old_path_to_env)
-		return (ms->exit_code);
-	printf("old_path = %s\n", old_path_to_env);
-	return (ms->exit_code);
+	path = getcwd(NULL, 0);
+	if (!path)
+		return (printf("path unset je crois\n"), 1); */
+	return (0);
 }
+/* 
+faire un getcwd --> si marche pas --> path unset
+on change la valeur de OLDPWD
+si la prochaine valeur == NULL || ~ go faire un cd avec la valeur de HOME
+chdir e la valeur d'apres (on suppose que c'est un chemin, on regarde si c'est valide)
+si marche pas --> chemin non valide
+on change la valeur de PWD
+ */
 
 // /* notes :
 // cd /
