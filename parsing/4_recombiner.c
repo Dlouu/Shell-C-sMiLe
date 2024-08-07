@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 11:48:01 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/06 15:19:58 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/07 11:34:10 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 void	word_splitter(t_ms *ms, t_token **token)
 {
 	t_token	**tk;
-	int	i;
+	int		i;
 
 	(void)ms;
 	tk = token;
@@ -35,11 +35,17 @@ void	word_splitter(t_ms *ms, t_token **token)
 	}
 }
 
-void	recombiner(t_ms *ms, t_token **tk)
+void	recombiner(t_ms *ms, t_token *tk)
 {
 	(void)ms;
-	(void)tk;
-	word_splitter(ms, tk);
+	while (tk)
+	{
+		if ((tk->squote || tk->dquote) && tk->blank_before_quote == 0)
+			printf("recoller tk avec tk prev\n");
+		if ((tk->squote || tk->dquote) && tk->blank_after_quote == 0)
+			printf("recoller tk avec tk next\n");
+		tk = tk->next;
+	}
 }
 
 //faut que ""echo"" soit un seul token, coller et reassigner cmd

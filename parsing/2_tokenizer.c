@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 14:03:41 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/06 17:05:30 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/07 14:01:35 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,8 @@ int	tokenizer(t_ms *ms)
 	command = 1;
 	assign_quote_info(ms->token_lexed);
 	expander(ms, ms->token_lexed, 0);
-	recombiner(ms, &ms->token_lexed);
+	recombiner(ms, ms->token_lexed);
+	word_splitter(ms, &ms->token_lexed);
 	while (tk)
 	{
 		assign_token_type(ms, tk);

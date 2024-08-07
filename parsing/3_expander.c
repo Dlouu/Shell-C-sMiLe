@@ -6,24 +6,11 @@
 /*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:06:12 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/07 09:11:47 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/07 13:58:18 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-void	delete_var_name(char *key, t_token *tk, int *i)
-{
-	char	*left;
-	char	*right;
-	size_t	len;
-
-	len = ft_strlen(tk->content) - *i - ft_strlen(key) - 1;
-	left = ft_substr(tk->content, 0, *i, FALSE);
-	right = ft_substr(tk->content, *i + ft_strlen(key) + 1, len, FALSE);
-	tk->content = ft_strjoin(left, right, FALSE);
-	*i += ft_strlen(key) - 1;
-}
 
 void	expand_var(t_ms *ms, t_token *tk, int *i)
 {
@@ -36,7 +23,7 @@ void	expand_var(t_ms *ms, t_token *tk, int *i)
 	key = get_var(tk->content + *i);
 	if (find_env_node(ms->env, key))
 	{
-		len = 50;
+		len = ft_strlen(tk->content) - *i - ft_strlen(key) - 1;
 		left = ft_substr(tk->content, 0, *i, FALSE);
 		value = find_env_value(ms->env, key);
 		right = ft_substr(tk->content, *i + ft_strlen(key) + 1, len, FALSE);
@@ -83,6 +70,15 @@ void	expand_exit_code(t_ms *ms, t_token *tk, int *i)
 	*i += ft_strlen(exit_code) - 2;
 }
 
+void	expand_dollar_quote(t_token *tk)
+{
+	if (tk->prev && tk->next)
+	{
+		tk->prev->next = tk->next;
+		tk->next->blank_before_quote = 1;
+	}
+}
+
 void	expander(t_ms *ms, t_token *tk, int i)
 {
 	while (tk)
@@ -92,12 +88,15 @@ void	expander(t_ms *ms, t_token *tk, int i)
 		{
 			if (tk->content[i] == '$' && tk->squote == 0)
 			{
-				if (!tk->content[i + 1])
-					break ;
-				else if (tk->content[i + 1] == '?')
+				if (tk->content[i + 1] == '?')
 					expand_exit_code(ms, tk, &i);
 				else if (tk->content[i + 1] == '$')
 					expand_pid_number(tk, &i);
+				else if (!tk->content[i + 1] && tk->next && (tk->next->squote \
+				|| tk->next->dquote))
+					expand_dollar_quote(tk);
+				else if (!tk->content[i + 1])
+					break ;
 				else
 					expand_var(ms, tk, &i);
 			}

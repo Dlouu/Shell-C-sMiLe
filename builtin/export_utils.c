@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:15 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/05 17:06:40 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/07 11:33:45 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,17 @@ int	is_valid_key(char *key)
 	size_t	i;
 
 	i = 0;
+	// printf("key = %s\n", key);
+	// printf("key[i] = %c\n", key[i]);
+	if (key[i] && !ft_isalpha(key[i]) && key[i] != '_')
+		return (0);
+	i++;
 	while (key[i] && key[i] != '=')
 	{
-		if (!ft_isalpha(key[i]) && key[i] != '_')
+		// printf("key[i] = %c\n", key[i]);
+		if (!ft_isalnum(key[i]) && key[i] != '_')
 			return (0);
 		i++;
-		while (key[i] && key[i] != '=')
-		{
-			if (!ft_isalnum(key[i]) && key[i] != '_')
-				return (0);
-			i++;
-		}
 	}
 	return (1);
 }
