@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 01:23:55 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/07 13:38:51 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/07 14:04:52 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,24 +100,4 @@ void	update_index(t_token **tk)
 		(*tk)->index = index;
 		*tk = (*tk)->next;
 	}
-}
-
-void	tk_lstprint_type(t_token *tk)
-{
-	if (tk->type == PIPE)
-		printf("PIPE");
-	else if (tk->type >= 3 && tk->type <= 6)
-		printf("REDIR");
-	else if (tk->type == COMMAND)
-		printf("COMMAND");
-	else if (tk->type == BUILTIN)
-		printf("BUILTIN");
-	else if (tk->type == ARG)
-		printf("ARG");
-	else if (tk->type == FILENAME)
-		printf("FILE");
-	else if (tk->type == DELIMITER)
-		printf("DELIMITER");
-	else
-		printf("UNDEFINED");
 }

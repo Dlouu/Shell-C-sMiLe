@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:13:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/07 12:16:37 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/07 14:05:09 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	tk_lstadd(t_token **tk_lst, t_token *new);
 void	tk_lstadd_here(t_token **tk_lst, t_token *here, t_token *new);
 void	tk_lstclear(t_token **tk_lst);
 void	tk_lstprint(t_ms *ms, t_token **tk_lst);
-void	tk_lstprint_type(t_token *tk);
 
 //utils
 int		error_free_prompt(t_ms *ms, char *prompt, char *error);

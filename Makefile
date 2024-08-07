@@ -6,7 +6,7 @@
 #    By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/06 13:02:03 by mbaumgar          #+#    #+#              #
-#    Updated: 2024/08/02 12:16:23 by mbaumgar         ###   ########.fr        #
+#    Updated: 2024/08/07 14:05:57 by mbaumgar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,6 +64,7 @@ SRC			= minishell.c \
 			utils/error.c \
 			utils/execution.c \
 			utils/token_lst.c \
+			utils/token_print.c \
 			utils/envp.c \
 			utils/signals.c \
 			utils/utils.c
