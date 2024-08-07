@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   3_expander.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:06:12 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/05 17:40:34 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/07 09:11:47 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	expand_var(t_ms *ms, t_token *tk, int *i)
 		right = ft_substr(tk->content, *i + ft_strlen(key) + 1, len, FALSE);
 		tk->content = ft_strjoin(left, value, FALSE);
 		tk->content = ft_strjoin(tk->content, right, FALSE);
+		tk->expanded = 1;
 		*i += ft_strlen(value) - 1;
 	}
 	else
@@ -61,6 +62,7 @@ void	expand_pid_number(t_token *tk, int *i)
 	right = ft_substr(tk->content, *i + 1, len, FALSE);
 	tk->content = ft_strjoin(left, pid, FALSE);
 	tk->content = ft_strjoin(tk->content, right, FALSE);
+	tk->expanded = 1;
 	*i += ft_strlen(pid) - 2;
 }
 
@@ -77,6 +79,7 @@ void	expand_exit_code(t_ms *ms, t_token *tk, int *i)
 	right = ft_substr(tk->content, *i + 2, len, FALSE);
 	tk->content = ft_strjoin(left, exit_code, FALSE);
 	tk->content = ft_strjoin(tk->content, right, FALSE);
+	tk->expanded = 1;
 	*i += ft_strlen(exit_code) - 2;
 }
 

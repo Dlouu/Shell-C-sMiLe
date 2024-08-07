@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 01:23:55 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/06 17:25:44 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/07 09:51:32 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ void	tk_lstprint_type(t_token *tk)
 		printf("ARG");
 	else if (tk->type == FILENAME)
 		printf("FILE");
+	else if (tk->type == DELIMITER)
+		printf("DELIMITER");
 	else
 		printf("UNDEFINED");
 }

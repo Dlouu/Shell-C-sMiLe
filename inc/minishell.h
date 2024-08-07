@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:02:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/05 17:26:11 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/07 09:50:27 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ extern int	g_signal;
 //0 COMMAND			1 BUILTIN		2 ARG
 //3 REDIR_LEFT		4 REDIR_RIGHT
 //5 REDIR_D_LEFT 	6 REDIR_DOUBLE_RIGHT
-//7 PIPE 			8 FILENAME
+//7 PIPE 			8 FILENAME		9 DELIMITER
 typedef enum e_token
 {
 	COMMAND,
@@ -43,6 +43,7 @@ typedef enum e_token
 	REDIR_DOUBLE_RIGHT,
 	PIPE,
 	FILENAME,
+	DELIMITER
 }	t_token_code;
 
 //content : echo, cmd...
@@ -59,6 +60,7 @@ typedef struct s_token
 	int				blank_after_quote;
 	int				squote;
 	int				dquote;
+	int				expanded;
 	struct s_token	*next;
 	struct s_token	*prev;
 }	t_token;

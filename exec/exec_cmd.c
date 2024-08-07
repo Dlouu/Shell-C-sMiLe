@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:54:36 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/01 20:17:53 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/07 09:35:25 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	ft_execlp(t_ms *ms, char *cmd)
 	path = find_path(tab[0], envp);
 	if (!path)
 	{
-		ft_putstr_fd("shell-C-smile: ", 2);
+		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(tab[0], 2);
 		ft_putstr_fd(": command not found\n", 2);
 		ms->exit_code = 127;

@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:18:28 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/06 17:38:45 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/07 09:50:07 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,22 @@ int	check_types(t_token *token)
 	return (1);
 }
 
+int	check_redir(t_token *token)
+{
+	t_token	*tk;
+
+	tk = token;
+	while (tk)
+	{
+		if (tk->type == REDIR_DOUBLE_LEFT && tk->next)
+			tk->next->type = DELIMITER;
+		if (tk->type == FILENAME && tk->expanded)
+			return (0);
+		tk = tk->next;
+	}
+	return (1);
+}
+
 int	parser(t_ms *ms, char *prompt)
 {
 	t_token	*lexed_token;
@@ -68,6 +84,8 @@ int	parser(t_ms *ms, char *prompt)
 	lexed_token = ms->token_lexed;
 	if (!check_types(lexed_token))
 		return (error_free_prompt(ms, prompt, "syntax"));
+	if (!check_redir(lexed_token))
+		return (error_free_prompt(ms, prompt, "ambiguous redirect"));
 	sort_token(ms, &lexed_token);
 	pipe_splitter(ms);
 	tk_lstprint(ms, ms->token);

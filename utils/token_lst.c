@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 05:24:42 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/06 17:38:36 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/07 09:00:44 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_token	*tk_lstnew(char *content)
 	new->blank_before_quote = -1;
 	new->squote = -1;
 	new->dquote = -1;
+	new->expanded = 0;
 	new->next = NULL;
 	new->prev = NULL;
 	return (new);
