@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:04 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/07 20:25:00 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/07 20:58:18 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	ft_cd(t_ms *ms)
 	current_path = getcwd(NULL, 0);
 	if (!current_path)
 		return (printf("current_path unset je crois\n"), 1);
+	if (ms->token_lexed->next && ms->token_lexed->next->next)
+		return (printf("minishell: cd: too many arguments\n"), 1);
 	if (!ms->token_lexed->next || ft_strcmp(ms->token_lexed->next->content, "~") == 0)
 	{
 		if (chdir(getenv("HOME")) == -1)
