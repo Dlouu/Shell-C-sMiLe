@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_lst.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 05:24:42 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/07 14:04:36 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/08 16:45:27 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,28 +31,17 @@ t_token	*tk_lstnew(char *content)
 	return (new);
 }
 
-//a tester, à utiliser pour split apres expansion et avant pipe_splitter
-void	tk_lstadd_here(t_token **tk_lst, t_token *here, t_token *new)
+void	tk_lstadd_here(t_token **lst, t_token *here, t_token *new)
 {
 	t_token	*temp;
 
-	if (!new)
-		return ;
-	if (!*tk_lst)
-	{
-		*tk_lst = new;
-		new->index = 0;
-	}
-	else
-	{
-		temp = here->next;
-		here->next = new;
-		new->prev = here;
-		new->next = temp;
-		if (temp)
-			temp->prev = new;
-		new->index = new->prev->index + 1;
-	}
+	temp = here->next;
+	here->next = new;
+	new->prev = here;
+	new->next = temp;
+	if (temp)
+		temp->prev = new;
+	update_index(lst);
 }
 
 void	tk_lstadd(t_token **tk_lst, t_token *new)

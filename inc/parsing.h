@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:13:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/07 14:05:09 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/08 16:37:25 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ typedef struct s_ms		t_ms;
 int		lexer(t_ms *ms, char *prompt, t_token *token_lst);
 int		tokenizer(t_ms *ms);
 void	expander(t_ms *ms, t_token *tk, int i);
-void	recombiner(t_ms *ms, t_token *tk);
-void	word_splitter(t_ms *ms, t_token **token);
+void	recombiner(t_token *tk);
+void	word_splitter(t_token **token);
 int		parser(t_ms *ms, char *prompt);
 void	pipe_splitter(t_ms *ms);
 
@@ -41,7 +41,7 @@ int		env_node_exist(t_list *env, char *key);
 //token lst_utils
 t_token	*tk_lstnew(char *content);
 void	tk_lstadd(t_token **tk_lst, t_token *new);
-void	tk_lstadd_here(t_token **tk_lst, t_token *here, t_token *new);
+void	tk_lstadd_here(t_token **lst, t_token *here, t_token *new);
 void	tk_lstclear(t_token **tk_lst);
 void	tk_lstprint(t_ms *ms, t_token **tk_lst);
 
