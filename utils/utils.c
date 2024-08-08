@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 01:23:55 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/07 14:04:52 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/08 17:34:09 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	delete_var_name(char *key, t_token *tk, int *i)
 	left = ft_substr(tk->content, 0, *i, FALSE);
 	right = ft_substr(tk->content, *i + ft_strlen(key) + 1, len, FALSE);
 	tk->content = ft_strjoin(left, right, FALSE);
-	*i += ft_strlen(key) - 1;
+	*i += ft_strlen(left) - 1;
 }
 
 char	*get_var(char *var)

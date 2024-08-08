@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/06 17:50:56 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/08 17:50:27 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ PARSING
 [x]	lexer (creation de la liste)
 [x]	tokenizer (assigner les types)
 [x]	expander (expand les variables)
-[_]	recombiner (recoller les nodes "" et '' accolées)
-[_]	word_splitter (split les tokens "" expand)
+[x]	recombiner (recoller les nodes "" et '' accolées)
+[x]	word_splitter (split les tokens "" expand)
 [_] token_sorter (sort les tokens dans l'ordre d'execution)
 [x] parsing
 - - - - - - -

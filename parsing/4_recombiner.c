@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 11:48:01 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/08 16:53:56 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/08 17:49:36 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	split_nodes(t_token *tk, int *i)
 	new = tk_lstnew(right);
 	new->squote = tk->squote;
 	new->dquote = tk->dquote;
-	new->blank_before_quote = tk->blank_before_quote;
-	new->blank_after_quote = tk->blank_after_quote;
+	new->blank_before_quote = 0;
+	new->blank_after_quote = 0;
 	tk_lstadd_here(&tk, tk, new);
 	*i = 0;
 }
@@ -42,7 +42,7 @@ void	word_splitter(t_token **token)
 	tk = token;
 	while (*tk)
 	{
-		if ((*tk)->squote == 0 && (*tk)->dquote == 0)
+		if ((*tk)->squote == 0 && (*tk)->dquote == 0 && (*tk)->expanded)
 		{
 			i = 0;
 			while ((*tk)->content[i])
@@ -90,50 +90,6 @@ void	recombiner(t_token *tk)
 		if (tk->prev && (tk->squote || tk->dquote) && \
 			tk->blank_before_quote == 0)
 			recombine_prev_token(tk);
-		if (tk->next && (tk->squote || tk->dquote) && \
-			tk->blank_after_quote == 0)
-			recombine_next_token(tk);
 		tk = tk->next;
 	}
 }
-
-//faut que ""echo"" soit un seul token, coller et reassigner cmd
-//pipe ou 0 puis mettre blank before quote
-
-/*
-else if (tk->content[i] == '\\' && tk->content[i + 1] == '$')
-	i++;
-else if (tk->content[i] == '=' && !tk->content[i + 1])
-	printf("recombiner l'argument et continuer de check les var\n");
-else if (tk->dquote == 1 && tk->blank_after_quote == 0)
-	printf("recombiner l'argument et skip a la prochaine node ?\n");
-
-bash-3.2$ "echo bite"
-bash: echo bite: command not found
-bash-3.2$ 'echo bite'
-bash: echo bite: command not found
-bash-3.2$ lololo="echo bite"
-bash-3.2$ $lololo
-bite
-bash-3.2$ "$lololo"
-bash: echo bite: command not found
-bash-3.2$ '$lololo'
-bash: $lololo: command not found
-bash-3.2$ '$lololo lol'
-bash: $lololo lol: command not found
-bash-3.2$ "$lololo lol"
-bash: echo bite lol: command not found
-
-"echo bite" = ne pas split
-'echo bite' = ne pas split
-$lololo = split
-"$lololo" = no split
-'$lololo' = no split
-*/
-
-//recoller quand y'a un ='' ou =""
-//recoller quand dquote et !blank_after_quote
-//dans expander, split la fonction en 3 :
-//faire une fonction pour gerer les $
-//une pour les =
-//une pour les dquotes!blank
