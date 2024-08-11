@@ -8,5 +8,8 @@ NON
 
 
 UPDATE
+OLDPWD n'est pas set des le debut
 cd a l'air de fonctionner, mais bon c'est cool les tests ^^
 exit est coolos mais j'ai forcément louper des trucs
+je comprends rien aux signaux (siqaction et compagnie)
+unset pas fait
