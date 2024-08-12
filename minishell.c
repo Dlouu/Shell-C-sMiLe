@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/08 17:50:27 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/12 16:31:50 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,13 @@ int	g_signal = 0;
 
 /*
 TRUCS A CHECK
-[_]	path si on en trouve pas au lancement, faut qu'on en assign un genre de base
-	genre /bin/bash ?
+[_]	path si on en trouve pas au lancement, faut qu'on en assign un genre de 
+	base genre /bin/bash ?
 [_]	si on unset USER est-ce que ca marche ?
 [_] si on unset PATH il faut que ca ne marche pas mais no segfault
+[_] check $USER$USER$blah$blah = ne delete pas les 2 blah (la solution etait de
+	split sur les $ mais depuis avec $ dans isseparator infinite loop
+[_] $""aa$"" a fixer
 - - - - - - -
 PARSING
 [x]	lexer (creation de la liste)
@@ -53,7 +56,7 @@ int	empty_prompt(char *prompt)
 }
 
 // si t'arrives pas a compiler sur ton mac,
-// mets rl_catch_signals = 0; en commentaire ligne 65
+// mets rl_catch_signals = 0; en commentaire ligne 67
 // et egalement dans le fichier utils/signal.c ligne 22
 void	minishell_init(t_ms *ms, char **argv, char **envp)
 {
