@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:32:45 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/12 15:11:15 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/12 17:23:49 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,11 @@ void replace_value(t_list *env, char *key, char *value)
 {
 	t_list	*tmp;
 
-	tmp = env;
-	while (tmp)
+	tmp = find_env_node(env, key);
+	if (tmp)
 	{
-		if (ft_strcmp(((t_env *)tmp->data)->key, key) == 0)
-		{
-			wfree(((t_env *)tmp->data)->value);
-			((t_env *)tmp->data)->value = ft_strdup(value, TRUE);
-			return ;
-		}
-		tmp = tmp->next;
+		wfree(((t_env *)tmp->data)->value);
+		((t_env *)tmp->data)->value = ft_strdup(value, TRUE);
 	}
 }
 
