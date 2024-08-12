@@ -6,39 +6,42 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:20 by niabraha          #+#    #+#             */
-/*   Updated: 2024/07/23 20:02:02 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/12 17:49:21 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	del_env_node(t_list **env, char *key)
+void	del_env_node(t_list **env_lst, char *key)
 {
-	t_list	*tmp;
-	t_list	*prev;
+	t_list	*current;
+	t_list	*to_del;
 
-	tmp = *env;
-	prev = NULL;
-	while (tmp)
+	current = *env_lst;
+	to_del = find_env_node(*env_lst, key);
+	while (current)
 	{
-		if (ft_strncmp(((t_env *)tmp->data)->key, key, ft_strlen(key)) == 0)
+		if (current->next == to_del)
 		{
-			if (prev)
-				prev->next = tmp->next;
-			else
-				*env = tmp->next;
-			wfree(((t_env *)tmp->data)->key);
-			wfree(((t_env *)tmp->data)->value);
-			wfree(tmp->data);
-			wfree(tmp);
-			return ;
+			current->next = to_del->next;
+			break ;
 		}
-		prev = tmp;
-		tmp = tmp->next;
+		current = current->next;
 	}
 }
 
 int	ft_unset(t_ms *ms)
 {
+	t_token	*token;
+
+	token = *ms->token;
+	if (!token->next)
+	{
+		ft_putstr_fd("minishell: unset: not enough arguments\n", STDERR_FILENO);
+		ms->exit_code = 1;
+		return (ms->exit_code);
+	}
+	else 
+		del_env_node(&ms->env, token->next->content);
 	return (ms->exit_code);
 }
