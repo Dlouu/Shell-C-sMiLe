@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+         #
+#    By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/17 15:23:09 by mbaumgar          #+#    #+#              #
-#    Updated: 2024/07/18 13:42:02 by mbaumgar         ###   ########.fr        #
+#    Updated: 2024/08/12 16:49:46 by niabraha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ SRC		= ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
 		ft_putchar.c ft_putstr.c ft_putnbr.c ft_putnbr_base.c ft_strcmp.c \
 		ft_nlen_base.c ft_nlen_ubase.c ft_strdup_array.c ft_int_ovcheck.c \
 		ft_free_tab.c ft_free_strjoin.c ft_issign.c ft_isspace.c \
-		ft_lstnew.c ft_lstadd_front.c ft_lstsize.c \
+		ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_long_ovcheck.c \
 		ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c \
 		ft_lstclear.c ft_lstiter.c ft_lstmap.c ft_lstsplit.c ft_printf.c \
 		pf_arg_char.c pf_arg_int.c pf_arg_str.c pf_arg_ptr.c \

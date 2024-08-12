@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:58:46 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/18 13:41:01 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/12 16:50:03 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int			ft_putnbr_base(long long int n, char *base);
 int			ft_putchar(char c);
 int			ft_putstr(char *s);
 int			ft_int_ovcheck(const char *number);
+int			ft_long_ovcheck(const char *number);
 
 long int	ft_atol(const char *nptr);
 
