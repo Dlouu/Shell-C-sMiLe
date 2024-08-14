@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:59 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/11 21:50:39 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/14 14:33:18 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define EXECUTION_H
 
 # include "minishell.h"
+
+//exec_main.c
+int		exec_main(t_ms *ms, t_token **token);
 
 //exec_cmd.c
 void	find_builtin(t_ms *ms, t_token **token);
