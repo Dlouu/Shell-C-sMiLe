@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/14 22:07:47 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/14 22:12:02 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,19 @@
 /* 
 heredoc + pipe
 le reste c'est de gauche à droite dans chaque pipe
+
  */
+
+static int check_heredoc(t_token *token)
+{
+	while (token->next)
+	{
+		if (ft_strcmp(token->content, "<<") == 0)
+			return (1);
+		token = token->next;
+	}
+	return (0);
+}
 
 static char **copy_heredoc(t_token *token, int nbr_heredoc)
 {
@@ -77,6 +89,7 @@ static void	manage_heredoc(t_token **token)
 int exec_main(t_ms *ms, t_token **token)
 {
 	(void)ms;
-	manage_heredoc(token);
+	if (check_heredoc(*token))
+		manage_heredoc(token);
 	return (0);
 }
