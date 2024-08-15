@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:04 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/15 13:05:06 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/15 13:10:27 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_cd(t_ms *ms)
 	printf("ms->token_lexed->next->content = %s\n", ms->token_lexed->next->content);
 	replace_env_value(ms->env, "OLDPWD", old_path);
 	new_path = getcwd(NULL, 0);
-	replace_value(ms->env, "PWD", new_path);
+	replace_env_value(ms->env, "PWD", new_path);
 	return (0);
 }
 /* 
