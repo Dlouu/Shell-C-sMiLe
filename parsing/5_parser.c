@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:18:28 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/15 15:58:55 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/15 16:25:24 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,6 @@ static int	count_heredoc(t_ms *ms)
 	i = 0;
 	while (tk[i])
 	{
-
-		printf("iiiiiiiiiiiiiiiiiiii: %d\n", i);
 		while ((*tk)->next)
 		{
 			if (tk[i]->type == REDIR_DOUBLE_LEFT)
@@ -96,7 +94,6 @@ static int	count_heredoc(t_ms *ms)
 			*tk = (*tk)->next;
 		}
 		i++;
-				printf("%p\n", tk[i]);
 	}
 	return (0);
 }
