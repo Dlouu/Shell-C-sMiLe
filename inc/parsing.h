@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:13:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/15 13:10:06 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/15 16:43:07 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	recombiner(t_token *tk);
 void	word_splitter(t_token **token);
 int		parser(t_ms *ms, char *prompt);
 void	pipe_splitter(t_ms *ms);
+int		count_heredoc(t_ms *ms);
 
 //env
 char	**env_lst_to_tab(t_ms *ms);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/15 15:40:59 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/15 16:42:42 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,6 @@ int	exec_main(t_ms *ms)
 }
 /*
 
-ligne 87 5_parser
-pour bouger a travers les pipes
-
 echo f=| f=ls f=| echo  = 3 fork
 echo f=| echo f=| echo  = 2 fork
 f=ls f=| f=ls f=| f=ls = 5 fork
@@ -88,5 +85,24 @@ f=ls f=| f=ls f=| f=ls = 5 fork
 pipe = 1 fork
 command = 1 fork
 builtin = 0 fork
+
+pour iterer dans les pipes :
+
+	t_token	**tk_lst;
+	t_token	*tk;
+	int		i;
+
+	tk_lst = ms->token;
+	i = 0;
+	while (tk_lst[i])
+	{
+		tk = tk_lst[i];
+		while (tk->next)
+		{
+			BLAH
+			tk = tk->next;
+		}
+		i++;
+	}
 
 */
