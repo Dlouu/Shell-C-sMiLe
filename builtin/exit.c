@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:12 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/15 13:52:57 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/15 14:02:46 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,6 @@ int	ft_exit(t_ms *ms)
 				}
 				nbr = ft_atol((*tk)->next->content);
 				ms->exit_code = nbr % 256;
-				if (nbr < 0)
-					ms->exit_code += 256;
 			}
 			printf("exit code : %d\n", ms->exit_code);
 		}

@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:15 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/05 17:25:56 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/15 14:01:19 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	update_or_create_var(t_ms *ms, t_token **token)
 		add_env_node(ms, (*token)->content);
 }
 
-int	*ft_add_var(t_ms *ms)
+unsigned char	*ft_add_var(t_ms *ms)
 {
 	t_token	**token;
 

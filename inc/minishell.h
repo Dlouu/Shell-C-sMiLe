@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:02:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/15 13:52:46 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/15 13:59:39 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ typedef struct s_ms
 	int				blank_before_quote;
 	int				blank_after_quote;
 	int				pipe_count;
-	int				exit_code;
+	unsigned char	exit_code;
 }	t_ms;
 
 # define MAUVE "\033[0;34m"
