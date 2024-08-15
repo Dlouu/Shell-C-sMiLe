@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   5_parser.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:18:28 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/15 16:25:24 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/15 16:34:02 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,18 +80,20 @@ int	check_redir(t_token *token)
 
 static int	count_heredoc(t_ms *ms)
 {
-	t_token	**tk;
+	t_token	**tk_lst;
+	t_token	*tk;
 	int		i;
 
-	tk = ms->token;
+	tk_lst = ms->token;
 	i = 0;
-	while (tk[i])
+	while (tk_lst[i])
 	{
-		while ((*tk)->next)
+		tk = tk_lst[i];
+		while (tk->next)
 		{
-			if (tk[i]->type == REDIR_DOUBLE_LEFT)
+			if (tk->type == REDIR_DOUBLE_LEFT)
 				ms->heredoc_count += 1;
-			*tk = (*tk)->next;
+			tk = tk->next;
 		}
 		i++;
 	}
