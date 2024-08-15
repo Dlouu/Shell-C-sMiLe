@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envp.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:32:45 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/12 17:23:49 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/15 13:02:19 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 //in ft_env and ft_putstr_export functions, we will check if the value is 26
 //if it is, we will not print the value
 
-void replace_value(t_list *env, char *key, char *value)
+void	replace_env_value(t_list *env, char *key, char *value)
 {
 	t_list	*tmp;
 

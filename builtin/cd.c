@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:04 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/14 16:23:39 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/15 13:05:06 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_cd(t_ms *ms)
 	else if (chdir(ms->token_lexed->next->content) == -1)
 		return (printf("minishell: cd: %s: No such file or directory\n", ms->token_lexed->next->content), 1);
 	printf("ms->token_lexed->next->content = %s\n", ms->token_lexed->next->content);
-	replace_value(ms->env, "OLDPWD", old_path);
+	replace_env_value(ms->env, "OLDPWD", old_path);
 	new_path = getcwd(NULL, 0);
 	replace_value(ms->env, "PWD", new_path);
 	return (0);

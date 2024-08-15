@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:58:46 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/12 16:50:03 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/15 12:58:17 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,16 +64,17 @@ int			ft_tolower(int c);
 int			ft_strcmp(const char *s1, const char *s2);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 int			ft_memcmp(const void *s1, const void *s2, size_t n);
-int			ft_atoi(const char *nptr);
 int			ft_nlen_base(long long int n, int base);
 int			ft_nlen_ubase(unsigned long int n, int base);
 int			ft_putnbr_base(long long int n, char *base);
 int			ft_putchar(char c);
 int			ft_putstr(char *s);
+
 int			ft_int_ovcheck(const char *number);
 int			ft_long_ovcheck(const char *number);
-
+int			ft_atoi(const char *nptr);
 long int	ft_atol(const char *nptr);
+long long	ft_atoll(const char *nptr);
 
 size_t		ft_strlen(const char *s);
 size_t		ft_strlcpy(char *dst, const char *src, size_t size);
