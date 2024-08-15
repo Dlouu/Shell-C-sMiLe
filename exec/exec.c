@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/15 16:42:42 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/15 16:51:04 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,12 @@ static char	**copy_heredoc(t_token *token, int nbr_heredoc)
 
 static void	manage_heredoc(t_ms *ms)
 {
+	char	**list_heredoc;
+	char	*line;
 	int		i;
 	t_token	**tk;
 
 	tk = ms->token;
-
-	char	**list_heredoc;
-	char	*line;
-
 	list_heredoc = copy_heredoc((*tk), ms->heredoc_count);
 	i = 0;
 	while (1)
