@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/15 14:38:43 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/15 15:40:59 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,3 +76,17 @@ int	exec_main(t_ms *ms)
 		manage_heredoc(ms);
 	return (0);
 }
+/*
+
+ligne 87 5_parser
+pour bouger a travers les pipes
+
+echo f=| f=ls f=| echo  = 3 fork
+echo f=| echo f=| echo  = 2 fork
+f=ls f=| f=ls f=| f=ls = 5 fork
+
+pipe = 1 fork
+command = 1 fork
+builtin = 0 fork
+
+*/

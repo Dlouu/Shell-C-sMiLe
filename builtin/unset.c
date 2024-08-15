@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:20 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/12 17:49:21 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/15 15:37:53 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,13 @@ void	del_env_node(t_list **env_lst, char *key)
 
 	current = *env_lst;
 	to_del = find_env_node(*env_lst, key);
-	while (current)
+	while (to_del && current)
 	{
 		if (current->next == to_del)
 		{
 			current->next = to_del->next;
+			wfree(((t_env *)to_del->data)->key);
+			wfree(((t_env *)to_del->data)->value);
 			break ;
 		}
 		current = current->next;

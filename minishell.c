@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/15 14:39:03 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/15 16:00:09 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	minishell_init(t_ms *ms, char **argv, char **envp)
 	ms->blank_before_quote = 0;
 	ms->blank_after_quote = 0;
 	ms->pipe_count = 0;
+	ms->heredoc_count = 0;
 	get_envp(ms, envp);
 	//rl_catch_signals = 0;
 	ft_putstr_fd("42 project | minishell | as beautiful as a shell~\n", 1);

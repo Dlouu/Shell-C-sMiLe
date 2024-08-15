@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   5_parser.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:18:28 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/15 14:32:51 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/15 15:58:55 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	pipe_splitter(t_ms *ms)
 
 	tk = ms->token_lexed;
 	i = 0;
-	token_splitted = walloc(sizeof(t_token *) * (ms->pipe_count + 1), FALSE);
+	token_splitted = walloc(sizeof(t_token *) * (ms->pipe_count + 2), FALSE);
 	head = token_splitted;
 	while (tk)
 	{
@@ -35,6 +35,7 @@ void	pipe_splitter(t_ms *ms)
 		update_index(&tk);
 		i++;
 	}
+	token_splitted[i] = NULL;
 	ms->token = head;
 }
 
@@ -86,13 +87,16 @@ static int	count_heredoc(t_ms *ms)
 	i = 0;
 	while (tk[i])
 	{
+
+		printf("iiiiiiiiiiiiiiiiiiii: %d\n", i);
 		while ((*tk)->next)
 		{
 			if (tk[i]->type == REDIR_DOUBLE_LEFT)
-				ms->heredoc_count++;
-			tk = &(*tk)->next;
+				ms->heredoc_count += 1;
+			*tk = (*tk)->next;
 		}
 		i++;
+				printf("%p\n", tk[i]);
 	}
 	return (0);
 }
