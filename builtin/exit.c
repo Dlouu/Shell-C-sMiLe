@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:12 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/12 17:30:03 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/15 13:52:57 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ static void clean_exit(t_ms *ms)
 
 static void exit_not_number(t_ms *ms, char *str)
 {
-	write(STDERR_FILENO, "minishell: exit: ", 17);
-	write(STDERR_FILENO, str, ft_strlen(str));
-	write(STDERR_FILENO, ": numeric argument required\n", 29);
+	ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
+	ft_putstr_fd(str, STDERR_FILENO);
+	ft_putendl_fd(": numeric argument required\n", STDERR_FILENO);
 	ms->exit_code = 2;
 	printf("exit code : %d\n", ms->exit_code);
 	exit(ms->exit_code);
@@ -54,27 +54,30 @@ static void exit_not_number(t_ms *ms, char *str)
 
 int	ft_exit(t_ms *ms)
 {
-	long nbr;
-	write(STDERR_FILENO, "exit\n", 5);
-	if (ms->token_lexed->next)
+	long	nbr;
+	t_token	**tk;
+
+	tk = ms->token;
+	ft_putendl_fd("exit", STDOUT_FILENO);
+	if ((*tk)->next)
 	{
-		if (check_number(ms->token_lexed->next->content) == 0)
+		if (check_number((*tk)->next->content) == 0)
 		{
-			if (ms->token_lexed->next->next)
+			if ((*tk)->next->next)
 			{
-				write(STDERR_FILENO, "minishell: exit: too many arguments\n", 36);
+				ft_putendl_fd("minishell: exit: too many arguments", 2);
 				ms->exit_code = 1;
 				exit(ms->exit_code);
 				return (1);
 			}
 			else
 			{
-				if (!ft_long_ovcheck(ms->token_lexed->next->content))
+				if (!ft_long_ovcheck((*tk)->next->content))
 				{
-					exit_not_number(ms, ms->token_lexed->next->content);
+					exit_not_number(ms, (*tk)->next->content);
 					return (1);
 				}
-				nbr = ft_atol(ms->token_lexed->next->content);
+				nbr = ft_atol((*tk)->next->content);
 				ms->exit_code = nbr % 256;
 				if (nbr < 0)
 					ms->exit_code += 256;
@@ -82,7 +85,7 @@ int	ft_exit(t_ms *ms)
 			printf("exit code : %d\n", ms->exit_code);
 		}
 		else
-			exit_not_number(ms, ms->token_lexed->next->content);
+			exit_not_number(ms, (*tk)->next->content);
 	}
 	else
 		ms->exit_code = 0;
