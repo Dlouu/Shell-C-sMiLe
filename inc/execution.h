@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:59 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/15 13:22:06 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/15 14:39:21 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "minishell.h"
 
 //exec_main.c
-int		exec_main(t_ms *ms, t_token **token);
+int		exec_main(t_ms *ms);
 
 //exec_cmd.c
 void	find_builtin(t_ms *ms, t_token **token);

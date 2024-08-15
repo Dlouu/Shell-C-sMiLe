@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   5_parser.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:18:28 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/07 09:50:07 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/15 14:32:51 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,26 @@ int	check_redir(t_token *token)
 	return (1);
 }
 
+static int	count_heredoc(t_ms *ms)
+{
+	t_token	**tk;
+	int		i;
+
+	tk = ms->token;
+	i = 0;
+	while (tk[i])
+	{
+		while ((*tk)->next)
+		{
+			if (tk[i]->type == REDIR_DOUBLE_LEFT)
+				ms->heredoc_count++;
+			tk = &(*tk)->next;
+		}
+		i++;
+	}
+	return (0);
+}
+
 int	parser(t_ms *ms, char *prompt)
 {
 	t_token	*lexed_token;
@@ -88,6 +108,7 @@ int	parser(t_ms *ms, char *prompt)
 		return (error_free_prompt(ms, prompt, "ambiguous redirect"));
 	sort_token(ms, &lexed_token);
 	pipe_splitter(ms);
+	count_heredoc(ms);
 	tk_lstprint(ms, ms->token);
 	return (1);
 }
