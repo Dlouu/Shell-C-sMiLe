@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:20 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/15 15:37:53 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/17 01:48:23 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ft_unset(t_ms *ms)
 		ms->exit_code = 1;
 		return (ms->exit_code);
 	}
-	else 
+	else
 		del_env_node(&ms->env, token->next->content);
 	return (ms->exit_code);
 }

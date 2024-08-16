@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:12 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/15 14:02:46 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/17 01:47:59 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-static int check_number(char *s)
+static int	check_number(char *s)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (s[++i])
@@ -33,16 +33,16 @@ static int check_number(char *s)
 	return (0);
 }
 
-static void clean_exit(t_ms *ms)
+static void	clean_exit(t_ms *ms)
 {
 	//close les fd
 	//free les mallocs
 	//free les listes
-	(void)ms;
+	(void) ms;
 	sigaction(SIGQUIT, NULL, NULL);
 }
 
-static void exit_not_number(t_ms *ms, char *str)
+static void	exit_not_number(t_ms *ms, char *str)
 {
 	ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
 	ft_putstr_fd(str, STDERR_FILENO);
