@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/17 01:47:20 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:01:37 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,31 @@ le reste c'est de gauche à droite dans chaque pipe
 - quand tu uses free c'est 'wfree' mais c'est pas obligatoire de free car on 
   free tout automatiquement à la fin de chaque boucle
 */
+
+static void manage_pipe(t_ms *ms)
+{
+	t_token	**tk_lst;
+	t_token	*tk;
+	int		i;
+
+	tk_lst = ms->token;
+	i = 0;
+	while (tk_lst[i])
+	{
+		tk = tk_lst[i];
+		while (tk->next)
+		{
+			if (tk->type == PIPE)
+			{
+				// fork
+				// exec
+				// waitpid
+			}
+			tk = tk->next;
+		}
+		i++;
+	}
+}
 
 static char	**copy_heredoc(t_token *token, int nbr_heredoc)
 {
@@ -71,6 +96,8 @@ static void	manage_heredoc(t_ms *ms)
 int	exec_main(t_ms *ms)
 {
 	(void)ms;
+
+	manage_pipe(ms);
 	if (ms->heredoc_count)
 		manage_heredoc(ms);
 	return (0);

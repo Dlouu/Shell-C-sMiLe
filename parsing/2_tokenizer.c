@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   2_tokenizer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 14:03:41 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/17 01:47:14 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/19 15:58:00 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	count_heredoc(t_ms *ms)
 	return (0);
 }
 
-void	assign_command_type(t_token *tk, int *command, int i)
+void	assign_command_type(t_ms *ms, t_token *tk, int *command, int i)
 {
 	static char	*builtin_cmd[] = \
 			{"cd", "echo", "env", "exit", "export", "pwd", "unset", NULL};
@@ -54,7 +54,10 @@ void	assign_command_type(t_token *tk, int *command, int i)
 				}
 			}
 			if (tk->type != BUILTIN)
+			{
 				tk->type = COMMAND;
+				ms->command_count++; // deplacer dans heredoc?
+			}
 			*command = 0;
 		}
 		else if (tk->type == PIPE)
@@ -132,6 +135,6 @@ int	tokenizer(t_ms *ms)
 		assign_token_type(ms, tk);
 		tk = tk->next;
 	}
-	assign_command_type(ms->token_lexed, &command, 0);
+	assign_command_type(ms, ms->token_lexed, &command, 0);
 	return (0);
 }
