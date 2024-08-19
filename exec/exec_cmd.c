@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:54:36 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/15 15:30:49 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:55:38 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static char	*find_path(char *cmd, char **envp)
 //liste chainée, je l'ai mis dans utils.c, je l'ai changé sur cette fonction 
 //et du coup tu ne te bases plus sur celle du debut mais celle modifiée
 //j'ai fait le truc !path et command not found
-static void	ft_execlp(t_ms *ms, char *cmd)
+void	ft_execlp(t_ms *ms, char *cmd)
 {
 	char	*path;
 	char	**tab;

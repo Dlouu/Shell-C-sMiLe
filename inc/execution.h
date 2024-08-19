@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:59 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/15 14:39:21 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/19 17:26:39 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,20 @@
 
 # include "minishell.h"
 
+typedef struct s_pipex
+{
+	int		infile;
+	int		outfile;
+	int		go_in;
+	int		go_out;
+	int		status;
+	int		pipefd[2];
+	pid_t	pid[2];
+}		t_pipex;
+
 //exec_main.c
 int		exec_main(t_ms *ms);
+void	ft_execlp(t_ms *ms, char *cmd);
 
 //exec_cmd.c
 void	find_builtin(t_ms *ms, t_token **token);

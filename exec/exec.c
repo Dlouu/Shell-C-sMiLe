@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/19 16:01:37 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/19 17:52:47 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,26 +24,76 @@ le reste c'est de gauche à droite dans chaque pipe
   free tout automatiquement à la fin de chaque boucle
 */
 
-static void manage_pipe(t_ms *ms)
+static void	first_child_process(t_pipex fd, t_ms *ms)
 {
-	t_token	**tk_lst;
-	t_token	*tk;
+/* 	fd.infile = open(argv[1], O_RDONLY);
+	if (fd.infile < 0)
+	{
+		close(fd.pipefd[0]);
+		close(fd.pipefd[1]);
+		error_message(argv[1]);
+	} */
+	t_token **token;
+
+	token = ms->token;
+	close(fd.pipefd[0]);
+	close(fd.pipefd[1]);
+	close(fd.outfile);
+	ft_execlp(ms, (*token)->content);
+}
+
+static void second_child_process(t_pipex fd, t_ms *ms)
+{
+/* 	fd.outfile = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (fd.outfile < 0)
+	{
+		close(fd.pipefd[0]);
+		close(fd.pipefd[1]);
+		error_message(argv[4]);
+	} */
+	t_token **token;
+
+	token = ms->token;
+	close(fd.pipefd[0]);
+	close(fd.pipefd[1]);
+	close(fd.outfile);
+	printf("content =========== %s\n", ((*token)++)->next->next->content);
+	ft_execlp(ms, ((*token)++)->next->next->content);
+}
+
+static void parent_process(t_pipex *fd, pid_t *pid)
+{
+	close(fd->pipefd[0]);
+	close(fd->pipefd[1]);
+	waitpid(pid[0], &(fd->status), 0);
+	waitpid(pid[1], &(fd->status), 0);
+}
+
+static void create_pipe(t_ms *ms)
+{
+	t_pipex fd;
+	t_token **token;
+	t_token *tk;
 	int		i;
 
-	tk_lst = ms->token;
+	//nb_fork = ms->command_count + ms->pipe_count;
+	//nb_fork = ms->pipe_count;
+	token = ms->token;
 	i = 0;
-	while (tk_lst[i])
+	while (token[i])
 	{
-		tk = tk_lst[i];
-		while (tk->next)
+		tk = token[i];
+		if (tk->type == PIPE)
 		{
-			if (tk->type == PIPE)
-			{
-				// fork
-				// exec
-				// waitpid
-			}
-			tk = tk->next;
+			pipe(fd.pipefd);
+			fd.pid[0] = fork();
+			if (fd.pid[0] == 0)
+				first_child_process(fd, ms);
+			fd.pid[1] = fork();
+			ms->token = &tk->next;
+			if (fd.pid[1] == 0)
+				second_child_process(fd, ms);
+			parent_process(&fd, fd.pid);
 		}
 		i++;
 	}
@@ -97,7 +147,8 @@ int	exec_main(t_ms *ms)
 {
 	(void)ms;
 
-	manage_pipe(ms);
+	if (ms->pipe_count)
+		create_pipe(ms);
 	if (ms->heredoc_count)
 		manage_heredoc(ms);
 	return (0);
