@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 11:48:01 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/08 17:49:36 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:48:54 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,11 @@ void	recombiner(t_token *tk)
 {
 	while (tk)
 	{
-		if (tk->prev && (tk->squote || tk->dquote) && \
-			tk->blank_before_quote == 0)
+		if (tk->next && \
+		tk->blank_after_quote == 0 && tk->next->blank_before_quote == 0)
+			recombine_next_token(tk);
+		if (tk->prev && \
+		tk->prev->blank_after_quote == 0 && tk->blank_before_quote == 0)
 			recombine_prev_token(tk);
 		tk = tk->next;
 	}

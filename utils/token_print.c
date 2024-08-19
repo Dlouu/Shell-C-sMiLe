@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_print.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 05:24:42 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/07 14:04:59 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/19 17:36:54 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,19 @@
 void	tk_lstprint_type(t_token *tk)
 {
 	if (tk->type == PIPE)
-		printf("PIPE");
+		printf("   PIPE: ");
 	else if (tk->type >= 3 && tk->type <= 6)
-		printf("REDIR");
+		printf("  REDIR: ");
 	else if (tk->type == COMMAND)
-		printf("COMMAND");
+		printf("COMMAND: ");
 	else if (tk->type == BUILTIN)
-		printf("BUILTIN");
+		printf("BUILTIN: ");
 	else if (tk->type == ARG)
-		printf("ARG");
+		printf("    ARG: ");
 	else if (tk->type == FILENAME)
-		printf("FILE");
+		printf("   FILE: ");
 	else if (tk->type == DELIMITER)
-		printf("DELIMITER");
+		printf("  DELIM: ");
 	else
 		printf("UNDEFINED");
 }
@@ -49,7 +49,7 @@ void	tk_lstprint(t_ms *ms, t_token **tk_lst)
 		{
 			printf(" '-%d ", tk->index);
 			tk_lstprint_type(tk);
-			printf(": [%s]           ['%d' \"%d\" blank %d-%d]\n", tk->content, \
+			printf("[%s]           ['%d' \"%d\" blank %d-%d]\n", tk->content, \
 			tk->squote, tk->dquote, tk->blank_before_quote, \
 			tk->blank_after_quote);
 			tk = tk->next;

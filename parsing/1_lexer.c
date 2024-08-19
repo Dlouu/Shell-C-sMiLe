@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   1_lexer.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:18:23 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/04 14:57:46 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:44:23 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,15 @@ int	node_size(t_ms *ms, char *prompt, int i, int *start)
 		check_chevrons(prompt, &i);
 	else
 	{
+		if (prompt[i - 1] && ft_issplitable(prompt[i - 1]))
+			ms->blank_before_quote = 1;
 		while (prompt[i] && !ft_isseparator(prompt[i]))
+		{
+			if (prompt[i + 1] && (ft_issplitable(prompt[i + 1]) \
+			|| prompt[i + 1] == '\0'))
+				ms->blank_after_quote = 1;
 			i++;
+		}
 	}
 	return (i);
 }

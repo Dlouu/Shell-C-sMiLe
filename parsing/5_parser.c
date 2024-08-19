@@ -6,16 +6,52 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:18:28 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/15 16:41:34 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/19 17:46:19 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	sort_token(t_ms *ms, t_token **lexed_token)
+void	put_arg_after_command(t_token **tk)
 {
-	(void)ms;
-	(void)lexed_token;
+(void)tk;
+}
+
+void	put_command_first(t_token *command_token)
+{
+	t_token	*tk;
+	t_token	*prev_temp;
+	t_token	*next_temp;
+
+	tk = command_token;
+	prev_temp = command_token->prev;
+	next_temp = command_token->next;
+	while (tk->index != 0)
+		tk = tk->prev;
+	command_token->prev = tk->prev;
+	command_token->next = tk;
+	prev_temp->next = next_temp;
+	next_temp->prev = prev_temp;
+}
+
+void	sort_token(t_ms *ms)
+{
+	t_token	*tk;
+	//t_token	*head;
+
+	tk = ms->token_lexed;
+	while (tk->next)
+	{
+		if ((tk->type == COMMAND || tk->type == BUILTIN) && tk->index != 0)
+		{
+			printf("CACA command: %s\n", tk->content);
+			put_command_first(tk);
+			update_index(&ms->token_lexed);
+		}	
+		// else if (tk->type == ARG)
+		// 	put_arg_after_command(&tk);
+		tk = tk->next;
+	}
 }
 
 void	pipe_splitter(t_ms *ms)
@@ -87,7 +123,7 @@ int	parser(t_ms *ms, char *prompt)
 		return (error_free_prompt(ms, prompt, "syntax"));
 	if (!check_redir(lexed_token))
 		return (error_free_prompt(ms, prompt, "ambiguous redirect"));
-	sort_token(ms, &lexed_token);
+	sort_token(ms);
 	pipe_splitter(ms);
 	count_heredoc(ms);
 	tk_lstprint(ms, ms->token);
