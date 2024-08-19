@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/19 17:52:47 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/19 22:14:54 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,41 +24,30 @@ le reste c'est de gauche à droite dans chaque pipe
   free tout automatiquement à la fin de chaque boucle
 */
 
-static void	first_child_process(t_pipex fd, t_ms *ms)
+/*static void	first_child_process(t_pipex fd, t_ms *ms)
 {
-/* 	fd.infile = open(argv[1], O_RDONLY);
-	if (fd.infile < 0)
+	if (dup2(fd.pipefd[1], STDOUT_FILENO) < 0)
 	{
 		close(fd.pipefd[0]);
 		close(fd.pipefd[1]);
-		error_message(argv[1]);
-	} */
-	t_token **token;
-
-	token = ms->token;
+		printf("dup2 error\n");
+	}
 	close(fd.pipefd[0]);
 	close(fd.pipefd[1]);
-	close(fd.outfile);
 	ft_execlp(ms, (*token)->content);
 }
 
 static void second_child_process(t_pipex fd, t_ms *ms)
 {
-/* 	fd.outfile = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (fd.outfile < 0)
+	if (dup2(fd.pipefd[0], STDIN_FILENO) < 0)
 	{
 		close(fd.pipefd[0]);
 		close(fd.pipefd[1]);
-		error_message(argv[4]);
-	} */
-	t_token **token;
-
-	token = ms->token;
+		printf("dup2 error\n");
+	}
 	close(fd.pipefd[0]);
 	close(fd.pipefd[1]);
-	close(fd.outfile);
-	printf("content =========== %s\n", ((*token)++)->next->next->content);
-	ft_execlp(ms, ((*token)++)->next->next->content);
+	ft_execlp(ms, (*token)->content);
 }
 
 static void parent_process(t_pipex *fd, pid_t *pid)
@@ -67,36 +56,39 @@ static void parent_process(t_pipex *fd, pid_t *pid)
 	close(fd->pipefd[1]);
 	waitpid(pid[0], &(fd->status), 0);
 	waitpid(pid[1], &(fd->status), 0);
-}
+}*/
+
+/*static void create_pipe(t_ms *ms)
+{
+	t_pipex fd;
+
+    if (pipe(fd.pipefd) == -1)
+        printf("Pipe error\n");
+    fd.pid[0] = fork();
+    if (fd.pid[0] < 0)
+        printf("Fork error on pid[0]\n");
+    if (fd.pid[0] == 0)
+        first_child_process(fd, argv[1], envp);
+    fd.pid[1] = fork();
+    if (fd.pid[1] < 0)
+        printf("Fork error on pid[1]\n");
+    if (fd.pid[1] == 0)
+        second_child_process(fd, argv[2], envp);
+    parent_process(&fd);
+    if (WIFEXITED(fd.status))
+        return WEXITSTATUS(fd.status);
+    return 0;
+}*/
 
 static void create_pipe(t_ms *ms)
 {
-	t_pipex fd;
-	t_token **token;
-	t_token *tk;
+	t_token	**tk_lst;
+	t_token	*tk;
 	int		i;
-
-	//nb_fork = ms->command_count + ms->pipe_count;
-	//nb_fork = ms->pipe_count;
-	token = ms->token;
+	
+	tk_lst = ms->token;
 	i = 0;
-	while (token[i])
-	{
-		tk = token[i];
-		if (tk->type == PIPE)
-		{
-			pipe(fd.pipefd);
-			fd.pid[0] = fork();
-			if (fd.pid[0] == 0)
-				first_child_process(fd, ms);
-			fd.pid[1] = fork();
-			ms->token = &tk->next;
-			if (fd.pid[1] == 0)
-				second_child_process(fd, ms);
-			parent_process(&fd, fd.pid);
-		}
-		i++;
-	}
+	
 }
 
 static char	**copy_heredoc(t_token *token, int nbr_heredoc)
