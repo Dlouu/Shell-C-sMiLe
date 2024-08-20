@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:18:28 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/20 11:38:58 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/20 12:23:32 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,8 @@ void	sort_token(t_ms *ms)
 	temp = NULL;
 	while (tk_lst[i])
 	{
-		printf("i: %d\n", i);
 		tk = tk_lst[i];
 		printf("tk->content: %s\n", tk->content);
-		printf("next: %s\n", tk->next->content);
 		while (tk->next)
 		{
 			printf("tk->caca: %s\n", tk->content);
@@ -52,7 +50,7 @@ void	sort_token(t_ms *ms)
 		temp = NULL;
 		i++;
 	}
-	//update_index(tk_lst);
+	update_index(tk_lst);
 }
 
 void	pipe_splitter(t_ms *ms)

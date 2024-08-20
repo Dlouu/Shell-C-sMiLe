@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 05:24:42 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/20 11:48:45 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/20 12:20:12 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,7 @@ t_token	*tk_delone(t_token **tk_lst, t_token *tk)
 	t_token	*temp;
 
 	if (!tk)
-	{
-		printf("tk is NULL\n");
 		return (NULL);
-	}
-	printf("tk->content DELONENENENEN: %s\n", tk->content);
 	if (tk == *tk_lst)
 	{
 		*tk_lst = tk->next;
