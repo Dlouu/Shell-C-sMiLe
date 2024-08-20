@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:13:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/20 10:55:04 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/20 17:55:40 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,18 @@ void	replace_env_value(t_list *env, char *key, char *value);
 //token lst_utils
 t_token	*tk_lstnew(char *content);
 void	tk_lstadd(t_token **tk_lst, t_token *new);
-void	tk_lstadd_here(t_token **lst, t_token *here, t_token *new);
+void	tk_lstadd_here(t_token *here, t_token *new);
 void	tk_lstclear(t_token **tk_lst);
 void	tk_lstprint(t_ms *ms, t_token **tk_lst);
 t_token	*tk_delone(t_token **tk_lst, t_token *tk);
+t_token	*tk_lstfirst(t_token *tk);
+t_token	*tk_lstlast(t_token *tk);
 
 //utils
 int		error_free_prompt(t_ms *ms, char *prompt, char *error);
 void	set_interactive_signals(void);
 int		find_index(char *str, char c);
-void	update_index(t_token **tk);
+void	update_index(t_ms *ms);
 char	*get_var(char *var);
 void	delete_var_name(char *key, t_token *tk, int *i);
 char	**cmd_to_tab(t_ms *ms, t_token *tk);

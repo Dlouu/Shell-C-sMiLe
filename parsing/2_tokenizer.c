@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   2_tokenizer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 14:03:41 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/17 01:47:14 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/20 18:08:54 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,31 @@ int	count_heredoc(t_ms *ms)
 	return (0);
 }
 
+void	assign_quote_info(t_token *tk)
+{
+	int	len;
+
+	while (tk)
+	{
+		len = strlen(tk->content);
+		if (tk->content[0] == '\'' && tk->content[len - 1] == '\'')
+		{
+			tk->squote = 1;
+			tk->content = ft_substr(tk->content, 1, len - 2, FALSE);
+		}
+		else
+			tk->squote = 0;
+		if (tk->content[0] == '\"' && tk->content[len - 1] == '\"')
+		{
+			tk->dquote = 1;
+			tk->content = ft_substr(tk->content, 1, len - 2, FALSE);
+		}
+		else
+			tk->dquote = 0;
+		tk = tk->next;
+	}
+}
+
 void	assign_command_type(t_token *tk, int *command, int i)
 {
 	static char	*builtin_cmd[] = \
@@ -59,31 +84,6 @@ void	assign_command_type(t_token *tk, int *command, int i)
 		}
 		else if (tk->type == PIPE)
 			*command = 1;
-		tk = tk->next;
-	}
-}
-
-void	assign_quote_info(t_token *tk)
-{
-	int	len;
-
-	while (tk)
-	{
-		len = strlen(tk->content);
-		if (tk->content[0] == '\'' && tk->content[len - 1] == '\'')
-		{
-			tk->squote = 1;
-			tk->content = ft_substr(tk->content, 1, len - 2, FALSE);
-		}
-		else
-			tk->squote = 0;
-		if (tk->content[0] == '\"' && tk->content[len - 1] == '\"')
-		{
-			tk->dquote = 1;
-			tk->content = ft_substr(tk->content, 1, len - 2, FALSE);
-		}
-		else
-			tk->dquote = 0;
 		tk = tk->next;
 	}
 }

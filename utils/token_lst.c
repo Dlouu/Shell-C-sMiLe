@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 05:24:42 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/20 12:20:12 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/20 18:08:51 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,6 @@ t_token	*tk_delone(t_token **tk_lst, t_token *tk)
 		if (tk->next)
 			tk->next->prev = temp;
 	}
-	// wfree(tk->content);
-	// wfree(tk);
-	update_index(tk_lst);
 	return (NULL);
 }
 
@@ -56,7 +53,7 @@ t_token	*tk_lstnew(char *content)
 	return (new);
 }
 
-void	tk_lstadd_here(t_token **lst, t_token *here, t_token *new)
+void	tk_lstadd_here(t_token *here, t_token *new)
 {
 	t_token	*temp;
 
@@ -66,7 +63,6 @@ void	tk_lstadd_here(t_token **lst, t_token *here, t_token *new)
 	new->next = temp;
 	if (temp)
 		temp->prev = new;
-	update_index(lst);
 }
 
 void	tk_lstadd(t_token **tk_lst, t_token *new)
@@ -75,18 +71,15 @@ void	tk_lstadd(t_token **tk_lst, t_token *new)
 
 	if (!new)
 		return ;
-	printf("tk_lst dans kle add: %p\n", *tk_lst);
 	if (!*tk_lst || !tk_lst)
 	{
-		printf("fgyhujijuhgjijhgv\n");
 		*tk_lst = new;
 		new->index = 0;
 	}
 	else
 	{
 		temp = *tk_lst;
-		while (temp->next)
-			temp = temp->next;
+		temp = tk_lstlast(temp);
 		temp->next = new;
 		new->prev = temp;
 		new->index = new->prev->index + 1;

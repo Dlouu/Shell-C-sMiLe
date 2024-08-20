@@ -5,3 +5,8 @@
 - "exit ++1515" > exit bien et renvoie un mauvais exit code par consequent.
 (Bash n'accepte pas les exit "++", idem pour "--").
 - "unset PWD" > "cd .." (detail : ne plus changer la variable PWD une fois unset.)
+- $noexist$USER$USER
+- ambiguous redirect marche pas si "$files"
+- ca marche plus tout court
+- apres un pipe les REDIR en index 0 sont changed en CMD
+- JPP

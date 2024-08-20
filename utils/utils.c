@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 01:23:55 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/20 10:33:09 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/20 17:54:47 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,30 +75,24 @@ int	find_index(char *str, char c)
 	return (i);
 }
 
-void	update_index(t_token **tk)
+void	update_index(t_ms *ms)
 {
-	t_token	*temp;
-	int		index;
+	int		i;
+	int		pipe;
+	t_token	*tk;
 
-	index = 0;
-	while ((*tk)->next && (*tk)->next->type != PIPE)
+	pipe = 0;
+	while (pipe <= ms->pipe_count)
 	{
-		(*tk)->index = index;
-		index++;
-		*tk = (*tk)->next;
-	}
-	if ((*tk)->next && (*tk)->next->type == PIPE)
-	{
-		temp = (*tk)->next;
-		(*tk)->next = NULL;
-		(*tk)->index = index;
-		*tk = temp->next;
-		(*tk)->prev = NULL;
-	}
-	else
-	{
-		(*tk)->index = index;
-		*tk = (*tk)->next;
+		i = 0;
+		tk = ms->token[pipe];
+		while (tk)
+		{
+			tk->index = i;
+			i++;
+			tk = tk->next;
+		}
+		pipe++;
 	}
 }
 

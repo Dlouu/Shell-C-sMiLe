@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/20 10:32:52 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/20 16:41:05 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	minishell_init(t_ms *ms, char **argv, char **envp)
 	ms->pipe_count = 0;
 	ms->heredoc_count = 0;
 	get_envp(ms, envp);
-	//rl_catch_signals = 0;
+	rl_catch_signals = 0;
 	ft_putstr_fd("42 project | minishell | as beautiful as a shell~\n", 1);
 	ft_putstr_fd("    ___ _        _ _   ___      __  __ _ _\n", 1);
 	ft_putstr_fd("🐚 / __| |_  ___| | | / __|  __|  \\/  (_) |  ___\n", 1);
@@ -90,13 +90,6 @@ int	minishell_loop(t_ms *ms)
 		if (empty_prompt(prompt) || !lexer(ms, prompt, NULL) || tokenizer(ms) \
 		|| !parser(ms, prompt))
 			continue ;
-		char **cmd = cmd_to_tab(ms, ms->token[1]);
-		int i = 0;
-		while (cmd[i])
-		{
-			printf("cmd[%d] = %s\n", i, cmd[i]);
-			i++;
-		}
 		exec_main(ms);
 		find_builtin(ms, ms->token);
 		free(prompt);

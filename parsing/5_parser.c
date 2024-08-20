@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:18:28 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/20 12:23:32 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/20 18:08:54 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,35 +22,60 @@ void	sort_token(t_ms *ms)
 	tk_lst = ms->token;
 	i = 0;
 	temp = NULL;
-	while (tk_lst[i])
+	while (tk_lst != NULL)
 	{
 		tk = tk_lst[i];
-		printf("tk->content: %s\n", tk->content);
 		while (tk->next)
 		{
-			printf("tk->caca: %s\n", tk->content);
 			if (tk->type == COMMAND || tk->type == BUILTIN)
 			{
+				printf("add command : %s\n", tk->content);
 				tk_lstadd(&temp, tk);
-				tk_delone(ms->token, tk);
+				//tk_delone(ms, ms->token, tk);
 			}
-			if (tk->type == ARG)
+			else if (tk->type == ARG)
 			{
+				printf("add arg : %s\n", tk->content);
 				tk_lstadd(&temp, tk);
-				tk_delone(ms->token, tk);
+				//tk_delone(ms, ms->token, tk);
 			}
 			tk = tk->next;
 		}
-		while (tk->prev)
-			tk = tk->prev;
+		temp = tk_lstlast(temp);
+		tk = tk_lstfirst(tk);
 		temp->next = tk;
-		while (temp->prev)
-			temp = temp->prev;
+		tk->prev = temp;
+		temp = tk_lstfirst(temp);
 		tk_lst[i] = temp;
-		temp = NULL;
 		i++;
 	}
-	update_index(tk_lst);
+}
+
+void	split_on_pipe_and_update_index(t_token **tk)
+{
+	t_token	*temp;
+	int		index;
+
+	index = 0;
+	while ((*tk)->next && (*tk)->next->type != PIPE)
+	{
+		(*tk)->index = index;
+		index++;
+		*tk = (*tk)->next;
+	}
+	if ((*tk)->next && (*tk)->next->type == PIPE)
+	{
+		temp = (*tk)->next;
+		(*tk)->next = NULL;
+		(*tk)->index = index;
+		*tk = temp->next;
+		(*tk)->prev = NULL;
+	}
+	else
+	{
+		(*tk)->index = index;
+		*tk = (*tk)->next;
+	}
 }
 
 void	pipe_splitter(t_ms *ms)
@@ -67,7 +92,7 @@ void	pipe_splitter(t_ms *ms)
 	while (tk)
 	{
 		token_splitted[i] = tk;
-		update_index(&tk);
+		split_on_pipe_and_update_index(&tk);
 		i++;
 	}
 	token_splitted[i] = NULL;
@@ -123,7 +148,8 @@ int	parser(t_ms *ms, char *prompt)
 	if (!check_redir(lexed_token))
 		return (error_free_prompt(ms, prompt, "ambiguous redirect"));
 	pipe_splitter(ms);
-	sort_token(ms);
+	//sort_token(ms);
+	update_index(ms);
 	count_heredoc(ms);
 	tk_lstprint(ms, ms->token);
 	return (1);

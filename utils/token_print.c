@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 05:24:42 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/19 17:36:54 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/20 16:35:54 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,22 @@ void	tk_lstprint(t_ms *ms, t_token **tk_lst)
 		i++;
 	}
 	printf("- - - -\n");
+}
+
+t_token	*tk_lstlast(t_token *tk)
+{
+	if (!tk)
+		return (NULL);
+	while (tk->next)
+		tk = tk->next;
+	return (tk);
+}
+
+t_token	*tk_lstfirst(t_token *tk)
+{
+	if (!tk)
+		return (NULL);
+	while (tk->prev)
+		tk = tk->prev;
+	return (tk);
 }
