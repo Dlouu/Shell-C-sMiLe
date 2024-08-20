@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:18:23 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/19 16:44:23 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/20 11:45:48 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	node_size(t_ms *ms, char *prompt, int i, int *start)
 		check_chevrons(prompt, &i);
 	else
 	{
-		if (prompt[i - 1] && ft_issplitable(prompt[i - 1]))
+		if (i != 0 && prompt[i - 1] && ft_issplitable(prompt[i - 1]))
 			ms->blank_before_quote = 1;
 		while (prompt[i] && !ft_isseparator(prompt[i]))
 		{

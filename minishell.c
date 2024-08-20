@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/15 16:00:09 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/20 10:32:52 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,13 @@ int	minishell_loop(t_ms *ms)
 		if (empty_prompt(prompt) || !lexer(ms, prompt, NULL) || tokenizer(ms) \
 		|| !parser(ms, prompt))
 			continue ;
+		char **cmd = cmd_to_tab(ms, ms->token[1]);
+		int i = 0;
+		while (cmd[i])
+		{
+			printf("cmd[%d] = %s\n", i, cmd[i]);
+			i++;
+		}
 		exec_main(ms);
 		find_builtin(ms, ms->token);
 		free(prompt);

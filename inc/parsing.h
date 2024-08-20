@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:13:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/15 16:43:07 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/20 10:55:04 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	tk_lstadd(t_token **tk_lst, t_token *new);
 void	tk_lstadd_here(t_token **lst, t_token *here, t_token *new);
 void	tk_lstclear(t_token **tk_lst);
 void	tk_lstprint(t_ms *ms, t_token **tk_lst);
+t_token	*tk_delone(t_token **tk_lst, t_token *tk);
 
 //utils
 int		error_free_prompt(t_ms *ms, char *prompt, char *error);
@@ -54,5 +55,6 @@ int		find_index(char *str, char c);
 void	update_index(t_token **tk);
 char	*get_var(char *var);
 void	delete_var_name(char *key, t_token *tk, int *i);
+char	**cmd_to_tab(t_ms *ms, t_token *tk);
 
 #endif
