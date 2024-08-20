@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/20 14:07:07 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/20 14:35:12 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	minishell_init(t_ms *ms, char **argv, char **envp)
 	ms->pipe_count = 0;
 	ms->heredoc_count = 0;
 	ms->command_count = 0;
+	ms->current_pipe = 0;
 	get_envp(ms, envp);
 	rl_catch_signals = 0;
 	ft_putstr_fd("42 project | minishell | as beautiful as a shell~\n", 1);
@@ -96,6 +97,7 @@ int	minishell_loop(t_ms *ms)
 		ms->pipe_count = 0;
 		ms->heredoc_count = 0;
 		ms->command_count = 0;
+		ms->current_pipe = 0;
 		wclear(0);
 	}
 	return (ms->exit_code);

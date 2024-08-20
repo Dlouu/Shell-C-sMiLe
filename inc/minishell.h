@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:02:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/19 16:50:42 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/20 14:34:44 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef struct s_ms
 	struct s_token	*token_lexed;
 	int				blank_before_quote;
 	int				blank_after_quote;
+	int				current_pipe;
 	int				pipe_count;
 	int				heredoc_count;
 	int				command_count;

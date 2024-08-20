@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:54:36 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/20 14:04:36 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/20 14:28:49 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,28 +75,25 @@ void	ft_execlp(t_ms *ms, char **cmd)
 // je sais plus la subtilité de quand on unset ou quoi
 // mais apparemment quand on lance un shell dans un shell faut mettre un path
 // par defaut
-
-//dlou : ATTENTION FAUT UTILISER STRCMP ET PAS STRNCMP car si on a un echo2
-// ou echonyayayay ça va faire echo j'ai add strcmp dans la lib et changé ici
-void	find_builtin(t_ms *ms, t_token **token)
+void	find_builtin(t_ms *ms, t_token *token)
 {
 	ms->path = find_env_value(ms->env, "PATH");
-	if (ft_strcmp((*token)->content, "cd") == 0)
-		ft_cd(ms);
-	else if (ft_strcmp((*token)->content, "echo") == 0)
-		ft_echo(ms);
-	else if (ft_strcmp((*token)->content, "env") == 0)
-		ft_env(ms);
-	else if (ft_strcmp((*token)->content, "pwd") == 0)
+	if (ft_strcmp(token->content, "cd") == 0)
+		ft_cd(ms, token);
+	else if (ft_strcmp(token->content, "echo") == 0)
+		ft_echo(ms, token);
+	// else if (ft_strcmp(token->content, "env") == 0)
+	// 	ft_env(ms);
+	else if (ft_strcmp(token->content, "pwd") == 0)
 		ft_pwd(ms);
-	else if (ft_strcmp((*token)->content, "export") == 0)
-		ft_export(ms);
-	else if (ft_strcmp((*token)->content, "unset") == 0)
-		ft_unset(ms);
-	else if (ft_strcmp((*token)->content, "exit") == 0)
-		ft_exit(ms);
+	// else if (ft_strcmp(token->content, "export") == 0)
+	// 	ft_export(ms);
+	// else if (ft_strcmp(token->content, "unset") == 0)
+	// 	ft_unset(ms);
+	// else if (ft_strcmp(token->content, "exit") == 0)
+	// 	ft_exit(ms);
 	// else
-	// 	ft_execlp(ms, cmd_to_tab(ms, *token));
+	// 	ft_execlp(ms, cmd_to_tab(ms,token);
 }
 
 /* notes :

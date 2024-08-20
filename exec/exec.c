@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/20 14:12:16 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/20 15:44:30 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,20 @@ le reste c'est de gauche à droite dans chaque pipe
 - quand tu uses free c'est 'wfree' mais c'est pas obligatoire de free car on 
   free tout automatiquement à la fin de chaque boucle
 */
+
+/* 
+ls -l > oui | cat < oui | echo bite > non
+
+ls -l > infile > outfile > infile (outfile vide mais infile remplie)
+
+grep "login.sh" < infile > outfile (outfile recupere le grep)
+
+grep "Videos" < infile | cat
+
+
+
+tr a-z A-Z > first_file << oui | tr A-Z a-z > second_file << non
+ */
 
 static void	first_child_process(t_pipex fd, char **cmd, t_ms *ms)
 {
@@ -66,9 +80,9 @@ static int create_pipe(t_ms *ms)
 	char **cmd2;
 
 	tk_lst = ms->token;
-	cmd1 = cmd_to_tab(ms, tk_lst[0]);
-	cmd2 = cmd_to_tab(ms, tk_lst[1]);
-	printf("cmd2: %s\n", cmd2[0]);
+	cmd1 = cmd_to_tab(ms, tk_lst[ms->current_pipe]);
+	cmd2 = cmd_to_tab(ms, tk_lst[ms->current_pipe + 1]);
+	ms->current_pipe += 1;
     if (pipe(fd.pipefd) == -1)
         printf("Pipe error\n");
     fd.pid[0] = fork();
@@ -144,7 +158,12 @@ static void simple_command(t_ms *ms)
 		exit(1);
 	}
 	if (pid == 0)
-		ft_execlp(ms, cmd_to_tab(ms, ms->token[0]));
+	{
+		if (ms->token[0]->type == BUILTIN)
+			find_builtin(ms, ms->token[0]); // changer les 0 et 1 en i
+		else
+			ft_execlp(ms, cmd_to_tab(ms, ms->token[0]));
+	}
 	waitpid(pid, &status, 0);	
 	ms->exit_code = WEXITSTATUS(status);
 }
