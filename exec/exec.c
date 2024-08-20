@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/20 12:34:06 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/20 14:12:16 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,8 @@ static int create_pipe(t_ms *ms)
 	char **cmd2;
 
 	tk_lst = ms->token;
-	cmd1 = cmd_to_tab(ms, ms->token[0]);
-	printf("cmd1: %s\n", cmd1[0]);
-	cmd2 = cmd_to_tab(ms, ms->token[1]);
+	cmd1 = cmd_to_tab(ms, tk_lst[0]);
+	cmd2 = cmd_to_tab(ms, tk_lst[1]);
 	printf("cmd2: %s\n", cmd2[0]);
     if (pipe(fd.pipefd) == -1)
         printf("Pipe error\n");
@@ -152,7 +151,6 @@ static void simple_command(t_ms *ms)
 
 int	exec_main(t_ms *ms)
 {
-	(void)ms;
 	if (ms->pipe_count)
 		create_pipe(ms);
 	else

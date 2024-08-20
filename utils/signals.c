@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 00:12:48 by dlou              #+#    #+#             */
-/*   Updated: 2024/08/06 10:20:03 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/20 14:06:59 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	sigint_handler(int signum)
 	if (signum == SIGINT)
 	{
 		write(STDOUT_FILENO, "^C\n", 3);
-		//rl_replace_line("", 0);
+		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
 		g_signal = 130;

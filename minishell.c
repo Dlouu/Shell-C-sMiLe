@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/19 15:44:51 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/20 14:07:07 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	minishell_init(t_ms *ms, char **argv, char **envp)
 	ms->heredoc_count = 0;
 	ms->command_count = 0;
 	get_envp(ms, envp);
-	//rl_catch_signals = 0;
+	rl_catch_signals = 0;
 	ft_putstr_fd("42 project | minishell | as beautiful as a shell~\n", 1);
 	ft_putstr_fd("    ___ _        _ _   ___      __  __ _ _\n", 1);
 	ft_putstr_fd("🐚 / __| |_  ___| | | / __|  __|  \\/  (_) |  ___\n", 1);
@@ -92,7 +92,6 @@ int	minishell_loop(t_ms *ms)
 		|| !parser(ms, prompt))
 			continue ;
 		exec_main(ms);
-		find_builtin(ms, ms->token);
 		free(prompt);
 		ms->pipe_count = 0;
 		ms->heredoc_count = 0;
