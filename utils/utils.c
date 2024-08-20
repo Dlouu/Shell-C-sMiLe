@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 01:23:55 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/08 17:34:09 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/20 11:49:57 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,4 +100,32 @@ void	update_index(t_token **tk)
 		(*tk)->index = index;
 		*tk = (*tk)->next;
 	}
+}
+
+char    **cmd_to_tab(t_ms *ms, t_token *tk)
+{
+    char    **cmd;
+    int        i;
+    int        size;
+    t_token    *temp;
+
+    i = 0;
+    size = 0;
+    temp = tk;
+    (void)ms;
+    while (temp)
+    {
+        if (temp->type == COMMAND || temp->type == BUILTIN || temp->type == ARG)
+            size++;
+        temp = temp->next;
+    }
+    cmd = walloc(sizeof(char *) * (size + 1), FALSE);
+    while (i < size)
+    {
+        cmd[i] = ft_strdup(tk->content, FALSE);
+        tk = tk->next;
+        i++;
+    }
+    cmd[i] = NULL;
+    return (cmd);
 }

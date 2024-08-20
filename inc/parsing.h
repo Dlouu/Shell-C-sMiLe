@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:13:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/19 15:36:39 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/20 11:48:55 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,6 @@ int		find_index(char *str, char c);
 void	update_index(t_token **tk);
 char	*get_var(char *var);
 void	delete_var_name(char *key, t_token *tk, int *i);
+char    **cmd_to_tab(t_ms *ms, t_token *tk);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:54:36 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/19 16:55:38 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/20 12:35:53 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,24 +52,22 @@ static char	*find_path(char *cmd, char **envp)
 //liste chainée, je l'ai mis dans utils.c, je l'ai changé sur cette fonction 
 //et du coup tu ne te bases plus sur celle du debut mais celle modifiée
 //j'ai fait le truc !path et command not found
-void	ft_execlp(t_ms *ms, char *cmd)
+void	ft_execlp(t_ms *ms, char **cmd)
 {
 	char	*path;
-	char	**tab;
 	char	**envp;
 
-	tab = ft_split(cmd, ' ', FALSE);
 	envp = env_lst_to_tab(ms);
-	path = find_path(tab[0], envp);
+	path = find_path(cmd[0], envp);
 	if (!path)
 	{
 		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(tab[0], 2);
+		ft_putstr_fd(cmd[0], 2);
 		ft_putstr_fd(": command not found\n", 2);
 		ms->exit_code = 127;
 	}
 	else
-		execve(path, tab, envp);
+		execve(path, cmd, envp);
 }
 
 //dlou: j'ai changé le path que tu avais déclaré dans un char*
@@ -97,8 +95,8 @@ void	find_builtin(t_ms *ms, t_token **token)
 		ft_unset(ms);
 	else if (ft_strcmp((*token)->content, "exit") == 0)
 		ft_exit(ms);
-	else
-		ft_execlp(ms, (*token)->content);
+	//else
+	//	ft_execlp(ms, cmd_to_tab(ms, *token));
 }
 
 /* notes :
