@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:12 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/17 01:47:59 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/21 11:44:06 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@ static int	check_number(char *s)
 	return (0);
 }
 
+/*
+
+*/
+
 static void	clean_exit(t_ms *ms)
 {
 	//close les fd
@@ -52,18 +56,16 @@ static void	exit_not_number(t_ms *ms, char *str)
 	exit(ms->exit_code);
 }
 
-int	ft_exit(t_ms *ms)
+int	ft_exit(t_ms *ms, t_token *tk)
 {
 	long	nbr;
-	t_token	**tk;
 
-	tk = ms->token;
 	ft_putendl_fd("exit", STDOUT_FILENO);
-	if ((*tk)->next)
+	if (tk->next)
 	{
-		if (check_number((*tk)->next->content) == 0)
+		if (check_number(tk->next->content) == 0)
 		{
-			if ((*tk)->next->next)
+			if (tk->next->next)
 			{
 				ft_putendl_fd("minishell: exit: too many arguments", 2);
 				ms->exit_code = 1;
@@ -72,18 +74,18 @@ int	ft_exit(t_ms *ms)
 			}
 			else
 			{
-				if (!ft_long_ovcheck((*tk)->next->content))
+				if (!ft_long_ovcheck(tk->next->content))
 				{
-					exit_not_number(ms, (*tk)->next->content);
+					exit_not_number(ms, tk->next->content);
 					return (1);
 				}
-				nbr = ft_atol((*tk)->next->content);
+				nbr = ft_atol(tk->next->content);
 				ms->exit_code = nbr % 256;
 			}
 			printf("exit code : %d\n", ms->exit_code);
 		}
 		else
-			exit_not_number(ms, (*tk)->next->content);
+			exit_not_number(ms, tk->next->content);
 	}
 	else
 		ms->exit_code = 0;

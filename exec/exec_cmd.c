@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:54:36 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/20 14:28:49 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/21 11:35:04 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ void	find_builtin(t_ms *ms, t_token *token)
 	// 	ft_export(ms);
 	// else if (ft_strcmp(token->content, "unset") == 0)
 	// 	ft_unset(ms);
-	// else if (ft_strcmp(token->content, "exit") == 0)
-	// 	ft_exit(ms);
+	else if (ft_strcmp(token->content, "exit") == 0)
+		ft_exit(ms, token);
 	// else
 	// 	ft_execlp(ms, cmd_to_tab(ms,token);
 }

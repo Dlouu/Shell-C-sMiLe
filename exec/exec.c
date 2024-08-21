@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/20 15:44:30 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/21 14:30:23 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,7 @@ ls -l > infile > outfile > infile (outfile vide mais infile remplie)
 
 grep "login.sh" < infile > outfile (outfile recupere le grep)
 
-grep "Videos" < infile | cat
-
-
+grep "Videos" < infile | cat -e > outfile
 
 tr a-z A-Z > first_file << oui | tr A-Z a-z > second_file << non
  */
@@ -44,7 +42,7 @@ static void	first_child_process(t_pipex fd, char **cmd, t_ms *ms)
 	{
 		close(fd.pipefd[0]);
 		close(fd.pipefd[1]);
-		printf("dup2 error\n");
+		printf("dup2 error1\n");
 	}
 	close(fd.pipefd[0]);
 	close(fd.pipefd[1]);
@@ -57,7 +55,7 @@ static void second_child_process(t_pipex fd, char **cmd, t_ms *ms)
 	{
 		close(fd.pipefd[0]);
 		close(fd.pipefd[1]);
-		printf("dup2 error\n");
+		printf("dup2 error2\n");
 	}
 	close(fd.pipefd[0]);
 	close(fd.pipefd[1]);
@@ -129,9 +127,11 @@ static void	manage_heredoc(t_ms *ms)
 	char	*line;
 	int		i;
 	t_token	**tk;
+	int		file;
 
 	tk = ms->token;
 	list_heredoc = copy_heredoc((*tk), ms->heredoc_count);
+	file = open(".heredoc", O_RDWR | O_CREAT | O_TRUNC, 0644);
 	i = 0;
 	while (1)
 	{
@@ -140,6 +140,11 @@ static void	manage_heredoc(t_ms *ms)
 			break ;
 		if (ft_strcmp(line, list_heredoc[i]) == 0)
 			i++;
+		else
+		{
+			write(file, line, ft_strlen(line));
+			write(file, "\n", 1);
+		}
 		if (i == ms->heredoc_count)
 			break ;
 	}
@@ -151,20 +156,21 @@ static void simple_command(t_ms *ms)
 	int		status;
 
 	printf("no pipe\n");
-	pid = fork();
-	if (pid < 0)
+	status = 0;
+	if (ms->token[0]->type == BUILTIN)
+		find_builtin(ms, ms->token[0]); // changer les 0 et 1 en i
+	else
 	{
-		printf("Fork error\n");
-		exit(1);
-	}
-	if (pid == 0)
-	{
-		if (ms->token[0]->type == BUILTIN)
-			find_builtin(ms, ms->token[0]); // changer les 0 et 1 en i
-		else
+		pid = fork();
+		if (pid < 0)
+		{
+			printf("Fork error\n");
+			exit(1);
+		}
+		if (pid == 0)
 			ft_execlp(ms, cmd_to_tab(ms, ms->token[0]));
+		waitpid(pid, &status, 0);
 	}
-	waitpid(pid, &status, 0);	
 	ms->exit_code = WEXITSTATUS(status);
 }
 
