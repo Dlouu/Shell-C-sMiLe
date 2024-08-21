@@ -6,33 +6,11 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 14:03:41 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/20 18:08:54 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/21 15:25:37 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-int	count_heredoc(t_ms *ms)
-{
-	t_token	**tk_lst;
-	t_token	*tk;
-	int		i;
-
-	tk_lst = ms->token;
-	i = 0;
-	while (tk_lst[i])
-	{
-		tk = tk_lst[i];
-		while (tk->next)
-		{
-			if (tk->type == REDIR_DOUBLE_LEFT)
-				ms->heredoc_count += 1;
-			tk = tk->next;
-		}
-		i++;
-	}
-	return (0);
-}
 
 void	assign_quote_info(t_token *tk)
 {

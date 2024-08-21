@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/20 16:41:05 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/21 15:31:25 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,6 @@ TRUCS A CHECK
 	base genre /bin/bash ?
 [_]	si on unset USER est-ce que ca marche ?
 [_] si on unset PATH il faut que ca ne marche pas mais no segfault
-[_] check $USER$USER$blah$blah = ne delete pas les 2 blah (la solution etait de
-	split sur les $ mais depuis avec $ dans isseparator infinite loop
-[_] $""aa$"" a fixer
 - - - - - - -
 PARSING
 [x]	lexer (creation de la liste)
@@ -30,33 +27,22 @@ PARSING
 [x]	expander (expand les variables)
 [x]	recombiner (recoller les nodes "" et '' accolées)
 [x]	word_splitter (split les tokens "" expand)
-[_] token_sorter (sort les tokens dans l'ordre d'execution)
+[x] token_sorter (sort les tokens dans l'ordre d'execution)
 [x] parsing
+[_] check $USER$USER$blah$blah = ne delete pas les 2 blah (la solution etait de
+	split sur les $ mais depuis avec $ dans isseparator infinite loop
+[_] $""aa$"" a fixer
 - - - - - - -
 EXECUTION
 [~]	builtin reste exit, cd et unset
-[_]	fork
+[x]	fork
 [_]	pipe
 [_]	redirections > >> < <<
 [_]	waitpid cat | cat | ls
 */
 
-int	empty_prompt(char *prompt)
-{
-	int	i;
-
-	i = -1;
-	while (prompt[++i])
-	{
-		if (!ft_isblank(prompt[i]))
-			return (0);
-	}
-	free(prompt);
-	return (1);
-}
-
 // si t'arrives pas a compiler sur ton mac,
-// mets rl_catch_signals = 0; en commentaire ligne 67
+// mets rl_catch_signals = 0; en commentaire ligne 55
 // et egalement dans le fichier utils/signal.c ligne 22
 void	minishell_init(t_ms *ms, char **argv, char **envp)
 {

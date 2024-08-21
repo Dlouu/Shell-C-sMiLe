@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:54:36 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/15 15:30:49 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/21 14:56:57 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static char	*find_path(char *cmd, char **envp)
 	int		i;
 
 	i = 0;
+	if (!cmd)
+		return (NULL);
 	if (access(cmd, F_OK) == 0)
 		return (cmd);
 	while (ft_strncmp(envp[i], "PATH=", 5) != 0)

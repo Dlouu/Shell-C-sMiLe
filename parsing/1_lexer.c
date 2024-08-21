@@ -6,37 +6,37 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:18:23 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/20 11:45:48 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/21 15:39:10 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	check_nb_quote(char *prompt, int i)
+void	while_quote(char *prompt, int *i, int *quote, int quote_type)
+{
+	(*i)++;
+	(*quote)++;
+	while (prompt[*i] && !(ft_isquote(prompt[*i]) == quote_type))
+		(*i)++;
+	if (ft_isquote(prompt[*i]) == quote_type)
+		(*quote)--;
+}
+
+int	check_nb_quote(char *prompt)
 {
 	int	quote;
+	int	i;
 
 	quote = 0;
-	while (prompt[++i])
+	i = 0;
+	while (prompt[i])
 	{
 		if (ft_isquote(prompt[i]) == SQUOTE)
-		{
-			i++;
-			quote++;
-			while (prompt[i] && !(ft_isquote(prompt[i]) == SQUOTE))
-				i++;
-			if (ft_isquote(prompt[i]) == SQUOTE)
-				quote--;
-		}
+			while_quote(prompt, &i, &quote, SQUOTE);
 		else if (ft_isquote(prompt[i]) == DQUOTE)
-		{
+			while_quote(prompt, &i, &quote, DQUOTE);
+		if (prompt[i])
 			i++;
-			quote++;
-			while (prompt[i] && !(ft_isquote(prompt[i]) == DQUOTE))
-				i++;
-			if (ft_isquote(prompt[i]) == DQUOTE)
-				quote--;
-		}
 	}
 	return (quote);
 }
@@ -45,7 +45,8 @@ int	check_quotes(t_ms *ms, char *prompt, int *i)
 {
 	if (ft_isquote(prompt[*i]) == SQUOTE)
 	{
-		if (prompt[(*i) - 1] && ft_issplitable(prompt[(*i) - 1]) == 1)
+		if (*i != 0 && prompt[(*i) - 1] \
+		&& ft_issplitable(prompt[(*i) - 1]) == 1)
 			ms->blank_before_quote = 1;
 		(*i)++;
 		while (prompt[*i] && (ft_isquote(prompt[*i]) != SQUOTE))
@@ -56,7 +57,8 @@ int	check_quotes(t_ms *ms, char *prompt, int *i)
 	}
 	else if (ft_isquote(prompt[*i]) == DQUOTE)
 	{
-		if (prompt[(*i) - 1] && ft_issplitable(prompt[(*i) - 1]) == 1)
+		if (*i != 0 && prompt[(*i) - 1] \
+		&& ft_issplitable(prompt[(*i) - 1]) == 1)
 			ms->blank_before_quote = 1;
 		(*i)++;
 		while (prompt[*i] && (ft_isquote(prompt[*i]) != DQUOTE))
@@ -120,10 +122,9 @@ int	lexer(t_ms *ms, char *prompt, t_token *token_lst)
 	int		i;
 	int		start;
 
-	i = -1;
-	if (check_nb_quote(prompt, i) != 0)
-		return (error_free_prompt(ms, prompt, "unclosed quote"));
 	i = 0;
+	if (check_nb_quote(prompt) != 0)
+		return (error_free_prompt(ms, prompt, "unclosed quote"));
 	while (prompt[i])
 	{
 		i = node_size(ms, prompt, i, &start);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:05:19 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/07 09:35:05 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/21 15:09:55 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,18 @@ int	error_free_prompt(t_ms *ms, char *prompt, char *error)
 	wclear(0);
 	free(prompt);
 	return (0);
+}
+
+int	empty_prompt(char *prompt)
+{
+	int	i;
+
+	i = -1;
+	while (prompt[++i])
+	{
+		if (!ft_isblank(prompt[i]))
+			return (0);
+	}
+	free(prompt);
+	return (1);
 }

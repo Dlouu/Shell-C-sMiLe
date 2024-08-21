@@ -6,55 +6,11 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 11:48:01 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/19 16:48:54 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/21 15:59:26 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-void	split_nodes(t_token *tk, int *i)
-{
-	t_token	*new;
-	char	*left;
-	char	*right;
-	size_t	len;
-
-	len = ft_strlen(tk->content) - *i;
-	while (tk->content[*i] && !ft_isblank(tk->content[*i]))
-		*i += 1;
-	left = ft_substr(tk->content, 0, *i, FALSE);
-	right = ft_substr(tk->content, *i + 1, len - 1, FALSE);
-	tk->content = left;
-	new = tk_lstnew(right);
-	new->squote = tk->squote;
-	new->dquote = tk->dquote;
-	new->blank_before_quote = 0;
-	new->blank_after_quote = 0;
-	tk_lstadd_here(&tk, tk, new);
-	*i = 0;
-}
-
-void	word_splitter(t_token **token)
-{
-	t_token	**tk;
-	int		i;
-
-	tk = token;
-	while (*tk)
-	{
-		if ((*tk)->squote == 0 && (*tk)->dquote == 0 && (*tk)->expanded)
-		{
-			i = 0;
-			while ((*tk)->content[i])
-			{
-				if (ft_isblank((*tk)->content[i]))
-					split_nodes(*tk, &i);
-				i++;
-			}
-		}
-		tk = &(*tk)->next;
-	}
-}
 
 void	recombine_prev_token(t_token *tk)
 {
@@ -83,15 +39,16 @@ void	recombine_next_token(t_token *tk)
 		next->next->prev = tk;
 }
 
+//Alexis, pourquoi ca marche, ca devrait pas etre < 3 ?
 void	recombiner(t_token *tk)
 {
 	while (tk)
 	{
-		if (tk->next && \
-		tk->blank_after_quote == 0 && tk->next->blank_before_quote == 0)
+		if (tk->next && (tk->next->type > 3) && (tk->type > 3) \
+		&& tk->blank_after_quote == 0 && tk->next->blank_before_quote == 0)
 			recombine_next_token(tk);
-		if (tk->prev && \
-		tk->prev->blank_after_quote == 0 && tk->blank_before_quote == 0)
+		if (tk->prev && (tk->prev->type > 3) && (tk->type > 3) \
+		&& tk->prev->blank_after_quote == 0 && tk->blank_before_quote == 0)
 			recombine_prev_token(tk);
 		tk = tk->next;
 	}

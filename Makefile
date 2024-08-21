@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: niabraha <niabraha@student.42mulhouse.f    +#+  +:+       +#+         #
+#    By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/06 13:02:03 by mbaumgar          #+#    #+#              #
-#    Updated: 2024/08/14 14:25:18 by niabraha         ###   ########.fr        #
+#    Updated: 2024/08/21 15:28:00 by mbaumgar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,8 @@ SRC			= minishell.c \
 			parsing/3_expander.c \
 			parsing/4_recombiner.c \
 			parsing/5_parser.c \
+			parsing/6_splitter.c \
+			parsing/7_sorter.c \
 			builtin/cd.c \
 			builtin/echo.c \
 			builtin/env.c \
@@ -65,8 +67,9 @@ SRC			= minishell.c \
 			utils/error.c \
 			utils/execution.c \
 			utils/token_lst.c \
-			utils/token_print.c \
+			utils/token_utils.c \
 			utils/envp.c \
+			utils/var.c \
 			utils/signals.c \
 			utils/utils.c
 

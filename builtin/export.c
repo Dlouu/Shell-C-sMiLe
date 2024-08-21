@@ -6,11 +6,23 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:15 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/15 14:01:19 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/21 15:20:48 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+int	find_index(char *str, char c)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] != c)
+		i++;
+	if (str[i] == '\0')
+		return (-1);
+	return (i);
+}
 
 void	update_or_create_var(t_ms *ms, t_token **token)
 {
