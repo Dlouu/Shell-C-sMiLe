@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/21 14:30:23 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/21 15:54:24 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,33 +121,57 @@ static char	**copy_heredoc(t_token *token, int nbr_heredoc)
 	return (list_heredoc);
 }
 
-static void	manage_heredoc(t_ms *ms)
+static void manage_heredoc(t_ms *ms)
 {
 	char	**list_heredoc;
-	char	*line;
+	char	buffer[4096];
 	int		i;
 	t_token	**tk;
 	int		file;
+	int		bytes_read;
+	int		line_start;
+	int		j;
 
 	tk = ms->token;
 	list_heredoc = copy_heredoc((*tk), ms->heredoc_count);
 	file = open(".heredoc", O_RDWR | O_CREAT | O_TRUNC, 0644);
 	i = 0;
-	while (1)
+	line_start = 0;
+	write(1, "> ", 2);
+	while ((bytes_read = read(STDIN_FILENO, buffer, 4096)) > 0)
 	{
-		line = readline("> ");
-		if (!line)
-			break ;
-		if (ft_strcmp(line, list_heredoc[i]) == 0)
-			i++;
-		else
+		buffer[bytes_read] = '\0';
+		j = 0;
+		while (j++ < bytes_read)
 		{
-			write(file, line, ft_strlen(line));
-			write(file, "\n", 1);
+			if (buffer[j] == '\n')
+			{
+				buffer[j] = '\0';
+				if (ft_strcmp(buffer + line_start, list_heredoc[i]) == 0)
+					i++;
+				else
+				{
+					write(1, "> ", 2);
+					write(file, buffer + line_start, j - line_start);
+					write(file, "\n", 1);
+				}
+				line_start = j + 1;
+				if (i == ms->heredoc_count)
+				{
+					close(file);
+					return ;
+				}
+			}
 		}
-		if (i == ms->heredoc_count)
-			break ;
+		if (line_start < bytes_read)
+		{
+			ft_memmove(buffer, buffer + line_start, bytes_read - line_start);
+			line_start = bytes_read - line_start;
+		}
+		else
+			line_start = 0;
 	}
+	close(file);
 }
 
 static void simple_command(t_ms *ms)
