@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   7_sorter.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:21:41 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/21 15:27:54 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/21 17:56:21 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+/*
+Quand y'a des redirs:
+marche pas si juste une commande ou builtin
+Mais marche avec argument
+*/
 
 int	token_has_no_command(t_token *tk)
 {
