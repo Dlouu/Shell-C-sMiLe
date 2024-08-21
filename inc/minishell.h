@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:02:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/15 14:29:58 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/20 14:34:44 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@
 # include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <sys/wait.h>
+# include <fcntl.h>
+
 
 extern int	g_signal;
 
@@ -81,8 +86,10 @@ typedef struct s_ms
 	struct s_token	*token_lexed;
 	int				blank_before_quote;
 	int				blank_after_quote;
+	int				current_pipe;
 	int				pipe_count;
 	int				heredoc_count;
+	int				command_count;
 	unsigned char	exit_code;
 }	t_ms;
 

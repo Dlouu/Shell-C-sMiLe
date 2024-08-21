@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/17 01:47:20 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/21 15:54:24 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,81 @@ le reste c'est de gauche à droite dans chaque pipe
 - quand tu uses free c'est 'wfree' mais c'est pas obligatoire de free car on 
   free tout automatiquement à la fin de chaque boucle
 */
+
+/* 
+ls -l > oui | cat < oui | echo bite > non
+
+ls -l > infile > outfile > infile (outfile vide mais infile remplie)
+
+grep "login.sh" < infile > outfile (outfile recupere le grep)
+
+grep "Videos" < infile | cat -e > outfile
+
+tr a-z A-Z > first_file << oui | tr A-Z a-z > second_file << non
+ */
+
+static void	first_child_process(t_pipex fd, char **cmd, t_ms *ms)
+{
+	if (dup2(fd.pipefd[1], STDOUT_FILENO) < 0)
+	{
+		close(fd.pipefd[0]);
+		close(fd.pipefd[1]);
+		printf("dup2 error1\n");
+	}
+	close(fd.pipefd[0]);
+	close(fd.pipefd[1]);
+	ft_execlp(ms, cmd);
+}
+
+static void second_child_process(t_pipex fd, char **cmd, t_ms *ms)
+{
+	if (dup2(fd.pipefd[0], STDIN_FILENO) < 0)
+	{
+		close(fd.pipefd[0]);
+		close(fd.pipefd[1]);
+		printf("dup2 error2\n");
+	}
+	close(fd.pipefd[0]);
+	close(fd.pipefd[1]);
+	ft_execlp(ms, cmd);
+}
+
+static void parent_process(t_pipex *fd)
+{
+	close(fd->pipefd[0]);
+	close(fd->pipefd[1]);
+	waitpid(fd->pid[0], &(fd->status), 0);
+	waitpid(fd->pid[1], &(fd->status), 0);
+}
+
+static int create_pipe(t_ms *ms)
+{
+	t_pipex fd;
+	t_token	**tk_lst;
+	char **cmd1;
+	char **cmd2;
+
+	tk_lst = ms->token;
+	cmd1 = cmd_to_tab(ms, tk_lst[ms->current_pipe]);
+	cmd2 = cmd_to_tab(ms, tk_lst[ms->current_pipe + 1]);
+	ms->current_pipe += 1;
+    if (pipe(fd.pipefd) == -1)
+        printf("Pipe error\n");
+    fd.pid[0] = fork();
+    if (fd.pid[0] < 0)
+        printf("Fork error on pid[0]\n");
+    if (fd.pid[0] == 0)
+        first_child_process(fd, cmd1, ms);
+    fd.pid[1] = fork();
+    if (fd.pid[1] < 0)
+        printf("Fork error on pid[1]\n");
+    if (fd.pid[1] == 0)
+        second_child_process(fd, cmd2, ms);
+    parent_process(&fd);
+    if (WIFEXITED(fd.status))
+        return WEXITSTATUS(fd.status);
+    return (0);
+}
 
 static char	**copy_heredoc(t_token *token, int nbr_heredoc)
 {
@@ -46,31 +121,89 @@ static char	**copy_heredoc(t_token *token, int nbr_heredoc)
 	return (list_heredoc);
 }
 
-static void	manage_heredoc(t_ms *ms)
+static void manage_heredoc(t_ms *ms)
 {
 	char	**list_heredoc;
-	char	*line;
+	char	buffer[4096];
 	int		i;
 	t_token	**tk;
+	int		file;
+	int		bytes_read;
+	int		line_start;
+	int		j;
 
 	tk = ms->token;
 	list_heredoc = copy_heredoc((*tk), ms->heredoc_count);
+	file = open(".heredoc", O_RDWR | O_CREAT | O_TRUNC, 0644);
 	i = 0;
-	while (1)
+	line_start = 0;
+	write(1, "> ", 2);
+	while ((bytes_read = read(STDIN_FILENO, buffer, 4096)) > 0)
 	{
-		line = readline("> ");
-		if (!line)
-			break ;
-		if (ft_strcmp(line, list_heredoc[i]) == 0)
-			i++;
-		if (i == ms->heredoc_count)
-			break ;
+		buffer[bytes_read] = '\0';
+		j = 0;
+		while (j++ < bytes_read)
+		{
+			if (buffer[j] == '\n')
+			{
+				buffer[j] = '\0';
+				if (ft_strcmp(buffer + line_start, list_heredoc[i]) == 0)
+					i++;
+				else
+				{
+					write(1, "> ", 2);
+					write(file, buffer + line_start, j - line_start);
+					write(file, "\n", 1);
+				}
+				line_start = j + 1;
+				if (i == ms->heredoc_count)
+				{
+					close(file);
+					return ;
+				}
+			}
+		}
+		if (line_start < bytes_read)
+		{
+			ft_memmove(buffer, buffer + line_start, bytes_read - line_start);
+			line_start = bytes_read - line_start;
+		}
+		else
+			line_start = 0;
 	}
+	close(file);
+}
+
+static void simple_command(t_ms *ms)
+{
+	pid_t	pid;
+	int		status;
+
+	printf("no pipe\n");
+	status = 0;
+	if (ms->token[0]->type == BUILTIN)
+		find_builtin(ms, ms->token[0]); // changer les 0 et 1 en i
+	else
+	{
+		pid = fork();
+		if (pid < 0)
+		{
+			printf("Fork error\n");
+			exit(1);
+		}
+		if (pid == 0)
+			ft_execlp(ms, cmd_to_tab(ms, ms->token[0]));
+		waitpid(pid, &status, 0);
+	}
+	ms->exit_code = WEXITSTATUS(status);
 }
 
 int	exec_main(t_ms *ms)
 {
-	(void)ms;
+	if (ms->pipe_count)
+		create_pipe(ms);
+	else
+		simple_command(ms);
 	if (ms->heredoc_count)
 		manage_heredoc(ms);
 	return (0);

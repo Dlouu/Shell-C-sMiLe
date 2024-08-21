@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 14:03:41 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/21 15:25:37 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/21 16:12:30 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	assign_quote_info(t_token *tk)
 	}
 }
 
-void	assign_command_type(t_token *tk, int *command, int i)
+void	assign_command_type(t_ms *ms, t_token *tk, int *command, int i)
 {
 	static char	*builtin_cmd[] = \
 			{"cd", "echo", "env", "exit", "export", "pwd", "unset", NULL};
@@ -57,7 +57,10 @@ void	assign_command_type(t_token *tk, int *command, int i)
 				}
 			}
 			if (tk->type != BUILTIN)
+			{
 				tk->type = COMMAND;
+				ms->command_count++; // deplacer dans heredoc?
+			}
 			*command = 0;
 		}
 		else if (tk->type == PIPE)
@@ -110,6 +113,6 @@ int	tokenizer(t_ms *ms)
 		assign_token_type(ms, tk);
 		tk = tk->next;
 	}
-	assign_command_type(ms->token_lexed, &command, 0);
+	assign_command_type(ms, ms->token_lexed, &command, 0);
 	return (0);
 }
