@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 14:03:41 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/21 17:37:27 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/22 13:36:31 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	assign_quote_info(t_token *tk)
 
 	while (tk)
 	{
-		len = strlen(tk->content);
+		len = ft_strlen(tk->content);
 		if (tk->content[0] == '\'' && tk->content[len - 1] == '\'')
 		{
 			tk->squote = 1;
