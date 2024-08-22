@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:21:41 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/21 15:27:54 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/22 11:05:16 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	move_cmd_and_arg_to_front(t_token **tk)
 
 	while (*tk)
 	{
+		if ((*tk)->prev == NULL)
+			break ;
 		temp_prev = (*tk)->prev;
 		if ((*tk)->index == -1 && \
 		((*tk)->type == COMMAND || (*tk)->type == BUILTIN))
