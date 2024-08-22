@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:54:36 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/21 17:41:20 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/22 16:14:45 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,14 +87,14 @@ void	find_builtin(t_ms *ms, t_token *token)
 		ft_cd(ms, token);
 	else if (ft_strcmp(token->content, "echo") == 0)
 		ft_echo(ms, token);
-	// else if (ft_strcmp(token->content, "env") == 0)
-	// 	ft_env(ms);
+	else if (ft_strcmp(token->content, "env") == 0)
+		ft_env(ms);
 	else if (ft_strcmp(token->content, "pwd") == 0)
 		ft_pwd(ms);
-	// else if (ft_strcmp(token->content, "export") == 0)
-	// 	ft_export(ms);
-	// else if (ft_strcmp(token->content, "unset") == 0)
-	// 	ft_unset(ms);
+	else if (ft_strcmp(token->content, "export") == 0)
+		ft_export(ms);
+	else if (ft_strcmp(token->content, "unset") == 0)
+		ft_unset(ms);
 	else if (ft_strcmp(token->content, "exit") == 0)
 		ft_exit(ms, token);
 	// else

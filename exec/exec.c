@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/21 17:39:57 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/22 15:44:52 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,16 +136,15 @@ static void manage_heredoc(t_ms *ms)
 	file = open(".heredoc", O_RDWR | O_CREAT | O_TRUNC, 0644);
 	i = 0;
 	line_start = 0;
-	j = 0;
 	while (1)
 	{
 		write(STDOUT_FILENO, "> ", 2);
-		//fflush(stdout);
 		bytes_read = read(STDIN_FILENO, buffer, BUFFER_SIZE);
 		if (bytes_read <= 0)
 			break;
 		buffer[bytes_read] = '\0';
-		for (int j = 0; j < bytes_read; j++)
+		j = 0;
+		while (j < bytes_read)
 		{
 			if (buffer[j] == '\n')
 			{
@@ -164,6 +163,7 @@ static void manage_heredoc(t_ms *ms)
 					return;
 				}
 			}
+			j++;
 		}
 		if (line_start < bytes_read)
 		{
