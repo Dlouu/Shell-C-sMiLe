@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:13:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/21 16:11:06 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/22 13:42:30 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,6 @@ void	set_interactive_signals(void);
 int		find_index(char *str, char c);
 void	update_index(t_ms *ms);
 char	**cmd_to_tab(t_ms *ms, t_token *tk);
-void	while_quote(char *prompt, int *i, int *quote, int quote_type);
+void	go_to_next_quote(char *prompt, int *i, int *quote, int type);
 
 #endif

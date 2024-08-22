@@ -6,21 +6,11 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:18:23 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/21 15:39:10 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/22 13:41:46 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-void	while_quote(char *prompt, int *i, int *quote, int quote_type)
-{
-	(*i)++;
-	(*quote)++;
-	while (prompt[*i] && !(ft_isquote(prompt[*i]) == quote_type))
-		(*i)++;
-	if (ft_isquote(prompt[*i]) == quote_type)
-		(*quote)--;
-}
 
 int	check_nb_quote(char *prompt)
 {
@@ -32,9 +22,9 @@ int	check_nb_quote(char *prompt)
 	while (prompt[i])
 	{
 		if (ft_isquote(prompt[i]) == SQUOTE)
-			while_quote(prompt, &i, &quote, SQUOTE);
+			go_to_next_quote(prompt, &i, &quote, SQUOTE);
 		else if (ft_isquote(prompt[i]) == DQUOTE)
-			while_quote(prompt, &i, &quote, DQUOTE);
+			go_to_next_quote(prompt, &i, &quote, DQUOTE);
 		if (prompt[i])
 			i++;
 	}

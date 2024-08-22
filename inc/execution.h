@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:59 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/21 11:35:47 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/22 13:43:19 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int		ft_echo(t_ms *ms, t_token *tk);
 int		ft_env(t_ms *ms);
 
 //ft_exit
-int	ft_exit(t_ms *ms, t_token *tk);
+int		ft_exit(t_ms *ms, t_token *tk);
 
 //ft_export
 int		ft_export(t_ms *ms);
