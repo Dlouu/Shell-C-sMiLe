@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:59 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/23 13:33:24 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/23 14:14:48 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int		ft_env(t_ms *ms);
 int		ft_exit(t_ms *ms, t_token *tk);
 
 //ft_export
-int		ft_export(t_ms *ms);
+int		ft_export(t_ms *ms, t_token *token);
 int		is_valid_key(char *key);
 t_list	*sort_list(t_list *l, t_list *s, int (*c)(const char *, const char *));
 t_list	*ft_lstdup(t_list *lst);

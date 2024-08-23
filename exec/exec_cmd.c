@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:54:36 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/22 16:14:45 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/23 14:14:35 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	find_builtin(t_ms *ms, t_token *token)
 	else if (ft_strcmp(token->content, "pwd") == 0)
 		ft_pwd(ms);
 	else if (ft_strcmp(token->content, "export") == 0)
-		ft_export(ms);
+		ft_export(ms, token);
 	else if (ft_strcmp(token->content, "unset") == 0)
 		ft_unset(ms);
 	else if (ft_strcmp(token->content, "exit") == 0)

@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:15 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/21 15:20:48 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/23 14:14:37 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,16 +70,16 @@ unsigned char	*ft_add_var(t_ms *ms)
 	return (&ms->exit_code);
 }
 
-int	ft_export(t_ms *ms)
+int	ft_export(t_ms *ms, t_token *token)
 {
 	t_list	*unsorted_env;
 	t_list	*sorted_env;
-	t_token	**token;
+	//t_token	**token;
 
 	unsorted_env = ft_lstdup(ms->env);
 	sorted_env = sort_list(unsorted_env, NULL, ft_strcmp);
-	token = ms->token;
-	if (!(*token)->next)
+	//token = ms->token;
+	if (!token->next)
 	{
 		while (sorted_env)
 		{
