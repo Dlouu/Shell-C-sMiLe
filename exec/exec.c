@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/23 13:32:15 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/23 14:32:00 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ grep "Videos" < infile | cat -e > outfile
 tr a-z A-Z > first_file << oui | tr A-Z a-z > second_file << non
 
 etape par etape:
-1. heredoc
+1. heredoc (ouvrir les fichiers ^^)
 2. commande
 3. redirection ou pipe
 
@@ -48,7 +48,6 @@ static void simple_command(t_ms *ms)
 	int		status;
 
 	status = 0;
-	printf("simple commandrtfguyhbjomk,ld\n");
 	if (ms->token[0]->type == BUILTIN)
 		find_builtin(ms, ms->token[0]); // changer les 0 et 1 en i
 	else
@@ -70,6 +69,7 @@ int	exec_main(t_ms *ms)
 {
 	if (ms->heredoc_count)
 		manage_heredoc(ms);
+	//set_redirections(ms);
 	if (ms->pipe_count > 0)
 		create_pipe(ms);
 	else
