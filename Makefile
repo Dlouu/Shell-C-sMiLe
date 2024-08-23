@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+         #
+#    By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/06 13:02:03 by mbaumgar          #+#    #+#              #
-#    Updated: 2024/08/21 15:28:00 by mbaumgar         ###   ########.fr        #
+#    Updated: 2024/08/23 13:08:23 by niabraha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,6 +64,9 @@ SRC			= minishell.c \
 			builtin/unset.c \
 			exec/exec.c \
 			exec/exec_cmd.c \
+			exec/heredoc.c \
+			exec/pipe.c \
+			exec/redir.c \
 			utils/error.c \
 			utils/execution.c \
 			utils/token_lst.c \

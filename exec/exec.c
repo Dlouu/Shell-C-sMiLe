@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/22 15:44:52 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/23 13:32:15 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,155 +34,21 @@ grep "login.sh" < infile > outfile (outfile recupere le grep)
 grep "Videos" < infile | cat -e > outfile
 
 tr a-z A-Z > first_file << oui | tr A-Z a-z > second_file << non
+
+etape par etape:
+1. heredoc
+2. commande
+3. redirection ou pipe
+
  */
-
-static void	first_child_process(t_pipex fd, char **cmd, t_ms *ms)
-{
-	if (dup2(fd.pipefd[1], STDOUT_FILENO) < 0)
-	{
-		close(fd.pipefd[0]);
-		close(fd.pipefd[1]);
-		printf("dup2 error1\n");
-	}
-	close(fd.pipefd[0]);
-	close(fd.pipefd[1]);
-	ft_execlp(ms, cmd);
-}
-
-static void second_child_process(t_pipex fd, char **cmd, t_ms *ms)
-{
-	if (dup2(fd.pipefd[0], STDIN_FILENO) < 0)
-	{
-		close(fd.pipefd[0]);
-		close(fd.pipefd[1]);
-		printf("dup2 error2\n");
-	}
-	close(fd.pipefd[0]);
-	close(fd.pipefd[1]);
-	ft_execlp(ms, cmd);
-}
-
-static void parent_process(t_pipex *fd)
-{
-	close(fd->pipefd[0]);
-	close(fd->pipefd[1]);
-	waitpid(fd->pid[0], &(fd->status), 0);
-	waitpid(fd->pid[1], &(fd->status), 0);
-}
-
-static int create_pipe(t_ms *ms)
-{
-	t_pipex fd;
-	t_token	**tk_lst;
-	char **cmd1;
-	char **cmd2;
-
-	tk_lst = ms->token;
-	cmd1 = cmd_to_tab(ms, tk_lst[ms->current_pipe]);
-	cmd2 = cmd_to_tab(ms, tk_lst[ms->current_pipe + 1]);
-	ms->current_pipe += 1;
-    if (pipe(fd.pipefd) == -1)
-        printf("Pipe error\n");
-    fd.pid[0] = fork();
-    if (fd.pid[0] < 0)
-        printf("Fork error on pid[0]\n");
-    if (fd.pid[0] == 0)
-        first_child_process(fd, cmd1, ms);
-    fd.pid[1] = fork();
-    if (fd.pid[1] < 0)
-        printf("Fork error on pid[1]\n");
-    if (fd.pid[1] == 0)
-        second_child_process(fd, cmd2, ms);
-    parent_process(&fd);
-    if (WIFEXITED(fd.status))
-        return WEXITSTATUS(fd.status);
-    return (0);
-}
-
-static char	**copy_heredoc(t_token *token, int nbr_heredoc)
-{
-	int		i;
-	char	**list_heredoc;
-
-	i = 0;
-	list_heredoc = (char **)walloc(sizeof(char *) * (nbr_heredoc + 1), FALSE);
-	if (!list_heredoc)
-		return (NULL);
-	while (token->next)
-	{
-		if (token->type == REDIR_DOUBLE_LEFT)
-		{
-			list_heredoc[i] = ft_strdup(token->next->content, 1);
-			i++;
-		}
-		token = token->next;
-	}
-	list_heredoc[i] = NULL;
-	return (list_heredoc);
-}
-static void manage_heredoc(t_ms *ms)
-{
-	char	**list_heredoc;
-	char	buffer[BUFFER_SIZE + 1];
-	int		i;
-	t_token	**tk;
-	int		file;
-	int		bytes_read;
-	int		line_start;
-	int		j;
-
-	tk = ms->token;
-	list_heredoc = copy_heredoc((*tk), ms->heredoc_count);
-	file = open(".heredoc", O_RDWR | O_CREAT | O_TRUNC, 0644);
-	i = 0;
-	line_start = 0;
-	while (1)
-	{
-		write(STDOUT_FILENO, "> ", 2);
-		bytes_read = read(STDIN_FILENO, buffer, BUFFER_SIZE);
-		if (bytes_read <= 0)
-			break;
-		buffer[bytes_read] = '\0';
-		j = 0;
-		while (j < bytes_read)
-		{
-			if (buffer[j] == '\n')
-			{
-				buffer[j] = '\0';
-				if (ft_strcmp(buffer + line_start, list_heredoc[i]) == 0)
-					i++;
-				else
-				{
-					write(file, buffer + line_start, j - line_start);
-					write(file, "\n", 1);
-				}
-				line_start = j + 1;
-				if (i == ms->heredoc_count)
-				{
-					close(file);
-					return;
-				}
-			}
-			j++;
-		}
-		if (line_start < bytes_read)
-		{
-			ft_memmove(buffer, buffer + line_start, bytes_read - line_start);
-			line_start = bytes_read - line_start;
-		}
-		else
-			line_start = 0;
-	}
-	close(file);
-}
 
 static void simple_command(t_ms *ms)
 {
 	pid_t	pid;
 	int		status;
 
-	printf("no pipe\n");
 	status = 0;
+	printf("simple commandrtfguyhbjomk,ld\n");
 	if (ms->token[0]->type == BUILTIN)
 		find_builtin(ms, ms->token[0]); // changer les 0 et 1 en i
 	else
@@ -202,12 +68,12 @@ static void simple_command(t_ms *ms)
 
 int	exec_main(t_ms *ms)
 {
-	if (ms->pipe_count)
+	if (ms->heredoc_count)
+		manage_heredoc(ms);
+	if (ms->pipe_count > 0)
 		create_pipe(ms);
 	else
 		simple_command(ms);
-	if (ms->heredoc_count)
-		manage_heredoc(ms);
 	return (0);
 }
 /*

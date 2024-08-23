@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:59 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/22 13:43:19 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/23 13:09:00 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,18 @@ typedef struct s_pipex
 {
 	int		infile;
 	int		outfile;
-	int		go_in;
-	int		go_out;
 	int		status;
 	int		pipefd[2];
 	pid_t	pid[2];
 }		t_pipex;
 
-//exec_main.c
+//exec folder
+int		create_pipe(t_ms *ms);
 int		exec_main(t_ms *ms);
-void	ft_execlp(t_ms *ms, char **cmd);
-
-//exec_cmd.c
+void	check_redir(t_ms *ms, t_token *token);
 void	find_builtin(t_ms *ms, t_token *token);
+void	ft_execlp(t_ms *ms, char **cmd);
+void	manage_heredoc(t_ms *ms);
 
 //ft_cd
 int		ft_cd(t_ms *ms, t_token *tk);
