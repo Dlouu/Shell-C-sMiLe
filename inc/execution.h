@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:59 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/23 13:09:00 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/23 13:33:24 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_pipex
 //exec folder
 int		create_pipe(t_ms *ms);
 int		exec_main(t_ms *ms);
-void	check_redir(t_ms *ms, t_token *token);
+void	check_redir_nils(t_ms *ms, t_token *token);
 void	find_builtin(t_ms *ms, t_token *token);
 void	ft_execlp(t_ms *ms, char **cmd);
 void	manage_heredoc(t_ms *ms);

@@ -6,13 +6,13 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:57:32 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/23 13:12:10 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/23 13:33:10 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../inc/minishell.h"
 
-void c_redir(t_ms *ms, t_token *token)
+/* void c_redir(t_ms *ms, t_token *token)
 {
 	int		fd;
 	t_token	*tmp;
@@ -58,4 +58,4 @@ void c_redir(t_ms *ms, t_token *token)
 		}
 		tmp = tmp->next;
 	}
-}
+} */
