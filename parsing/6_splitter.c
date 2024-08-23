@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:04:25 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/21 15:24:59 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/23 15:22:55 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ void	split_nodes(t_token *tk, int *i)
 	new = tk_lstnew(right);
 	new->squote = tk->squote;
 	new->dquote = tk->dquote;
-	new->blank_before_quote = 0;
-	new->blank_after_quote = 0;
+	new->expanded = tk->expanded; // a check
+	new->blank_before_quote = tk->blank_before_quote; // a check
+	new->blank_after_quote = tk->blank_after_quote; // a check
 	tk_lstadd_here(tk, new);
 	*i = 0;
 }
@@ -42,12 +43,16 @@ void	word_splitter(t_token **token)
 	tk = token;
 	while (*tk)
 	{
-		if ((*tk)->squote == 0 && (*tk)->dquote == 0 && (*tk)->expanded)
+		// printf("splitter: '%s'\n", (*tk)->content); // a check
+		// while ((*tk)->content[i] && ft_isblank((*tk)->content[i]))
+		// 	i++;
+		if ((*tk)->squote == 0 && (*tk)->dquote == 0 && (*tk)->expanded) // a check
 		{
 			i = 0;
-			while ((*tk)->content[i])
+			while ((*tk)->content[i]) // a check
 			{
-				if (ft_isblank((*tk)->content[i]))
+				if (!ft_isblank((*tk)->content[i]) && (*tk)->content[i + 1] && \
+				ft_isblank((*tk)->content[i + 1])) // a check
 					split_nodes(*tk, &i);
 				i++;
 			}

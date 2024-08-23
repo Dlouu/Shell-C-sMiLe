@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:06:12 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/21 15:06:52 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/23 15:23:09 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,16 @@ void	expand_var(t_ms *ms, t_token *tk, int *i)
 	{
 		len = ft_strlen(tk->content) - *i - ft_strlen(key) - 1;
 		left = ft_substr(tk->content, 0, *i, FALSE);
+		// printf("key: '%s'\n", key); // a check
+		// printf("left: '%s'\n", left); // a check
 		value = find_env_value(ms->env, key);
+		// printf("value: '%s'\n", value); // a check
 		right = ft_substr(tk->content, *i + ft_strlen(key) + 1, len, FALSE);
+		// printf("right: '%s'\n", right); // a check
 		tk->content = ft_strjoin(left, value, FALSE);
+		// printf("content join 1: '%s'\n", tk->content); // a check
 		tk->content = ft_strjoin(tk->content, right, FALSE);
+		// printf("content join 2: '%s'\n", tk->content); // a check
 		tk->expanded = 1;
 		*i += ft_strlen(value) - 1;
 	}
@@ -99,6 +105,7 @@ void	expander(t_ms *ms, t_token *tk, int i)
 					break ;
 				else
 					expand_var(ms, tk, &i);
+				// printf("content: '%s'\n", tk->content);  // a check
 			}
 			i++;
 		}
