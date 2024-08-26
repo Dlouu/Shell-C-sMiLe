@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/26 10:51:42 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/26 15:09:04 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ int	minishell_loop(t_ms *ms)
 		if (empty_prompt(prompt) || !lexer(ms, prompt, NULL) || tokenizer(ms) \
 		|| !parser(ms, prompt))
 			continue ;
-		exec_main(ms);
+		find_builtin(ms, ms->token[0]);
+		//exec_main(ms);
 		free(prompt);
 		ms->pipe_count = 0;
 		ms->heredoc_count = 0;

@@ -6,16 +6,16 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:57:32 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/26 14:17:00 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/26 15:09:29 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../inc/minishell.h"
 
-static void redir_in(t_ms *ms, t_pipex *px)
+/* static void redir_in(t_ms *ms, t_pipex *px)
 {
 	
-}
+} */
 
 void init_pipe(t_pipex *px)
 {
@@ -31,7 +31,7 @@ void init_pipe(t_pipex *px)
 	px->i = 0;
 }
 
-void check_redir_nils(t_ms *ms, t_pipex *px, t_token *tk)
+/* void check_redir_nils(t_ms *ms, t_pipex *px, t_token *tk)
 {
 	int count;
 	int i;
@@ -46,4 +46,4 @@ void check_redir_nils(t_ms *ms, t_pipex *px, t_token *tk)
 			redir_out(ms, px);
 		i++;
 	}
-}
+} */
