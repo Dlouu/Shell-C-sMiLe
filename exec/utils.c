@@ -6,13 +6,13 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:29:45 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/26 13:40:45 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/26 15:22:53 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../inc/minishell.h"
 
-int	count_redir(t_ms *ms)
+int	count_redir_nils(t_ms *ms)
 {
 	t_token	**tk_lst;
 	t_token	*tk;

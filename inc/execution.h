@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:59 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/26 14:15:47 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/26 15:23:10 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ void	find_builtin(t_ms *ms, t_token *token);
 void	ft_execlp(t_ms *ms, char **cmd);
 void	init_pipe(t_pipex *px);
 void	manage_heredoc(t_ms *ms);
+
+//utils folder
+int	count_redir_nils(t_ms *ms); // utils
 
 //ft_cd
 int		ft_cd(t_ms *ms, t_token *tk);
