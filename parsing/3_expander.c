@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:06:12 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/26 17:02:51 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/26 18:11:42 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,16 @@ void	expand_exit_code(t_ms *ms, t_token *tk, int *i)
 	*i += ft_strlen(exit_code) - 2;
 }
 
-void	expand_dollar_quote(t_token *tk)
+void	expand_dollar_quote(t_ms *ms, t_token *tk)
 {
-	if (tk->prev && tk->next)
-	{
-		tk->prev->next = tk->next;
-		tk->next->blank_before_quote = 1;
-	}
+	// //printf("content: '%s'\n", tk->content);
+	// if (tk->prev && tk->next)
+	// {
+	// 	tk->prev->next = tk->next;
+	// 	tk->next->blank_before_quote = 1;
+	// }
+	// (void)ms;
+	tk_delone(&ms->token_lexed, tk);
 }
 
 void	expander(t_ms *ms, t_token *tk, int i)
@@ -90,7 +93,7 @@ void	expander(t_ms *ms, t_token *tk, int i)
 	while (tk)
 	{
 		i = 0;
-		while (tk->content[i])
+		while (tk->content[i] && tk->content[i + 1])
 		{
 			if (tk->content[i] == '$' && tk->squote == 0)
 			{
@@ -100,13 +103,13 @@ void	expander(t_ms *ms, t_token *tk, int i)
 					expand_pid_number(tk, &i);
 				else if (!tk->content[i + 1] && tk->next && (tk->next->squote \
 				|| tk->next->dquote))
-					expand_dollar_quote(tk);
+					expand_dollar_quote(ms, tk);
 				else if (!tk->content[i + 1])
 					break ;
 				else
 					expand_var(ms, tk, &i);
 			}
-			i++;
+				i++;
 		}
 		tk = tk->next;
 	}

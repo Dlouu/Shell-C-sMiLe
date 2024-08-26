@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 11:48:01 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/26 17:02:28 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/26 18:05:30 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	recombine_next_token(t_token *tk)
 	tk->next = next->next;
 	if (next->next)
 		next->next->prev = tk;
-	tk->type = next->type;
 }
 
 void	recombiner(t_token *tk)
