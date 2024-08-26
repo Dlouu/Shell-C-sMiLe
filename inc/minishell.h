@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:02:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/22 13:42:59 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/26 12:50:04 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ typedef struct s_token
 	char			*content;
 	int				type;
 	int				index;
-	int				builtin;
 	int				blank_before_quote;
 	int				blank_after_quote;
 	int				squote;

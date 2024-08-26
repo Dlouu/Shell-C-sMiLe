@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 05:24:42 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/20 18:08:51 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/26 12:51:09 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ t_token	*tk_lstnew(char *content)
 	new->content = ft_strdup(content, FALSE);
 	new->type = -1;
 	new->index = -1;
-	new->builtin = -1;
 	new->blank_after_quote = -1;
 	new->blank_before_quote = -1;
 	new->squote = -1;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:06 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/20 14:30:52 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/26 12:43:49 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	ft_echo(t_ms *ms, t_token *tk)
 		current = current->next;
 		flag_n = 1;
 	}
-	while (current && current->content)
+	while (current && current->type == ARG && current->content)
 	{
 		write(1, current->content, ft_strlen(current->content));
 		current = current->next;

@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:15 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/23 14:14:37 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/26 12:45:56 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ unsigned char	*ft_add_var(t_ms *ms)
 
 	token = ms->token;
 	*token = (*ms->token)->next;
-	while (token && *token)
+	while (token && *token && (*token)->type == ARG)
 	{
 		if (is_valid_key((*token)->content))
 			update_or_create_var(ms, token);

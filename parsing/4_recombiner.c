@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 11:48:01 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/26 10:49:11 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/26 14:18:36 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,16 @@ void	recombine_next_token(t_token *tk)
 {
 	t_token	*next;
 	char	*new_content;
-	//int		temp_type;
+	int		temp_type;
 
-	//temp_type = tk->type;
+	temp_type = tk->type;
 	next = tk->next;
 	new_content = ft_strjoin(tk->content, next->content, FALSE);
 	tk->content = new_content;
 	tk->next = next->next;
 	if (next->next)
 		next->next->prev = tk;
-	//tk->type = next->type;
+	tk->type = next->type;
 }
 
 // void	split_expanded_var(t_token *tk)

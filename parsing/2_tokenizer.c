@@ -6,13 +6,13 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 14:03:41 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/26 10:47:44 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/26 14:50:04 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	assign_quote_info(t_token *tk)
+void	set_quote_info(t_token *tk)
 {
 	int	len;
 
@@ -37,7 +37,7 @@ void	assign_quote_info(t_token *tk)
 	}
 }
 
-void	assign_command_type(t_token *tk, int *command, int i)
+void	set_command_type(t_token *tk, int *command, int i)
 {
 	static char	*builtin_cmd[] = \
 			{"cd", "echo", "env", "exit", "export", "pwd", "unset", NULL};
@@ -52,7 +52,6 @@ void	assign_command_type(t_token *tk, int *command, int i)
 				if (tk->content && ft_strcmp(tk->content, builtin_cmd[i]) == 0)
 				{
 					tk->type = BUILTIN;
-					tk->builtin = 1;
 					break ;
 				}
 			}
@@ -66,27 +65,28 @@ void	assign_command_type(t_token *tk, int *command, int i)
 	}
 }
 
-void	assign_token_type(t_ms *ms, t_token *tk)
+static void	set_redir_type(t_token *tk, int redir_1, int redir_2, char c)
 {
-	if (tk->type == -1 && tk->content[0] == '|')
+	if (tk->content[1] && tk->content[1] == c && !tk->squote && !tk->dquote)
+		tk->type = redir_2;
+	else
+		tk->type = redir_1;
+}
+
+void	set_token_type(t_ms *ms, t_token *tk)
+{
+	if (tk->type == -1 && tk->content[0] == '|' \
+	&& !tk->dquote && !tk->squote && !tk->expanded)
 	{
 		tk->type = PIPE;
 		ms->pipe_count++;
 	}
-	else if (tk->type == -1 && tk->content[0] == '>')
-	{
-		if (tk->content[1] && tk->content[1] == '>')
-			tk->type = REDIR_DOUBLE_RIGHT;
-		else
-			tk->type = REDIR_RIGHT;
-	}
-	else if (tk->type == -1 && tk->content[0] == '<')
-	{
-		if (tk->content[1] && tk->content[1] == '<')
-			tk->type = REDIR_DOUBLE_LEFT;
-		else
-			tk->type = REDIR_LEFT;
-	}
+	else if (tk->type == -1 && tk->content[0] == '>' \
+	&& !tk->squote && !tk->dquote && !tk->expanded)
+		set_redir_type(tk, REDIR_RIGHT, REDIR_DOUBLE_RIGHT, '>');
+	else if (tk->type == -1 && tk->content[0] == '<' \
+	&& !tk->squote && !tk->dquote && !tk->expanded)
+		set_redir_type(tk, REDIR_LEFT, REDIR_DOUBLE_LEFT, '<');
 	else if (tk->type == -1 && (tk->prev && (tk->prev->type >= 3 && \
 	tk->prev->type <= 6)))
 		tk->type = FILENAME;
@@ -101,15 +101,15 @@ int	tokenizer(t_ms *ms)
 
 	tk = ms->token_lexed;
 	command = 1;
-	assign_quote_info(ms->token_lexed);
+	set_quote_info(ms->token_lexed);
 	expander(ms, ms->token_lexed, 0);
-	word_splitter(&ms->token_lexed); // a check bebe recombine maybe
+	//word_splitter(&ms->token_lexed); // a check bebe recombine maybe
 	while (tk)
 	{
-		assign_token_type(ms, tk);
+		set_token_type(ms, tk);
 		tk = tk->next;
 	}
-	assign_command_type(ms->token_lexed, &command, 0); // a check
+	set_command_type(ms->token_lexed, &command, 0); // a check
 	recombiner(ms->token_lexed); // a check
 	//recombiner_expanded_var(ms->token_lexed); // a check
 	return (0);
