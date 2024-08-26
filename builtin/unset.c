@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:20 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/17 01:48:23 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/26 10:25:02 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,9 @@ void	del_env_node(t_list **env_lst, char *key)
 	}
 }
 
-int	ft_unset(t_ms *ms)
+int	ft_unset(t_ms *ms, t_token *token)
 {
-	t_token	*token;
-
-	token = *ms->token;
-	if (!token->next)
+	if (token && !token->next)
 	{
 		ft_putstr_fd("minishell: unset: not enough arguments\n", STDERR_FILENO);
 		ms->exit_code = 1;

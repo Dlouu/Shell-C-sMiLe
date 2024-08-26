@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:54:36 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/23 14:14:35 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/26 10:26:52 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,6 @@ static char	*find_path(char *cmd, char **envp)
 	return (NULL);
 }
 
-//dlou : au fait que veux dire execlp ?
-//j'ai fait une fonction qui recree les env en tableau à partir de la
-//liste chainée, je l'ai mis dans utils.c, je l'ai changé sur cette fonction 
-//et du coup tu ne te bases plus sur celle du debut mais celle modifiée
-//j'ai fait le truc !path et command not found
 void	ft_execlp(t_ms *ms, char **cmd)
 {
 	char	*path;
@@ -77,9 +72,6 @@ void	ft_execlp(t_ms *ms, char **cmd)
 // je sais plus la subtilité de quand on unset ou quoi
 // mais apparemment quand on lance un shell dans un shell faut mettre un path
 // par defaut
-
-//dlou : ATTENTION FAUT UTILISER STRCMP ET PAS STRNCMP car si on a un echo2
-// ou echonyayayay ça va faire echo j'ai add strcmp dans la lib et changé ici
 void	find_builtin(t_ms *ms, t_token *token)
 {
 	ms->path = find_env_value(ms->env, "PATH");
@@ -94,7 +86,7 @@ void	find_builtin(t_ms *ms, t_token *token)
 	else if (ft_strcmp(token->content, "export") == 0)
 		ft_export(ms, token);
 	else if (ft_strcmp(token->content, "unset") == 0)
-		ft_unset(ms);
+		ft_unset(ms, token);
 	else if (ft_strcmp(token->content, "exit") == 0)
 		ft_exit(ms, token);
 	// else

@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:59 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/23 14:14:48 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/26 10:14:27 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,6 @@ void	ft_putstr_export(char *key, char *value);
 int		ft_pwd(t_ms *ms);
 
 //ft_unset
-int		ft_unset(t_ms *ms);
+int		ft_unset(t_ms *ms, t_token *token);
 
 #endif
