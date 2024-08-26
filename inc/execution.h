@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:59 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/26 10:14:27 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/26 14:15:47 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,24 @@ typedef struct s_pipex
 {
 	int		infile;
 	int		outfile;
+	int		fd_in;
+	int		fd_out;
 	int		status;
 	int		pipefd[2];
+	int		i; // je check si utile
 	pid_t	pid[2];
 }		t_pipex;
 
 //exec folder
-int		create_pipe(t_ms *ms);
+
+int		count_redir(t_ms *ms);
+void exec_command(t_ms *ms, t_pipex *px, t_token *tk);
 int		exec_main(t_ms *ms);
-void	check_redir_nils(t_ms *ms, t_token *token);
+int		exec_pipe(t_ms *ms, t_pipex *px);
+void check_redir_nils(t_ms *ms, t_pipex *px, t_token *tk);
 void	find_builtin(t_ms *ms, t_token *token);
 void	ft_execlp(t_ms *ms, char **cmd);
+void	init_pipe(t_pipex *px);
 void	manage_heredoc(t_ms *ms);
 
 //ft_cd

@@ -6,7 +6,7 @@
 #    By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/06 13:02:03 by mbaumgar          #+#    #+#              #
-#    Updated: 2024/08/23 13:08:23 by niabraha         ###   ########.fr        #
+#    Updated: 2024/08/26 11:36:08 by niabraha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,8 +64,9 @@ SRC			= minishell.c \
 			builtin/unset.c \
 			exec/exec.c \
 			exec/exec_cmd.c \
+			exec/exec_cmd_utils.c \
 			exec/heredoc.c \
-			exec/pipe.c \
+			exec/exec_pipe.c \
 			exec/redir.c \
 			utils/error.c \
 			utils/execution.c \
