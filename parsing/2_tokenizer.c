@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 14:03:41 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/23 15:21:51 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/26 10:47:44 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,5 +111,6 @@ int	tokenizer(t_ms *ms)
 	}
 	assign_command_type(ms->token_lexed, &command, 0); // a check
 	recombiner(ms->token_lexed); // a check
+	//recombiner_expanded_var(ms->token_lexed); // a check
 	return (0);
 }
