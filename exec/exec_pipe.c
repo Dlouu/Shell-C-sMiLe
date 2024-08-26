@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe.c                                             :+:      :+:    :+:   */
+/*   exec_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:54:49 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/23 12:55:05 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/26 14:14:58 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,14 @@ static void parent_process(t_pipex *fd)
 	waitpid(fd->pid[1], &(fd->status), 0);
 }
 
-int create_pipe(t_ms *ms)
+int exec_pipe(t_ms *ms, t_pipex *px)
 {
 	t_pipex fd;
 	t_token	**tk_lst;
 	char **cmd1;
 	char **cmd2;
 
+	(void)px;
 	tk_lst = ms->token;
 	cmd1 = cmd_to_tab(ms, tk_lst[ms->current_pipe]);
 	cmd2 = cmd_to_tab(ms, tk_lst[ms->current_pipe + 1]);

@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/23 14:32:00 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/26 14:15:07 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,41 +39,32 @@ etape par etape:
 1. heredoc (ouvrir les fichiers ^^)
 2. commande
 3. redirection ou pipe
-
  */
-
-static void simple_command(t_ms *ms)
-{
-	pid_t	pid;
-	int		status;
-
-	status = 0;
-	if (ms->token[0]->type == BUILTIN)
-		find_builtin(ms, ms->token[0]); // changer les 0 et 1 en i
-	else
-	{
-		pid = fork();
-		if (pid < 0)
-		{
-			printf("Fork error\n");
-			exit(1);
-		}
-		if (pid == 0)
-			ft_execlp(ms, cmd_to_tab(ms, ms->token[0]));
-		waitpid(pid, &status, 0);
-	}
-	ms->exit_code = WEXITSTATUS(status);
-}
 
 int	exec_main(t_ms *ms)
 {
-	if (ms->heredoc_count)
+	/*
+	verifier si les redir en first fonctionnent ?(creent des fichiers)
+	> ls ; < oui 
+	*/
+	t_pipex	px;
+	t_token	*tk;
+
+	init_pipe(&px);
+	tk = ms->token[ms->current_pipe];
+	if (tk->type == BUILTIN || tk->type == COMMAND)
+		exec_command(ms, &px, tk);
+	else if (tk->type == PIPE)
+		exec_pipe(ms, &px);
+	
+		//simple_command(ms);
+/* 	if (ms->heredoc_count)
 		manage_heredoc(ms);
 	//set_redirections(ms);
 	if (ms->pipe_count > 0)
 		create_pipe(ms);
 	else
-		simple_command(ms);
+		simple_command(ms); */
 	return (0);
 }
 /*
