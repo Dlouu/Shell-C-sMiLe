@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:06:12 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/26 10:54:09 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/26 17:02:51 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ void	expander(t_ms *ms, t_token *tk, int i)
 		i = 0;
 		while (tk->content[i])
 		{
-			//printf("char: '%c'\n", tk->content[i]);  // a check
 			if (tk->content[i] == '$' && tk->squote == 0)
 			{
 				if (tk->content[i + 1] == '?')
@@ -106,7 +105,6 @@ void	expander(t_ms *ms, t_token *tk, int i)
 					break ;
 				else
 					expand_var(ms, tk, &i);
-				// printf("content: '%s'\n", tk->content);  // a check
 			}
 			i++;
 		}

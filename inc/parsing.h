@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:13:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/26 10:46:23 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/26 16:38:42 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ int		lexer(t_ms *ms, char *prompt, t_token *token_lst);
 int		tokenizer(t_ms *ms);
 void	expander(t_ms *ms, t_token *tk, int i);
 void	recombiner(t_token *tk);
-void	recombiner_expanded_var(t_token *tk);
-void	word_splitter(t_token **token);
+void	word_splitter(t_ms *ms);
 int		parser(t_ms *ms, char *prompt);
 void	pipe_splitter(t_ms *ms);
 void	sort_token(t_ms *ms);
