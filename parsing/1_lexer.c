@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:18:23 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/27 17:37:50 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/27 17:43:09 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,7 +213,8 @@ int	node_size(t_ms *ms, char *prompt, int i, int *start)
 // 				i++;
 // 				return (i);
 // 			}
-// 			if (prompt[i] && prompt[i] != '$' && prompt[i + 1] && (prompt[i + 1] == '$' || prompt[i + 1] == '?'))
+// 			if (prompt[i] && prompt[i] != '$' && prompt[i + 1] \
+//			&& (prompt[i + 1] == '$' || prompt[i + 1] == '?'))
 // 				ms->blank_after_quote = 0;
 // 			if (prompt[i + 1] && (ft_issplitable(prompt[i + 1]) \
 // 			|| prompt[i + 1] == '\0'))
