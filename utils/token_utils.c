@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_print.c                                      :+:      :+:    :+:   */
+/*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 05:24:42 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/21 13:53:34 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/27 17:02:04 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,15 @@ void	tk_lstprint(t_ms *ms, t_token **tk_lst)
 			printf("#%d\n", i);
 		else
 			printf("\n#%d\n", i);
+		if (!tk)
+			(printf("NULL, set up erreur\n"));
 		while (tk)
 		{
 			printf(" '-%d ", tk->index);
 			tk_lstprint_type(tk);
-			printf("[%s]           ['%d' \"%d\" blank %d-%d]\n", tk->content, \
-			tk->squote, tk->dquote, tk->blank_before_quote, \
-			tk->blank_after_quote);
+			printf("[%s]      ['%d' \"%d\" bl:%d-%d ex:%d $:%d]\n", \
+			tk->content, tk->squote, tk->dquote, tk->blank_before_quote, \
+			tk->blank_after_quote, tk->expanded, tk->dollar);
 			tk = tk->next;
 		}
 		i++;

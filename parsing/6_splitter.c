@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:04:25 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/23 15:22:55 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/27 17:40:05 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,37 +28,62 @@ void	split_nodes(t_token *tk, int *i)
 	new = tk_lstnew(right);
 	new->squote = tk->squote;
 	new->dquote = tk->dquote;
-	new->expanded = tk->expanded; // a check
-	new->blank_before_quote = tk->blank_before_quote; // a check
-	new->blank_after_quote = tk->blank_after_quote; // a check
+	new->expanded = tk->expanded;
+	new->blank_before_quote = tk->blank_before_quote;
+	new->blank_after_quote = tk->blank_after_quote;
 	tk_lstadd_here(tk, new);
 	*i = 0;
 }
 
-void	word_splitter(t_token **token)
+static void	trim_blanks(t_ms *ms, t_token *tk)
 {
-	t_token	**tk;
-	int		i;
-
-	tk = token;
-	while (*tk)
+	if (!tk)
+		return ;
+	while (tk)
 	{
-		// printf("splitter: '%s'\n", (*tk)->content); // a check
-		// while ((*tk)->content[i] && ft_isblank((*tk)->content[i]))
-		// 	i++;
-		if ((*tk)->squote == 0 && (*tk)->dquote == 0 && (*tk)->expanded) // a check
+		if (tk->expanded && tk->content[0] && ft_isblank(tk->content[0]))
+			tk->content = ft_strtrim(tk->content, " ", FALSE);
+		tk = tk->next;
+	}
+	tk = ms->token_lexed;
+	while (tk)
+	{
+		if (tk->expanded && !tk->content[0])
+			tk = tk_delone(&ms->token_lexed, tk);
+		else
+			tk = tk->next;
+	}
+	if (tk_lstlast(ms->token_lexed)->content[0] == 0)
+		tk_delone(&ms->token_lexed, tk_lstlast(ms->token_lexed));
+}
+
+void	word_splitter(t_ms *ms, int i)
+{
+	t_token	*tk;
+
+	tk = ms->token_lexed;
+	if (!tk)
+		return ;
+	while (tk)
+	{
+		if (tk->squote == 0 && tk->dquote == 0 && tk->expanded)
 		{
 			i = 0;
-			while ((*tk)->content[i]) // a check
+			while (tk->content[i])
 			{
-				if (!ft_isblank((*tk)->content[i]) && (*tk)->content[i + 1] && \
-				ft_isblank((*tk)->content[i + 1])) // a check
-					split_nodes(*tk, &i);
+				while (tk->content[i] && ft_isblank(tk->content[i]) \
+				&& tk->content[i + 1])
+					i++;
+				if ((tk->content[i] && (!ft_isblank(tk->content[i]) \
+				&& tk->content[i + 1]) && ft_isblank(tk->content[i + 1])) \
+				|| ft_isblank(tk->content[i]))
+					split_nodes(tk, &i);
 				i++;
 			}
 		}
-		tk = &(*tk)->next;
+		tk = tk->next;
 	}
+	trim_blanks(ms, ms->token_lexed);
 }
 
 void	split_on_pipe_and_update_index(t_token **tk)

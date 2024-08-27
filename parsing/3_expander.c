@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:06:12 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/26 10:54:09 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/27 17:37:11 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	expand_pid_number(t_token *tk, int *i)
 	len = ft_strlen(tk->content) - *i - 2;
 	left = ft_substr(tk->content, 0, *i, FALSE);
 	pid = ft_itoa(getpid(), FALSE);
-	right = ft_substr(tk->content, *i + 1, len, FALSE);
+	right = ft_substr(tk->content, *i + 2, len, FALSE);
 	tk->content = ft_strjoin(left, pid, FALSE);
 	tk->content = ft_strjoin(tk->content, right, FALSE);
 	tk->expanded = 1;
@@ -76,40 +76,91 @@ void	expand_exit_code(t_ms *ms, t_token *tk, int *i)
 	*i += ft_strlen(exit_code) - 2;
 }
 
-void	expand_dollar_quote(t_token *tk)
+void	remove_empty_nodes(t_ms *ms)
 {
-	if (tk->prev && tk->next)
+	t_token	*tk;
+	t_token	*temp;
+
+	tk = ms->token_lexed;
+	while (tk)
 	{
-		tk->prev->next = tk->next;
-		tk->next->blank_before_quote = 1;
+		if (!tk->content[0])
+		{
+			temp = tk;
+			tk = tk->next;
+			if (temp->blank_before_quote == 1 && temp->blank_after_quote == 1)
+				;
+			else
+				tk_delone(&ms->token_lexed, temp);
+		}
+		else
+			tk = tk->next;
 	}
 }
 
 void	expander(t_ms *ms, t_token *tk, int i)
 {
+	tk_lstprint(ms, &ms->token_lexed);
+	if (!tk)
+		return ;
 	while (tk)
 	{
 		i = 0;
-		while (tk->content[i])
+		while (tk && tk->content[i])
 		{
-			//printf("char: '%c'\n", tk->content[i]);  // a check
+			printf("c: %c\n", tk->content[i]);
 			if (tk->content[i] == '$' && tk->squote == 0)
 			{
-				if (tk->content[i + 1] == '?')
+				if (tk->content[i + 1] && tk->content[i + 1] == '?')
 					expand_exit_code(ms, tk, &i);
-				else if (tk->content[i + 1] == '$')
+				else if (tk->content[i + 1] && tk->content[i + 1] == '$')
 					expand_pid_number(tk, &i);
-				else if (!tk->content[i + 1] && tk->next && (tk->next->squote \
-				|| tk->next->dquote))
-					expand_dollar_quote(tk);
+				else if (tk->next && (tk->next->squote || tk->next->dquote) \
+				&& tk->content[0] == '$' && !tk->content[i + 1])
+				{
+					tk_delone(&ms->token_lexed, tk);
+					i++;
+				}
 				else if (!tk->content[i + 1])
 					break ;
 				else
 					expand_var(ms, tk, &i);
-				// printf("content: '%s'\n", tk->content);  // a check
 			}
 			i++;
 		}
 		tk = tk->next;
 	}
+	remove_empty_nodes(ms);
 }
+
+// void	expand_dollar_quote(t_ms *ms, t_token *tk)
+// {
+// 	tk_delone(&ms->token_lexed, tk);
+// }
+
+// void	expander(t_ms *ms, t_token *tk, int i)
+// {
+// 	while (tk)
+// 	{
+// 		i = 0;
+// 		while (tk->content[i] && tk->content[i + 1])
+// 		{
+// 			if (tk->content[i] == '$' && tk->squote == 0)
+// 			{
+// 				if (tk->content[i + 1] == '?')
+// 					expand_exit_code(ms, tk, &i);
+// 				else if (tk->content[i + 1] == '$')
+// 					expand_pid_number(tk, &i);
+// 				else if (!tk->content[i + 1] && tk->next && (tk->next->squote \
+// 				|| tk->next->dquote))
+// 					expand_dollar_quote(ms, tk);
+// 				else if (!tk->content[i + 1])
+// 					break ;
+// 				else
+// 					expand_var(ms, tk, &i);
+// 			}
+// 				i++;
+// 		}
+// 		tk = tk->next;
+// 	}
+// }
