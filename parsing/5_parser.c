@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:18:28 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/26 13:37:13 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/27 17:39:34 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ int	parser(t_ms *ms, char *prompt)
 		return (error_free_prompt(ms, prompt, "syntax"));
 	if (!set_delimiter_and_ambiguous_redir(lexed_token))
 		return (error_free_prompt(ms, prompt, "ambiguous redirect"));
+	if (!ms->token_lexed)
+		return (error_free_prompt(ms, prompt, "syntax"));
 	pipe_splitter(ms);
 	sort_token(ms);
 	update_index(ms);
@@ -112,3 +114,5 @@ int	parser(t_ms *ms, char *prompt)
 	tk_lstprint(ms, ms->token);
 	return (1);
 }
+
+//check si une des listes est vide et qu'il y a le split

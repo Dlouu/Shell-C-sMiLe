@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:04:25 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/26 17:00:15 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/27 17:40:05 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	split_nodes(t_token *tk, int *i)
 
 static void	trim_blanks(t_ms *ms, t_token *tk)
 {
+	if (!tk)
+		return ;
 	while (tk)
 	{
 		if (tk->expanded && tk->content[0] && ft_isblank(tk->content[0]))
@@ -53,15 +55,15 @@ static void	trim_blanks(t_ms *ms, t_token *tk)
 	}
 	if (tk_lstlast(ms->token_lexed)->content[0] == 0)
 		tk_delone(&ms->token_lexed, tk_lstlast(ms->token_lexed));
-
 }
 
-void	word_splitter(t_ms *ms)
+void	word_splitter(t_ms *ms, int i)
 {
 	t_token	*tk;
-	int		i;
 
 	tk = ms->token_lexed;
+	if (!tk)
+		return ;
 	while (tk)
 	{
 		if (tk->squote == 0 && tk->dquote == 0 && tk->expanded)

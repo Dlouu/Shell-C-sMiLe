@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/26 15:09:04 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:21:20 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	minishell_init(t_ms *ms, char **argv, char **envp)
 	ms->exit_code = 0;
 	ms->blank_before_quote = 0;
 	ms->blank_after_quote = 0;
+	ms->dollar = 0;
 	ms->pipe_count = 0;
 	ms->heredoc_count = 0;
 	ms->command_count = 0;
