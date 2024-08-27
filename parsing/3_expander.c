@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:06:12 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/27 17:37:11 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/27 17:56:53 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	remove_empty_nodes(t_ms *ms)
 
 void	expander(t_ms *ms, t_token *tk, int i)
 {
-	tk_lstprint(ms, &ms->token_lexed);
+	//tk_lstprint(ms, &ms->token_lexed);
 	if (!tk)
 		return ;
 	while (tk)
@@ -108,7 +108,7 @@ void	expander(t_ms *ms, t_token *tk, int i)
 		i = 0;
 		while (tk && tk->content[i])
 		{
-			printf("c: %c\n", tk->content[i]);
+			// printf("c: %c\n", tk->content[i]);
 			if (tk->content[i] == '$' && tk->squote == 0)
 			{
 				if (tk->content[i + 1] && tk->content[i + 1] == '?')
