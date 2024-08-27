@@ -10,3 +10,14 @@
 - ca marche plus tout court
 - apres un pipe les REDIR en index 0 sont changed en CMD
 - JPP
+
+TODO exec
+
+command marche pas --> pas fork
+check si < ou > en premier
+faire les pipes
+refaire les heredocs
+prier le TOUT-PUISSANT (pardon)
+$]
+$1
+ambiguous redirect si un fichier valide, a changer
