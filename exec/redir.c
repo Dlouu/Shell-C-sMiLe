@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:57:32 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/27 17:04:48 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/28 00:02:18 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,19 @@ static void redir_in(char *file, t_pipex *px, int redir)
 {
 	if (redir == REDIR_LEFT)
 	{
+		if (px->fd_in != STDIN_FILENO)
+			close(px->fd_in);
 		px->fd_in = open(file, O_RDONLY);
 		if (px->fd_in == -1)
-		{
-			perror("open error\n");
-			exit(1);
-		}
+			return (perror("open error\n"), exit(1));
 	}
 	else
 		//manage_heredoc(ms);
 		printf("ce bon heredoc\n");
 }
+/*
+az < qs < grep Music crash
+*/
 
 void init_pipe(t_pipex *px)
 {
