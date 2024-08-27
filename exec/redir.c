@@ -6,93 +6,50 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:57:32 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/26 16:01:19 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/27 17:04:48 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../inc/minishell.h"
 
-static void redir_out(t_ms *ms, t_pipex *px)
+static void redir_out(char *file, t_pipex *px, int redir)
 {
-	t_token *tk;
-	t_token *tmp;
-
-	tk = ms->token[ms->current_pipe];
-	tmp = tk->next;
-	if (tmp->type == REDIR_RIGHT)
+	if (redir == REDIR_RIGHT)
 	{
-		px->outfile = open(tmp->next->content, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		if (px->outfile < 0)
-		{
-			printf("File not found\n");
-			exit(1);
-		}
-		px->fd_out = dup(STDOUT_FILENO);
-		if (dup2(px->fd_out, STDOUT_FILENO) < 0)
-		{
-	printf("tmp->content\n");
-			printf("dup2 error\n");
-			exit(1);
-		}
+		px->fd_out = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		if (px->fd_out == -1)
+			return (perror("open error\n"), exit(1));
 	}
-	else if (tmp->type == REDIR_DOUBLE_RIGHT)
+	else
 	{
-		px->outfile = open(tmp->next->content, O_WRONLY | O_CREAT | O_APPEND, 0644);
-		if (px->outfile < 0)
-		{
-			printf("File not found\n");
-			exit(1);
-		}
-		px->fd_out = dup(STDOUT_FILENO);
-		if (dup2(px->outfile, STDOUT_FILENO) < 0)
-		{
-			printf("dup2 error\n");
-			exit(1);
-		}
+		px->fd_out = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		if (px->fd_out == -1)
+			return (perror("open error\n"), exit(1));
 	}
 }
 
-static void redir_in(t_ms *ms, t_pipex *px)
+static void redir_in(char *file, t_pipex *px, int redir)
 {
-	t_token *tk;
-	t_token *tmp;
-
-	tk = ms->token[ms->current_pipe];
-	tmp = tk->next;
-	if (tmp->type == REDIR_LEFT)
+	if (redir == REDIR_LEFT)
 	{
-		px->infile = open(tmp->content, O_RDONLY);
-		if (px->infile < 0)
+		px->fd_in = open(file, O_RDONLY);
+		if (px->fd_in == -1)
 		{
-			printf("File not found\n");
-			exit(1);
-		}
-		px->fd_in = dup(STDIN_FILENO);
-		if (dup2(px->infile, STDIN_FILENO) < 0)
-		{
-			printf("dup2 error\n");
+			perror("open error\n");
 			exit(1);
 		}
 	}
-	else if (tmp->type == REDIR_DOUBLE_LEFT)
-	{
-		manage_heredoc(ms);
-		px->fd_in = dup(STDIN_FILENO);
-		if (dup2(px->infile, STDIN_FILENO) < 0)
-		{
-			printf("dup2 error\n");
-			exit(1);
-		}
-	}
-	ms->current_pipe++;
+	else
+		//manage_heredoc(ms);
+		printf("ce bon heredoc\n");
 }
 
 void init_pipe(t_pipex *px)
 {
-	px->infile = 0;
-	px->outfile = 0;
-	px->fd_in = 0;
-	px->fd_out = 0;
+	px->save_in = 0;
+	px->save_out = 0;
+	px->fd_in = STDIN_FILENO;
+	px->fd_out = STDOUT_FILENO;
 	px->status = 0;
 	px->pipefd[0] = 0;
 	px->pipefd[1] = 0;
@@ -101,24 +58,42 @@ void init_pipe(t_pipex *px)
 	px->i = 0;
 }
 
-void check_redir_nils(t_ms *ms, t_pipex *px, t_token *tk)
+void open_and_dup(t_pipex *px, t_token *tk)
 {
-	int count;
-	int i;
-	px->infile = STDIN_FILENO;
-	px->outfile = STDOUT_FILENO;
-	px->fd_in = dup(STDIN_FILENO);
-	px->fd_out = dup(STDOUT_FILENO);
-
-	i = 0;
-	count = count_redir_nils(ms);
-	printf("count = %d\n", count);
-	while (i < count)
+	px->fd_in = STDIN_FILENO;
+	px->fd_out = STDOUT_FILENO;
+	px->save_in = dup(STDIN_FILENO);
+	px->save_out = dup(STDOUT_FILENO);
+	while (tk)
 	{
-		if (tk->next->type == REDIR_LEFT || tk->next->type == REDIR_DOUBLE_LEFT)
-			redir_in(ms, px);
-		else if (tk->next->type == REDIR_RIGHT || tk->next->type == REDIR_DOUBLE_RIGHT)
-			redir_out(ms, px);
-		i++;
+		if (tk->type == REDIR_LEFT || tk->type == REDIR_DOUBLE_LEFT)
+			redir_in(tk->next->content, px, tk->type);
+		else if (tk->type == REDIR_RIGHT || tk->type == REDIR_DOUBLE_RIGHT)
+			redir_out(tk->next->content, px, tk->type);
+		tk = tk->next;
+	}
+	if (px->fd_in != STDIN_FILENO)	
+	{
+		dup2(px->fd_in, STDIN_FILENO);
+		close(px->fd_in);
+	}
+	if (px->fd_out != STDOUT_FILENO)
+	{
+		dup2(px->fd_out, STDOUT_FILENO);
+		close(px->fd_out);
 	}
 }
+
+/*
+fichier = out 
+fd_out = open(fichier, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+if fichier->next n'est pas nul
+close(fd_out);
+fd_out = open(fichier->next, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+if (fd_out == STDOUT)
+	dup2(fd_out, STDOUT_FILENO);
+exec_command
+if (fd_out != STDOUT)
+	close(fd_out);
+	dup2(save_out, STDOUT_FILENO);
+*/

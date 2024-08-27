@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/26 15:08:27 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/27 16:42:31 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int	exec_main(t_ms *ms)
 		exec_command(ms, &px, tk);
 	else if (tk->type == PIPE)
 		exec_pipe(ms, &px);
+	
 	
 		//simple_command(ms);
 /* 	if (ms->heredoc_count)

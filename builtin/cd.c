@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:04 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/20 14:26:19 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/27 16:46:55 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int	ft_cd(t_ms *ms, t_token *tk)
 
 	old_path = getcwd(NULL, 0);
 	ms->exit_code = 1;
-	if (tk->next && tk->next->next)
+	if (tk->next && tk->next->type == ARG && \
+	tk->next->next && tk->next->next->type == ARG)
 		return (ft_putendl_fd("minishell: cd: too many arguments", \
 		STDERR_FILENO), ms->exit_code);
 	if (!tk->next || ft_strcmp(tk->next->content, "~") == 0)

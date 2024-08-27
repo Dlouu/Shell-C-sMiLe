@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:59 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/26 15:23:10 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/27 16:49:38 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 
 typedef struct s_pipex
 {
-	int		infile;
-	int		outfile;
 	int		fd_in;
 	int		fd_out;
+	int 	save_in;
+	int 	save_out;
 	int		status;
 	int		pipefd[2];
 	int		i; // je check si utile
@@ -30,10 +30,10 @@ typedef struct s_pipex
 //exec folder
 
 int		count_redir(t_ms *ms);
-void exec_command(t_ms *ms, t_pipex *px, t_token *tk);
+void	exec_command(t_ms *ms, t_pipex *px, t_token *tk);
 int		exec_main(t_ms *ms);
 int		exec_pipe(t_ms *ms, t_pipex *px);
-void check_redir_nils(t_ms *ms, t_pipex *px, t_token *tk);
+void	open_and_dup(t_pipex *px, t_token *tk);
 void	find_builtin(t_ms *ms, t_token *token);
 void	ft_execlp(t_ms *ms, char **cmd);
 void	init_pipe(t_pipex *px);
