@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/27 16:42:31 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/28 16:22:35 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,8 @@ int	exec_main(t_ms *ms)
 	// 
 	init_pipe(&px);
 	tk = ms->token[ms->current_pipe];
-	if (tk->type == BUILTIN || tk->type == COMMAND)
-		exec_command(ms, &px, tk);
-	else if (tk->type == PIPE)
+	exec_command(ms, &px, tk);
+	if (tk->type == PIPE)
 		exec_pipe(ms, &px);
 	
 	

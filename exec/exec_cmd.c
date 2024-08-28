@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:36:56 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/27 16:49:29 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/28 16:29:16 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void exec_command(t_ms *ms, t_pipex *px, t_token *tk)
 	int		status;
 
 	status = 0;
-	open_and_dup(px, tk);
+	open_and_dup(px, tk, ms);
 	if (tk->type == BUILTIN)
 		find_builtin(ms, tk);
 	else if (tk->type == COMMAND) // je precise dans le doute (cf. ligne 70 exec.c)
@@ -31,8 +31,10 @@ void exec_command(t_ms *ms, t_pipex *px, t_token *tk)
 		}
 		if (pid == 0)
 			ft_execlp(ms, cmd_to_tab(ms, tk));
-		waitpid(pid, &status, 0);
+		else
+			waitpid(pid, &status, 0);
 	}
+	
 	if (dup2(px->save_out, STDOUT_FILENO) == -1)
 		perror("dup2 error\n");
 	if (dup2(px->save_in, STDIN_FILENO) == -1)

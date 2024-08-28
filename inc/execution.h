@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:59 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/27 16:49:38 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/28 14:26:02 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		count_redir(t_ms *ms);
 void	exec_command(t_ms *ms, t_pipex *px, t_token *tk);
 int		exec_main(t_ms *ms);
 int		exec_pipe(t_ms *ms, t_pipex *px);
-void	open_and_dup(t_pipex *px, t_token *tk);
+void	open_and_dup(t_pipex *px, t_token *tk, t_ms *ms);
 void	find_builtin(t_ms *ms, t_token *token);
 void	ft_execlp(t_ms *ms, char **cmd);
 void	init_pipe(t_pipex *px);

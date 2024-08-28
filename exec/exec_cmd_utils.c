@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_cmd.c                                         :+:      :+:    :+:   */
+/*   exec_cmd_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:54:36 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/26 10:26:52 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/28 16:34:27 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static char	*check_path(char *cmd, char *path)
 	return (NULL);
 }
 
-static char	*find_path(char *cmd, char **envp)
+static char	*find_path(char *cmd, char **envp, t_ms *ms)
 {
 	char	**all_paths;
 	char	*final_path;
@@ -35,6 +35,8 @@ static char	*find_path(char *cmd, char **envp)
 		return (NULL);
 	if (access(cmd, F_OK) == 0)
 		return (cmd);
+	if (!find_env_value(ms->env, "PATH"))
+		return (NULL);
 	while (ft_strncmp(envp[i], "PATH=", 5) != 0)
 		i++;
 	all_paths = ft_split(envp[i] + 5, ':', FALSE);
@@ -55,13 +57,15 @@ void	ft_execlp(t_ms *ms, char **cmd)
 	char	**envp;
 
 	envp = env_lst_to_tab(ms);
-	path = find_path(cmd[0], envp);
+	path = find_path(cmd[0], envp, ms);
 	if (!path)
 	{
+		ms->exit_code = 127;
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(cmd[0], 2);
-		ft_putstr_fd(": command not found\n", 2);
-		ms->exit_code = 127;
+		ft_putstr_fd(": no such file or directory\n", 2);
+		// fonction qui clean tout
+		exit(ms->exit_code);
 	}
 	else
 		execve(path, cmd, envp);

@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:56:22 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/23 12:56:34 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/28 14:28:50 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void manage_heredoc(t_ms *ms)
 	int		j;
 
 	tk = ms->token;
+	printf("heredoc\n");
 	list_heredoc = copy_heredoc((*tk), ms->heredoc_count);
 	file = open(".heredoc", O_RDWR | O_CREAT | O_TRUNC, 0644);
 	i = 0;
