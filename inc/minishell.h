@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:02:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/27 13:29:37 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/28 17:44:57 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ typedef struct s_ms
 	int				current_pipe;
 	int				pipe_count;
 	int				heredoc_count;
+	int				heredoc_count_check;
 	int				command_count;
 	unsigned char	exit_code;
 }	t_ms;

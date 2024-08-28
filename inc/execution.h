@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:59 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/28 14:26:02 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/28 17:36:21 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	init_pipe(t_pipex *px);
 void	manage_heredoc(t_ms *ms);
 
 //utils folder
-int	count_redir_nils(t_ms *ms); // utils
+int		count_redir_nils(t_ms *ms); // utils
 
 //ft_cd
 int		ft_cd(t_ms *ms, t_token *tk);

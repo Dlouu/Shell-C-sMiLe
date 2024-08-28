@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/27 17:54:52 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/28 17:49:28 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	minishell_init(t_ms *ms, char **argv, char **envp)
 	ms->dollar = 0;
 	ms->pipe_count = 0;
 	ms->heredoc_count = 0;
+	ms->heredoc_count_check = 0;
 	ms->command_count = 0;
 	ms->current_pipe = 0;
 	get_envp(ms, envp);
@@ -86,6 +87,7 @@ int	minishell_loop(t_ms *ms)
 		ms->heredoc_count = 0;
 		ms->command_count = 0;
 		ms->current_pipe = 0;
+		ms->heredoc_count_check = 0;
 		wclear(0);
 	}
 	return (ms->exit_code);

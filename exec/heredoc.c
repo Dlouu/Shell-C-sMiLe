@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:56:22 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/28 14:28:50 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/28 18:04:47 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@ static char	**copy_heredoc(t_token *token, int nbr_heredoc)
 	while (token->next)
 	{
 		if (token->type == REDIR_DOUBLE_LEFT)
-		{
-			list_heredoc[i] = ft_strdup(token->next->content, 1);
-			i++;
-		}
+			list_heredoc[i++] = ft_strdup(token->next->content, 1);
 		token = token->next;
 	}
 	list_heredoc[i] = NULL;
@@ -45,7 +42,6 @@ void manage_heredoc(t_ms *ms)
 	int		j;
 
 	tk = ms->token;
-	printf("heredoc\n");
 	list_heredoc = copy_heredoc((*tk), ms->heredoc_count);
 	file = open(".heredoc", O_RDWR | O_CREAT | O_TRUNC, 0644);
 	i = 0;
@@ -57,14 +53,17 @@ void manage_heredoc(t_ms *ms)
 		if (bytes_read <= 0)
 			break;
 		buffer[bytes_read] = '\0';
-		j = 0;
-		while (j < bytes_read)
+		j = -1;
+		while (++j < bytes_read)
 		{
 			if (buffer[j] == '\n')
 			{
 				buffer[j] = '\0';
 				if (ft_strcmp(buffer + line_start, list_heredoc[i]) == 0)
+				{
+					ms->heredoc_count_check++;
 					i++;
+				}
 				else
 				{
 					write(file, buffer + line_start, j - line_start);
@@ -77,7 +76,6 @@ void manage_heredoc(t_ms *ms)
 					return;
 				}
 			}
-			j++;
 		}
 		if (line_start < bytes_read)
 		{
