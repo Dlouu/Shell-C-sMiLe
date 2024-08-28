@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:18:28 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/27 17:39:34 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/28 18:14:34 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int	parser(t_ms *ms, char *prompt)
 	sort_token(ms);
 	update_index(ms);
 	count_heredoc_and_command(ms);
-	tk_lstprint(ms, ms->token);
+	//tk_lstprint(ms, ms->token);
 	return (1);
 }
 
