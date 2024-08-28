@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 16:44:14 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/08 16:22:32 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/28 17:07:36 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ t_alloc	*al_lstnew(void *content, int critical)
 {
 	t_alloc	*new;
 
+	if (!content)
+		return (NULL);
 	new = (t_alloc *)malloc(sizeof(t_alloc));
 	if (!new)
 		return (NULL);

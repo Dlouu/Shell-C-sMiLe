@@ -1,0 +1,14 @@
+bin
+builtin
+exec
+file1
+inc
+libft
+lol
+Makefile
+minishell
+minishell.c
+parsing
+README.md
+utils
+wtf.txt
