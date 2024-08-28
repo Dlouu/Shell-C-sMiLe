@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:18:23 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/27 17:43:09 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/28 16:37:10 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	node_size(t_ms *ms, char *prompt, int i, int *start)
 	if (prompt[i] == '\0')
 		return (-1);
 	*start = i;
-	if (ft_ispipe(prompt[i]))
+	if (ft_ispipe(prompt[i])) // wtf ?
 		i++;
 	else if (ft_isquote(prompt[i]))
 		check_quotes(ms, prompt, &i);
@@ -94,7 +94,7 @@ int	node_size(t_ms *ms, char *prompt, int i, int *start)
 	{
 		if (i != 0 && prompt[i - 1] && ft_issplitable(prompt[i - 1]))
 			ms->blank_before_quote = 1;
-		while (prompt[i] && !ft_isseparator(prompt[i]))
+		while (prompt[i] && !ft_issplitable(prompt[i]))
 		{
 			if (prompt[i] && prompt[i] == '$')
 			{
@@ -108,12 +108,18 @@ int	node_size(t_ms *ms, char *prompt, int i, int *start)
 					while (prompt[i + 1] && ft_isalnum(prompt[i + 1]))
 						i++;
 				}
-				if (prompt[i + 1] && prompt[i + 1] == '$')
+				if (ft_isalnum(prompt[i]) && prompt[i + 1] && prompt[i + 1] == '$')
 				{
-					i++;
+					printf("prompt[i]: %c\n", prompt[i]);
 					ms->blank_after_quote = 0;
 					return (i);
 				}
+				// if (prompt[i + 1] && prompt[i + 1] == '$')
+				// {
+				// 	i++;
+				// 	ms->blank_after_quote = 0;
+				// 	return (i);
+				// }
 			}
 			if (prompt[i + 1] && (ft_issplitable(prompt[i + 1]) \
 			|| prompt[i + 1] == '\0'))

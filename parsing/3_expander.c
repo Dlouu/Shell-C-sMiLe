@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:06:12 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/27 17:56:53 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/28 16:40:55 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,19 @@ void	remove_empty_nodes(t_ms *ms)
 	}
 }
 
+// Our minishell doesn't support expansion of the following:
+	// Character  sequences of the form $'string' are treated as a special
+	// variant of single quotes.  The sequence  expands  to  string,  with
+	// backslash-escaped characters in string replaced as specified by the
+	// NSI C standard.  Backslash escape sequences, if present,  are  de‐
+	// coded as follows:
+	// 	\a		alert (bell)
+	// 	\b		backspace
+	// 	[...]	etc, 
+	// See the C standard for the complete list of escape sequences.
 void	expander(t_ms *ms, t_token *tk, int i)
 {
-	//tk_lstprint(ms, &ms->token_lexed);
+	tk_lstprint(ms, &ms->token_lexed);
 	if (!tk)
 		return ;
 	while (tk)
@@ -118,6 +128,7 @@ void	expander(t_ms *ms, t_token *tk, int i)
 				else if (tk->next && (tk->next->squote || tk->next->dquote) \
 				&& tk->content[0] == '$' && !tk->content[i + 1])
 				{
+					printf("dollar quote: %s\n", tk->content);
 					tk_delone(&ms->token_lexed, tk);
 					i++;
 				}
