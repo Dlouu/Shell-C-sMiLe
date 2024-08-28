@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:57:32 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/28 00:02:18 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/28 16:13:37 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,29 @@ static void redir_out(char *file, t_pipex *px, int redir)
 	}
 }
 
-static void redir_in(char *file, t_pipex *px, int redir)
+static void redir_in(char *file, t_pipex *px, int redir, t_ms *ms)
 {
-	if (redir == REDIR_LEFT)
+	printf("redir_in\n");
+	if (redir == REDIR_DOUBLE_LEFT)
 	{
-		if (px->fd_in != STDIN_FILENO)
-			close(px->fd_in);
-		px->fd_in = open(file, O_RDONLY);
-		if (px->fd_in == -1)
-			return (perror("open error\n"), exit(1));
+		printf("redir_double_left\n");	
+		manage_heredoc(ms);
 	}
-	else
-		//manage_heredoc(ms);
-		printf("ce bon heredoc\n");
+	else if (redir == REDIR_LEFT)
+	{
+		if (access(file, F_OK) == -1)
+		{
+			perror("File does not exist\n");
+			return;
+		}
+		if ((px->fd_in = open(file, O_RDONLY)) == -1)
+		{
+			close(px->fd_in);
+			perror("open error\n");
+		}
+	}
 }
+
 /*
 az < qs < grep Music crash
 */
@@ -60,7 +69,7 @@ void init_pipe(t_pipex *px)
 	px->i = 0;
 }
 
-void open_and_dup(t_pipex *px, t_token *tk)
+void open_and_dup(t_pipex *px, t_token *tk, t_ms *ms)
 {
 	px->fd_in = STDIN_FILENO;
 	px->fd_out = STDOUT_FILENO;
@@ -69,7 +78,7 @@ void open_and_dup(t_pipex *px, t_token *tk)
 	while (tk)
 	{
 		if (tk->type == REDIR_LEFT || tk->type == REDIR_DOUBLE_LEFT)
-			redir_in(tk->next->content, px, tk->type);
+			redir_in(tk->next->content, px, tk->type, ms);
 		else if (tk->type == REDIR_RIGHT || tk->type == REDIR_DOUBLE_RIGHT)
 			redir_out(tk->next->content, px, tk->type);
 		tk = tk->next;

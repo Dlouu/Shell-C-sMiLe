@@ -14,9 +14,10 @@
 TODO exec
 
 command marche pas --> pas fork
-check si < ou > en premier
+check si < ou > en premier DONE
 faire les pipes
 refaire les heredocs
+ls << qw ls << qw (marche pas)
 prier le TOUT-PUISSANT (pardon)
 $]
 $1
