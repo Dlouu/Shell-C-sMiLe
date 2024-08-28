@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:06:12 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/28 18:12:48 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/28 18:16:40 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ void	remove_empty_nodes(t_ms *ms)
 	// See the C standard for the complete list of escape sequences.
 void	expander(t_ms *ms, t_token *tk, int i)
 {
-	tk_lstprint(ms, &ms->token_lexed);
+	//tk_lstprint(ms, &ms->token_lexed);
 	if (!tk)
 		return ;
 	while (tk)
