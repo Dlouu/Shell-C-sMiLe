@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 17:40:41 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/02/06 17:13:56 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/29 16:22:57 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-char	*get_next_line(int fd, int free_static_please);
+char	*get_next_line(int fd, int free_static_please, int critical);
 
 #endif

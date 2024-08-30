@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:57:32 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/28 17:52:44 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/08/30 16:35:18 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,13 @@ static void redir_in(char *file, t_pipex *px, int redir, t_ms *ms)
 {
 	if (redir == REDIR_DOUBLE_LEFT)
 	{
+		printf("heredoc%d\n", ms->heredoc_count);
+		printf("check%d\n", ms->heredoc_count_check);
 		if (ms->heredoc_count == ms->heredoc_count_check)
 			return ;
-		manage_heredoc(ms);
+		if (pipe(px->pipefd) == -1)
+			return ;
+		manage_heredoc(ms, px);
 	}
 	else if (redir == REDIR_LEFT)
 	{
