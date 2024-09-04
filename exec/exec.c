@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/28 17:24:07 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/09/04 16:05:10 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,18 +54,21 @@ int	exec_main(t_ms *ms)
 	init_pipe(&px);
 	tk = ms->token[ms->current_pipe];
 	exec_command(ms, &px, tk);
-	if (tk->type == PIPE)
+	if (ms->pipe_count)
 		exec_pipe(ms, &px);
-	
-	
+
+
+/*	if (ms->pipe_count)
+	{
+		exec_pipe(ms, &px, tk);
 		//simple_command(ms);
-/* 	if (ms->heredoc_count)
+	if (ms->heredoc_count)
 		manage_heredoc(ms);
 	//set_redirections(ms);
 	if (ms->pipe_count > 0)
 		create_pipe(ms);
 	else
-		simple_command(ms); */
+		simple_command(ms);*/
 	return (0);
 }
 /*

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:54:49 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/26 14:14:58 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/09/04 14:58:31 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int exec_pipe(t_ms *ms, t_pipex *px)
 	tk_lst = ms->token;
 	cmd1 = cmd_to_tab(ms, tk_lst[ms->current_pipe]);
 	cmd2 = cmd_to_tab(ms, tk_lst[ms->current_pipe + 1]);
-	ms->current_pipe += 1;
+	ms->current_pipe++;
     if (pipe(fd.pipefd) == -1)
         printf("Pipe error\n");
     fd.pid[0] = fork();

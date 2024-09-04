@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:57:32 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/30 16:55:12 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/09/04 16:07:27 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ static void redir_out(char *file, t_pipex *px, int redir)
 	}
 }
 
-static void redir_in(char *file, t_pipex *px, int redir, t_ms *ms)
+static void redir_in(char *file, t_pipex *px)
 {
-	if (redir == REDIR_DOUBLE_LEFT)
+/*	if (redir == REDIR_DOUBLE_LEFT)
 	{
 		printf("heredoc%d\n", ms->heredoc_count);
 		printf("check%d\n", ms->heredoc_count_check);
@@ -40,18 +40,16 @@ static void redir_in(char *file, t_pipex *px, int redir, t_ms *ms)
 			return ;
 		//manage_heredoc(ms, px);
 	}
-	else if (redir == REDIR_LEFT)
+	else */
+	if (access(file, F_OK) == -1)
 	{
-		if (access(file, F_OK) == -1)
-		{
-			perror("File does not exist\n");
-			return;
-		}
-		if ((px->fd_in = open(file, O_RDONLY)) == -1)
-		{
-			close(px->fd_in);
-			perror("open error\n");
-		}
+		perror("File does not exist\n");
+		return;
+	}
+	if ((px->fd_in = open(file, O_RDONLY)) == -1)
+	{
+		close(px->fd_in);
+		perror("open error\n");
 	}
 }
 
@@ -79,10 +77,16 @@ void open_and_dup(t_pipex *px, t_token *tk, t_ms *ms)
 	px->fd_out = STDOUT_FILENO;
 	px->save_in = dup(STDIN_FILENO);
 	px->save_out = dup(STDOUT_FILENO);
+	if (ms->heredoc_count)
+	{
+		if (pipe(px->pipefd) == -1)
+			return ;
+		manage_heredoc(ms, px);
+	}
 	while (tk)
 	{
-		if (tk->type == REDIR_LEFT || tk->type == REDIR_DOUBLE_LEFT)
-			redir_in(tk->next->content, px, tk->type, ms);
+		if (tk->type == REDIR_LEFT)
+			redir_in(tk->next->content, px);
 		else if (tk->type == REDIR_RIGHT || tk->type == REDIR_DOUBLE_RIGHT)
 			redir_out(tk->next->content, px, tk->type);
 		tk = tk->next;

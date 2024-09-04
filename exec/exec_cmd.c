@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:36:56 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/28 16:29:16 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/09/04 16:36:02 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,13 @@ void exec_command(t_ms *ms, t_pipex *px, t_token *tk)
 			exit(1);
 		}
 		if (pid == 0)
+		{
+			printf("bite\n");
 			ft_execlp(ms, cmd_to_tab(ms, tk));
+		}
 		else
 			waitpid(pid, &status, 0);
 	}
-	
 	if (dup2(px->save_out, STDOUT_FILENO) == -1)
 		perror("dup2 error\n");
 	if (dup2(px->save_in, STDIN_FILENO) == -1)
@@ -42,6 +44,15 @@ void exec_command(t_ms *ms, t_pipex *px, t_token *tk)
 	ms->exit_code = WEXITSTATUS(status);
 	return ;
 }
+
+/*
+initialiser tes pipes (exemple: liste chainée de pipe avec tes  tokens redir etc...)
+Tu boucles dans ta liste chainée de pipes (tu forks a chaque boucle)
+tu geres tes here_docs
+tu geres tes redirections in et out
+tu geres la commande du pipe
+tu execve
+*/
 
 /*
 fichier stocke dans une chaine

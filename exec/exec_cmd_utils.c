@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:54:36 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/28 16:34:27 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/09/04 16:21:22 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,10 @@ void	ft_execlp(t_ms *ms, char **cmd)
 		exit(ms->exit_code);
 	}
 	else
+	{
+		printf("bien joué mon loup\n");
 		execve(path, cmd, envp);
+	}
 }
 
 //dlou: j'ai changé le path que tu avais déclaré dans un char*
