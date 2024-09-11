@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:59 by niabraha          #+#    #+#             */
-/*   Updated: 2024/09/04 14:58:49 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/09/11 18:08:47 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ typedef struct s_pipex
 {
 	int		fd_in;
 	int		fd_out;
-	int 	save_in;
-	int 	save_out;
 	int		status;
 	int		pipefd[2];
-	int		i; // je check si utile
-	pid_t	pid[2];
+	int		pid;
+	struct s_ms	*ms;
+	struct s_pipe	*next;
+	struct s_pipe	*prev;
 }		t_pipex;
 
 //exec folder

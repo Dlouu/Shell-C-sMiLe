@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/09/11 17:25:43 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/09/11 18:10:34 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,28 +41,61 @@ etape par etape:
 3. redirection ou pipe
  */
 
+static void	ft_close_fds(t_pipex *px)
+{
+	if (px->fd_in != STDIN_FILENO)
+		close(px->fd_in);
+	if (px->fd_out != STDOUT_FILENO)
+		close(px->fd_out);
+}
+
+static void exec_processus(t_ms *ms, t_pipex *px, t_token *tk, int i)
+{
+	(void)i;
+	(void)ms;
+	(void)px;
+	(void)tk;
+	printf("exec_processus\n");
+}
+
 static void	ft_exec(t_ms *ms, t_pipex *px, t_token *tk)
 {
+	int 	i;
+
+	i = 0;
 	
+	if (tk->type == BUILTIN && ms->pipe_count == 0)
+		find_builtin(ms, tk);
+	while (i < ms->pipe_count)
+	{
+		px->pid = fork();
+		if (px->pid == -1)
+			printf("fork failed\n");
+		if (px->pid == 0)
+		exec_processus(ms, px, tk, i);
+		if (px->prev)
+			ft_close_fds(px->prev);
+		px = px->next;
+		i++;
+	}
 }
 
 int	exec_main(t_ms *ms)
 {
-	/*
-	verifier si les redir en first fonctionnent ?(creent des fichiers)
-	> ls ; < oui 
-	*/
-	t_pipex	px;
+	t_pipex	*px;
+	t_pipex	*tmp;
 	t_token	*tk;
-
-	// 
-	init_pipe(&px);
+	
+	px = setup_pipe(px);
+	tmp = px;
 	tk = ms->token[ms->current_pipe];
-	ft_exec(ms, &px, tk);
-	//exec_command(ms, &px, tk);
-	//if (ms->pipe_count)
-		//exec_pipe(ms, &px);
-
+	ft_exec(ms, px, tk);
+	while(tmp)
+	{
+		waitpid(tmp->pid, &tmp->status, 0);
+		tmp = tmp->next;
+	}
+	return (0);
 
 /*	if (ms->pipe_count)
 	{
@@ -75,6 +108,9 @@ int	exec_main(t_ms *ms)
 		create_pipe(ms);
 	else
 		simple_command(ms);*/
+	//exec_command(ms, &px, tk);
+	//if (ms->pipe_count)
+		//exec_pipe(ms, &px);
 	return (0);
 }
 /*
@@ -113,3 +149,7 @@ pour iterer dans les pipes :
 ft_exec -> (1) preparer les pipes, (2) faire l'exec, (3) fermer les pid
 (2) -> juste un builtin, pas de pipe ni commande, redir accept2 ^^
 */
+	/*
+	verifier si les redir en first fonctionnent ?(creent des fichiers)
+	> ls ; < oui 
+	*/
