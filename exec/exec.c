@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/09/04 16:05:10 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/09/11 17:25:43 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,11 @@ etape par etape:
 3. redirection ou pipe
  */
 
+static void	ft_exec(t_ms *ms, t_pipex *px, t_token *tk)
+{
+	
+}
+
 int	exec_main(t_ms *ms)
 {
 	/*
@@ -53,9 +58,10 @@ int	exec_main(t_ms *ms)
 	// 
 	init_pipe(&px);
 	tk = ms->token[ms->current_pipe];
-	exec_command(ms, &px, tk);
-	if (ms->pipe_count)
-		exec_pipe(ms, &px);
+	ft_exec(ms, &px, tk);
+	//exec_command(ms, &px, tk);
+	//if (ms->pipe_count)
+		//exec_pipe(ms, &px);
 
 
 /*	if (ms->pipe_count)
@@ -100,4 +106,10 @@ pour iterer dans les pipes :
 		i++;
 	}
 
+*/
+
+/*
+
+ft_exec -> (1) preparer les pipes, (2) faire l'exec, (3) fermer les pid
+(2) -> juste un builtin, pas de pipe ni commande, redir accept2 ^^
 */
