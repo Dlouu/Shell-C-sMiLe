@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 00:12:48 by dlou              #+#    #+#             */
-/*   Updated: 2024/08/21 16:13:39 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/09/11 15:50:55 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,49 @@ void	reset_default_signals(void)
 	set_signals(SIGQUIT, SIG_DEFAULT, SIG_REST_SIGINFO, NULL);
 }
 
-void	set_interactive_signals(void)
+void	set_readline_signals(void)
 {
 	set_signals(SIGINT, SIG_INTERACTIVE, SIG_REST_SIGINFO, &sigint_handler);
 	set_signals(SIGQUIT, SIG_IGNORE, SIG_REST_SIGINFO, NULL);
 }
+
+// void	set_heredoc_signals(void)
+// {
+// 	set_signals(SIGINT, SIG_INTERACTIVE, SIG_REST_SIGINFO, &sigint_handler);
+// 	set_signals(SIGQUIT, SIG_IGNORE, SIG_REST_SIGINFO, NULL);
+// }
+
+// void	set_block_signals(void) ????
+// {
+// 	set_signals(SIGINT, SIG_INTERACTIVE, SIG_REST_SIGINFO, &sigint_handler);
+// 	set_signals(SIGQUIT, SIG_IGNORE, SIG_REST_SIGINFO, NULL);
+// }
+
+
+/*
+BASH
+
+PROMPT READLINE
+Ctrl + C dans le prompt = ^C\n  (quitte le prompt, = newline)
+Ctrl + D dans le prompt = exit\n  (quitte le programme)
+CTrl + \ dans le prompt = (ne fait rien)
+
+HEREDOC
+	Ctrl C			| 	Ctrl D								| 	Ctrl \
+$ echo bite << lol	| echo bite << lol						| echo bite << lol
+> ^C				| > 									| ne fait rien
+$ 					| bash: warning: here-document at line 2 
+					| delimited by end-of-file (wanted `lol')
+					| bite									|
+					| $ 									|
+Ctrl C new prompt	| CTRL+D il fait la commande + erreur	| Ctrl \ = A ignorer
+
+BLOCK/PIPE/FORK/TRUC ?
+Ctrl C 	dans un block = ^C\n  (quitte le block, = newline)
+Ctrl \	(cat : Ctrl \ dans un block = ^\ sans newline faut surement osef)
+		grep '' = ^\Quit\n avec newline
+Ctrl D 	quite le prompt avec juste une newline
+
+
+
+*/
