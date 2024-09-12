@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:54:36 by niabraha          #+#    #+#             */
-/*   Updated: 2024/09/04 16:21:22 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:20:29 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,14 @@ void	ft_execlp(t_ms *ms, char **cmd)
 	}
 	else
 	{
-		printf("bien joué mon loup\n");
-		execve(path, cmd, envp);
+		if (execve(path, cmd, envp) == -1)
+		{
+			ms->exit_code = 126;
+			ft_putstr_fd("minishell: ", 2);
+			ft_putstr_fd(cmd[0], 2);
+			ft_putstr_fd(": permission denied\n", 2);
+			exit(ms->exit_code);
+		}	
 	}
 }
 

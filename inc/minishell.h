@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:02:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/28 17:44:57 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/09/12 14:45:37 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef struct s_ms
 	char			*path;
 	struct s_token	**token;
 	struct s_token	*token_lexed;
+	struct s_pipex	*px;
 	int				blank_before_quote;
 	int				blank_after_quote;
 	int				dollar;

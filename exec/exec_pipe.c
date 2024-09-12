@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:54:49 by niabraha          #+#    #+#             */
-/*   Updated: 2024/09/04 14:58:31 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/09/12 14:52:22 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../inc/minishell.h"
 
-static void	first_child_process(t_pipex fd, char **cmd, t_ms *ms)
+/* static void	first_child_process(t_pipex fd, char **cmd, t_ms *ms)
 {
 	if (dup2(fd.pipefd[1], STDOUT_FILENO) < 0)
 	{
@@ -74,4 +74,4 @@ int exec_pipe(t_ms *ms, t_pipex *px)
     if (WIFEXITED(fd.status))
         return WEXITSTATUS(fd.status);
     return (0);
-}
+} */

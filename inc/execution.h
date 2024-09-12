@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:59 by niabraha          #+#    #+#             */
-/*   Updated: 2024/09/11 18:08:47 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/09/12 14:56:07 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@ typedef struct s_pipex
 	int		fd_out;
 	int		status;
 	int		pipefd[2];
+	int		heredoc[2];
 	int		pid;
 	struct s_ms	*ms;
-	struct s_pipe	*next;
-	struct s_pipe	*prev;
+	struct s_pipex	*next;
+	struct s_pipex	*prev;
 }		t_pipex;
 
 //exec folder
@@ -41,6 +42,10 @@ void	manage_heredoc(t_ms *ms, t_pipex *px);
 
 //utils folder
 int		count_redir_nils(t_ms *ms); // utils
+t_pipex *setup_pipe(t_ms *ms);
+t_pipex *add_new_pipe(t_pipex *px);
+t_pipex *pipe_add_back(t_pipex **px, t_pipex *new);
+void 	add_front_pipe(t_pipex **px, t_pipex *new);
 
 //ft_cd
 int		ft_cd(t_ms *ms, t_token *tk);

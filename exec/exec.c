@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/09/11 18:10:34 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/09/12 17:38:54 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,21 +41,114 @@ etape par etape:
 3. redirection ou pipe
  */
 
-static void	ft_close_fds(t_pipex *px)
+/* static void	ft_close_fds(t_pipex *px)
 {
 	if (px->fd_in != STDIN_FILENO)
+	{
 		close(px->fd_in);
+		px->fd_in = STDIN_FILENO;
+	}
 	if (px->fd_out != STDOUT_FILENO)
+	{
 		close(px->fd_out);
+		px->fd_out = STDOUT_FILENO;
+	}
+} */
+
+static void ft_close_pipe(int *pipe)
+{
+	if (pipe[0] != -1)
+		close(pipe[0]);
+	if (pipe[1] != -1)
+		close(pipe[1]);
+}
+
+static void ft_close_fds(t_pipex *px)
+{
+	if (!px)
+		return ;
+	if (px->pipefd[0] != 0)
+		close(px->pipefd[0]);
+	if (px->pipefd[1] != 1)
+		close(px->pipefd[1]);
+	printf("exec_first_processus\n");
+}
+
+static void exec_first_processus(t_ms *ms, t_pipex *px, t_token *tk)
+{
+	open_and_dup(px, tk, ms);
+	if (dup2(px->pipefd[1], STDOUT_FILENO) == -1)
+		exit(1); // a changer
+	ft_close_fds(px);
+	ft_close_pipe(px->heredoc);
+	if (tk->type == BUILTIN)
+		find_builtin(ms, tk);
+	else
+		ft_execlp(ms, cmd_to_tab(ms, tk));
+}
+
+static void exec_middle_processus(t_ms *ms, t_pipex *px, t_token *tk)
+{
+	open_and_dup(px, tk, ms);
+	if (dup2(px->prev->pipefd[0], STDIN_FILENO) == -1 && px->heredoc[0] == -1)
+		exit(1); // a changer
+	if (dup2(px->pipefd[1], STDOUT_FILENO) == -1)
+		exit(1); // a changer
+	ft_close_fds(px);
+	ft_close_fds(px->prev);
+	ft_close_pipe(px->heredoc);
+	if (tk->type == BUILTIN)
+		find_builtin(ms, tk);
+	else
+		ft_execlp(ms, cmd_to_tab(ms, tk));
+}
+
+static void exec_last_processus(t_ms *ms, t_pipex *px, t_token *tk)
+{
+	open_and_dup(px, tk, ms);
+	if (dup2(px->prev->pipefd[0], STDIN_FILENO) == -1 && px->prev)
+		exit(1); // a changer
+	ft_close_fds(px->prev);
+	ft_close_pipe(px->heredoc);
+	if (tk->type == BUILTIN)
+		find_builtin(ms, tk);
+	else
+		ft_execlp(ms, cmd_to_tab(ms, tk));
 }
 
 static void exec_processus(t_ms *ms, t_pipex *px, t_token *tk, int i)
 {
-	(void)i;
-	(void)ms;
-	(void)px;
-	(void)tk;
-	printf("exec_processus\n");
+	if (i == 0)
+		exec_first_processus(ms, px, tk); // pas de pipe, un seul processus
+	else if (i == ms->pipe_count)
+		exec_last_processus(ms, px, tk); // dernier processus
+	else
+		exec_middle_processus(ms, px, tk); // tous les processus du milieu
+	
+}
+
+static int size_px(t_pipex *px)
+{
+	int i;
+
+	i = 0;
+	while (px)
+	{
+		px = px->next;
+		i++;
+	}
+	return (i);
+}
+
+static void simple_command(t_ms *ms, t_pipex *px, t_token *tk)
+{
+	open_and_dup(ms->px, tk, ms);
+	printf("simple_command\n");
+	px->pid = fork();
+	if (px->pid == -1)
+		exit(1); // a changer
+	if (px->pid == 0)
+		ft_execlp(ms, cmd_to_tab(ms, tk));
 }
 
 static void	ft_exec(t_ms *ms, t_pipex *px, t_token *tk)
@@ -63,18 +156,22 @@ static void	ft_exec(t_ms *ms, t_pipex *px, t_token *tk)
 	int 	i;
 
 	i = 0;
-	
+	printf("pipe_count = %d\n", ms->pipe_count);
 	if (tk->type == BUILTIN && ms->pipe_count == 0)
 		find_builtin(ms, tk);
-	while (i < ms->pipe_count)
+	int len = size_px(px);
+	printf("len = %d\n", len);
+	if (tk->type == COMMAND && ms->pipe_count == 0)
+		simple_command(ms, px, tk);
+	while (px)
 	{
 		px->pid = fork();
 		if (px->pid == -1)
-			printf("fork failed\n");
+			exit(1); // a changer
 		if (px->pid == 0)
-		exec_processus(ms, px, tk, i);
+			exec_processus(ms, px, tk, i);
 		if (px->prev)
-			ft_close_fds(px->prev);
+			close(px->prev->pipefd[0]);
 		px = px->next;
 		i++;
 	}
@@ -86,13 +183,13 @@ int	exec_main(t_ms *ms)
 	t_pipex	*tmp;
 	t_token	*tk;
 	
-	px = setup_pipe(px);
+	px = setup_pipe(ms);
 	tmp = px;
 	tk = ms->token[ms->current_pipe];
 	ft_exec(ms, px, tk);
 	while(tmp)
 	{
-		waitpid(tmp->pid, &tmp->status, 0);
+		waitpid(tmp->pid, NULL, 0);
 		tmp = tmp->next;
 	}
 	return (0);
@@ -141,15 +238,13 @@ pour iterer dans les pipes :
 		}
 		i++;
 	}
-
 */
-
 /*
 
 ft_exec -> (1) preparer les pipes, (2) faire l'exec, (3) fermer les pid
 (2) -> juste un builtin, pas de pipe ni commande, redir accept2 ^^
 */
 	/*
-	verifier si les redir en first fonctionnent ?(creent des fichiers)
+	tmpier si les redir en first fonctionnent ?(creent des fichiers)
 	> ls ; < oui 
 	*/

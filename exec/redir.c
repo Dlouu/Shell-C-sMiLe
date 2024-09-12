@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:57:32 by niabraha          #+#    #+#             */
-/*   Updated: 2024/09/11 18:08:12 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/09/12 17:39:26 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@ static void redir_in(char *file, t_pipex *px)
 /*
 az < qs < grep Music crash
 */
-
-
 
 void open_and_dup(t_pipex *px, t_token *tk, t_ms *ms)
 {

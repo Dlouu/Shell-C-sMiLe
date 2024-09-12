@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:36:56 by niabraha          #+#    #+#             */
-/*   Updated: 2024/09/04 16:36:02 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/09/12 14:39:41 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,6 @@ void exec_command(t_ms *ms, t_pipex *px, t_token *tk)
 		else
 			waitpid(pid, &status, 0);
 	}
-	if (dup2(px->save_out, STDOUT_FILENO) == -1)
-		perror("dup2 error\n");
-	if (dup2(px->save_in, STDIN_FILENO) == -1)
-		perror("dup2 error\n");
 	ms->exit_code = WEXITSTATUS(status);
 	return ;
 }

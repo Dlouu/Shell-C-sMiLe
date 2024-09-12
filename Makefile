@@ -6,7 +6,7 @@
 #    By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/06 13:02:03 by mbaumgar          #+#    #+#              #
-#    Updated: 2024/08/26 15:23:34 by niabraha         ###   ########.fr        #
+#    Updated: 2024/09/12 14:55:37 by niabraha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,18 +65,19 @@ SRC			= minishell.c \
 			exec/exec.c \
 			exec/exec_cmd.c \
 			exec/exec_cmd_utils.c \
-			exec/heredoc.c \
 			exec/exec_pipe.c \
+			exec/heredoc.c \
 			exec/redir.c \
 			exec/utils.c \
+			utils/envp.c \
 			utils/error.c \
 			utils/execution.c \
+			utils/pipe_utils.c \
+			utils/signals.c \
 			utils/token_lst.c \
 			utils/token_utils.c \
-			utils/envp.c \
-			utils/var.c \
-			utils/signals.c \
-			utils/utils.c
+			utils/utils.c \
+			utils/var.c
 
 OBJ			= ${SRC:%.c=${OUT_DIR}%.o}
 
