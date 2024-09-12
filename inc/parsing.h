@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:13:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/09/11 14:12:02 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:47:33 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int		error_free_prompt(t_ms *ms, char *prompt, char *error);
 int		empty_prompt(char *prompt);
 
 //utils
-void	set_readline_signals(void);
+void	set_custom_signals(void);
 int		find_index(char *str, char c);
 void	update_index(t_ms *ms);
 char	**cmd_to_tab(t_ms *ms, t_token *tk);

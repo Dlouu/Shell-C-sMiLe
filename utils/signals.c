@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 00:12:48 by dlou              #+#    #+#             */
-/*   Updated: 2024/09/11 15:50:55 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/09/12 17:32:02 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,24 +59,11 @@ void	reset_default_signals(void)
 	set_signals(SIGQUIT, SIG_DEFAULT, SIG_REST_SIGINFO, NULL);
 }
 
-void	set_readline_signals(void)
+void	set_custom_signals(void)
 {
 	set_signals(SIGINT, SIG_INTERACTIVE, SIG_REST_SIGINFO, &sigint_handler);
 	set_signals(SIGQUIT, SIG_IGNORE, SIG_REST_SIGINFO, NULL);
 }
-
-// void	set_heredoc_signals(void)
-// {
-// 	set_signals(SIGINT, SIG_INTERACTIVE, SIG_REST_SIGINFO, &sigint_handler);
-// 	set_signals(SIGQUIT, SIG_IGNORE, SIG_REST_SIGINFO, NULL);
-// }
-
-// void	set_block_signals(void) ????
-// {
-// 	set_signals(SIGINT, SIG_INTERACTIVE, SIG_REST_SIGINFO, &sigint_handler);
-// 	set_signals(SIGQUIT, SIG_IGNORE, SIG_REST_SIGINFO, NULL);
-// }
-
 
 /*
 BASH
@@ -91,9 +78,9 @@ HEREDOC
 $ echo bite << lol	| echo bite << lol						| echo bite << lol
 > ^C				| > 									| ne fait rien
 $ 					| bash: warning: here-document at line 2 
-					| delimited by end-of-file (wanted `lol')
-					| bite									|
-					| $ 									|
+.					| delimited by end-of-file (wanted `lol')
+.					| bite									|
+.					| $ 									|
 Ctrl C new prompt	| CTRL+D il fait la commande + erreur	| Ctrl \ = A ignorer
 
 BLOCK/PIPE/FORK/TRUC ?
@@ -101,7 +88,4 @@ Ctrl C 	dans un block = ^C\n  (quitte le block, = newline)
 Ctrl \	(cat : Ctrl \ dans un block = ^\ sans newline faut surement osef)
 		grep '' = ^\Quit\n avec newline
 Ctrl D 	quite le prompt avec juste une newline
-
-
-
 */
