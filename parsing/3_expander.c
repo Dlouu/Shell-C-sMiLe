@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:06:12 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/28 18:16:40 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/09/17 14:38:28 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,10 @@ void	expand_var(t_ms *ms, t_token *tk, int *i)
 	{
 		len = ft_strlen(tk->content) - *i - ft_strlen(key) - 1;
 		left = ft_substr(tk->content, 0, *i, FALSE);
-		// printf("key: '%s'\n", key); // a check
-		// printf("left: '%s'\n", left); // a check
 		value = find_env_value(ms->env, key);
-		// printf("value: '%s'\n", value); // a check
 		right = ft_substr(tk->content, *i + ft_strlen(key) + 1, len, FALSE);
-		// printf("right: '%s'\n", right); // a check
 		tk->content = ft_strjoin(left, value, FALSE);
-		// printf("content join 1: '%s'\n", tk->content); // a check
 		tk->content = ft_strjoin(tk->content, right, FALSE);
-		// printf("content join 2: '%s'\n", tk->content); // a check
 		tk->expanded = 1;
 		*i += ft_strlen(value) - 1;
 	}
@@ -95,6 +89,7 @@ void	remove_empty_nodes(t_ms *ms)
 			tk->blank_before_quote = 1;
 			tk->blank_after_quote = 1;
 			tk->type = COMMAND;
+			printf("empty node\n"); // a check
 			return ;
 		}
 		if (!tk->content[0])
@@ -104,7 +99,11 @@ void	remove_empty_nodes(t_ms *ms)
 			if (temp->blank_before_quote == 1 && temp->blank_after_quote == 1)
 				;
 			else
+			{
 				tk_delone(&ms->token_lexed, temp);
+				printf("delete une node\n"); // a check
+				// voir si y'a un truc avec tk = tk->next vu que temp
+			}
 		}
 		else
 			tk = tk->next;
@@ -131,7 +130,7 @@ void	remove_empty_nodes(t_ms *ms)
 	// See the C standard for the complete list of escape sequences.
 void	expander(t_ms *ms, t_token *tk, int i)
 {
-	//tk_lstprint(ms, &ms->token_lexed);
+	tk_lstprint(ms, &ms->token_lexed);
 	if (!tk)
 		return ;
 	while (tk)
