@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/09/17 16:47:24 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/09/17 17:34:57 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,28 +34,9 @@ grep "login.sh" < infile > outfile (outfile recupere le grep)
 grep "Videos" < infile | cat -e > outfile
 
 tr a-z A-Z > first_file << oui | tr A-Z a-z > second_file << non
+*/
 
-etape par etape:
-1. heredoc (ouvrir les fichiers ^^)
-2. commande
-3. redirection ou pipe
- */
-
-/* static void	ft_close_fds(t_pipex *px)
-{
-	if (px->fd_in != STDIN_FILENO)
-	{
-		close(px->fd_in);
-		px->fd_in = STDIN_FILENO;
-	}
-	if (px->fd_out != STDOUT_FILENO)
-	{
-		close(px->fd_out);
-		px->fd_out = STDOUT_FILENO;
-	}
-} */
-
-/* static void ft_close_pipe(int *pipe)
+static void ft_close_pipe(int *pipe)
 {
 	if (pipe[0] != -1)
 		close(pipe[0]);
@@ -71,7 +52,6 @@ static void ft_close_fds(t_pipex *px)
 		close(px->pipefd[0]);
 	if (px->pipefd[1] != 1)
 		close(px->pipefd[1]);
-	printf("exec_first_processus\n");
 }
 
 static void exec_first_processus(t_ms *ms, t_pipex *px, t_token *tk)
@@ -124,55 +104,27 @@ static void exec_processus(t_ms *ms, t_pipex *px, t_token *tk, int i)
 		exec_last_processus(ms, px, tk); // dernier processus
 	else
 		exec_middle_processus(ms, px, tk); // tous les processus du milieu
-} */
-
-static void simple_command(t_ms *ms, t_pipex *px, t_token *tk)
-{
-	open_and_dup(ms->px, tk, ms);
-	printf("simple_command\n");
-	px->pid = fork();
-	if (px->pid == -1)
-		exit(1); // a changer
-	if (px->pid == 0)
-		ft_execlp(ms, cmd_to_tab(ms, tk));
 }
 
 static void	ft_exec(t_ms *ms, t_pipex *px, t_token *tk)
 {
-	int 	i;
-
-	i = 0;
-	printf("pipe_count = %d\n", ms->pipe_count);
-	if (tk->type == BUILTIN && ms->pipe_count == 0)
-		find_builtin(ms, tk);
-	if (tk->type == COMMAND && ms->pipe_count == 0)
-		simple_command(ms, px, tk);
-	// while (px)
-	// {
-	// 	px->pid = fork();
-	// 	if (px->pid == -1)
-	// 		exit(1); // a changer
-	// 	if (px->pid == 0)
-	// 		exec_processus(ms, px, tk, i);
-	// 	if (px->prev)
-	// 		close(px->prev->pipefd[0]);
-	// 	px = px->next;
-	// 	i++;
-	// }
-}
-
-static int lst_size_pipe(t_pipex *px)
-{
 	int i;
 
 	i = 0;
+	if (!ms->pipe_count && tk->type == BUILTIN)
+		find_builtin(ms, tk);
 	while (px)
 	{
+		px->pid = fork();
+		if (px->pid < 0)
+			exit(1);	// a changer
+		if (px->pid == 0)
+			exec_processus(ms, px, tk, i);
 		px = px->next;
 		i++;
 	}
-	return (i);
 }
+
 
 int	exec_main(t_ms *ms)
 {
@@ -181,9 +133,7 @@ int	exec_main(t_ms *ms)
 	t_token	*tk;
 
 	px = setup_pipe(ms);
-	int len = lst_size_pipe(px);
 	tmp = px;
-	printf("len = %d\n", len);
 	tk = ms->token_lexed;
 	ft_exec(ms, px, tk);
 	while(tmp)
