@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/09/12 17:38:54 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/09/17 16:47:24 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ etape par etape:
 	}
 } */
 
-static void ft_close_pipe(int *pipe)
+/* static void ft_close_pipe(int *pipe)
 {
 	if (pipe[0] != -1)
 		close(pipe[0]);
@@ -124,21 +124,7 @@ static void exec_processus(t_ms *ms, t_pipex *px, t_token *tk, int i)
 		exec_last_processus(ms, px, tk); // dernier processus
 	else
 		exec_middle_processus(ms, px, tk); // tous les processus du milieu
-	
-}
-
-static int size_px(t_pipex *px)
-{
-	int i;
-
-	i = 0;
-	while (px)
-	{
-		px = px->next;
-		i++;
-	}
-	return (i);
-}
+} */
 
 static void simple_command(t_ms *ms, t_pipex *px, t_token *tk)
 {
@@ -159,22 +145,33 @@ static void	ft_exec(t_ms *ms, t_pipex *px, t_token *tk)
 	printf("pipe_count = %d\n", ms->pipe_count);
 	if (tk->type == BUILTIN && ms->pipe_count == 0)
 		find_builtin(ms, tk);
-	int len = size_px(px);
-	printf("len = %d\n", len);
 	if (tk->type == COMMAND && ms->pipe_count == 0)
 		simple_command(ms, px, tk);
+	// while (px)
+	// {
+	// 	px->pid = fork();
+	// 	if (px->pid == -1)
+	// 		exit(1); // a changer
+	// 	if (px->pid == 0)
+	// 		exec_processus(ms, px, tk, i);
+	// 	if (px->prev)
+	// 		close(px->prev->pipefd[0]);
+	// 	px = px->next;
+	// 	i++;
+	// }
+}
+
+static int lst_size_pipe(t_pipex *px)
+{
+	int i;
+
+	i = 0;
 	while (px)
 	{
-		px->pid = fork();
-		if (px->pid == -1)
-			exit(1); // a changer
-		if (px->pid == 0)
-			exec_processus(ms, px, tk, i);
-		if (px->prev)
-			close(px->prev->pipefd[0]);
 		px = px->next;
 		i++;
 	}
+	return (i);
 }
 
 int	exec_main(t_ms *ms)
@@ -182,10 +179,12 @@ int	exec_main(t_ms *ms)
 	t_pipex	*px;
 	t_pipex	*tmp;
 	t_token	*tk;
-	
+
 	px = setup_pipe(ms);
+	int len = lst_size_pipe(px);
 	tmp = px;
-	tk = ms->token[ms->current_pipe];
+	printf("len = %d\n", len);
+	tk = ms->token_lexed;
 	ft_exec(ms, px, tk);
 	while(tmp)
 	{
