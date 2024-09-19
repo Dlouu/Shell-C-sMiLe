@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:11:21 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/09/17 13:24:43 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/09/19 17:38:11 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*get_var(char *var)
 	&& !ft_issplitable(var[i]))
 		i++;
 	key = ft_substr(var, 1, i - 1, FALSE);
-	printf("key: '%s'\n", key); // a check
+	// printf("key: '%s'\n", key); // a check
 	return (key);
 }
 

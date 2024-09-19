@@ -1,0 +1,19 @@
+total 172
+drwxr-xr-x 11 mbaumgar 2023_mulhouse   4096 sept. 19 14:54 .
+drwx------ 39 mbaumgar 2023_mulhouse   8192 sept. 19 14:16 ..
+drwxr-xr-x  6 mbaumgar 2023_mulhouse     80 sept. 19 14:16 bin
+drwxr-xr-x  2 mbaumgar 2023_mulhouse    150 août  27 17:55 builtin
+drwxr-xr-x  2 mbaumgar 2023_mulhouse    128 sept. 16 13:56 exec
+drwxr-xr-x  8 mbaumgar 2023_mulhouse   4096 sept. 19 11:01 .git
+-rw-r--r--  1 mbaumgar 2023_mulhouse      3 juil. 12 18:55 .gitignore
+drwxr-xr-x  2 mbaumgar 2023_mulhouse     61 sept. 16 13:56 inc
+drwxr-xr-x  5 mbaumgar 2023_mulhouse     70 sept. 19 14:16 libft
+-rw-r--r--  1 mbaumgar 2023_mulhouse      0 sept. 19 14:54 lol
+-rw-r--r--  1 mbaumgar 2023_mulhouse   4074 sept. 16 13:56 Makefile
+-rwxr-xr-x  1 mbaumgar 2023_mulhouse 132240 sept. 19 14:16 minishell
+-rw-r--r--  1 mbaumgar 2023_mulhouse   3507 sept. 16 13:56 minishell.c
+drwxr-xr-x  2 mbaumgar 2023_mulhouse    142 sept. 17 14:38 parsing
+-rw-r--r--  1 mbaumgar 2023_mulhouse    575 juil.  2 12:00 README.md
+drwxr-xr-x  2 mbaumgar 2023_mulhouse    139 sept. 16 13:56 utils
+drwxr-xr-x  2 mbaumgar 2023_mulhouse     27 août   5 17:43 .vscode
+-rw-r--r--  1 mbaumgar 2023_mulhouse    856 août  28 16:43 wtf.txt

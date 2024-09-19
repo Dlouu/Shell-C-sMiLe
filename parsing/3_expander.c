@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:06:12 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/09/17 14:38:28 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/09/19 17:37:39 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,6 @@ void	expand_exit_code(t_ms *ms, t_token *tk, int *i)
 	*i += ft_strlen(exit_code) - 2;
 }
 
-// trouver un moyen de garder une node vide et de ne pas tout delete CAR
-// doivent fonctionner :
-// $lol
-// $lol | echo ahh
-// $lol | > file
-
 void	remove_empty_nodes(t_ms *ms)
 {
 	t_token	*tk;
@@ -89,7 +83,6 @@ void	remove_empty_nodes(t_ms *ms)
 			tk->blank_before_quote = 1;
 			tk->blank_after_quote = 1;
 			tk->type = COMMAND;
-			printf("empty node\n"); // a check
 			return ;
 		}
 		if (!tk->content[0])
@@ -100,22 +93,16 @@ void	remove_empty_nodes(t_ms *ms)
 				;
 			else
 			{
-				tk_delone(&ms->token_lexed, temp);
-				printf("delete une node\n"); // a check
-				// voir si y'a un truc avec tk = tk->next vu que temp
+				if ((temp->next && temp->next->content[0] == '|') \
+				|| (temp->prev && temp->prev->content[0] == '|'))
+					;
+				else
+					tk_delone(&ms->token_lexed, temp);
 			}
 		}
 		else
 			tk = tk->next;
 	}
-	// if (!ms->token_lexed)
-	// {
-	// 	temp = tk_lstnew("");
-	// 	ms->token_lexed = temp;
-	// 	ms->token_lexed->type = COMMAND;
-	// 	ms->blank_after_quote = 1;
-	// 	ms->blank_before_quote = 1;
-	// }
 }
 
 // Our minishell doesn't support expansion of the following:
@@ -130,7 +117,6 @@ void	remove_empty_nodes(t_ms *ms)
 	// See the C standard for the complete list of escape sequences.
 void	expander(t_ms *ms, t_token *tk, int i)
 {
-	tk_lstprint(ms, &ms->token_lexed);
 	if (!tk)
 		return ;
 	while (tk)
@@ -138,7 +124,6 @@ void	expander(t_ms *ms, t_token *tk, int i)
 		i = 0;
 		while (tk && tk->content[i])
 		{
-			// printf("c: %c\n", tk->content[i]);
 			if (tk->content[i] == '$' && tk->squote == 0)
 			{
 				if (tk->content[i + 1] && tk->content[i + 1] == '?')
@@ -149,7 +134,7 @@ void	expander(t_ms *ms, t_token *tk, int i)
 				&& tk->content[0] == '$' && !tk->content[i + 1])
 				{
 					printf("dollar quote: %s\n", tk->content);
-					tk_delone(&ms->token_lexed, tk);	//voir si c'est toujours utile
+					tk_delone(&ms->token_lexed, tk); //check si utile
 					i++;
 				}
 				else if (!tk->content[i + 1])

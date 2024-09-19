@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:18:28 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/09/17 14:05:30 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/09/19 17:37:18 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,13 +105,12 @@ int	parser(t_ms *ms, char *prompt)
 		return (error_free_prompt(ms, prompt, "syntax"));
 	if (!set_delimiter_and_ambiguous_redir(lexed_token))
 		return (error_free_prompt(ms, prompt, "ambiguous redirect"));
-	if (!ms->token_lexed)
-		return (error_free_prompt(ms, prompt, "syntax"));
+	//if (!ms->token_lexed)
+	//	return (error_free_prompt(ms, prompt, "syntax"));
 	pipe_splitter(ms);
 	sort_token(ms);
 	update_index(ms);
 	count_heredoc_and_command(ms);
-	tk_lstprint(ms, ms->token);
 	return (1);
 }
 
