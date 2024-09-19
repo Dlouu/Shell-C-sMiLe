@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:57:32 by niabraha          #+#    #+#             */
-/*   Updated: 2024/09/19 18:05:32 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/09/19 23:24:56 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ static void redir_out(char *file, t_pipex *px, int redir)
 {
 	if (redir == REDIR_RIGHT)
 	{
-		px->fd_out = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		if (px->fd_out == -1)
+		px->pipefd[1] = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		if (px->pipefd[1] == -1)
 			return (perror("open error\n"), exit(1));
 	}
 	else
 	{
-		px->fd_out = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
-		if (px->fd_out == -1)
+		px->pipefd[1] = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		if (px->pipefd[1] == -1)
 			return (perror("open error\n"), exit(1));
 	}
 }
@@ -46,20 +46,18 @@ static void redir_in(char *file, t_pipex *px)
 		perror("File does not exist\n");
 		return;
 	}
-	if ((px->fd_in = open(file, O_RDONLY)) == -1)
+	if ((px->pipefd[0] = open(file, O_RDONLY)) == -1)
 	{
-		close(px->fd_in);
+		close(px->pipefd[0]);
 		perror("open error\n");
 	}
 }
 
 void open_and_dup(t_pipex *px, t_token *tk, t_ms *ms)
 {
-	px->fd_in = STDIN_FILENO;
-	px->fd_out = STDOUT_FILENO;
 	if (ms->heredoc_count)
 	{
-		if (pipe(px->pipefd) == -1)
+		if (pipe(px->heredoc) == -1)
 			return ;
 		manage_heredoc(ms, px);
 	}
@@ -71,14 +69,16 @@ void open_and_dup(t_pipex *px, t_token *tk, t_ms *ms)
 			redir_out(tk->next->content, px, tk->type);
 		tk = tk->next;
 	}
-	if (px->fd_in != STDIN_FILENO)	
+/*	if (px->fd_in != STDIN_FILENO)
 	{
-		dup2(px->fd_in, STDIN_FILENO);
+		if (dup2(px->fd_in, STDIN_FILENO) == -1)
+			return (perror("dup2 failed\n"), exit(1));
 		close(px->fd_in);
 	}
 	if (px->fd_out != STDOUT_FILENO)
 	{
-		dup2(px->fd_out, STDOUT_FILENO);
+		if (dup2(px->fd_out, STDOUT_FILENO) == -1)
+			return (perror("dup2 failed\n"), exit(1));
 		close(px->fd_out);
-	}
+	}*/
 }
