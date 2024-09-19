@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/09/04 00:11:29 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/09/19 17:46:22 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	minishell_loop(t_ms *ms)
 
 	while (1)
 	{
-		set_interactive_signals();
+		set_custom_signals();
 		prompt = readline(MAUVE"<Shell-C_sMiLe> "END"$ ");
 		if (!prompt)
 			break ;
@@ -80,7 +80,7 @@ int	minishell_loop(t_ms *ms)
 		if (empty_prompt(prompt) || !lexer(ms, prompt, NULL) || tokenizer(ms) \
 		|| !parser(ms, prompt))
 			continue ;
-		//find_builtin(ms, ms->token[0]);
+		//tk_lstprint(ms, ms->token);
 		exec_main(ms);
 		free(prompt);
 		ms->pipe_count = 0;
@@ -105,3 +105,8 @@ int	main(int argc, char **argv, char **envp)
 	wclear(1);
 	return (0);
 }
+
+//faut check si quand ya pas de cmd et juste des redir
+//ca fout pas la merde dans l'execution
+//check pour add le prompt a la struc et la free direct
+//ou bien le mettre dans le garbage

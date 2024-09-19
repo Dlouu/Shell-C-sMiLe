@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:11:21 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/28 16:08:17 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/09/19 17:38:11 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	delete_var_name(char *key, t_token *tk, int *i)
 	left = ft_substr(tk->content, 0, *i, FALSE);
 	right = ft_substr(tk->content, *i + ft_strlen(key) + 1, len, FALSE);
 	tk->content = ft_strjoin(left, right, FALSE);
-	*i += ft_strlen(left) - 1;
+	*i -= 1;
 }
 
 char	*get_var(char *var)
@@ -35,6 +35,7 @@ char	*get_var(char *var)
 	&& !ft_issplitable(var[i]))
 		i++;
 	key = ft_substr(var, 1, i - 1, FALSE);
+	// printf("key: '%s'\n", key); // a check
 	return (key);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:04:25 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/27 17:40:05 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/09/19 17:35:03 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,10 @@ static void	trim_blanks(t_ms *ms, t_token *tk)
 			tk = tk->next;
 	}
 	if (tk_lstlast(ms->token_lexed)->content[0] == 0)
-		tk_delone(&ms->token_lexed, tk_lstlast(ms->token_lexed));
+	{
+		if (ms->token_lexed->prev)
+			tk_delone(&ms->token_lexed, tk_lstlast(ms->token_lexed));
+	}
 }
 
 void	word_splitter(t_ms *ms, int i)
