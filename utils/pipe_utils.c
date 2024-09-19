@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tclaereb <tclaereb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 18:05:42 by niabraha          #+#    #+#             */
-/*   Updated: 2024/09/17 16:53:23 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/09/19 17:15:28 by tclaereb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,10 @@ static void add_back_pipe(t_pipex **px, t_pipex *new)
 			return ; // erreur
 }
 
-static t_pipex	*add_new_pipe(t_ms *ms)
+static t_pipex	*add_new_pipe(t_ms *ms, t_token *token)
 {
 	t_pipex	*new;
 
-	(void)ms;
 	new = walloc(sizeof(t_pipex), TRUE);
 	if (!new)
 		return (NULL);
@@ -48,8 +47,9 @@ static t_pipex	*add_new_pipe(t_ms *ms)
 	new->pipefd[1] = -1;
 	new->heredoc[0] = -1;
 	new->heredoc[1] = -1;
-	new->pid = 0;
-	new->ms = NULL;
+	new->pid = -1;
+	new->ms = ms;
+	new->token = token;
 	new->next = NULL;
 	new->prev = NULL;
 	return (new);
@@ -58,16 +58,11 @@ static t_pipex	*add_new_pipe(t_ms *ms)
 t_pipex *setup_pipe(t_ms *ms)
 {
 	t_pipex	*px;
-	t_pipex	*tmp;
 	int 	i;
 
-	i = 0;
-	px = add_new_pipe(ms);
-	tmp = px;
-	while (i < ms->pipe_count)
-	{
-		add_back_pipe(&px, add_new_pipe(ms));
-		i++;
-	}
-	return (tmp);
+	i = -1;
+	px = NULL;
+	while (++i <= ms->pipe_count)
+		add_back_pipe(&px, add_new_pipe(ms, ms->token[i]));
+	return (px);
 }

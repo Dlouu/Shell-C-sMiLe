@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tclaereb <tclaereb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:54:36 by niabraha          #+#    #+#             */
-/*   Updated: 2024/09/17 17:36:28 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/09/19 17:17:37 by tclaereb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static char	*check_path(char *cmd, char *path)
 	return (NULL);
 }
 
-static char	*find_path(char *cmd, char **envp, t_ms *ms)
+char	*find_path(char *cmd, char **envp, t_ms *ms)
 {
 	char	**all_paths;
 	char	*final_path;
@@ -76,7 +76,7 @@ void	ft_execlp(t_ms *ms, char **cmd)
 			ft_putstr_fd(cmd[0], 2);
 			ft_putstr_fd(": permission denied\n", 2);
 			exit(ms->exit_code);
-		}	
+		}
 	}
 }
 
@@ -85,23 +85,25 @@ void	ft_execlp(t_ms *ms, char **cmd)
 // je sais plus la subtilité de quand on unset ou quoi
 // mais apparemment quand on lance un shell dans un shell faut mettre un path
 // par defaut
-void	find_builtin(t_ms *ms, t_token *token)
+void	find_builtin(t_pipex *px, t_token *token)
 {
-	ms->path = find_env_value(ms->env, "PATH");
+	px->ms->path = find_env_value(px->ms->env, "PATH");
 	if (ft_strcmp(token->content, "cd") == 0)
-		ft_cd(ms, token);
+		ft_cd(px->ms, token);
 	else if (ft_strcmp(token->content, "echo") == 0)
-		ft_echo(ms, token);
+		ft_echo(px->ms, token);
 	else if (ft_strcmp(token->content, "env") == 0)
-		ft_env(ms);
+		ft_env(px->ms);
 	else if (ft_strcmp(token->content, "pwd") == 0)
-		ft_pwd(ms);
+		ft_pwd(px->ms);
 	else if (ft_strcmp(token->content, "export") == 0)
-		ft_export(ms, token);
+		ft_export(px->ms, token);
 	else if (ft_strcmp(token->content, "unset") == 0)
-		ft_unset(ms, token);
+		ft_unset(px->ms, token);
 	else if (ft_strcmp(token->content, "exit") == 0)
-		ft_exit(ms, token);
+		ft_exit(px->ms, token);
+	if (px->pid == 0)
+		exit(0);
 	// else
 	// 	ft_execlp(ms, cmd_to_tab(ms,token);
 }
