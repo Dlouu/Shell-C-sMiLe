@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:15 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/26 12:45:56 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/09/19 18:10:39 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,9 @@ int	ft_export(t_ms *ms, t_token *token)
 {
 	t_list	*unsorted_env;
 	t_list	*sorted_env;
-	//t_token	**token;
 
 	unsorted_env = ft_lstdup(ms->env);
 	sorted_env = sort_list(unsorted_env, NULL, ft_strcmp);
-	//token = ms->token;
 	if (!token->next)
 	{
 		while (sorted_env)

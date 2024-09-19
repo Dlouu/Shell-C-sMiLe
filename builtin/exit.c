@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:12 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/21 11:44:06 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/09/19 18:10:08 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,6 @@ static int	check_number(char *s)
 	}
 	return (0);
 }
-
-/*
-
-*/
 
 static void	clean_exit(t_ms *ms)
 {

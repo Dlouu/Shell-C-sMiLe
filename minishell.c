@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/09/19 17:46:22 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/09/19 18:09:40 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,28 +22,19 @@ TRUCS A CHECK
 [_] si on unset PATH il faut que ca ne marche pas mais no segfault
 - - - - - - -
 PARSING
-[x]	lexer (creation de la liste)
-[x]	tokenizer (assigner les types)
-[x]	expander (expand les variables)
-[x]	recombiner (recoller les nodes "" et '' accolées)
-[x]	word_splitter (split les tokens "" expand)
-[x] token_sorter (sort les tokens dans l'ordre d'execution)
-[x] parsing
 [_] check $USER$USER$blah$blah = ne delete pas les 2 blah (la solution etait de
 	split sur les $ mais depuis avec $ dans isseparator infinite loop
 [_] $""aa$"" a fixer
+[_] expand dollar a refaire
 - - - - - - -
 EXECUTION
 [~]	builtin reste exit, cd et unset
 [x]	fork
-[_]	pipe
-[_]	redirections > >> < <<
-[_]	waitpid cat | cat | ls
+[~]	pipe
+[~]	redirections > >> < <<
+[~]	waitpid cat | cat | ls
 */
 
-// si t'arrives pas a compiler sur ton mac,
-// mets rl_catch_signals = 0; en commentaire ligne 55
-// et egalement dans le fichier utils/signal.c ligne 22
 void	minishell_init(t_ms *ms, char **argv, char **envp)
 {
 	ms->exit_code = 0;

@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:57:32 by niabraha          #+#    #+#             */
-/*   Updated: 2024/09/12 17:39:26 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/09/19 18:05:32 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,6 @@ static void redir_in(char *file, t_pipex *px)
 	}
 }
 
-/*
-az < qs < grep Music crash
-*/
-
 void open_and_dup(t_pipex *px, t_token *tk, t_ms *ms)
 {
 	px->fd_in = STDIN_FILENO;
@@ -86,17 +82,3 @@ void open_and_dup(t_pipex *px, t_token *tk, t_ms *ms)
 		close(px->fd_out);
 	}
 }
-
-/*
-fichier = out 
-fd_out = open(fichier, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-if fichier->next n'est pas nul
-close(fd_out);
-fd_out = open(fichier->next, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-if (fd_out == STDOUT)
-	dup2(fd_out, STDOUT_FILENO);
-exec_command
-if (fd_out != STDOUT)
-	close(fd_out);
-	dup2(save_out, STDOUT_FILENO);
-*/

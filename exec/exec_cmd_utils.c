@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:54:36 by niabraha          #+#    #+#             */
-/*   Updated: 2024/09/19 17:32:59 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/09/19 18:10:49 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	ft_execlp(t_ms *ms, char **cmd)
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(cmd[0], 2);
 		ft_putstr_fd(": no such file or directory\n", 2);
-		// fonction qui clean tout
+		// fonction qui clean tout attenzione pickpocket
 		exit(ms->exit_code);
 	}
 	else
