@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/09/19 17:37:04 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/09/19 17:55:03 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void	manage_execve(t_pipex *px, char **cmd, char **envp)
 	cmd_path = find_path(cmd[0], envp, px->ms);
 	if (!cmd_path)
 		return (ft_error(cmd[0], "command not found", 1, 1));
+	if (!px->token->content[0])
+		exit(0);
 	if (execve(cmd_path, cmd, envp) == -1)
 		ft_perror("execve error", 1);
 }
@@ -115,8 +117,6 @@ void	ft_exec_last_processus(t_pipex *px)
 		ft_perror("dup2 failed", 1);
 	ft_close_fds(px->prev);
 	ft_close_pipe(px->heredoc);
-	if (!px->token->content)
-		exit(0);
 	cmd = cmd_to_tab(px->ms, px->token);
 	manage_execve(px, cmd, menvp);
 }
