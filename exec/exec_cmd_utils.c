@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tclaereb <tclaereb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:54:36 by niabraha          #+#    #+#             */
-/*   Updated: 2024/09/19 17:17:37 by tclaereb         ###   ########.fr       */
+/*   Updated: 2024/09/19 17:32:59 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,8 @@ void	ft_execlp(t_ms *ms, char **cmd)
 	}
 }
 
-//dlou: j'ai changé le path que tu avais déclaré dans un char*
-// en ms->path dans la structure
-// je sais plus la subtilité de quand on unset ou quoi
-// mais apparemment quand on lance un shell dans un shell faut mettre un path
-// par defaut
 void	find_builtin(t_pipex *px, t_token *token)
 {
-	px->ms->path = find_env_value(px->ms->env, "PATH");
 	if (ft_strcmp(token->content, "cd") == 0)
 		ft_cd(px->ms, token);
 	else if (ft_strcmp(token->content, "echo") == 0)
@@ -104,20 +98,4 @@ void	find_builtin(t_pipex *px, t_token *token)
 		ft_exit(px->ms, token);
 	if (px->pid == 0)
 		exit(0);
-	// else
-	// 	ft_execlp(ms, cmd_to_tab(ms,token);
 }
-
-/* notes :
-Builtin pwd, env echo en first (conseil de Max)
-
-toutes les fonctions doivent renvoyer un INT
-il faut check les valeurs de retour
-
-echo $PWD (copie de pwd donc faut pas l'use)
-(les utiliser une fois au lancement et en faire une copie)
-utiliser getcwd
-
-faut check les path pour voir si ya la cmd dedans et message d'erreur
-si pas dedans
-*/

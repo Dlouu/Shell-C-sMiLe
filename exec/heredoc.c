@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:56:22 by niabraha          #+#    #+#             */
-/*   Updated: 2024/09/04 16:58:12 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/09/19 17:33:29 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void do_heredoc(t_pipex *px, t_ms *ms, char **copy)
 {
 	char *line;
 
-	if (px->fd_in != STDIN_FILENO) // redir
+	if (px->fd_in != STDIN_FILENO)
 		close(px->fd_in);
 	while (1)
 	{
@@ -30,7 +30,7 @@ static void do_heredoc(t_pipex *px, t_ms *ms, char **copy)
 			if (ft_strncmp(line, copy[ms->heredoc_count_check], ft_strlen(line)) == 0)
 				ms->heredoc_count_check++;
 			if (ms->heredoc_count_check == ms->heredoc_count)
-				exit(ms->exit_code); //chut c'est un secre
+				exit(ms->exit_code); //chut c'est un secret
 		}
 		write(px->pipefd[1], line, ft_strlen(line));
 		write(px->pipefd[1], "\n", 1);
