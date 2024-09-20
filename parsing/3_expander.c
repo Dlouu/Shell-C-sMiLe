@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:06:12 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/09/20 17:16:49 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/09/20 17:56:01 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ void	remove_empty_nodes(t_ms *ms)
 	t_token	*temp;
 
 	tk = ms->token_lexed;
-	tk_lstprint(ms, &ms->token_lexed);
 	while (tk)
 	{
 		if (!tk->content[0] && !tk->next && !tk->prev)
@@ -101,7 +100,6 @@ void	remove_empty_nodes(t_ms *ms)
 		else
 			tk = tk->next;
 	}
-	tk_lstprint(ms, &ms->token_lexed);
 }
 
 // Our minishell doesn't support expansion of the following:
@@ -140,7 +138,6 @@ void	expander(t_ms *ms, t_token *tk, int i)
 					break ;
 				else
 					expand_var(ms, tk, &i);
-				// printf("%d\n", tk->expanded);
 				tk->expanded = 2;
 			}
 			i++;
@@ -168,7 +165,7 @@ void	expander(t_ms *ms, t_token *tk, int i)
 // 					expand_exit_code(ms, tk, &i);
 // 				else if (tk->content[i + 1] == '$')
 // 					expand_pid_number(tk, &i);
-// 				else if (!tk->content[i + 1] && tk->next && (tk->next->squote \
+// 				else if (!tk->content[i + 1] && tk->next && (tk->next->squote 
 // 				|| tk->next->dquote))
 // 					expand_dollar_quote(ms, tk);
 // 				else if (!tk->content[i + 1])

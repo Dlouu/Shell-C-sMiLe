@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/09/19 17:55:03 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/09/20 17:50:54 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ void	manage_execve(t_pipex *px, char **cmd, char **envp)
 	if (px->token->type == BUILTIN)
 		find_builtin(px, px->token);
 	cmd_path = find_path(cmd[0], envp, px->ms);
-	if (!cmd_path)
+	if (!cmd_path || (!px->token->content[0] && !px->token->expanded))
 		return (ft_error(cmd[0], "command not found", 1, 1));
-	if (!px->token->content[0])
+	if (!px->token->content[0] && px->token->expanded == 2)
 		exit(0);
 	if (execve(cmd_path, cmd, envp) == -1)
 		ft_perror("execve error", 1);

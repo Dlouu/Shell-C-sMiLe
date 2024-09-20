@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/09/20 13:41:56 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/09/20 17:47:07 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	minishell_loop(t_ms *ms)
 		if (empty_prompt(prompt) || !lexer(ms, prompt, NULL) || tokenizer(ms) \
 		|| !parser(ms, prompt))
 			continue ;
-		tk_lstprint(ms, ms->token);
+		//tk_lstprint(ms, ms->token);
 		exec_main(ms);
 		free(prompt);
 		ms->pipe_count = 0;
@@ -89,7 +89,7 @@ int	main(int argc, char **argv, char **envp)
 	t_ms	*ms;
 
 	if (argc != 1)
-		return (printf("error : shell-C-smile doesn't take arguments\n"), 1);
+		return (printf("error : minishell doesn't take arguments\n"), 1);
 	ms = walloc(sizeof(t_ms), TRUE);
 	minishell_init(ms, argv, envp);
 	minishell_loop(ms);
