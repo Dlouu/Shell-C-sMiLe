@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   6_splitter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:04:25 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/09/19 17:35:03 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/09/20 17:42:43 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	trim_blanks(t_ms *ms, t_token *tk)
 	tk = ms->token_lexed;
 	while (tk)
 	{
-		if (tk->expanded && !tk->content[0])
+		if (tk->expanded == 1 && !tk->content[0])
 			tk = tk_delone(&ms->token_lexed, tk);
 		else
 			tk = tk->next;

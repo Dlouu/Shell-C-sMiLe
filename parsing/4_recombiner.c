@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   4_recombiner.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 11:48:01 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/27 17:39:19 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/09/20 17:57:03 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,19 +54,3 @@ void	recombiner(t_token *tk)
 		tk = tk->next;
 	}
 }
-
-// void	recombiner(t_token *tk)
-// {
-// 	while (tk)
-// 	{
-// 		if (tk->next && (tk->next->type < 3) && (tk->type < 3) && \
-//		!tk->expanded \
-// 		&& !tk->blank_after_quote && !tk->next->blank_before_quote)
-// 			recombine_next_token(tk);
-// 		if (tk->prev && (tk->prev->type < 3) && (tk->type < 3) && \
-//		!tk->expanded \
-// 		&& !tk->prev->blank_after_quote && !tk->blank_before_quote)
-// 			recombine_prev_token(tk);
-// 		tk = tk->next;
-// 	}
-// }
