@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:06:12 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/09/20 17:56:01 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/09/20 18:15:22 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,12 @@ void	expander(t_ms *ms, t_token *tk, int i)
 	}
 	remove_empty_nodes(ms);
 }
+
+/*
+APRES UNE SYNTAX ERROR L'EXE NE FONCTIONNE PLUS
+FAUT QUE JE CHECK AU NIVEAU DES ERREURS SYNTAX SI ELLES
+DIFFERENT DES UNCLOSED QUOTES
+*/
 
 // void	expand_dollar_quote(t_ms *ms, t_token *tk)
 // {

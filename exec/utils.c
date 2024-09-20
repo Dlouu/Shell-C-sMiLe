@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:29:45 by niabraha          #+#    #+#             */
-/*   Updated: 2024/09/20 17:53:17 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/09/20 18:15:53 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_perror(char *error, int critical)
 {
-	write(2, "minishell: ", 12);
+	write(2, "minishell: ", 12); // verifier si utile
 	perror(error);
 	if (critical == 1)
 		exit(errno);
