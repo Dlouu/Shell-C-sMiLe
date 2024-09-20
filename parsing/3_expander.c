@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   3_expander.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:06:12 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/09/19 17:37:39 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/09/20 17:16:49 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,13 @@ void	remove_empty_nodes(t_ms *ms)
 	t_token	*temp;
 
 	tk = ms->token_lexed;
+	tk_lstprint(ms, &ms->token_lexed);
 	while (tk)
 	{
 		if (!tk->content[0] && !tk->next && !tk->prev)
 		{
-			tk->blank_before_quote = 1;
-			tk->blank_after_quote = 1;
+			tk->blank_before_quote = 2;
+			tk->blank_after_quote = 2;
 			tk->type = COMMAND;
 			return ;
 		}
@@ -89,20 +90,18 @@ void	remove_empty_nodes(t_ms *ms)
 		{
 			temp = tk;
 			tk = tk->next;
-			if (temp->blank_before_quote == 1 && temp->blank_after_quote == 1)
+			if ((temp->next && temp->next->content[0] == '|' \
+			&& (!temp->prev || (temp->prev && temp->prev->content[0] == '|'))) \
+			|| (temp->prev && temp->prev->content[0] == '|' \
+			&& (!temp->next || (temp->next && temp->next->content[0] == '|'))))
 				;
 			else
-			{
-				if ((temp->next && temp->next->content[0] == '|') \
-				|| (temp->prev && temp->prev->content[0] == '|'))
-					;
-				else
-					tk_delone(&ms->token_lexed, temp);
-			}
+				tk_delone(&ms->token_lexed, temp);
 		}
 		else
 			tk = tk->next;
 	}
+	tk_lstprint(ms, &ms->token_lexed);
 }
 
 // Our minishell doesn't support expansion of the following:
@@ -141,6 +140,8 @@ void	expander(t_ms *ms, t_token *tk, int i)
 					break ;
 				else
 					expand_var(ms, tk, &i);
+				// printf("%d\n", tk->expanded);
+				tk->expanded = 2;
 			}
 			i++;
 		}
