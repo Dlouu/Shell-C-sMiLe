@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   5_parser.c                                         :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:18:28 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/09/20 17:58:29 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/09/21 16:39:01 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,15 +96,15 @@ static int	set_delimiter_and_ambiguous_redir(t_token *token)
 	return (1);
 }
 
-int	parser(t_ms *ms, char *prompt)
+int	parser(t_ms *ms)
 {
 	t_token	*lexed_token;
 
 	lexed_token = ms->token_lexed;
 	if (!check_types(lexed_token))
-		return (error_free_prompt(ms, prompt, "syntax"));
+		return (error_parsing(ms, "syntax"));
 	if (!set_delimiter_and_ambiguous_redir(lexed_token))
-		return (error_free_prompt(ms, prompt, "ambiguous redirect"));
+		return (error_parsing(ms, "ambiguous redirect"));
 	pipe_splitter(ms);
 	sort_token(ms);
 	update_index(ms);

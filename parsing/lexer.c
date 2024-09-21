@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   1_lexer.c                                          :+:      :+:    :+:   */
+/*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:18:23 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/09/20 17:57:56 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/09/21 16:40:21 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,7 +226,7 @@ int	lexer(t_ms *ms, char *prompt, t_token *token_lst)
 
 	i = 0;
 	if (check_nb_quote(prompt) != 0)
-		return (error_free_prompt(ms, prompt, "unclosed quote"));
+		return (error_parsing(ms, "unclosed quote"));
 	while (prompt[i])
 	{
 		i = node_size(ms, prompt, i, &start);

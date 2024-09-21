@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/09/20 17:47:07 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/09/21 16:43:00 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	minishell_init(t_ms *ms, char **argv, char **envp)
 	ms->heredoc_count_check = 0;
 	ms->command_count = 0;
 	ms->current_pipe = 0;
+	ms->prompt = NULL;
 	get_envp(ms, envp);
 	//rl_catch_signals = 0;
 	ft_putstr_fd("42 project | minishell | as beautiful as a shell~\n", 1);
@@ -60,20 +61,20 @@ void	minishell_init(t_ms *ms, char **argv, char **envp)
 int	minishell_loop(t_ms *ms)
 {
 	char	*prompt;
-
 	while (1)
 	{
 		set_custom_signals();
 		prompt = readline(MAUVE"<Shell-C_sMiLe> "END"$ ");
 		if (!prompt)
 			break ;
-		add_history(prompt);
-		if (empty_prompt(prompt) || !lexer(ms, prompt, NULL) || tokenizer(ms) \
-		|| !parser(ms, prompt))
+		ms->prompt = ft_strdup(prompt, 0);
+		free(prompt);
+		add_history(ms->prompt);
+		if (empty_prompt(ms->prompt) || !lexer(ms, ms->prompt, NULL) || \
+		tokenizer(ms) || !parser(ms))
 			continue ;
 		//tk_lstprint(ms, ms->token);
 		exec_main(ms);
-		free(prompt);
 		ms->pipe_count = 0;
 		ms->heredoc_count = 0;
 		ms->command_count = 0;
