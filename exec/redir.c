@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:57:32 by niabraha          #+#    #+#             */
-/*   Updated: 2024/09/19 23:24:56 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/09/24 16:01:00 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static void redir_in(char *file, t_pipex *px)
 	}
 	if ((px->pipefd[0] = open(file, O_RDONLY)) == -1)
 	{
+		printf("TU PASSES PAR LA\n");
 		close(px->pipefd[0]);
 		perror("open error\n");
 	}
@@ -73,12 +74,14 @@ void open_and_dup(t_pipex *px, t_token *tk, t_ms *ms)
 	{
 		if (dup2(px->fd_in, STDIN_FILENO) == -1)
 			return (perror("dup2 failed\n"), exit(1));
+		printf("TU PASSES PAR LA\n");
 		close(px->fd_in);
 	}
 	if (px->fd_out != STDOUT_FILENO)
 	{
 		if (dup2(px->fd_out, STDOUT_FILENO) == -1)
 			return (perror("dup2 failed\n"), exit(1));
+		printf("TU PASSES PAR LA\n");
 		close(px->fd_out);
 	}*/
 }

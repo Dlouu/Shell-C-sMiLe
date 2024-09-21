@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:54:36 by niabraha          #+#    #+#             */
-/*   Updated: 2024/09/19 18:10:49 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/09/24 17:12:39 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	ft_execlp(t_ms *ms, char **cmd)
 
 void	find_builtin(t_pipex *px, t_token *token)
 {
+	printf("BUILTINNNN\n");
 	if (ft_strcmp(token->content, "cd") == 0)
 		ft_cd(px->ms, token);
 	else if (ft_strcmp(token->content, "echo") == 0)

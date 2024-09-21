@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:56:22 by niabraha          #+#    #+#             */
-/*   Updated: 2024/09/19 17:33:29 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/09/24 16:00:44 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 static void do_heredoc(t_pipex *px, t_ms *ms, char **copy)
 {
 	char *line;
-
+	
+	printf("TU PASSES PAR LA\n");
 	if (px->fd_in != STDIN_FILENO)
 		close(px->fd_in);
 	while (1)
@@ -36,6 +37,7 @@ static void do_heredoc(t_pipex *px, t_ms *ms, char **copy)
 		write(px->pipefd[1], "\n", 1);
 		free(line);
 	}
+	printf("TU PASSES PAR LA\n");
 	close(px->pipefd[1]);
 }
 
@@ -77,8 +79,10 @@ void manage_heredoc(t_ms *ms, t_pipex *px)
 	else
 	{
 		waitpid(pid, NULL, 0);
+		printf("TU PASSES PAR LA\n");
 		close(px->pipefd[1]);
 		px->fd_in = dup(px->pipefd[0]);
+		printf("TU PASSES PAR LA\n");
 		close(px->pipefd[0]);
 		if (px->fd_in == -1)
 			return ;

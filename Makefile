@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+         #
+#    By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/06 13:02:03 by mbaumgar          #+#    #+#              #
-#    Updated: 2024/09/21 16:11:28 by mbaumgar         ###   ########.fr        #
+#    Updated: 2024/09/24 16:58:27 by niabraha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ NAME		= minishell
 CC			= cc
 ARFLAGS 	= -crs
 RM			= rm -rf
-CFLAGS		= -Wall -Werror -Wextra
+CFLAGS		= -Wall -Wextra -Werror
 DBG_LEAK	= -fsanitize=address -fsanitize=leak -g3
 DBG_ADDRESS	= -fsanitize=address -g3
 DBG_THREAD	= -fsanitize=thread -g3
