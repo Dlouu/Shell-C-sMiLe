@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+         #
+#    By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/06 13:02:03 by mbaumgar          #+#    #+#              #
-#    Updated: 2024/09/19 17:33:15 by niabraha         ###   ########.fr        #
+#    Updated: 2024/09/21 16:11:28 by mbaumgar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,13 +47,13 @@ SRC_DIR		= ./src/
 OUT_DIR		= ./bin/
 
 SRC			= minishell.c \
-			parsing/1_lexer.c \
-			parsing/2_tokenizer.c \
-			parsing/3_expander.c \
-			parsing/4_recombiner.c \
-			parsing/5_parser.c \
-			parsing/6_splitter.c \
-			parsing/7_sorter.c \
+			parsing/lexer.c \
+			parsing/tokenizer.c \
+			parsing/expander.c \
+			parsing/recombiner.c \
+			parsing/parser.c \
+			parsing/splitter.c \
+			parsing/sorter.c \
 			builtin/cd.c \
 			builtin/echo.c \
 			builtin/env.c \
