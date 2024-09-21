@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_alloc_lst.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 16:44:14 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/28 17:07:36 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/09/21 23:58:21 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int	al_lstdelone(t_alloc **al_lst_head, t_alloc *al_to_del)
 	t_alloc	*prev;
 
 	prev = *al_lst_head;
-	next = NULL;
 	temp = *al_lst_head;
+	next = temp->next;
 	while (temp)
 	{
 		if (temp == al_to_del)
