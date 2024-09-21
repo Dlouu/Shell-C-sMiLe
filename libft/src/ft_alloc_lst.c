@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 16:44:14 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/09/21 23:58:21 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/09/22 00:08:06 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,7 @@ void	al_lstclear(t_alloc **al_lst, int free_critical)
 		next = temp->next;
 		if ((temp->critical == TRUE && free_critical) || \
 			temp->critical == FALSE)
-		{
-			if (temp == *al_lst)
-				*al_lst = next;
 			al_lstdelone(al_lst, temp);
-		}
 		temp = next;
 	}
 }
