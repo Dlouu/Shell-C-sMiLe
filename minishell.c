@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/09/21 16:43:00 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:49:53 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	minishell_init(t_ms *ms, char **argv, char **envp)
 int	minishell_loop(t_ms *ms)
 {
 	char	*prompt;
+
 	while (1)
 	{
 		set_custom_signals();
@@ -73,7 +74,7 @@ int	minishell_loop(t_ms *ms)
 		if (empty_prompt(ms->prompt) || !lexer(ms, ms->prompt, NULL) || \
 		tokenizer(ms) || !parser(ms))
 			continue ;
-		//tk_lstprint(ms, ms->token);
+		tk_lstprint(ms, ms->token);
 		exec_main(ms);
 		ms->pipe_count = 0;
 		ms->heredoc_count = 0;
@@ -94,6 +95,7 @@ int	main(int argc, char **argv, char **envp)
 	ms = walloc(sizeof(t_ms), TRUE);
 	minishell_init(ms, argv, envp);
 	minishell_loop(ms);
+	//rl_clear_history(); voir si utile et les valgrind suppress
 	wclear(1);
 	return (0);
 }

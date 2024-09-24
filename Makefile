@@ -6,7 +6,7 @@
 #    By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/06 13:02:03 by mbaumgar          #+#    #+#              #
-#    Updated: 2024/09/21 16:11:28 by mbaumgar         ###   ########.fr        #
+#    Updated: 2024/09/24 16:11:42 by mbaumgar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ SRC_DIR		= ./src/
 OUT_DIR		= ./bin/
 
 SRC			= minishell.c \
+			signals.c \
 			parsing/lexer.c \
 			parsing/tokenizer.c \
 			parsing/expander.c \
@@ -54,6 +55,12 @@ SRC			= minishell.c \
 			parsing/parser.c \
 			parsing/splitter.c \
 			parsing/sorter.c \
+			parsing/envp.c \
+			parsing/error.c \
+			parsing/var.c \
+			parsing/quotes.c \
+			parsing/token_lst.c \
+			parsing/token_print.c \
 			builtin/cd.c \
 			builtin/echo.c \
 			builtin/env.c \
@@ -66,16 +73,9 @@ SRC			= minishell.c \
 			exec/exec_cmd_utils.c \
 			exec/heredoc.c \
 			exec/redir.c \
+			exec/tab_converter.c \
 			exec/utils.c \
-			utils/envp.c \
-			utils/error.c \
-			utils/execution.c \
-			utils/pipe_utils.c \
-			utils/signals.c \
-			utils/token_lst.c \
-			utils/token_utils.c \
-			utils/utils.c \
-			utils/var.c
+			utils/pipe_utils.c
 
 OBJ			= ${SRC:%.c=${OUT_DIR}%.o}
 

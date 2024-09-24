@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   7_sorter.c                                         :+:      :+:    :+:   */
+/*   sorter.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:21:41 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/22 11:09:36 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:53:55 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	token_has_no_command(t_token *tk)
+void	move_token_to_front(t_token **to_move)
 {
-	while (tk)
-	{
-		if (tk->type == COMMAND || tk->type == BUILTIN)
-			return (0);
-		tk = tk->next;
-	}
-	return (1);
+	t_token	*head;
+
+	head = tk_lstfirst(*to_move);
+	if ((*to_move)->prev)
+		(*to_move)->prev->next = (*to_move)->next;
+	else
+		(*to_move)->next->prev = NULL;
+	if ((*to_move)->next)
+		(*to_move)->next->prev = (*to_move)->prev;
+	else
+		(*to_move)->prev->next = NULL;
+	(*to_move)->prev = NULL;
+	(*to_move)->next = head;
+	(*to_move)->index = -1;
+	head->prev = *to_move;
 }
 
 void	move_cmd_and_arg_to_front(t_token **tk)
@@ -40,6 +48,17 @@ void	move_cmd_and_arg_to_front(t_token **tk)
 			move_token_to_front(tk);
 		*tk = temp_prev;
 	}
+}
+
+int	token_has_no_command(t_token *tk)
+{
+	while (tk)
+	{
+		if (tk->type == COMMAND || tk->type == BUILTIN)
+			return (0);
+		tk = tk->next;
+	}
+	return (1);
 }
 
 void	sort_token(t_ms *ms)
