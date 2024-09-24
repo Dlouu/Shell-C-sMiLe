@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/09/24 15:49:53 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/09/24 17:13:37 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ int	minishell_loop(t_ms *ms)
 	}
 	return (ms->exit_code);
 }
+
+//voir le exit(0) du exec a changer pour le recuperer ici et free
 
 int	main(int argc, char **argv, char **envp)
 {
