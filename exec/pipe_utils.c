@@ -3,16 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tclaereb <tclaereb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 18:05:42 by niabraha          #+#    #+#             */
-/*   Updated: 2024/09/19 17:15:28 by tclaereb         ###   ########.fr       */
+/*   Updated: 2024/09/25 17:44:46 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-static void add_back_pipe(t_pipex **px, t_pipex *new)
+void	ft_close_pipe(int *pipe)
+{
+	if (pipe[0] != -1)
+		close(pipe[0]);
+	if (pipe[1] != -1)
+		close(pipe[1]);
+}
+
+void	ft_close_fds(t_pipex *px)
+{
+	if (!px)
+		return ;
+	while (px->prev)
+		px = px->prev;
+	while (px)
+	{
+		if (px->pipefd[0] != 0 && px->pipefd[0] != -1)
+			close(px->pipefd[0]);
+		if (px->pipefd[1] != 1 && px->pipefd[1] != -1)
+			close(px->pipefd[1]);
+		px = px->next;
+	}
+}
+
+static void	add_back_pipe(t_pipex **px, t_pipex *new)
 {
 	t_pipex	*tmp;
 
@@ -30,7 +54,7 @@ static void add_back_pipe(t_pipex **px, t_pipex *new)
 	new->prev = tmp;
 	if (new->prev)
 		if (pipe(new->prev->pipefd) == -1)
-			return ; // erreur
+			return ;
 }
 
 static t_pipex	*add_new_pipe(t_ms *ms, t_token *token)
@@ -55,10 +79,10 @@ static t_pipex	*add_new_pipe(t_ms *ms, t_token *token)
 	return (new);
 }
 
-t_pipex *setup_pipe(t_ms *ms)
+t_pipex	*setup_pipe(t_ms *ms)
 {
 	t_pipex	*px;
-	int 	i;
+	int		i;
 
 	i = -1;
 	px = NULL;

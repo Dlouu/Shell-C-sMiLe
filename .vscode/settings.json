@@ -8,5 +8,6 @@
 		"libft.h": "c",
 		"limits.h": "c",
 		"signal.h": "c"
-	}
+	},
+	"C_Cpp.errorSquiggles": "disabled"
 }

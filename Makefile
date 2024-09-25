@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+         #
+#    By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/06 13:02:03 by mbaumgar          #+#    #+#              #
-#    Updated: 2024/09/25 16:51:42 by mbaumgar         ###   ########.fr        #
+#    Updated: 2024/09/25 17:46:24 by niabraha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,6 +70,7 @@ SRC			= minishell.c \
 			builtin/pwd.c \
 			builtin/unset.c \
 			exec/exec.c \
+			exec/exec2.c \
 			exec/exec_cmd_utils.c \
 			exec/heredoc.c \
 			exec/redir.c \
