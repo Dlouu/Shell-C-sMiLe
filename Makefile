@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+         #
+#    By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/06 13:02:03 by mbaumgar          #+#    #+#              #
-#    Updated: 2024/09/25 16:41:47 by mbaumgar         ###   ########.fr        #
+#    Updated: 2024/09/25 16:51:42 by mbaumgar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,7 +74,7 @@ SRC			= minishell.c \
 			exec/heredoc.c \
 			exec/redir.c \
 			exec/tab_converter.c \
-			exec/utils.c \
+			exec/error.c \
 			exec/pipe_utils.c
 
 OBJ			= ${SRC:%.c=${OUT_DIR}%.o}

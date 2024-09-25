@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/09/25 16:43:33 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:51:11 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,10 @@ tr a-z A-Z > first_file << oui | tr A-Z a-z > second_file << non
 
 void	ft_close_pipe(int *pipe)
 {
-	if (!px && px->prev)
-		px = px->prev;
-	while (px && px->prev)
-		px = px->prev;
-	while (px)
-	{
-		printf("\npx->pid: %d\n", px->pid);
-		printf("px->token->content: %s\n", px->token->content);
-		printf("px->pipefd[0]: %d\n", px->pipefd[0]);
-		printf("px->pipefd[1]: %d\n", px->pipefd[1]);
-		printf("px->heredoc[0]: %d\n", px->heredoc[0]);
-		printf("px->heredoc[1]: %d\n", px->heredoc[1]);
-		px = px->next;
-	}
+	if (pipe[0] != -1)
+		close(pipe[0]);
+	if (pipe[1] != -1)
+		close(pipe[1]);
 }
 
 static void	ft_close_fds(t_pipex *px)
@@ -94,7 +84,8 @@ void	ft_exec_first_processus(t_pipex *px)
 	open_and_dup(px, px->token, px->ms);
 	if (dup2(px->pipefd[1], 1) == -1)
 		ft_perror("dup2 failed", 1);
-	ft_close_everything(px);
+	ft_close_fds(px);
+	ft_close_pipe(px->heredoc);
 	if (!px->token->content)
 		exit(0);
 	cmd = cmd_to_tab(px->ms, px->token);
@@ -160,7 +151,7 @@ void	ft_exec(t_pipex *px)
 		if (px->pid == -1)
 			ft_perror("Fork creation failed", 1);
 		if (px->pid == 0)
-			exec_sub_processus(px, i); // le gosse
+			exec_sub_processus(px, i);
 		i++;
 		px = px->next;
 	}
@@ -171,20 +162,14 @@ int	exec_main(t_ms *ms)
 {
 	t_pipex	*px;
 	t_pipex	*tmp;
-	t_pipex *bite;
 
 	px = setup_pipe(ms);
 	tmp = px;
-	bite = px;
 	ft_exec(px);
 	while (tmp)
 	{
 		waitpid(tmp->pid, NULL, 0);
 		tmp = tmp->next;
 	}
-	print_value(bite);
-	printf("pid main: %d\n", getpid());
-	ft_close_everything(px);
-	print_value(bite);
 	return (0);
 }
