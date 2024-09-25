@@ -23,3 +23,5 @@ $]
 $1
 ambiguous redirect si un fichier valide, a changer
 SHELL LEVEL OU CONSEQUENCES !!!!!!!!!!!
+
+make re && valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes --track-fds=yes --suppressions=supp.supp --gen-suppressions=all ./minishell

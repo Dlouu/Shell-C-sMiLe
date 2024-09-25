@@ -1,16 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   4_recombiner.c                                     :+:      :+:    :+:   */
+/*   recombiner.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 11:48:01 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/09/20 17:57:03 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:54:23 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+t_token	*tk_lstlast(t_token *tk)
+{
+	if (!tk)
+		return (NULL);
+	while (tk->next)
+		tk = tk->next;
+	return (tk);
+}
+
+t_token	*tk_lstfirst(t_token *tk)
+{
+	if (!tk)
+		return (NULL);
+	while (tk->prev)
+		tk = tk->prev;
+	return (tk);
+}
 
 void	recombine_prev_token(t_token *tk)
 {

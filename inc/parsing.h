@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:13:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/09/21 16:39:14 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/09/24 16:12:58 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	tk_lstadd_here(t_token *here, t_token *new);
 void	tk_lstclear(t_token **tk_lst);
 void	tk_lstprint(t_ms *ms, t_token **tk_lst);
 void	tk_lstprint_type(t_token *tk);
-void	move_token_to_front(t_token **to_move);
 
 //error
 int		error_parsing(t_ms *ms, char *error);
@@ -63,6 +62,7 @@ void	set_custom_signals(void);
 int		find_index(char *str, char c);
 void	update_index(t_ms *ms);
 char	**cmd_to_tab(t_ms *ms, t_token *tk);
-void	go_to_next_quote(char *prompt, int *i, int *quote, int type);
+int		check_quotes(t_ms *ms, char *prompt, int *i);
+int		check_unclosed_quote(char *prompt);
 
 #endif

@@ -1,0 +1,36 @@
+{
+   <readline supp>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:readline
+   ...
+}
+{
+   <ls supp>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   ...
+   obj:/usr/bin/ls
+   fun:(below main)
+}
+{
+   <cat supp>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   ...
+   obj:/usr/bin/cat
+   fun:(below main)
+}
+{
+   <add_history>
+    Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   ...
+   fun:add_history
+   fun:minishell_loop
+   fun:main
+}

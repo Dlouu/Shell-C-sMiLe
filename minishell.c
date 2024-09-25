@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/09/21 16:43:00 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:31:02 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	minishell_init(t_ms *ms, char **argv, char **envp)
 int	minishell_loop(t_ms *ms)
 {
 	char	*prompt;
+
 	while (1)
 	{
 		set_custom_signals();
@@ -85,15 +86,18 @@ int	minishell_loop(t_ms *ms)
 	return (ms->exit_code);
 }
 
+//voir le exit(0) du exec a changer pour le recuperer ici et free
+
 int	main(int argc, char **argv, char **envp)
 {
-	t_ms	*ms;
+	t_ms		*ms;
 
 	if (argc != 1)
 		return (printf("error : minishell doesn't take arguments\n"), 1);
 	ms = walloc(sizeof(t_ms), TRUE);
 	minishell_init(ms, argv, envp);
 	minishell_loop(ms);
+	rl_clear_history(); //voir si utile et les valgrind suppress
 	wclear(1);
 	return (0);
 }
