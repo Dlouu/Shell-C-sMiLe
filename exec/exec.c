@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/09/20 17:50:54 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:13:36 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ grep "Videos" < infile | cat -e > outfile
 tr a-z A-Z > first_file << oui | tr A-Z a-z > second_file << non
 */
 
-void ft_close_pipe(int *pipe)
+void	ft_close_pipe(int *pipe)
 {
 	if (pipe[0] != -1)
 		close(pipe[0]);
@@ -44,14 +44,20 @@ void ft_close_pipe(int *pipe)
 		close(pipe[1]);
 }
 
-static void ft_close_fds(t_pipex *px)
+static void	ft_close_fds(t_pipex *px)
 {
 	if (!px)
 		return ;
-	if (px->pipefd[0] != 0)
-		close(px->pipefd[0]);
-	if (px->pipefd[1] != 1)
-		close(px->pipefd[1]);
+	while (px->prev)
+		px = px->prev;
+	while (px)
+	{
+		if (px->pipefd[0] != 0 && px->pipefd[0] != -1)
+			close(px->pipefd[0]);
+		if (px->pipefd[1] != 1 && px->pipefd[1] != -1)
+			close(px->pipefd[1]);
+		px = px->next;
+	}
 }
 
 void	manage_execve(t_pipex *px, char **cmd, char **envp)
@@ -71,10 +77,10 @@ void	manage_execve(t_pipex *px, char **cmd, char **envp)
 
 void	ft_exec_first_processus(t_pipex *px)
 {
-	char	**menvp;
+	char	**envp;
 	char	**cmd;
 
-	menvp = env_lst_to_tab(px->ms);
+	envp = env_lst_to_tab(px->ms);
 	open_and_dup(px, px->token, px->ms);
 	if (dup2(px->pipefd[1], 1) == -1)
 		ft_perror("dup2 failed", 1);
@@ -83,42 +89,41 @@ void	ft_exec_first_processus(t_pipex *px)
 	if (!px->token->content)
 		exit(0);
 	cmd = cmd_to_tab(px->ms, px->token);
-	manage_execve(px, cmd, menvp);
+	manage_execve(px, cmd, envp);
 }
 
 void	ft_exec_middle_processus(t_pipex *px)
 {
-	char	**menvp;
+	char	**envp;
 	char	**cmd;
 
-	menvp = env_lst_to_tab(px->ms);
+	envp = env_lst_to_tab(px->ms);
 	open_and_dup(px, px->token, px->ms);
 	if (px->heredoc[0] == -1 && dup2(px->prev->pipefd[0], 0) == -1)
 		ft_perror("dup2 failed", 1);
 	if (dup2(px->pipefd[1], 1) == -1)
 		ft_perror("dup2 failed", 1);
 	ft_close_fds(px);
-	ft_close_fds(px->prev);
 	ft_close_pipe(px->heredoc);
 	if (!px->token->content)
 		exit(0);
 	cmd = cmd_to_tab(px->ms, px->token);
-	manage_execve(px, cmd, menvp);
+	manage_execve(px, cmd, envp);
 }
 
 void	ft_exec_last_processus(t_pipex *px)
 {
-	char	**menvp;
+	char	**envp;
 	char	**cmd;
 
-	menvp = env_lst_to_tab(px->ms);
+	envp = env_lst_to_tab(px->ms);
 	open_and_dup(px, px->token, px->ms);
 	if (px->prev && dup2(px->prev->pipefd[0], 0) == -1)
 		ft_perror("dup2 failed", 1);
-	ft_close_fds(px->prev);
+	ft_close_fds(px);
 	ft_close_pipe(px->heredoc);
 	cmd = cmd_to_tab(px->ms, px->token);
-	manage_execve(px, cmd, menvp);
+	manage_execve(px, cmd, envp);
 }
 
 void	exec_sub_processus(t_pipex *px, int i)
@@ -133,10 +138,12 @@ void	exec_sub_processus(t_pipex *px, int i)
 
 void	ft_exec(t_pipex *px)
 {
-	int	i;
+	t_pipex	*tmp;
+	int		i;
 
 	if (px->ms->pipe_count == 0 && px->token->type == BUILTIN)
 		return (find_builtin(px, px->token));
+	tmp = px;
 	i = 0;
 	while (px && px->token)
 	{
@@ -146,10 +153,9 @@ void	ft_exec(t_pipex *px)
 		if (px->pid == 0)
 			exec_sub_processus(px, i);
 		i++;
-		if (px->prev)
-			ft_close_fds(px->prev);
 		px = px->next;
 	}
+	ft_close_fds(tmp);
 }
 
 int	exec_main(t_ms *ms)
@@ -160,7 +166,7 @@ int	exec_main(t_ms *ms)
 	px = setup_pipe(ms);
 	tmp = px;
 	ft_exec(px);
-	while(tmp)
+	while (tmp)
 	{
 		waitpid(tmp->pid, NULL, 0);
 		tmp = tmp->next;

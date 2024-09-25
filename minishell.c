@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/09/24 17:13:37 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:31:02 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	minishell_loop(t_ms *ms)
 		if (empty_prompt(ms->prompt) || !lexer(ms, ms->prompt, NULL) || \
 		tokenizer(ms) || !parser(ms))
 			continue ;
-		tk_lstprint(ms, ms->token);
+		//tk_lstprint(ms, ms->token);
 		exec_main(ms);
 		ms->pipe_count = 0;
 		ms->heredoc_count = 0;
@@ -90,14 +90,14 @@ int	minishell_loop(t_ms *ms)
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_ms	*ms;
+	t_ms		*ms;
 
 	if (argc != 1)
 		return (printf("error : minishell doesn't take arguments\n"), 1);
 	ms = walloc(sizeof(t_ms), TRUE);
 	minishell_init(ms, argv, envp);
 	minishell_loop(ms);
-	//rl_clear_history(); voir si utile et les valgrind suppress
+	rl_clear_history(); //voir si utile et les valgrind suppress
 	wclear(1);
 	return (0);
 }

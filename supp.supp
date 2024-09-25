@@ -24,3 +24,13 @@
    obj:/usr/bin/cat
    fun:(below main)
 }
+{
+   <add_history>
+    Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   ...
+   fun:add_history
+   fun:minishell_loop
+   fun:main
+}
