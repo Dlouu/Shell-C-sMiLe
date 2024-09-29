@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:56:22 by niabraha          #+#    #+#             */
-/*   Updated: 2024/09/25 18:32:41 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/09/29 21:17:50 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static void do_heredoc(t_pipex *px, char **copy)
 {
 	char *line;
 	
-	printf("TU PASSES PAR LA\n");
 	if (px->fd_in != STDIN_FILENO)
 		close(px->fd_in);
 	while (1)
@@ -37,7 +36,6 @@ static void do_heredoc(t_pipex *px, char **copy)
 		write(px->pipefd[1], "\n", 1);
 		free(line);
 	}
-	printf("TU PASSES PAR LA\n");
 	close(px->pipefd[1]);
 }
 
@@ -64,27 +62,10 @@ void manage_heredoc(t_pipex *px)
 {
 	char 	**copy;
 	t_token	**tk;
-	pid_t	pid;
 
 	tk = px->ms->token;
 	copy = copy_heredoc((*tk), px->ms->heredoc_count);
-	pid = fork();
-	if (pid == -1)
-	{
-		perror("Fork error\n");
-		exit(1);
-	}
-	if (pid == 0)
-		do_heredoc(px, copy);
-	else
-	{
-		waitpid(pid, NULL, 0);
-		printf("TU PASSES PAR LA\n");
-		close(px->pipefd[1]);
-		px->fd_in = dup(px->pipefd[0]);
-		printf("TU PASSES PAR LA\n");
-		close(px->pipefd[0]);
-		if (px->fd_in == -1)
-			return ;
-	}
+	if (!copy)
+		ft_perror("malloc failed", 1);
+	do_heredoc(px, copy);
 }
