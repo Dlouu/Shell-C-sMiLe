@@ -1,0 +1,16 @@
+Makefile
+README.md
+az
+bin
+builtin
+exec
+inc
+libft
+minishell
+minishell.c
+out
+parsing
+qs
+signals.c
+supp.supp
+wtf.txt

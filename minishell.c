@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/09/25 17:42:43 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/09/29 20:56:00 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int	main(int argc, char **argv, char **envp)
 	ms = walloc(sizeof(t_ms), TRUE);
 	minishell_init(ms, argv, envp);
 	minishell_loop(ms);
-	rl_clear_history(); //voir si utile et les valgrind suppress
+	//rl_clear_history(); //voir si utile et les valgrind suppress
 	wclear(1);
 	return (0);
 }
