@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/09/25 17:55:19 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/10/01 17:11:25 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_exec(t_pipex *px)
 	int		i;
 
 	if (px->ms->pipe_count == 0 && px->token->type == BUILTIN)
-		return (find_builtin(px, px->token));
+		find_builtin(px, px->token);
 	tmp = px;
 	i = 0;
 	while (px && px->token)

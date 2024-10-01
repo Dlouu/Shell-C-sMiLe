@@ -10,6 +10,8 @@
 - ca marche plus tout court
 - apres un pipe les REDIR en index 0 sont changed en CMD
 - JPP
+- si on unset PWD et OLDPWD c'est cense foutre mettre la merde, mais les variables existent toujours
+	et sont invisibles, si tu echo $PWD c'est cense marcher mais j'ai test et ca affiche rien dans bash
 
 TODO exec
 
