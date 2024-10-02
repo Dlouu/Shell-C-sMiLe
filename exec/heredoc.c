@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:56:22 by niabraha          #+#    #+#             */
-/*   Updated: 2024/09/29 21:17:50 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/10/02 20:48:17 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../inc/minishell.h"
+#include "../inc/minishell.h"
 
-static void do_heredoc(t_pipex *px, char **copy)
+static void	do_heredoc(t_pipex *px, char **copy)
 {
-	char *line;
-	
+	char	*line;
+
 	if (px->fd_in != STDIN_FILENO)
 		close(px->fd_in);
 	while (1)
@@ -30,7 +30,7 @@ static void do_heredoc(t_pipex *px, char **copy)
 			if (ft_strncmp(line, copy[px->ms->i], ft_strlen(line)) == 0)
 				px->ms->i++;
 			if (px->ms->i == px->ms->heredoc_count)
-				exit(px->ms->exit_code); //chut c'est un secret
+				exit(px->ms->exit_code);
 		}
 		write(px->pipefd[1], line, ft_strlen(line));
 		write(px->pipefd[1], "\n", 1);
@@ -58,9 +58,9 @@ static char	**copy_heredoc(t_token *token, int nbr_heredoc)
 	return (list_heredoc);
 }
 
-void manage_heredoc(t_pipex *px)
+void	manage_heredoc(t_pipex *px)
 {
-	char 	**copy;
+	char	**copy;
 	t_token	**tk;
 
 	tk = px->ms->token;

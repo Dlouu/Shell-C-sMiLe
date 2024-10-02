@@ -6,7 +6,7 @@
 #    By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/06 13:02:03 by mbaumgar          #+#    #+#              #
-#    Updated: 2024/10/02 20:07:12 by mbaumgar         ###   ########.fr        #
+#    Updated: 2024/10/02 20:46:02 by mbaumgar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,7 +76,8 @@ SRC			= minishell.c \
 			exec/redir.c \
 			exec/tab_converter.c \
 			exec/error.c \
-			exec/pipe_utils.c
+			exec/pipes.c \
+			exec/fds.c
 
 OBJ			= $(SRC:%.c=$(OUT_DIR)%.o)
 
