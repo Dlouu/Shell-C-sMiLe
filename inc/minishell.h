@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:02:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/02 20:20:37 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/02 20:29:49 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,8 @@ typedef enum e_token
 }	t_token_code;
 
 //content : echo, cmd...
-//type : COMMAND, BUILTIN, ARG... enum de 0 a 11 t_token_code
+//type : COMMAND, BUILTIN, ARG... enum de 0 a 9 t_token_code
 //index : echo -n -nnn. echo = 0, -n = 1, -nnn = 2
-//builtin : 1 si builtin, 0 sinon
 typedef struct s_token
 {
 	char			*content;
@@ -77,12 +76,23 @@ typedef struct s_env
 	char			*value;
 }	t_env;
 
+// prompt 		is for readline
+// *token_lexed	is the first token of the linked list during parsing
+// **token 		is the first token of the linked list after splitting on pipes
+// blank_before	and blank_after are used to know if there is a space before
+//				or after a word
+// dollar		is used to know for expansion purpose
+// [...]_count	is used to know how many things are in the input
+// *px			is used to store the pipe structure
+// [...]_path	is used to temporary store getcwd paths for the cd command
+// fds_builtins	is used for the fds for the builtins
+// exit_code	is used for the return value
 typedef struct s_ms
 {
 	t_list			*env;
 	char			*prompt;
-	struct s_token	**token;
 	struct s_token	*token_lexed;
+	struct s_token	**token;
 	int				blank_before;
 	int				blank_after;
 	int				dollar;
