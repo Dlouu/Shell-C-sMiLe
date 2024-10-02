@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:02:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/09/25 17:42:43 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/10/02 14:23:13 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef struct s_ms
 	struct s_token	**token;
 	struct s_token	*token_lexed;
 	struct s_pipex	*px;
+	int				fds_builtins[2];
 	int				blank_before_quote;
 	int				blank_after_quote;
 	int				dollar;

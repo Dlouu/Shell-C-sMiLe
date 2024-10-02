@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:15 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/07 14:02:58 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/02 14:50:33 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,15 +86,15 @@ t_list	*ft_lstdup(t_list *lst)
 	return (head);
 }
 
-void	ft_putstr_export(char *key, char *value)
+void	ft_putstr_export(t_ms *ms, char *key, char *value)
 {
-	ft_putstr_fd("declare -x ", 1);
-	ft_putstr_fd(key, 1);
+	ft_putstr_fd("declare -x ", get_fds(ms, STDOUT_FILENO));
+	ft_putstr_fd(key, get_fds(ms, STDOUT_FILENO));
 	if (value[0] != 26)
 	{
-		ft_putstr_fd("=\"", 1);
-		ft_putstr_fd(value, 1);
-		ft_putstr_fd("\"", 1);
+		ft_putstr_fd("=\"", get_fds(ms, STDOUT_FILENO));
+		ft_putstr_fd(value, get_fds(ms, STDOUT_FILENO));
+		ft_putstr_fd("\"", get_fds(ms, STDOUT_FILENO));
 	}
-	ft_putstr_fd("\n", 1);
+	ft_putstr_fd("\n", get_fds(ms, STDOUT_FILENO));
 }

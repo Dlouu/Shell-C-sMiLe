@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:59 by niabraha          #+#    #+#             */
-/*   Updated: 2024/09/25 17:48:37 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/10/02 14:42:30 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ typedef struct s_pipex
 
 //exec folder
 
+int		get_fds(t_ms *ms, int fd);
+
 int		exec_main(t_ms *ms);
-void	open_and_dup(t_pipex *px, t_token *tk);
+void	open_and_dup(t_pipex *px, t_token *tk, int is_subprocess);
 void	find_builtin(t_pipex *px, t_token *token);
 void	ft_execlp(t_ms *ms, char **cmd);
 void	manage_heredoc(t_pipex *px);
@@ -64,7 +66,7 @@ int		ft_export(t_ms *ms, t_token *token);
 int		is_valid_key(char *key);
 t_list	*sort_list(t_list *l, t_list *s, int (*c)(const char *, const char *));
 t_list	*ft_lstdup(t_list *lst);
-void	ft_putstr_export(char *key, char *value);
+void	ft_putstr_export(t_ms *ms, char *key, char *value);
 
 //ft_pwd
 int		ft_pwd(t_ms *ms);

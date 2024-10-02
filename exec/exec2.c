@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:45:50 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/02 11:21:01 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/02 13:59:05 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	ft_exec_first_processus(t_pipex *px)
 	char	**cmd;
 
 	envp = env_lst_to_tab(px->ms);
-	open_and_dup(px, px->token);
+	open_and_dup(px, px->token, 1);
 	if (dup2(px->pipefd[1], 1) == -1)
 		ft_perror("dup2 failed", 1);
 	ft_close_fds(px);
@@ -54,7 +54,7 @@ static void	ft_exec_middle_processus(t_pipex *px)
 	char	**cmd;
 
 	envp = env_lst_to_tab(px->ms);
-	open_and_dup(px, px->token);
+	open_and_dup(px, px->token, 1);
 	if (px->heredoc[0] == -1 && dup2(px->prev->pipefd[0], 0) == -1)
 		ft_perror("dup2 failed", 1);
 	if (dup2(px->pipefd[1], 1) == -1)
@@ -73,7 +73,7 @@ static void	ft_exec_last_processus(t_pipex *px)
 	char	**cmd;
 
 	envp = env_lst_to_tab(px->ms);
-	open_and_dup(px, px->token);
+	open_and_dup(px, px->token, 1);
 	if (px->prev && dup2(px->prev->pipefd[0], 0) == -1)
 		ft_perror("dup2 failed", 1);
 	ft_close_fds(px);

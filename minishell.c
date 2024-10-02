@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/02 10:40:46 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/02 13:51:35 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,11 @@ int	minishell_loop(t_ms *ms)
 
 	while (1)
 	{
+		ms->pipe_count = 0;
+		ms->heredoc_count = 0;
+		ms->command_count = 0;
+		ms->current_pipe = 0;
+		ms->i = 0;
 		set_custom_signals();
 		prompt = readline(MAUVE"<Shell-C_sMiLe> "END"$ ");
 		if (!prompt)
@@ -76,11 +81,6 @@ int	minishell_loop(t_ms *ms)
 			continue ;
 		//tk_lstprint(ms, ms->token);
 		exec_main(ms);
-		ms->pipe_count = 0;
-		ms->heredoc_count = 0;
-		ms->command_count = 0;
-		ms->current_pipe = 0;
-		ms->i = 0;
 		wclear(0);
 	}
 	return (ms->exit_code);

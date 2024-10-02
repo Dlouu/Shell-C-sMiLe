@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:06 by niabraha          #+#    #+#             */
-/*   Updated: 2024/08/26 12:43:49 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/02 14:36:39 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	ft_echo(t_ms *ms, t_token *tk)
 	t_token	*current;
 	int		flag_n;
 
-	(void)ms;
 	current = tk;
 	current = current->next;
 	flag_n = 0;
@@ -44,12 +43,13 @@ int	ft_echo(t_ms *ms, t_token *tk)
 	}
 	while (current && current->type == ARG && current->content)
 	{
-		write(1, current->content, ft_strlen(current->content));
+		write(get_fds(ms, STDOUT_FILENO), current->content,
+			ft_strlen(current->content));
 		current = current->next;
 		if (current && current->content)
-			write(1, " ", 1);
+			write(get_fds(ms, STDOUT_FILENO), " ", 1);
 	}
 	if (!flag_n)
-		write(1, "\n", 1);
+		write(get_fds(ms, STDOUT_FILENO), "\n", 1);
 	return (0);
 }

@@ -3,14 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 18:05:42 by niabraha          #+#    #+#             */
-/*   Updated: 2024/09/30 13:46:50 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/10/02 14:28:07 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+int	get_fds(t_ms *ms, int fd)
+{
+	if (fd == 0)
+	{
+		if (!ms)
+			return (0);
+		if (ms->fds_builtins[0] == -1)
+			return (0);
+		else
+			return (ms->fds_builtins[0]);
+	}
+	else if (fd == 1)
+	{
+		if (!ms)
+			return (1);
+		if (ms->fds_builtins[1] == -1)
+			return (1);
+		else
+			return (ms->fds_builtins[1]);
+	}
+	return (-1);
+}
 
 void	ft_close_pipe(int *pipe)
 {

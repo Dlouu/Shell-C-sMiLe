@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:15 by niabraha          #+#    #+#             */
-/*   Updated: 2024/09/19 18:10:39 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/10/02 14:49:59 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ int	ft_export(t_ms *ms, t_token *token)
 
 	unsorted_env = ft_lstdup(ms->env);
 	sorted_env = sort_list(unsorted_env, NULL, ft_strcmp);
-	if (!token->next)
+	if (!token->next || (token->next->type >= REDIR_LEFT
+			&& token->next->type <= REDIR_DOUBLE_RIGHT))
 	{
 		while (sorted_env)
 		{
@@ -86,7 +87,7 @@ int	ft_export(t_ms *ms, t_token *token)
 				sorted_env = sorted_env->next;
 				continue ;
 			}
-			ft_putstr_export(((t_env *)sorted_env->data)->key, \
+			ft_putstr_export(ms, ((t_env *)sorted_env->data)->key, \
 			(((t_env *)sorted_env->data)->value));
 			sorted_env = sorted_env->next;
 		}

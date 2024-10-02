@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:57:32 by niabraha          #+#    #+#             */
-/*   Updated: 2024/09/30 14:00:16 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/10/02 14:26:56 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ static void	redir_in(char *file, t_pipex *px, int redir, int *save_in)
 	}
 }
 
-void	open_and_dup(t_pipex *px, t_token *tk)
+void	open_and_dup(t_pipex *px, t_token *tk, int is_subprocess)
 {
-	int save_in;
-	int save_out;
+	int	save_in;
+	int	save_out;
 
 	save_in = -1;
 	save_out = -1;
@@ -74,5 +74,11 @@ void	open_and_dup(t_pipex *px, t_token *tk)
 			redir_out(tk->next->content, tk->type, &save_out);
 		tk = tk->next;
 	}
-	verif_redir(px, save_in, save_out);
+	if (is_subprocess)
+		verif_redir(px, save_in, save_out);
+	else
+	{
+		px->ms->fds_builtins[0] = save_in;
+		px->ms->fds_builtins[1] = save_out;
+	}
 }
