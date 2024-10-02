@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/02 18:07:23 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/02 19:50:02 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,33 @@ COMMON
 [_] free
 */
 
+void	increase_shlvl(t_ms *ms)
+{
+	int	shlvl;
+
+	shlvl = 0;
+	if (!find_env_node(ms->env, "SHLVL"))
+		add_env_node(ms, "SHLVL=0");
+	shlvl = ft_atoi(find_env_value(ms->env, "SHLVL"));
+	if (shlvl > 0)
+		replace_env_value(ms->env, "SHLVL", (ft_itoa(shlvl + 1, TRUE)));
+	else
+		replace_env_value(ms->env, "SHLVL", "1");
+}
+
 void	minishell_init(t_ms *ms, char **argv, char **envp)
 {
 	ms->exit_code = 0;
-	ms->blank_before_quote = 0;
-	ms->blank_after_quote = 0;
+	ms->blank_before = 0;
+	ms->blank_after = 0;
 	ms->dollar = 0;
 	ms->pipe_count = 0;
 	ms->heredoc_count = 0;
 	ms->i = 0;
 	ms->command_count = 0;
-	ms->current_pipe = 0;
 	ms->prompt = NULL;
 	get_envp(ms, envp);
+	increase_shlvl(ms);
 	//rl_catch_signals = 0;
 	ft_putstr_fd("42 project | minishell | as beautiful as a shell~\n", 1);
 	ft_putstr_fd("    ___ _        _ _   ___      __  __ _ _\n", 1);
@@ -66,7 +80,6 @@ int	minishell_loop(t_ms *ms)
 		ms->pipe_count = 0;
 		ms->heredoc_count = 0;
 		ms->command_count = 0;
-		ms->current_pipe = 0;
 		ms->i = 0;
 		set_custom_signals();
 		prompt = readline(MAUVE"<Shell-C_sMiLe> "END"$ ");

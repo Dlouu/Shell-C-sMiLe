@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:06:12 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/02 10:37:13 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/02 18:57:14 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ void	remove_empty_nodes(t_ms *ms)
 	{
 		if (!tk->content[0] && !tk->next && !tk->prev)
 		{
-			tk->blank_before_quote = 2;
-			tk->blank_after_quote = 2;
+			tk->blank_before = 2;
+			tk->blank_after = 2;
 			tk->type = COMMAND;
 			return ;
 		}

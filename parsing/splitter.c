@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   6_splitter.c                                       :+:      :+:    :+:   */
+/*   splitter.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:04:25 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/09/20 17:42:43 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/02 18:58:06 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	split_nodes(t_token *tk, int *i)
 	new->squote = tk->squote;
 	new->dquote = tk->dquote;
 	new->expanded = tk->expanded;
-	new->blank_before_quote = tk->blank_before_quote;
-	new->blank_after_quote = tk->blank_after_quote;
+	new->blank_before = tk->blank_before;
+	new->blank_after = tk->blank_after;
 	tk_lstadd_here(tk, new);
 	*i = 0;
 }

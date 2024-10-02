@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 11:48:01 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/09/24 15:54:23 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/02 19:52:41 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,11 @@ void	recombiner(t_token *tk)
 	{
 		if (tk->index != 0 && (tk->type < 3) && (!tk->expanded || tk->dollar) \
 		&& (tk->next && (tk->next->type < 3) \
-		&& !tk->blank_after_quote && !tk->next->blank_before_quote))
+		&& !tk->blank_after && !tk->next->blank_before))
 			recombine_next_token(tk);
 		if ((tk->type < 3) && (!tk->expanded || tk->dollar) \
 		&& (tk->prev && (tk->prev->type < 3) \
-		&& !tk->prev->blank_after_quote && !tk->blank_before_quote))
+		&& !tk->prev->blank_after && !tk->blank_before))
 			recombine_prev_token(tk);
 		tk = tk->next;
 	}
