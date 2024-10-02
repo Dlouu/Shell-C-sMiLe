@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+         #
+#    By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/06 13:02:03 by mbaumgar          #+#    #+#              #
-#    Updated: 2024/09/25 17:46:24 by niabraha         ###   ########.fr        #
+#    Updated: 2024/10/02 11:04:04 by mbaumgar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ DBG_THREAD	= -fsanitize=thread -g3
 LFT			= ./libft/libft.a
 LIBS		= -lreadline
 LIBFT		= ./libft
-MAKE_LIBFT	= ${MAKE} --no-print-directory -C ${LIBFT}
+MAKE_LIBFT	= $(MAKE) --no-print-directory -C ${LIBFT}
 
 # ╔═╗╔═╗╦  ╔═╗╦═╗╔═╗
 # ║  ║ ║║  ║ ║╠╦╝╚═╗
@@ -78,36 +78,36 @@ SRC			= minishell.c \
 			exec/error.c \
 			exec/pipe_utils.c
 
-OBJ			= ${SRC:%.c=${OUT_DIR}%.o}
+OBJ			= $(SRC:%.c=$(OUT_DIR)%.o)
 
 # ╦═╗╦ ╦╦  ╔═╗╔═╗
 # ╠╦╝║ ║║  ║╣ ╚═╗
 # ╩╚═╚═╝╩═╝╚═╝╚═╝
 
-all: ${NAME}
+all: $(NAME)
 
-${LFT}: 
-	@${MAKE_LIBFT}
+$(LFT): 
+	@$(MAKE_LIBFT)
 
-${NAME}: ${LFT} ${OBJ}
-	@${CC} ${CFLAGS} -o ${NAME} ${OBJ} ${LFT} ${LIBS}
-	@echo "${BLU}[${END} ${DUCK}Shell-[C]_sMiLe${END} ready! 🐚 • 👀 • 😃 ${BLU}]"
-	@echo "[${END} Launch it with ${FLUO}./minishell${END} command. ${BLU}]"
-	@echo "${END}"
+$(NAME): $(LFT) $(OBJ)
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LFT) $(LIBS)
+	@echo "$(BLU)[$(END) $(DUCK)Shell-[C]_sMiLe$(END) ready! 🐚 • 👀 • 😃 $(BLU)]"
+	@echo "[$(END) Launch it with ${FLUO}./minishell$(END) command. $(BLU)]"
+	@echo "$(END)"
 
-${OUT_DIR}%.o: %.c
-	@mkdir -p ${@D}
-	@${CC} ${CFLAGS} -g3 -c $< -o $@ 
+$(OUT_DIR)%.o: %.c
+	@mkdir -p $(@D)
+	@$(CC) $(CFLAGS) -g3 -c $< -o $@ 
 
 clean:
-	@${MAKE_LIBFT} clean
-	${RM} ${OUT_DIR}
-	@echo "🧹 ${RED}removed:${END} objects"
+	@$(MAKE_LIBFT) clean
+	$(RM) $(OUT_DIR)
+	@echo "🧹 $(RED)removed:$(END) objects"
 
 fclean: clean
-	${RM} ${NAME}
-	@${MAKE_LIBFT} fclean
-	@echo "🧹 ${RED}removed:${END} minishell\n"
+	$(RM) $(NAME)
+	@$(MAKE_LIBFT) fclean
+	@echo "🧹 $(RED)removed:$(END) minishell\n"
 
 re: fclean all
 
@@ -129,30 +129,30 @@ norminette:
 	norminette minishell.c
 
 leak: re
-	${CC} ${CFLAGS} ${DBG_LEAK} -o ${NAME} ${OBJ} ${LFT}
+	$(CC) $(CFLAGS) $(DBG_LEAK) -o $(NAME) $(OBJ) $(LFT)
 
 address: re
-	${CC} ${CFLAGS} ${DBG_ADDRESS} -o ${NAME} ${OBJ} ${LFT}
+	$(CC) $(CFLAGS) $(DBG_ADDRESS) -o $(NAME) $(OBJ) $(LFT)
 
 thread: re
-	${CC} ${CFLAGS} ${DBG_THREAD} -o ${NAME} ${OBJ} ${LFT}
+	$(CC) $(CFLAGS) $(DBG_THREAD) -o $(NAME) $(OBJ) $(LFT)
 
 main: fclean
 	cd ..
 	git add .
-	git commit -m "${m}"
+	git commit -m "$(m)"
 	git push origin main
 
 nils: fclean
 	cd ..
 	git add .
-	git commit -m "Nils : ${m}"
+	git commit -m "Nils : $(m)"
 	git push origin nils
 
 dlou: fclean
 	cd ..
 	git add .
-	git commit -m "Dlou : ${m}"
+	git commit -m "Dlou : $(m)"
 	git push origin dlou
 
 .PHONY: all clean fclean re uwu norminette leak address thread main nils dlou

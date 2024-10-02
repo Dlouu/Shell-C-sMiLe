@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/01 17:11:25 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/02 11:05:00 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	ft_exec(t_pipex *px)
 
 	if (px->ms->pipe_count == 0 && px->token->type == BUILTIN)
 		find_builtin(px, px->token);
+	if (!px->next)
+		return ;
 	tmp = px;
 	i = 0;
 	while (px && px->token)

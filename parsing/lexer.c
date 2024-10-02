@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:18:23 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/09/24 16:02:40 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/02 10:36:24 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,24 @@ int	check_chevrons(char *prompt, int *i)
 	return (*i);
 }
 
+static void	node_size_loop(t_ms *ms, char *prompt, int *i)
+{
+	if (prompt[*i] && prompt[*i] == '$' \
+	&& prompt[*i + 1] && prompt[*i + 2] \
+	&& ((prompt[*i + 1] == '\'' && prompt[*i + 2] == '\'') \
+	|| (prompt[*i + 1] == '\"' && prompt[*i + 2] == '\"')))
+	{
+		ms->dollar = 1;
+		if (prompt[*i + 1] && !ft_isseparator(prompt[*i + 1]))
+			ms->blank_after_quote = 0;
+		(*i) += 3;
+	}
+	if (prompt[*i + 1] && (ft_issplitable(prompt[*i + 1]) \
+	|| prompt[*i + 1] == '\0'))
+		ms->blank_after_quote = 1;
+	(*i)++;
+}
+
 int	node_size(t_ms *ms, char *prompt, int i, int *start)
 {
 	while (prompt[i] && ft_isblank(prompt[i]))
@@ -47,127 +65,10 @@ int	node_size(t_ms *ms, char *prompt, int i, int *start)
 		if (i != 0 && prompt[i - 1] && ft_issplitable(prompt[i - 1]))
 			ms->blank_before_quote = 1;
 		while (prompt[i] && !ft_isseparator(prompt[i]))
-		{
-			if ((prompt[i] && prompt[i] == '$' \
-			&& prompt[i + 1] && prompt[i + 2] \
-			&& ((prompt[i + 1] == '\'' && prompt[i + 2] == '\'') \
-			|| (prompt[i + 1] == '\"' && prompt[i + 2] == '\"'))))
-			{
-				ms->dollar = 1;
-				if (prompt[i + 1] && !ft_isseparator(prompt[i + 1]))
-					ms->blank_after_quote = 0;
-				i += 3;
-				return (i);
-			}
-			if (prompt[i + 1] && (ft_issplitable(prompt[i + 1]) \
-			|| prompt[i + 1] == '\0'))
-				ms->blank_after_quote = 1;
-			i++;
-		}
+			node_size_loop(ms, prompt, &i);
 	}
 	return (i);
 }
-
-// int	node_size(t_ms *ms, char *prompt, int i, int *start)
-// {
-// 	while (prompt[i] && ft_isblank(prompt[i]))
-// 		i++;
-// 	if (prompt[i] == '\0')
-// 		return (-1);
-// 	*start = i;
-// 	if (ft_ispipe(prompt[i]))
-// 		i++;
-// 	else if (ft_isquote(prompt[i]))
-// 		check_quotes(ms, prompt, &i);
-// 	else if (ft_ischevron(prompt[i]))
-// 		check_chevrons(prompt, &i);
-// 	else
-// 	{
-// 		if (i != 0 && prompt[i - 1] && ft_issplitable(prompt[i - 1]))
-// 			ms->blank_before_quote = 1;
-// 		while (prompt[i] && !ft_isseparator(prompt[i]))
-// 		{
-// 			if (prompt[i + 1] && (ft_issplitable(prompt[i + 1]) 
-// 			|| prompt[i + 1] == '\0'))
-// 				ms->blank_after_quote = 1;
-// 			i++;
-// 		}
-// 	}
-// 	return (i);
-// }
-
-// int	node_size(t_ms *ms, char *prompt, int i, int *start)
-// {
-// 	while (prompt[i] && ft_isblank(prompt[i]))
-// 		i++;
-// 	if (prompt[i] == '\0')
-// 		return (-1);
-// 	*start = i;
-// 	if (ft_ispipe(prompt[i]))
-// 		i++;
-// 	else if (ft_isquote(prompt[i]))
-// 		check_quotes(ms, prompt, &i);
-// 	else if (ft_ischevron(prompt[i]))
-// 		check_chevrons(prompt, &i);
-// 	else
-// 	{
-// 		if (i != 0 && prompt[i - 1] && ft_issplitable(prompt[i - 1]))
-// 			ms->blank_before_quote = 1;
-// 		while (prompt[i] && !ft_isseparator(prompt[i]))
-// 		{
-// 			if (prompt[i] && prompt[i] == '$')
-// 			{
-// 				printf("prompt[i]: %c\n", prompt[i]);
-// 				if (prompt[i + 1] && prompt[i + 1] == '$')
-// 				{
-// 					if (prompt[i + 2] && prompt[i + 2] == '$')
-// 					{
-// 						ms->dollar = 1;
-// 						ms->blank_after_quote = 0;
-// 						i++;
-// 						i++;
-// 						return (i);
-// 					}
-// 					else
-// 					{
-// 						ms->blank_after_quote = 1;
-// 						i++;
-// 						i++;
-// 						return (i);
-// 					}
-// 				}
-// 				else if (prompt[i + 1] && prompt[i + 1] == '?')
-// 				{
-// 					if (prompt[i + 2] && prompt[i + 2] == '$')
-// 					{
-// 						ms->dollar = 1;
-// 						ms->blank_after_quote = 0;
-// 						i++;
-// 						i++;
-// 						return (i);
-// 					}
-// 					else
-// 					{
-// 						ms->blank_after_quote = 1;
-// 						i++;
-// 						i++;
-// 						return (i);
-// 					}
-// 				}
-// 				i++;
-// 				return (i);
-// 			}
-// 			if (prompt[i] && prompt[i] != '$' && prompt[i + 1] 
-//			&& (prompt[i + 1] == '$' || prompt[i + 1] == '?'))
-// 				ms->blank_after_quote = 0;
-// 			if (prompt[i + 1] && (ft_issplitable(prompt[i + 1]) 
-// 			|| prompt[i + 1] == '\0'))
-// 				ms->blank_after_quote = 1;
-// 			i++;
-// 		}
-// 	}
-// 	return (i);
-// }
 
 int	lexer(t_ms *ms, char *prompt, t_token *token_lst)
 {

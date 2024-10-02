@@ -5,19 +5,11 @@
 - "exit ++1515" > exit bien et renvoie un mauvais exit code par consequent.
 (Bash n'accepte pas les exit "++", idem pour "--").
 - "unset PWD" > "cd .." (detail : ne plus changer la variable PWD une fois unset.)
-- $noexist$USER$USER
 - ambiguous redirect marche pas si "$files"
-- ca marche plus tout court
-- apres un pipe les REDIR en index 0 sont changed en CMD
-- JPP
 - si on unset PWD et OLDPWD c'est cense foutre mettre la merde, mais les variables existent toujours
 	et sont invisibles, si tu echo $PWD c'est cense marcher mais j'ai test et ca affiche rien dans bash
 
 TODO exec
-
-command marche pas --> pas fork
-check si < ou > en premier DONE
-faire les pipes
 refaire les heredocs
 ls << qw ls << qw (marche pas)
 prier le TOUT-PUISSANT (pardon)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/09/29 20:56:00 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/10/02 10:40:46 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,21 @@ int	g_signal = 0;
 TRUCS A CHECK
 [_]	path si on en trouve pas au lancement, faut qu'on en assign un genre de 
 	base genre /bin/bash ?
-[_]	si on unset USER est-ce que ca marche ?
 [_] si on unset PATH il faut que ca ne marche pas mais no segfault
 - - - - - - -
 PARSING
-[_] check $USER$USER$blah$blah = ne delete pas les 2 blah (la solution etait de
-	split sur les $ mais depuis avec $ dans isseparator infinite loop
 [_] $""aa$"" a fixer
 [_] expand dollar a refaire
+[_] signaux
+[_] heredoc no expansion
 - - - - - - -
 EXECUTION
-[~]	builtin reste exit, cd et unset
-[x]	fork
-[x]	pipe
 [~]	redirections > >> < <<
-[x]	waitpid cat | cat | ls
+[_]	heredoc
+- - - - - - -
+COMMON
+[_] exit-code
+[_] free
 */
 
 void	minishell_init(t_ms *ms, char **argv, char **envp)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   3_expander.c                                       :+:      :+:    :+:   */
+/*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:06:12 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/09/20 18:15:22 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/02 10:37:13 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ void	expander(t_ms *ms, t_token *tk, int i)
 				&& tk->content[0] == '$' && !tk->content[i + 1])
 				{
 					printf("dollar quote: %s\n", tk->content);
-					tk_delone(&ms->token_lexed, tk); //check si utile
+					tk_delone(&ms->token_lexed, tk);
 					i++;
 				}
 				else if (!tk->content[i + 1])
@@ -146,12 +146,6 @@ void	expander(t_ms *ms, t_token *tk, int i)
 	}
 	remove_empty_nodes(ms);
 }
-
-/*
-APRES UNE SYNTAX ERROR L'EXE NE FONCTIONNE PLUS
-FAUT QUE JE CHECK AU NIVEAU DES ERREURS SYNTAX SI ELLES
-DIFFERENT DES UNCLOSED QUOTES
-*/
 
 // void	expand_dollar_quote(t_ms *ms, t_token *tk)
 // {
