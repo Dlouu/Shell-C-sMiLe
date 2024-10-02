@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:02:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/02 18:58:48 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/02 20:20:37 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,19 +80,20 @@ typedef struct s_env
 typedef struct s_ms
 {
 	t_list			*env;
-	char			*path;
 	char			*prompt;
 	struct s_token	**token;
 	struct s_token	*token_lexed;
-	struct s_pipex	*px;
-	int				fds_builtins[2];
 	int				blank_before;
 	int				blank_after;
 	int				dollar;
+	int				command_count;
 	int				pipe_count;
 	int				heredoc_count;
+	struct s_pipex	*px;
+	char			*old_path;
+	char			*new_path;
+	int				fds_builtins[2];
 	int				i;
-	int				command_count;
 	unsigned char	exit_code;
 }	t_ms;
 

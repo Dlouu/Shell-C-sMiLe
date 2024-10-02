@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:59 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/02 17:52:47 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/02 20:05:49 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ char	*find_path(char *cmd, char **envp, t_ms *ms);
 void	ft_close_fds(t_pipex *px);
 void	ft_close_pipe(int *pipe);
 void	exec_sub_processus(t_pipex *px, int i);
+void	manage_execve(t_pipex *px, char **cmd, char **envp);
 
 
 //utils folder

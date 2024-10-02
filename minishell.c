@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/02 19:50:02 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/02 20:18:07 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ void	minishell_init(t_ms *ms, char **argv, char **envp)
 	ms->i = 0;
 	ms->command_count = 0;
 	ms->prompt = NULL;
+	ms->old_path = NULL;
+	ms->new_path = NULL;
 	get_envp(ms, envp);
 	increase_shlvl(ms);
 	//rl_catch_signals = 0;

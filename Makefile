@@ -6,7 +6,7 @@
 #    By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/06 13:02:03 by mbaumgar          #+#    #+#              #
-#    Updated: 2024/10/02 11:04:04 by mbaumgar         ###   ########.fr        #
+#    Updated: 2024/10/02 20:07:12 by mbaumgar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,8 +70,8 @@ SRC			= minishell.c \
 			builtin/pwd.c \
 			builtin/unset.c \
 			exec/exec.c \
-			exec/exec2.c \
-			exec/exec_cmd_utils.c \
+			exec/exec_child.c \
+			exec/exec_utils.c \
 			exec/heredoc.c \
 			exec/redir.c \
 			exec/tab_converter.c \
