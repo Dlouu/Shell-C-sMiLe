@@ -6,11 +6,35 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:04:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/08 16:33:15 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/02 17:24:42 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/libft.h"
+
+static void	unlink_alloc(t_alloc **allocs, void *ptr)
+{
+	t_alloc	*temp;
+	t_alloc	*prev;
+
+	prev = NULL;
+	if (!*allocs)
+		return ;
+	temp = *allocs;
+	while (temp)
+	{
+		if (ptr == temp->ptr)
+		{
+			if (temp->next && prev)
+				prev->next = temp->next;
+			else
+				*allocs = temp->next;
+			break ;
+		}
+		prev = temp;
+		temp = temp->next;
+	}
+}
 
 static void	*new_alloc(t_alloc **allocs, int size, int critical)
 {
@@ -67,5 +91,7 @@ void	*ft_allocator(int size, t_alloc_code code, void *ptr, int critical)
 		al_lstclear(&lst_allocs, critical);
 	else if (code == FREE)
 		free_alloc(&lst_allocs, ptr);
+	else if (code == UNLINK)
+		unlink_alloc(&lst_allocs, ptr);
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:15 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/02 14:50:33 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/02 15:45:58 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int	is_valid_key(char *key)
 	return (1);
 }
 
-t_list	*sort_list(t_list *current, t_list *sorted, int (*cmp)(const char *, \
-																const char *))
+t_list	*sort_list(t_list *current, t_list *sorted,
+		int (*cmp)(const char *, const char *))
 {
 	t_list	*temp;
 	t_list	*next;

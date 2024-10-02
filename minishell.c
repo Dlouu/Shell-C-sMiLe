@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/02 13:51:35 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/02 18:07:23 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ PARSING
 [_] heredoc no expansion
 - - - - - - -
 EXECUTION
-[~]	redirections > >> < <<
 [_]	heredoc
 - - - - - - -
 COMMON

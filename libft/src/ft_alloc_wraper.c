@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:04:50 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/07/08 16:59:49 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/02 17:08:34 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,9 @@ void	wclear(int free_critical)
 void	wfree(void *ptr)
 {
 	ft_allocator(0, FREE, ptr, 0);
+}
+
+void	wunlink(void *ptr)
+{
+	ft_allocator(0, UNLINK, ptr, 0);
 }

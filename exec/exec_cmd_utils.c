@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:54:36 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/02 14:09:57 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/02 18:01:21 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	ft_execlp(t_ms *ms, char **cmd)
 		ft_putstr_fd(cmd[0], 2);
 		ft_putstr_fd(": no such file or directory\n", 2);
 		// fonction qui clean tout attenzione pickpocket
-		exit(ms->exit_code);
+		clean_exit(ms->exit_code);
 	}
 	else
 	{
@@ -75,13 +75,15 @@ void	ft_execlp(t_ms *ms, char **cmd)
 			ft_putstr_fd("minishell: ", 2);
 			ft_putstr_fd(cmd[0], 2);
 			ft_putstr_fd(": permission denied\n", 2);
-			exit(ms->exit_code);
+			clean_exit(ms->exit_code);
 		}
 	}
 }
 
 void	find_builtin(t_pipex *px, t_token *token)
 {
+	int		fds;
+
 	open_and_dup(px, token, 0);
 	if (ft_strcmp(token->content, "cd") == 0)
 		ft_cd(px->ms, token);
@@ -97,6 +99,9 @@ void	find_builtin(t_pipex *px, t_token *token)
 		ft_unset(px->ms, token);
 	else if (ft_strcmp(token->content, "exit") == 0)
 		ft_exit(px->ms, token);
+	fds = get_fds(px->ms, STDOUT_FILENO);
+	if (fds != STDOUT_FILENO && fds != -1)
+		close(fds);
 	if (px->pid == 0)
-		exit(0);
+		clean_exit(px->ms->exit_code);
 }

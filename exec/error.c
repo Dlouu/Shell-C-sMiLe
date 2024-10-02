@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:29:45 by niabraha          #+#    #+#             */
-/*   Updated: 2024/09/25 17:47:07 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/10/02 18:03:14 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_perror(char *error, int critical)
 	write(2, "minishell: ", 12);
 	perror(error);
 	if (critical == 1)
-		exit(errno);
+		clean_exit(errno);
 }
 
 void	ft_error(char *error, char *details, int critical, int exit_code)
@@ -28,5 +28,5 @@ void	ft_error(char *error, char *details, int critical, int exit_code)
 	write(2, details, ft_strlen(details));
 	write(2, "\n", 1);
 	if (critical == 1)
-		exit(exit_code);
+		clean_exit(exit_code);
 }

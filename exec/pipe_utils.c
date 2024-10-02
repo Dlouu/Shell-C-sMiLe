@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 18:05:42 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/02 14:28:07 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/02 15:24:48 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ int	get_fds(t_ms *ms, int fd)
 			return (0);
 		if (ms->fds_builtins[0] == -1)
 			return (0);
-		else
-			return (ms->fds_builtins[0]);
+		return (ms->fds_builtins[0]);
 	}
 	else if (fd == 1)
 	{
@@ -29,8 +28,7 @@ int	get_fds(t_ms *ms, int fd)
 			return (1);
 		if (ms->fds_builtins[1] == -1)
 			return (1);
-		else
-			return (ms->fds_builtins[1]);
+		return (ms->fds_builtins[1]);
 	}
 	return (-1);
 }

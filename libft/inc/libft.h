@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:58:46 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/08/29 16:21:54 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/10/02 17:08:47 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef enum e_alloc_code
 	FALSE,
 	TRUE,
 	ALLOC,
+	UNLINK,
 	FREE,
 	CLEAR,
 	SIZE
@@ -127,6 +128,7 @@ t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), \
 void		*walloc(int size, int critical);
 void		wclear(int free_critical);
 void		wfree(void *ptr);
+void		wunlink(void *ptr);
 void		*ft_allocator(int size, t_alloc_code code, void *ptr, int critical);
 void		al_lstadd(t_alloc **al_lst, t_alloc *new);
 int			al_lstdelone(t_alloc **al_lst_head, t_alloc *al_to_del);

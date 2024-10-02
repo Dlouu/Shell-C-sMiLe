@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:12 by niabraha          #+#    #+#             */
-/*   Updated: 2024/09/19 18:10:08 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/10/02 17:59:43 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static int	check_number(char *s)
 	int	i;
 
 	i = -1;
+	if (!s)
+		return (1);
 	while (s[++i])
 	{
 		while (ft_isblank(s[i]))
@@ -33,13 +35,10 @@ static int	check_number(char *s)
 	return (0);
 }
 
-static void	clean_exit(t_ms *ms)
+void	clean_exit(int exit_code)
 {
-	//close les fd
-	//free les mallocs
-	//free les listes
-	(void) ms;
-	sigaction(SIGQUIT, NULL, NULL);
+	wclear(1);
+	exit(exit_code);
 }
 
 static void	exit_not_number(t_ms *ms, char *str)
@@ -85,6 +84,6 @@ int	ft_exit(t_ms *ms, t_token *tk)
 	}
 	else
 		ms->exit_code = 0;
-	clean_exit(ms);
-	return (exit(ms->exit_code), 0);
+	clean_exit(ms->exit_code);
+	return (0);
 }
