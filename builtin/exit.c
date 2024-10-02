@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:12 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/02 21:18:29 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/02 22:12:05 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,18 @@ static int	check_number(char *s)
 		return (1);
 	while (s && s[i])
 	{
-		while (s && ft_isblank(s[i]))
+		while (s[i] && ft_isblank(s[i]))
 			i++;
-		if (s && ft_issign(s[i]))
+		if (s[i] && ft_issign(s[i]))
 			i++;
-		while (s && s[i] != '\0')
+		while (s[i] && s[i] != '\0')
 		{
-			if (s && !ft_isdigit(s[i]))
+			if (s[i] && !ft_isdigit(s[i]))
 				return (1);
 			i++;
 		}
-		i++;
+		if (s[i] && s[i + 1])
+			i++;
 	}
 	return (0);
 }
@@ -78,8 +79,7 @@ int	ft_exit(t_ms *ms, t_token *tk)
 	}
 	else
 		ms->exit_code = 0;
-	// il faut qu'on close un fd dans le cas ou on fait exit > file, j'ai pas su
-	// comment faire Nils et Theo aidez moi xD
+	//ft_close_fds_builtins(ms->px); // ca segfault, a check
 	clean_exit(ms->exit_code);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:54:36 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/02 20:43:47 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/02 21:54:25 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,6 @@ void	ft_execlp(t_ms *ms, char **cmd)
 
 void	find_builtin(t_pipex *px, t_token *token)
 {
-	int		fds;
-
 	open_and_dup(px, token, 0);
 	if (ft_strcmp(token->content, "cd") == 0)
 		ft_cd(px->ms, token);
@@ -98,9 +96,7 @@ void	find_builtin(t_pipex *px, t_token *token)
 		ft_unset(px->ms, token);
 	else if (ft_strcmp(token->content, "exit") == 0)
 		ft_exit(px->ms, token);
-	fds = get_fds(px->ms, STDOUT_FILENO);
-	if (fds != STDOUT_FILENO && fds != -1)
-		close(fds);
+	ft_close_fds_builtins(px);
 	if (px->pid == 0)
 		clean_exit(px->ms->exit_code);
 }
