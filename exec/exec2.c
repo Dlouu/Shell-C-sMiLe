@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:45:50 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/01 17:11:03 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/02 11:21:01 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ static void	ft_exec_last_processus(t_pipex *px)
 	cmd = cmd_to_tab(px->ms, px->token);
 	if (cmd[0])
 		manage_execve(px, cmd, envp);
+	wclear(0); // sinon leak mais a verifier si ok
 	exit(0); // ^^
 }
 
