@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/03 11:55:46 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/02 20:05:10 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ void	manage_execve(t_pipex *px, char **cmd, char **envp)
 	cmd_path = find_path(cmd[0], envp, px->ms);
 	if ((!cmd_path || (!px->token->content[0] && !px->token->expanded)) && \
 	cmd[0])
-		return (ft_command_not_found(px->ms, cmd[0], 127));
+		return (ft_error(cmd[0], "command not found", 1, 1));
 	if (!px->token->content[0] && px->token->expanded == 2)
-		clean_exit(0, NULL);
+		clean_exit(0);
 	unlink_ptr_for_execve(cmd_path, cmd, envp);
 	wclear(1);
 	if (cmd)

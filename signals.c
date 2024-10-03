@@ -6,25 +6,20 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 00:12:48 by dlou              #+#    #+#             */
-/*   Updated: 2024/10/03 12:10:55 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/09/24 16:12:10 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "inc/minishell.h"
 
-/*
-void	handler_listen_to_signum(int signum)
-{
-	g_signal_status = signum;
-}
-*/
-
+// si t'arrives pas a compiler sur ton mac,
+// mets rl_replace_line("", 0); en commentaire ligne 22
 void	sigint_handler(int signum)
 {
 	if (signum == SIGINT)
 	{
 		write(STDOUT_FILENO, "^C\n", 3);
-		rl_replace_line("", 0);
+		//rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
 		g_signal = 130;
@@ -36,7 +31,10 @@ void	set_signals(int signum, int type, int flags, void (*handler)(int))
 	struct sigaction	sa;
 
 	if (sigemptyset(&sa.sa_mask) == -1)
-		clean_exit(EXIT_FAILURE, "sigemptyset error");
+	{
+		wclear(1);
+		exit(EXIT_FAILURE);
+	}
 	if (flags == SIG_REST_SIGINFO)
 		sa.sa_flags = SA_RESTART | SA_SIGINFO;
 	else
@@ -49,7 +47,10 @@ void	set_signals(int signum, int type, int flags, void (*handler)(int))
 	if (type == SIG_DEFAULT)
 		sa.sa_handler = SIG_DFL;
 	if (sigaction(signum, &sa, NULL) == -1)
-		clean_exit(EXIT_FAILURE, "sigaction error");
+	{
+		wclear(1);
+		exit(EXIT_FAILURE);
+	}
 }
 
 void	reset_default_signals(void)

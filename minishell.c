@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/03 12:06:12 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/02 20:18:07 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	minishell_init(t_ms *ms, char **argv, char **envp)
 	ms->new_path = NULL;
 	get_envp(ms, envp);
 	increase_shlvl(ms);
-	rl_catch_signals = 0;
+	//rl_catch_signals = 0;
 	ft_putstr_fd("42 project | minishell | as beautiful as a shell~\n", 1);
 	ft_putstr_fd("    ___ _        _ _   ___      __  __ _ _\n", 1);
 	ft_putstr_fd("🐚 / __| |_  ___| | | / __|  __|  \\/  (_) |  ___\n", 1);
@@ -100,6 +100,7 @@ int	minishell_loop(t_ms *ms)
 	return (ms->exit_code);
 }
 
+//voir le exit(0) du exec a changer pour le recuperer ici et free
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -110,7 +111,12 @@ int	main(int argc, char **argv, char **envp)
 	ms = walloc(sizeof(t_ms), TRUE);
 	minishell_init(ms, argv, envp);
 	minishell_loop(ms);
-	rl_clear_history(); //voir si utile et les valgrind suppress
+	//rl_clear_history(); //voir si utile et les valgrind suppress
 	wclear(1);
 	return (0);
 }
+
+//faut check si quand ya pas de cmd et juste des redir
+//ca fout pas la merde dans l'execution
+//check pour add le prompt a la struc et la free direct
+//ou bien le mettre dans le garbage
