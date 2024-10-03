@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:12 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/03 18:13:49 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/03 18:22:14 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	ft_exit(t_ms *ms, t_token *tk)
 	}
 	else
 		ms->exit_code = 0;
-	//ft_close_fds_builtins(ms->px); // ca segfault, a check
+	ft_close_fds_builtins(ms);
 	clean_exit(ms->exit_code, NULL);
 	return (0);
 }
