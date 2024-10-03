@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec2.c                                            :+:      :+:    :+:   */
+/*   exec_child.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:45:50 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/02 20:05:00 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/03 18:14:06 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	ft_exec_first_processus(t_pipex *px)
 	ft_close_fds(px);
 	ft_close_pipe(px->heredoc);
 	if (!px->token->content)
-		clean_exit(px->ms->exit_code);
+		clean_exit(px->ms->exit_code, NULL);
 	cmd = cmd_to_tab(px->ms, px->token);
 	manage_execve(px, cmd, envp);
 }
@@ -43,7 +43,7 @@ static void	ft_exec_middle_processus(t_pipex *px)
 	ft_close_fds(px);
 	ft_close_pipe(px->heredoc);
 	if (!px->token->content)
-		clean_exit(px->ms->exit_code);
+		clean_exit(px->ms->exit_code, NULL);
 	cmd = cmd_to_tab(px->ms, px->token);
 	manage_execve(px, cmd, envp);
 }
@@ -63,7 +63,7 @@ static void	ft_exec_last_processus(t_pipex *px)
 	if (cmd[0])
 		manage_execve(px, cmd, envp);
 	wclear(0);
-	clean_exit(px->ms->exit_code);
+	clean_exit(px->ms->exit_code, NULL);
 }
 
 void	exec_sub_processus(t_pipex *px, int i)

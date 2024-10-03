@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:12 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/02 22:12:05 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/03 18:13:49 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,13 @@ static int	check_number(char *s)
 	return (0);
 }
 
-void	clean_exit(int exit_code)
+void	clean_exit(int exit_code, char *error)
 {
+	if (error)
+	{
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		ft_putstr_fd(error, STDERR_FILENO);
+	}
 	wclear(1);
 	exit(exit_code);
 }
@@ -55,7 +60,7 @@ static void	exit_not_number(t_ms *ms, char *str)
 	ft_putstr_fd(str, STDERR_FILENO);
 	ft_putendl_fd(": numeric argument required", STDERR_FILENO);
 	ms->exit_code = 2;
-	clean_exit(ms->exit_code);
+	clean_exit(ms->exit_code, NULL);
 }
 
 int	ft_exit(t_ms *ms, t_token *tk)
@@ -80,6 +85,6 @@ int	ft_exit(t_ms *ms, t_token *tk)
 	else
 		ms->exit_code = 0;
 	//ft_close_fds_builtins(ms->px); // ca segfault, a check
-	clean_exit(ms->exit_code);
+	clean_exit(ms->exit_code, NULL);
 	return (0);
 }

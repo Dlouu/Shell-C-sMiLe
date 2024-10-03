@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:59 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/02 21:54:55 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/03 18:13:10 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int		ft_env(t_ms *ms);
 
 //ft_exit
 int		ft_exit(t_ms *ms, t_token *tk);
-void	clean_exit(int exit_code);
+void	clean_exit(int exit_code, char *error);
 
 //ft_export
 int		ft_export(t_ms *ms, t_token *token);

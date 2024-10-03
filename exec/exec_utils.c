@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:54:36 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/02 21:54:25 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/03 18:14:22 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	ft_execlp(t_ms *ms, char **cmd)
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(cmd[0], 2);
 		ft_putstr_fd(": no such file or directory\n", 2);
-		clean_exit(ms->exit_code);
+		clean_exit(ms->exit_code, NULL);
 	}
 	else
 	{
@@ -74,7 +74,7 @@ void	ft_execlp(t_ms *ms, char **cmd)
 			ft_putstr_fd("minishell: ", 2);
 			ft_putstr_fd(cmd[0], 2);
 			ft_putstr_fd(": permission denied\n", 2);
-			clean_exit(ms->exit_code);
+			clean_exit(ms->exit_code, NULL);
 		}
 	}
 }
@@ -98,5 +98,5 @@ void	find_builtin(t_pipex *px, t_token *token)
 		ft_exit(px->ms, token);
 	ft_close_fds_builtins(px);
 	if (px->pid == 0)
-		clean_exit(px->ms->exit_code);
+		clean_exit(px->ms->exit_code, NULL);
 }
