@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/03 11:55:46 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/03 13:32:24 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	manage_execve(t_pipex *px, char **cmd, char **envp)
 	cmd[0])
 		return (ft_command_not_found(px->ms, cmd[0], 127));
 	if (!px->token->content[0] && px->token->expanded == 2)
-		clean_exit(0, NULL);
+		clean_exit(127, NULL); // a verifier
 	unlink_ptr_for_execve(cmd_path, cmd, envp);
 	wclear(1);
 	if (cmd)
@@ -98,14 +98,17 @@ int	exec_main(t_ms *ms)
 {
 	t_pipex	*px;
 	t_pipex	*tmp;
+	int		exit_code;
 
+	exit_code = 0;
 	px = setup_pipe(ms);
 	tmp = px;
 	ft_exec(px);
 	while (tmp)
 	{
-		waitpid(tmp->pid, NULL, 0);
+		waitpid(tmp->pid, &exit_code, 0);
 		tmp = tmp->next;
 	}
-	return (0);
+	//reset_default_signals();
+	return (exit_code);
 }
