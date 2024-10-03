@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/03 13:50:47 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/03 12:06:12 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	minishell_loop(t_ms *ms)
 		tokenizer(ms) || !parser(ms))
 			continue ;
 		//tk_lstprint(ms, ms->token);
-		ms->exit_code = exec_main(ms);
+		exec_main(ms);
 		wclear(0);
 	}
 	return (ms->exit_code);
@@ -104,7 +104,6 @@ int	minishell_loop(t_ms *ms)
 int	main(int argc, char **argv, char **envp)
 {
 	t_ms		*ms;
-	int			exit_code;
 
 	if (argc != 1)
 		return (printf("error : minishell doesn't take arguments\n"), 1);
@@ -112,7 +111,6 @@ int	main(int argc, char **argv, char **envp)
 	minishell_init(ms, argv, envp);
 	minishell_loop(ms);
 	rl_clear_history(); //voir si utile et les valgrind suppress
-	exit_code = ms->exit_code;
 	wclear(1);
-	return (exit_code);
+	return (0);
 }

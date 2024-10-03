@@ -6,30 +6,28 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 00:12:48 by dlou              #+#    #+#             */
-/*   Updated: 2024/10/03 13:50:20 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/03 12:10:55 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	sigint_handler_in_heredoc(int signum)
+/*
+void	handler_listen_to_signum(int signum)
 {
-	if (signum == SIGINT)
-	{
-		ft_putendl_fd("", STDOUT_FILENO);
-		g_signal = SIGINT;
-	}
+	g_signal_status = signum;
 }
+*/
 
 void	sigint_handler(int signum)
 {
 	if (signum == SIGINT)
 	{
-		ft_putendl_fd("^C", STDOUT_FILENO);
+		write(STDOUT_FILENO, "^C\n", 3);
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
-		g_signal = 130; // SIGINT ?
+		g_signal = 130;
 	}
 }
 

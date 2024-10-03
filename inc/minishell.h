@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:02:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/03 13:00:53 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/02 20:29:49 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,10 +122,5 @@ typedef struct s_ms
 # define LCHEVRON 2
 
 # define UNDERSCORE "_"
-
-void	sigint_handler_in_heredoc(int signum);
-void	set_signals(int sig, int action, int rest_siginfo, void (*handler)(int));
-void	reset_default_signals(void);
-void	set_custom_signals(void);
 
 #endif

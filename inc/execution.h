@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:59 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/03 13:06:35 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/03 11:57:31 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	exec_sub_processus(t_pipex *px, int i);
 void	manage_execve(t_pipex *px, char **cmd, char **envp);
 void	ft_execlp(t_ms *ms, char **cmd);
 void	ft_close_fds(t_pipex *px);
-void	ft_close_fds_builtins(t_ms *ms);
+void	ft_close_fds_builtins(t_pipex *px);
 void	ft_close_pipe(int *pipe);
 void	ft_perror(char *error, int critical);
 void	ft_command_not_found(t_ms *ms, char *cmd, int exit_code);

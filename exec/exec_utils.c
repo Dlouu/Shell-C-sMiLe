@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:54:36 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/03 13:05:58 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/03 11:42:33 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	find_builtin(t_pipex *px, t_token *token)
 		ft_unset(px->ms, token);
 	else if (ft_strcmp(token->content, "exit") == 0)
 		ft_exit(px->ms, token);
-	ft_close_fds_builtins(px->ms);
+	ft_close_fds_builtins(px);
 	if (px->pid == 0)
 		clean_exit(px->ms->exit_code, NULL);
 }
