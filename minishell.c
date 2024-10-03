@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/02 20:18:07 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/03 18:45:32 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	minishell_loop(t_ms *ms)
 		tokenizer(ms) || !parser(ms))
 			continue ;
 		//tk_lstprint(ms, ms->token);
-		exec_main(ms);
+		ms->exit_code = exec_main(ms);
 		wclear(0);
 	}
 	return (ms->exit_code);
@@ -105,15 +105,18 @@ int	minishell_loop(t_ms *ms)
 int	main(int argc, char **argv, char **envp)
 {
 	t_ms		*ms;
+	int			exit_code;
 
+	exit_code = 0;
 	if (argc != 1)
 		return (printf("error : minishell doesn't take arguments\n"), 1);
 	ms = walloc(sizeof(t_ms), TRUE);
 	minishell_init(ms, argv, envp);
 	minishell_loop(ms);
 	//rl_clear_history(); //voir si utile et les valgrind suppress
+	exit_code = ms->exit_code;
 	wclear(1);
-	return (0);
+	return (exit_code);
 }
 
 //faut check si quand ya pas de cmd et juste des redir
