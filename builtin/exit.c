@@ -6,11 +6,37 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:12 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/02 22:12:05 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/03 11:58:37 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void	clean_exit(int exit_code, char *error)
+{
+	if (error)
+	{
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		ft_putstr_fd(error, STDERR_FILENO);
+	}
+	wclear(1);
+	exit(exit_code);
+}
+
+static void	exit_too_many_args(t_ms *ms)
+{
+	ft_putendl_fd("minishell: exit: too many arguments", STDERR_FILENO);
+	ms->exit_code = 1;
+}
+
+static void	exit_not_number(t_ms *ms, char *str)
+{
+	ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
+	ft_putstr_fd(str, STDERR_FILENO);
+	ft_putendl_fd(": numeric argument required", STDERR_FILENO);
+	ms->exit_code = 2;
+	clean_exit(ms->exit_code, NULL);
+}
 
 static int	check_number(char *s)
 {
@@ -37,27 +63,6 @@ static int	check_number(char *s)
 	return (0);
 }
 
-void	clean_exit(int exit_code)
-{
-	wclear(1);
-	exit(exit_code);
-}
-
-static void	exit_too_many_args(t_ms *ms)
-{
-	ft_putendl_fd("minishell: exit: too many arguments", STDERR_FILENO);
-	ms->exit_code = 1;
-}
-
-static void	exit_not_number(t_ms *ms, char *str)
-{
-	ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
-	ft_putstr_fd(str, STDERR_FILENO);
-	ft_putendl_fd(": numeric argument required", STDERR_FILENO);
-	ms->exit_code = 2;
-	clean_exit(ms->exit_code);
-}
-
 int	ft_exit(t_ms *ms, t_token *tk)
 {
 	long	nbr;
@@ -80,6 +85,6 @@ int	ft_exit(t_ms *ms, t_token *tk)
 	else
 		ms->exit_code = 0;
 	//ft_close_fds_builtins(ms->px); // ca segfault, a check
-	clean_exit(ms->exit_code);
+	clean_exit(ms->exit_code, NULL);
 	return (0);
 }

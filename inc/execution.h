@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:59 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/02 21:54:55 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/03 11:57:31 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,19 @@ typedef struct s_pipex
 int		get_fds(t_ms *ms, int fd);
 
 int		exec_main(t_ms *ms);
+char	*find_path(char *cmd, char **envp, t_ms *ms);
+t_pipex	*setup_pipe(t_ms *ms);
+void	manage_heredoc(t_pipex *px);
 void	open_and_dup(t_pipex *px, t_token *tk, int is_subprocess);
 void	find_builtin(t_pipex *px, t_token *token);
+void	exec_sub_processus(t_pipex *px, int i);
+void	manage_execve(t_pipex *px, char **cmd, char **envp);
 void	ft_execlp(t_ms *ms, char **cmd);
-void	manage_heredoc(t_pipex *px);
-char	*find_path(char *cmd, char **envp, t_ms *ms);
 void	ft_close_fds(t_pipex *px);
 void	ft_close_fds_builtins(t_pipex *px);
 void	ft_close_pipe(int *pipe);
-void	exec_sub_processus(t_pipex *px, int i);
-void	manage_execve(t_pipex *px, char **cmd, char **envp);
 void	ft_perror(char *error, int critical);
-void	ft_error(char *error, char *details, int critical, int exit_code);
-t_pipex	*setup_pipe(t_ms *ms);
+void	ft_command_not_found(t_ms *ms, char *cmd, int exit_code);
 
 //ft_cd
 int		ft_cd(t_ms *ms, t_token *tk);
@@ -58,7 +58,7 @@ int		ft_env(t_ms *ms);
 
 //ft_exit
 int		ft_exit(t_ms *ms, t_token *tk);
-void	clean_exit(int exit_code);
+void	clean_exit(int exit_code, char *error);
 
 //ft_export
 int		ft_export(t_ms *ms, t_token *token);
