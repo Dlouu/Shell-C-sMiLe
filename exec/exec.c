@@ -6,23 +6,11 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/03 18:42:20 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/03 18:52:45 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-/*
-heredoc + pipe
-le reste c'est de gauche à droite dans chaque pipe
-- il ne faut pas utiliser readline pour les heredoc
-- il faut utiliser GNL pour les heredoc
-- j'ai fait token->type == REDIR_DOUBLE_LEFT pour les heredoc
-- il n'y a pas besoin de faire de strcmp
-- quand tu fais un malloc il faut utiliser 'walloc'
-- quand tu uses free c'est 'wfree' mais c'est pas obligatoire de free car on
-  free tout automatiquement à la fin de chaque boucle
-*/
 
 /*
 ls -l > oui | cat < oui | echo bite > non

@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:29:45 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/03 18:14:48 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/03 18:52:00 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_perror(char *error, int critical)
 {
-	write(2, "minishell: ", 12);
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	perror(error);
 	if (critical == 1)
 		clean_exit(errno, NULL);
@@ -22,11 +22,10 @@ void	ft_perror(char *error, int critical)
 
 void	ft_error(char *error, char *details, int critical, int exit_code)
 {
-	write(2, "minishell: ", 12);
-	write(2, error, ft_strlen(error));
-	write(2, ": ", 2);
-	write(2, details, ft_strlen(details));
-	write(2, "\n", 1);
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd(error, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putendl_fd(details, STDERR_FILENO);
 	if (critical == 1)
 		clean_exit(exit_code, NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/03 18:45:32 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/03 18:52:31 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int	main(int argc, char **argv, char **envp)
 	ms = walloc(sizeof(t_ms), TRUE);
 	minishell_init(ms, argv, envp);
 	minishell_loop(ms);
-	//rl_clear_history(); //voir si utile et les valgrind suppress
+	rl_clear_history();
 	exit_code = ms->exit_code;
 	wclear(1);
 	return (exit_code);

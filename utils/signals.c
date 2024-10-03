@@ -6,14 +6,12 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 00:12:48 by dlou              #+#    #+#             */
-/*   Updated: 2024/10/03 18:18:15 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/03 18:53:09 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-// si t'arrives pas a compiler sur ton mac,
-// mets rl_replace_line("", 0); en commentaire ligne 22
 void	sigint_handler(int signum)
 {
 	if (signum == SIGINT)
