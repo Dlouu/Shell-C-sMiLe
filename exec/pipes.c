@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 18:05:42 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/03 16:15:54 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/03 13:45:37 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ t_pipex	*setup_pipe(t_ms *ms)
 	t_pipex	*px;
 	int		i;
 
-	if (!ms || !ms->pipe_count)
+	if (!ms || !ms->token || !ms->token[0])
 		return (NULL);
 	i = -1;
 	px = NULL;

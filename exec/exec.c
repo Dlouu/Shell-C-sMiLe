@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/03 16:59:10 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/03 13:32:24 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@ heredoc + pipe
 le reste c'est de gauche à droite dans chaque pipe
 - il ne faut pas utiliser readline pour les heredoc
 - il faut utiliser GNL pour les heredoc
+- j'ai fait token->type == REDIR_DOUBLE_LEFT pour les heredoc
+- il n'y a pas besoin de faire de strcmp
+- quand tu fais un malloc il faut utiliser 'walloc'
+- quand tu uses free c'est 'wfree' mais c'est pas obligatoire de free car on
+  free tout automatiquement à la fin de chaque boucle
 */
 
 /*
@@ -55,8 +60,7 @@ void	manage_execve(t_pipex *px, char **cmd, char **envp)
 	cmd_path = find_path(cmd[0], envp, px->ms);
 	if ((!cmd_path || (!px->token->content[0] && !px->token->expanded)) && \
 	cmd[0])
-		return (old_error(cmd[0], "command not found", 1, 1));
-	//	return (printf("KAKAKAKAKAKAK"), ft_command_not_found(px->ms, cmd[0], 127));
+		return (ft_command_not_found(px->ms, cmd[0], 127));
 	if (!px->token->content[0] && px->token->expanded == 2)
 		clean_exit(127, NULL); // a verifier
 	unlink_ptr_for_execve(cmd_path, cmd, envp);
@@ -106,7 +110,5 @@ int	exec_main(t_ms *ms)
 		tmp = tmp->next;
 	}
 	//reset_default_signals();
-	if (WIFEXITED(exit_code))
-		exit_code = WEXITSTATUS(exit_code);
 	return (exit_code);
 }

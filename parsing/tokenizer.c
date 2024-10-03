@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizer.c                                        :+:      :+:    :+:   */
+/*   2_tokenizer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 14:03:41 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/03 16:19:13 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/08/27 17:40:37 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,14 @@ static void	set_redir_type(t_token *tk, int redir_1, int redir_2, char c)
 		tk->type = redir_1;
 }
 
-void	set_token_type(t_token *tk)
+void	set_token_type(t_ms *ms, t_token *tk)
 {
 	if (tk->type == -1 && tk->content[0] == '|' \
 	&& !tk->dquote && !tk->squote && !tk->expanded)
+	{
 		tk->type = PIPE;
+		ms->pipe_count++;
+	}
 	else if (tk->type == -1 && tk->content[0] == '>' \
 	&& !tk->squote && !tk->dquote && !tk->expanded)
 		set_redir_type(tk, REDIR_RIGHT, REDIR_DOUBLE_RIGHT, '>');
@@ -103,7 +106,7 @@ int	tokenizer(t_ms *ms)
 	word_splitter(ms, 0);
 	while (tk)
 	{
-		set_token_type(tk);
+		set_token_type(ms, tk);
 		tk = tk->next;
 	}
 	set_command_type(ms->token_lexed, &command, 0);
