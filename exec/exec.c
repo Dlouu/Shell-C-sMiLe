@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/03 18:14:27 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/03 18:42:20 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	manage_execve(t_pipex *px, char **cmd, char **envp)
 	cmd_path = find_path(cmd[0], envp, px->ms);
 	if ((!cmd_path || (!px->token->content[0] && !px->token->expanded)) && \
 	cmd[0])
-		return (ft_error(cmd[0], "command not found", 1, 1));
+		return (ft_error(cmd[0], "command not found", 1, 127));
 	if (!px->token->content[0] && px->token->expanded == 2)
 		clean_exit(0, NULL);
 	unlink_ptr_for_execve(cmd_path, cmd, envp);
@@ -98,14 +98,20 @@ int	exec_main(t_ms *ms)
 {
 	t_pipex	*px;
 	t_pipex	*tmp;
+	int		exit_status;
 
+	exit_status = 0;
 	px = setup_pipe(ms);
 	tmp = px;
 	ft_exec(px);
 	while (tmp)
 	{
-		waitpid(tmp->pid, NULL, 0);
+		waitpid(tmp->pid, &exit_status, 0);
 		tmp = tmp->next;
 	}
-	return (0);
+	if (WIFEXITED(exit_status))
+		ms->exit_code = WEXITSTATUS(exit_status);
+	else
+		ms->exit_code = 1; // verifier si c'est 1
+	return (ms->exit_code);
 }
