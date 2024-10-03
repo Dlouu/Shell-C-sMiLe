@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:57:32 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/02 14:26:56 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/03 18:30:11 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,16 @@ static void	verif_redir(t_pipex *px, int save_in, int save_out)
 	{
 		if (dup2(save_in, STDIN_FILENO) == -1)
 			return (perror("dup2 error\n"), exit(1));
+		if (px->pipefd[0] != -1)
+			close(px->pipefd[0]);
 		px->pipefd[0] = save_in;
 	}
 	if (save_out != -1)
 	{
 		if (dup2(save_out, STDOUT_FILENO) == -1)
 			return (perror("dup2 error\n"), exit(1));
+		if (px->pipefd[1] != -1)
+			close(px->pipefd[1]);
 		px->pipefd[1] = save_out;
 	}
 }
