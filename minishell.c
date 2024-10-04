@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/04 17:36:16 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/10/04 18:03:09 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	increase_shlvl(t_ms *ms)
 	if (!find_env_node(ms->env, "SHLVL"))
 		add_env_node(ms, "SHLVL=0");
 	shlvl = ft_atoi(find_env_value(ms->env, "SHLVL"));
-	if (shlvl > 0)
+	if (shlvl > 0 && shlvl < 1000)
 		replace_env_value(ms->env, "SHLVL", (ft_itoa(shlvl + 1, TRUE)));
 	else
 		replace_env_value(ms->env, "SHLVL", "1");
@@ -83,6 +83,7 @@ int	minishell_loop(t_ms *ms)
 		ms->heredoc_count = 0;
 		ms->command_count = 0;
 		ms->i = 0;
+		printf("signal = READLINE / pid %d \n", getpid());
 		set_signals(READLINE);
 		prompt = readline(MAUVE"<Shell-C_sMiLe> "END"$ ");
 		if (!prompt)

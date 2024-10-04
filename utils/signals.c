@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 00:12:48 by dlou              #+#    #+#             */
-/*   Updated: 2024/10/04 14:55:41 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/04 16:41:24 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	readline_signal_handler(int signum)
 {
 	if (signum == SIGINT)
 	{
-		write(STDOUT_FILENO, "^C\n", 3);
+		write(STDOUT_FILENO, "^R\n", 3);
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
@@ -28,23 +28,26 @@ void	heredoc_signal_handler(int signum)
 {
 	if (signum == SIGINT)
 	{
-		write(STDOUT_FILENO, "\n", 1);
-		close(STDIN_FILENO);
+		write(STDOUT_FILENO, "^H\n", 3);
+		rl_replace_line("", 0);
+		// rl_on_new_line();
+		// rl_redisplay();
+		// close(STDIN_FILENO);
 		g_signal = 130;
 	}
-	if (signum == SIGQUIT)
-	{
-		write(STDOUT_FILENO, "Quit\n", 5);
-		close(STDIN_FILENO);
-		g_signal = 131;
-	}
+	// if (signum == SIGQUIT)
+	// {
+	// 	write(STDOUT_FILENO, "Quit\n", 5);
+	// 	close(STDIN_FILENO);
+	// 	g_signal = 131;
+	// }
 }
 
 void	fork_signal_handler(int signum)
 {
 	if (signum == SIGINT)
 	{
-		write(STDOUT_FILENO, "^C\n", 3);
+		write(STDOUT_FILENO, "^F\n", 3);
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
@@ -67,7 +70,7 @@ void	set_signals(t_signal_type mode)
 	else if (mode == HEREDOC)
 	{
 		signal(SIGINT, heredoc_signal_handler);
-		signal(SIGQUIT, heredoc_signal_handler);
+		signal(SIGQUIT, SIG_IGN);
 	}
 	else if (mode == FORK)
 	{
@@ -85,50 +88,14 @@ void	set_signals(t_signal_type mode)
 		signal(SIGQUIT, SIG_DFL);
 	}
 }
-// void	sigint_handler(int signum)
-// {
-// 	if (signum == SIGINT)
-// 	{
-// 		write(STDOUT_FILENO, "^C\n", 3);
-// 		//rl_replace_line("", 0);
-// 		rl_on_new_line();
-// 		rl_redisplay();
-// 		g_signal = 130;
-// 	}
-// }
-
-// void	set_signals(int signum, int type, int flags, void (*handler)(int))
-// {
-// 	struct sigaction	sa;
-
-// 	if (sigemptyset(&sa.sa_mask) == -1)
-// 		clean_exit(EXIT_FAILURE, "sigemptyset error");
-// 	if (flags == SIG_REST_SIGINFO)
-// 		sa.sa_flags = SA_RESTART | SA_SIGINFO;
-// 	else
-// 		sa.sa_flags = flags;
-// 	sa.sa_handler = handler;
-// 	if (type == SIG_INTERACTIVE)
-// 		sa.sa_handler = sigint_handler;
-// 	if (type == SIG_IGNORE)
-// 		sa.sa_handler = SIG_IGN;
-// 	if (type == SIG_DEFAULT)
-// 		sa.sa_handler = SIG_DFL;
-// 	if (sigaction(signum, &sa, NULL) == -1)
-// 		clean_exit(EXIT_FAILURE, "sigaction error");
-// }
-
-// void	reset_default_signals(void)
-// {
-// 	set_signals(SIGINT, SIG_DEFAULT, SIG_REST_SIGINFO, NULL);
-// 	set_signals(SIGQUIT, SIG_DEFAULT, SIG_REST_SIGINFO, NULL);
-// }
-
-// void	set_custom_signals(void)
-// {
-// 	set_signals(SIGINT, SIG_INTERACTIVE, SIG_REST_SIGINFO, &sigint_handler);
-// 	set_signals(SIGQUIT, SIG_IGNORE, SIG_REST_SIGINFO, NULL);
-// }
+/*
+a modifier :
+cat|cat|ls Ctrl C newline
+cat Ctrl C newline
+cat Ctrl \Quit
+heredoc Ctrl D erreur
+		Ctrl \ ignore
+*/
 
 /*
 BASH

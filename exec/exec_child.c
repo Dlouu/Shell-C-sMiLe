@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:45:50 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/04 14:52:44 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/04 16:27:17 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ static void	ft_exec_last_processus(t_pipex *px)
 void	exec_sub_processus(t_pipex *px, int i)
 {
 	set_signals(FORK);
+	printf("signal = FORK / pid %d \n", getpid());
 	if (i == px->ms->pipe_count)
 		ft_exec_last_processus(px);
 	else if (i == 0)

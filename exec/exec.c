@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/04 15:58:50 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/10/04 18:02:45 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ void	ft_exec(t_pipex *px)
 	i = 0;
 	while (px && px->token)
 	{
+		set_signals(SILENCE);
+		printf("signal = SILENCE / pid %d \n", getpid());
 		px->pid = fork();
 		if (px->pid == -1)
 			ft_perror("Fork creation failed", 1);
@@ -76,7 +78,6 @@ void	ft_exec(t_pipex *px)
 		i++;
 		px = px->next;
 	}
-	set_signals(SILENCE);
 	ft_close_fds(tmp);
 }
 
