@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 00:12:48 by dlou              #+#    #+#             */
-/*   Updated: 2024/10/04 13:47:26 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/04 14:21:27 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	set_signals(t_signal_type mode)
 	else if (mode == HEREDOC)
 	{
 		signal(SIGINT, heredoc_signal_handler);
-		signal(SIGQUIT, SIG_IGN);
+		signal(SIGQUIT, heredoc_signal_handler);
 	}
 	else if (mode == FORK)
 	{
