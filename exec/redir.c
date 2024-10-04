@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:57:32 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/03 18:30:11 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/04 17:01:13 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,23 +44,18 @@ static void	redir_out(char *file, int redir, int *save_out)
 		return (perror("open error\n"), exit(1));
 }
 
-static void	redir_in(char *file, t_pipex *px, int redir, int *save_in)
+static void	redir_in(char *file, int *save_in)
 {
-	if (redir == REDIR_DOUBLE_LEFT)
-		manage_heredoc(px);
-	else
+	if (access(file, F_OK) == -1)
 	{
-		if (access(file, F_OK) == -1)
-		{
-			perror("File does not exist\n");
-			return ;
-		}
-		if (*save_in != -1)
-			close(*save_in);
-		*save_in = open(file, O_RDONLY);
-		if (*save_in == -1)
-			return (perror("open error\n"), exit(1));
+		perror("File does not exist\n");
+		return ;
 	}
+	if (*save_in != -1)
+		close(*save_in);
+	*save_in = open(file, O_RDONLY);
+	if (*save_in == -1)
+		return (perror("open error\n"), exit(1));
 }
 
 void	open_and_dup(t_pipex *px, t_token *tk, int is_subprocess)
@@ -72,8 +67,10 @@ void	open_and_dup(t_pipex *px, t_token *tk, int is_subprocess)
 	save_out = -1;
 	while (tk)
 	{
-		if (tk->type == REDIR_LEFT || tk->type == REDIR_DOUBLE_LEFT)
-			redir_in(tk->next->content, px, tk->type, &save_in);
+		if (tk->type == REDIR_DOUBLE_LEFT)
+			manage_heredoc(px, tk);
+		else if (tk->type == REDIR_LEFT)
+			redir_in(tk->next->content, &save_in);
 		else if (tk->type == REDIR_RIGHT || tk->type == REDIR_DOUBLE_RIGHT)
 			redir_out(tk->next->content, tk->type, &save_out);
 		tk = tk->next;

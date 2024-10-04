@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 18:05:42 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/02 20:43:12 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/04 15:03:40 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	add_back_pipe(t_pipex **px, t_pipex *new)
 	new->prev = tmp;
 	if (new->prev)
 		if (pipe(new->prev->pipefd) == -1)
-			return ;
+			ft_perror("pipe error", 1);
 }
 
 static t_pipex	*add_new_pipe(t_ms *ms, t_token *token)

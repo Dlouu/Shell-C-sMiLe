@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:04 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/02 20:16:35 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/04 15:54:46 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,11 @@ int	ft_cd(t_ms *ms, t_token *tk)
 	ms->exit_code = 1;
 	if (tk->next && tk->next->type == ARG && \
 	tk->next->next && tk->next->next->type == ARG)
-		return (ft_putendl_fd("minishell: cd: too many arguments", \
-		STDERR_FILENO), ms->exit_code);
+		return (ft_error("cd", "too many arguments", 0, 1), 1);
 	if (!tk->next || ft_strcmp(tk->next->content, "~") == 0)
 	{
 		if (chdir(find_env_value(ms->env, "HOME")) == -1)
-			return (ft_putendl_fd("cd: HOME not set", \
-			STDERR_FILENO), ms->exit_code);
+			return (ft_error("cd", "HOME not set", 0, 1), ms->exit_code);
 	}
 	else if (chdir(tk->next->content) == -1)
 		return (file_not_found_or_permission_denied(tk), ms->exit_code);

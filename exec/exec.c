@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/04 14:59:42 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/04 15:58:50 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	exec_main(t_ms *ms)
 	int		exit_status;
 
 	exit_status = 0;
-	px = setup_pipe(ms);
+	px = setup_pipe(ms); // si allocation echoue, free tout (prochaine MAJ)
 	tmp = px;
 	ft_exec(px);
 	while (tmp)
@@ -97,7 +97,5 @@ int	exec_main(t_ms *ms)
 	}
 	if (WIFEXITED(exit_status))
 		ms->exit_code = WEXITSTATUS(exit_status);
-	else
-		ms->exit_code = 1;
 	return (ms->exit_code);
 }
