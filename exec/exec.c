@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/03 18:52:45 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/04 11:52:59 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,21 @@ grep "Videos" < infile | cat -e > outfile good
 tr a-z A-Z > first_file << oui | tr A-Z a-z > second_file << non
 */
 
-static void	unlink_ptr_for_execve(char *path, char **cmd, char **envp)
-{
-	int	i;
+/*Voir avec Theo en auoi c'etait important de unlink avant execve*/
+// static void	unlink_ptr_for_execve(char *path, char **cmd, char **envp)
+// {
+// 	int	i;
 
-	i = -1;
-	wunlink(path);
-	while (cmd && cmd[++i])
-		wunlink(cmd[i]);
-	wunlink(cmd);
-	i = -1;
-	while (envp && envp[++i])
-		wunlink(envp[i]);
-	wunlink(envp);
-}
+// 	i = -1;
+// 	wunlink(path);
+// 	while (cmd && cmd[++i])
+// 		wunlink(cmd[i]);
+// 	wunlink(cmd);
+// 	i = -1;
+// 	while (envp && envp[++i])
+// 		wunlink(envp[i]);
+// 	wunlink(envp);
+// }
 
 void	manage_execve(t_pipex *px, char **cmd, char **envp)
 {
@@ -51,8 +52,8 @@ void	manage_execve(t_pipex *px, char **cmd, char **envp)
 		return (ft_error(cmd[0], "command not found", 1, 127));
 	if (!px->token->content[0] && px->token->expanded == 2)
 		clean_exit(0, NULL);
-	unlink_ptr_for_execve(cmd_path, cmd, envp);
-	wclear(1);
+	//unlink_ptr_for_execve(cmd_path, cmd, envp);
+	//wclear(1);
 	if (cmd)
 	{
 		if (execve(cmd_path, cmd, envp) == -1)
