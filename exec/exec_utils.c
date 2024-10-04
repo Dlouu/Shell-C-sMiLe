@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:54:36 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/03 18:21:47 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/04 13:19:01 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,13 @@ char	*find_path(char *cmd, char **envp, t_ms *ms)
 	i = 0;
 	if (!cmd)
 		return (NULL);
-	if (access(cmd, F_OK) == 0)
+	// il faut d'abord check access avec X_OK pour avoir le droit d'executer
+	// Theo a un check F_OK puis loin avec un check cmd[0] strcmp "."
+	// Voir avec Alexis aussi c'est lui qui a detecte le probleme de fichier
+	// qui se confond avec les commandes
+	if (access(cmd, X_OK) == 0)
+		return (cmd);
+	else if (access(cmd, F_OK) == 0 && ft_strncmp(cmd, "./", 2) == 0)
 		return (cmd);
 	if (!find_env_value(ms->env, "PATH"))
 		return (NULL);

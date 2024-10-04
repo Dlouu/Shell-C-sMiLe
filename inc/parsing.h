@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:13:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/09/24 16:12:58 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/04 13:02:54 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "minishell.h"
 
 typedef enum e_token	t_token_code;
+typedef enum e_signal	t_signal_type;
 typedef struct s_token	t_token;
 typedef struct s_env	t_env;
 typedef struct s_ms		t_ms;
@@ -58,7 +59,8 @@ int		error_parsing(t_ms *ms, char *error);
 int		empty_prompt(char *prompt);
 
 //utils
-void	set_custom_signals(void);
+//void	set_custom_signals(void);
+void	set_signals(t_signal_type mode);
 int		find_index(char *str, char c);
 void	update_index(t_ms *ms);
 char	**cmd_to_tab(t_ms *ms, t_token *tk);

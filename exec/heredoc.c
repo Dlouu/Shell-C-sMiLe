@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:56:22 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/02 20:48:17 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/04 13:16:27 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	do_heredoc(t_pipex *px, char **copy)
 {
 	char	*line;
 
-	if (px->fd_in != STDIN_FILENO)
+	if (px->fd_in != STDIN_FILENO && px->fd_in != -1)
 		close(px->fd_in);
 	while (1)
 	{
@@ -36,7 +36,8 @@ static void	do_heredoc(t_pipex *px, char **copy)
 		write(px->pipefd[1], "\n", 1);
 		free(line);
 	}
-	close(px->pipefd[1]);
+	if (px->pipefd[1] != -1)
+		close(px->pipefd[1]);
 }
 
 static char	**copy_heredoc(t_token *token, int nbr_heredoc)
@@ -67,5 +68,6 @@ void	manage_heredoc(t_pipex *px)
 	copy = copy_heredoc((*tk), px->ms->heredoc_count);
 	if (!copy)
 		ft_perror("malloc failed", 1);
+	set_signals(HEREDOC);
 	do_heredoc(px, copy);
 }

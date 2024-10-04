@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/03 18:52:31 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/04 13:46:20 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	minishell_init(t_ms *ms, char **argv, char **envp)
 	ms->new_path = NULL;
 	get_envp(ms, envp);
 	increase_shlvl(ms);
-	//rl_catch_signals = 0;
+	rl_catch_signals = 0;
 	ft_putstr_fd("42 project | minishell | as beautiful as a shell~\n", 1);
 	ft_putstr_fd("    ___ _        _ _   ___      __  __ _ _\n", 1);
 	ft_putstr_fd("🐚 / __| |_  ___| | | / __|  __|  \\/  (_) |  ___\n", 1);
@@ -83,10 +83,10 @@ int	minishell_loop(t_ms *ms)
 		ms->heredoc_count = 0;
 		ms->command_count = 0;
 		ms->i = 0;
-		set_custom_signals();
+		set_signals(READLINE);
 		prompt = readline(MAUVE"<Shell-C_sMiLe> "END"$ ");
 		if (!prompt)
-			break ;
+			clean_exit(-1, NULL);
 		ms->prompt = ft_strdup(prompt, 0);
 		free(prompt);
 		add_history(ms->prompt);

@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/04 11:52:59 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/04 13:05:03 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,9 @@ void	ft_exec(t_pipex *px)
 	i = 0;
 	while (px && px->token)
 	{
+		set_signals(SILENCE);
 		px->pid = fork();
+		set_signals(FORK);
 		if (px->pid == -1)
 			ft_perror("Fork creation failed", 1);
 		if (px->pid == 0)

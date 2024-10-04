@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:12 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/03 18:22:14 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/04 13:42:58 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,12 @@ static int	check_number(char *s)
 
 void	clean_exit(int exit_code, char *error)
 {
-	if (error)
+	if (exit_code == -1)
+	{
+		ft_putendl_fd("exit", STDOUT_FILENO);
+		exit_code = 0;
+	}
+	else if (error)
 	{
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		ft_putstr_fd(error, STDERR_FILENO);
