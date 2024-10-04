@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:59 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/04 16:47:36 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/10/04 18:06:18 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_pipex
 	int				pipefd[2];
 	int				heredoc[2];
 	int				pid;
+	char			*buff;
 	struct s_ms		*ms;
 	struct s_token	*token;
 	struct s_pipex	*next;

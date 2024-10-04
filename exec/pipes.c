@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 18:05:42 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/04 15:03:40 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/10/04 18:06:44 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ static t_pipex	*add_new_pipe(t_ms *ms, t_token *token)
 	new->pipefd[1] = -1;
 	new->heredoc[0] = -1;
 	new->heredoc[1] = -1;
+	new->buff = NULL;
 	new->pid = -1;
 	new->ms = ms;
 	new->token = token;
