@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/04 15:50:53 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/10/04 17:36:16 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,9 +112,9 @@ int	main(int argc, char **argv, char **envp)
 		return (printf("error : minishell doesn't take arguments\n"), 1);
 	ms = walloc(sizeof(t_ms), TRUE);
 	minishell_init(ms, argv, envp);
-	minishell_loop(ms);
+	exit_code = minishell_loop(ms);
 	rl_clear_history();
-	exit_code = ms->exit_code;
+	//exit_code = ms->exit_code;
 	wclear(1);
 	return (exit_code);
 }

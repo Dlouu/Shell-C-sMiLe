@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:12 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/04 13:42:58 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/04 17:48:04 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,11 @@ void	clean_exit(int exit_code, char *error)
 	exit(exit_code);
 }
 
-static void	exit_too_many_args(t_ms *ms)
-{
-	ft_putendl_fd("minishell: exit: too many arguments", STDERR_FILENO);
-	ms->exit_code = 1;
-}
+// static void	exit_too_many_args(t_ms *ms)
+// {
+// 	ft_putstr_fd("minishell: exit: too many arguments\n", STDERR_FILENO);
+// 	ms->exit_code = 1;
+// }
 
 static void	exit_not_number(t_ms *ms, char *str)
 {
@@ -74,7 +74,7 @@ int	ft_exit(t_ms *ms, t_token *tk)
 
 	ft_putendl_fd("exit", STDOUT_FILENO);
 	if (tk->next && tk->next->next && tk->next->next->type == ARG)
-		return (exit_too_many_args(ms), 1);
+		ft_error("exit", "too many arguments", 1, 1);
 	if (tk && tk->next && tk->next->type == ARG)
 	{
 		if (check_number(tk->next->content) == 0)
