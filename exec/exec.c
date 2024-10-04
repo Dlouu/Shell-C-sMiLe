@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/04 13:05:03 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/04 14:59:42 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ tr a-z A-Z > first_file << oui | tr A-Z a-z > second_file << non
 */
 
 /*Voir avec Theo en auoi c'etait important de unlink avant execve*/
+// a voir si on delete totalement ca de l'allocateur
 // static void	unlink_ptr_for_execve(char *path, char **cmd, char **envp)
 // {
 // 	int	i;
@@ -52,13 +53,8 @@ void	manage_execve(t_pipex *px, char **cmd, char **envp)
 		return (ft_error(cmd[0], "command not found", 1, 127));
 	if (!px->token->content[0] && px->token->expanded == 2)
 		clean_exit(0, NULL);
-	//unlink_ptr_for_execve(cmd_path, cmd, envp);
-	//wclear(1);
-	if (cmd)
-	{
-		if (execve(cmd_path, cmd, envp) == -1)
-			ft_perror("execve error", 1);
-	}
+	if (execve(cmd_path, cmd, envp) == -1)
+		ft_perror("execve error", 1);
 }
 
 void	ft_exec(t_pipex *px)
@@ -72,9 +68,7 @@ void	ft_exec(t_pipex *px)
 	i = 0;
 	while (px && px->token)
 	{
-		set_signals(SILENCE);
 		px->pid = fork();
-		set_signals(FORK);
 		if (px->pid == -1)
 			ft_perror("Fork creation failed", 1);
 		if (px->pid == 0)
@@ -82,6 +76,7 @@ void	ft_exec(t_pipex *px)
 		i++;
 		px = px->next;
 	}
+	set_signals(SILENCE);
 	ft_close_fds(tmp);
 }
 
@@ -103,6 +98,6 @@ int	exec_main(t_ms *ms)
 	if (WIFEXITED(exit_status))
 		ms->exit_code = WEXITSTATUS(exit_status);
 	else
-		ms->exit_code = 1; // verifier si c'est 1
+		ms->exit_code = 1;
 	return (ms->exit_code);
 }
