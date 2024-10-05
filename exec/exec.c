@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/05 13:14:04 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/05 21:04:08 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	ft_exec(t_pipex *px)
 	while (px && px->token)
 	{
 		set_signals(SILENCE);
-		printf("signal = SILENCE / pid %d \n", getpid());
+		//printf("signal = SILENCE / pid %d \n", getpid()); 
 		px->pid = fork();
 		if (px->pid == -1)
 			ft_perror("Fork creation failed", 1);
