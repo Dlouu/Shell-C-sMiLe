@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/04 18:02:45 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/05 13:14:04 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,18 +85,20 @@ int	exec_main(t_ms *ms)
 {
 	t_pipex	*px;
 	t_pipex	*tmp;
-	int		exit_status;
+	int		status;
 
-	exit_status = 0;
+	status = 0;
 	px = setup_pipe(ms); // si allocation echoue, free tout (prochaine MAJ)
 	tmp = px;
 	ft_exec(px);
 	while (tmp)
 	{
-		waitpid(tmp->pid, &exit_status, 0);
+		waitpid(tmp->pid, &status, 0);
 		tmp = tmp->next;
 	}
-	if (WIFEXITED(exit_status))
-		ms->exit_code = WEXITSTATUS(exit_status);
+	if (WIFEXITED(status))
+		ms->exit_code = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		ms->exit_code = WTERMSIG(status) + 128;
 	return (ms->exit_code);
 }

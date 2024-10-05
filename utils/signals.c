@@ -6,12 +6,17 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 00:12:48 by dlou              #+#    #+#             */
-/*   Updated: 2024/10/04 16:41:24 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/05 13:58:10 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+/* READLINE */
+// ETAT		OK
+// Ctrl C	dans le prompt = ^C\n  (quitte le prompt, = newline)
+// Ctrl D	dans le prompt = exit\n  (quitte le programme)
+// CTrl \	(ne fait rien)
 void	readline_signal_handler(int signum)
 {
 	if (signum == SIGINT)
@@ -24,25 +29,39 @@ void	readline_signal_handler(int signum)
 	}
 }
 
+/* HEREDOC */
+// ETAT	 	J'ai des signaux a mute je comprend pas ALED
+// Ctrl C	dans le prompt = ^C\n  (quitte le heredoc)
+// Ctrl D	quitte  + message d'erreur
+//bash: warning: here-document at line 2 delimited by end-of-file (wanted `lol')
+// CTrl \	(ne fait rien)
 void	heredoc_signal_handler(int signum)
 {
 	if (signum == SIGINT)
 	{
-		write(STDOUT_FILENO, "^H\n", 3);
-		rl_replace_line("", 0);
+		//write(STDOUT_FILENO, "^H\n", 3);
+		//rl_replace_line("", 0);
 		// rl_on_new_line();
-		// rl_redisplay();
-		// close(STDIN_FILENO);
+		rl_redisplay();
+		close(STDIN_FILENO);
 		g_signal = 130;
 	}
 	// if (signum == SIGQUIT)
 	// {
-	// 	write(STDOUT_FILENO, "Quit\n", 5);
-	// 	close(STDIN_FILENO);
-	// 	g_signal = 131;
+	// 	//(void)signum;
+	// 	//write(STDOUT_FILENO, "\r>   ", 6);
+	// 	//rl_replace_line("\r>     test", 12);
+	// 	//close(STDIN_FILENO);
+	// 	//g_signal = 131;
 	// }
 }
 
+/* FORK */
+// ETAT		OK
+// Ctrl C	dans un block = ^C\n
+// Ctrl \	(cat|cat|ls  ^\ sans newline
+//			grep '' = ^\Quit\n avec newline
+// Ctrl D	quite le prompt avec juste une newline
 void	fork_signal_handler(int signum)
 {
 	if (signum == SIGINT)
@@ -88,36 +107,3 @@ void	set_signals(t_signal_type mode)
 		signal(SIGQUIT, SIG_DFL);
 	}
 }
-/*
-a modifier :
-cat|cat|ls Ctrl C newline
-cat Ctrl C newline
-cat Ctrl \Quit
-heredoc Ctrl D erreur
-		Ctrl \ ignore
-*/
-
-/*
-BASH
-
-PROMPT READLINE
-Ctrl + C dans le prompt = ^C\n  (quitte le prompt, = newline)
-Ctrl + D dans le prompt = exit\n  (quitte le programme)
-CTrl + \ dans le prompt = (ne fait rien)
-
-HEREDOC
-	Ctrl C			| 	Ctrl D								| 	Ctrl \
-$ echo bite << lol	| echo bite << lol						| echo bite << lol
-> ^C				| > 									| ne fait rien
-$ 					| bash: warning: here-document at line 2 
-.					| delimited by end-of-file (wanted `lol')
-.					| bite									|
-.					| $ 									|
-Ctrl C new prompt	| CTRL+D il fait la commande + erreur	| Ctrl \ = A ignorer
-
-BLOCK/PIPE/FORK/TRUC ?
-Ctrl C 	dans un block = ^C\n  (quitte le block, = newline)
-Ctrl \	(cat : Ctrl \ dans un block = ^\ sans newline faut surement osef)
-		grep '' = ^\Quit\n avec newline
-Ctrl D 	quite le prompt avec juste une newline
-*/
