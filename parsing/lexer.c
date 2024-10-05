@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:18:23 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/02 18:58:58 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/05 15:53:16 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,18 @@ int	check_chevrons(char *prompt, int *i)
 
 static void	node_size_loop(t_ms *ms, char *prompt, int *i)
 {
-	if (prompt[*i] && prompt[*i] == '$' \
-	&& prompt[*i + 1] && prompt[*i + 2] \
-	&& ((prompt[*i + 1] == '\'' && prompt[*i + 2] == '\'') \
-	|| (prompt[*i + 1] == '\"' && prompt[*i + 2] == '\"')))
+	if (prompt[*i] && prompt[*i] == '$'
+		&& prompt[*i + 1] && prompt[*i + 2]
+		&& ((prompt[*i + 1] == '\'' && prompt[*i + 2] == '\'')
+			|| (prompt[*i + 1] == '\"' && prompt[*i + 2] == '\"')))
 	{
 		ms->dollar = 1;
 		if (prompt[*i + 1] && !ft_isseparator(prompt[*i + 1]))
 			ms->blank_after = 0;
 		(*i) += 3;
 	}
-	if (prompt[*i + 1] && (ft_issplitable(prompt[*i + 1]) \
-	|| prompt[*i + 1] == '\0'))
+	if (prompt[*i] && prompt[*i + 1] && (ft_issplitable(prompt[*i + 1])
+			|| prompt[*i + 1] == '\0'))
 		ms->blank_after = 1;
 	(*i)++;
 }

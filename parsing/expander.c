@@ -6,11 +6,39 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:06:12 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/02 18:57:14 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/05 20:16:13 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+int	expand_empty_quote(t_token *tk, int *i)
+{
+	char	*left;
+	char	*right;
+	size_t	len;
+
+	len = ft_strlen(tk->content) - *i - 3;
+	left = ft_substr(tk->content, 0, *i, FALSE);
+	right = ft_substr(tk->content, *i + 3, len, FALSE);
+	printf("left = [%s]\n", left);
+	printf("right = [%s]\n", right);
+	printf("len = [%zu]\n", len);
+	tk->content = ft_strjoin(left, right, FALSE);
+	printf("content = [%s]\n\n", tk->content);
+	tk->expanded = 2;
+	if (!tk->content[*i])
+		return (0);
+	while (tk->content[*i])
+	{
+		printf("content[%d] = %c-\n", *i, tk->content[*i]);
+		if (tk->content[*i] == '$')
+			return (1);
+		*i += 1;
+	}
+	printf("SORTIE EXPAND EMPTY CHAR[%d] = %c-\n", *i, tk->content[*i]);
+	return (0);
+}
 
 void	expand_var(t_ms *ms, t_token *tk, int *i)
 {
@@ -102,6 +130,16 @@ void	remove_empty_nodes(t_ms *ms)
 	}
 }
 
+void	skip_invalid_identifier(t_token *tk, int *i)
+{
+	while (tk->content[*i])
+	{
+		if (tk->content[*i] && tk->content[*i] == '$')
+			break ;
+		*i += 1;
+	}
+}
+
 // Our minishell doesn't support expansion of the following:
 	// Character  sequences of the form $'string' are treated as a special
 	// variant of single quotes.  The sequence  expands  to  string,  with
@@ -116,12 +154,13 @@ void	expander(t_ms *ms, t_token *tk, int i)
 {
 	if (!tk)
 		return ;
+	tk_lstprint(ms, &ms->token_lexed);
 	while (tk)
 	{
 		i = 0;
-		while (tk && tk->content[i])
+		while (tk && tk->content && tk->content[i]) // NEED HELP HERE
 		{
-			if (tk->content[i] == '$' && tk->squote == 0)
+			if (tk->content[i] && tk->content[i] == '$' && tk->squote == 0)
 			{
 				if (tk->content[i + 1] && tk->content[i + 1] == '?')
 					expand_exit_code(ms, tk, &i);
@@ -130,12 +169,25 @@ void	expander(t_ms *ms, t_token *tk, int i)
 				else if (tk->next && (tk->next->squote || tk->next->dquote) \
 				&& tk->content[0] == '$' && !tk->content[i + 1])
 				{
-					printf("dollar quote: %s\n", tk->content);
 					tk_delone(&ms->token_lexed, tk);
 					i++;
 				}
+				else if (tk->content[i] && ((tk->content[i + 1] && \
+				tk->content[i + 2]) && ((tk->content[i + 1] == '\'' && \
+				tk->content[i + 2] == '\'') || (tk->content[i + 1] == '"' \
+				&& tk->content[i + 2] == '"'))))
+				{
+					if (expand_empty_quote(tk, &i))
+						continue ;
+					else
+						break ;
+				}
 				else if (!tk->content[i + 1])
 					break ;
+				if (tk->content[i + 1] && !ft_isalpha(tk->content[i + 1]) && \
+				tk->content[i + 1] != '$' && (tk->content[i + 1] != '?' \
+				&& tk->content[i + 1] != '_'))
+					skip_invalid_identifier(tk, &i);
 				else
 					expand_var(ms, tk, &i);
 				tk->expanded = 2;
@@ -144,37 +196,6 @@ void	expander(t_ms *ms, t_token *tk, int i)
 		}
 		tk = tk->next;
 	}
+	tk_lstprint(ms, &ms->token_lexed);
 	remove_empty_nodes(ms);
 }
-
-// void	expand_dollar_quote(t_ms *ms, t_token *tk)
-// {
-// 	tk_delone(&ms->token_lexed, tk);
-// }
-
-// void	expander(t_ms *ms, t_token *tk, int i)
-// {
-// 	while (tk)
-// 	{
-// 		i = 0;
-// 		while (tk->content[i] && tk->content[i + 1])
-// 		{
-// 			if (tk->content[i] == '$' && tk->squote == 0)
-// 			{
-// 				if (tk->content[i + 1] == '?')
-// 					expand_exit_code(ms, tk, &i);
-// 				else if (tk->content[i + 1] == '$')
-// 					expand_pid_number(tk, &i);
-// 				else if (!tk->content[i + 1] && tk->next && (tk->next->squote 
-// 				|| tk->next->dquote))
-// 					expand_dollar_quote(ms, tk);
-// 				else if (!tk->content[i + 1])
-// 					break ;
-// 				else
-// 					expand_var(ms, tk, &i);
-// 			}
-// 				i++;
-// 		}
-// 		tk = tk->next;
-// 	}
-// }
