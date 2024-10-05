@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:18:23 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/05 15:53:16 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/05 20:38:38 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ static void	node_size_loop(t_ms *ms, char *prompt, int *i)
 	if (prompt[*i] && prompt[*i + 1] && (ft_issplitable(prompt[*i + 1])
 			|| prompt[*i + 1] == '\0'))
 		ms->blank_after = 1;
-	(*i)++;
+	if (prompt[*i])
+		(*i)++;
 }
 
 int	node_size(t_ms *ms, char *prompt, int i, int *start)

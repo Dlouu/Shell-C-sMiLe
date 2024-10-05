@@ -6,7 +6,7 @@
 #    By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/06 13:02:03 by mbaumgar          #+#    #+#              #
-#    Updated: 2024/10/03 18:10:01 by mbaumgar         ###   ########.fr        #
+#    Updated: 2024/10/05 20:59:16 by mbaumgar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,7 @@ SRC			= minishell.c \
 			parsing/sorter.c \
 			parsing/envp.c \
 			parsing/var.c \
+			parsing/expand_var.c \
 			parsing/quotes.c \
 			builtin/cd.c \
 			builtin/echo.c \

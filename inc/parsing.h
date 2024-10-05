@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:13:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/04 13:02:54 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/05 20:58:13 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@ void	word_splitter(t_ms *ms, int i);
 int		parser(t_ms *ms);
 void	pipe_splitter(t_ms *ms);
 void	sort_token(t_ms *ms);
+
+//expander
+int		expand_empty_quote(t_token *tk, int *i);
+void	expand_var(t_ms *ms, t_token *tk, int *i);
+void	expand_pid_number(t_token *tk, int *i);
+void	expand_exit_code(t_ms *ms, t_token *tk, int *i);
 
 //env
 t_list	*get_envp(t_ms *ms, char **envp);
@@ -59,7 +65,6 @@ int		error_parsing(t_ms *ms, char *error);
 int		empty_prompt(char *prompt);
 
 //utils
-//void	set_custom_signals(void);
 void	set_signals(t_signal_type mode);
 int		find_index(char *str, char c);
 void	update_index(t_ms *ms);

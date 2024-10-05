@@ -6,104 +6,14 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:06:12 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/05 20:16:13 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/05 20:58:37 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	expand_empty_quote(t_token *tk, int *i)
+static void	remove_empty_nodes(t_token *head, t_token *tk, t_token *temp)
 {
-	char	*left;
-	char	*right;
-	size_t	len;
-
-	len = ft_strlen(tk->content) - *i - 3;
-	left = ft_substr(tk->content, 0, *i, FALSE);
-	right = ft_substr(tk->content, *i + 3, len, FALSE);
-	printf("left = [%s]\n", left);
-	printf("right = [%s]\n", right);
-	printf("len = [%zu]\n", len);
-	tk->content = ft_strjoin(left, right, FALSE);
-	printf("content = [%s]\n\n", tk->content);
-	tk->expanded = 2;
-	if (!tk->content[*i])
-		return (0);
-	while (tk->content[*i])
-	{
-		printf("content[%d] = %c-\n", *i, tk->content[*i]);
-		if (tk->content[*i] == '$')
-			return (1);
-		*i += 1;
-	}
-	printf("SORTIE EXPAND EMPTY CHAR[%d] = %c-\n", *i, tk->content[*i]);
-	return (0);
-}
-
-void	expand_var(t_ms *ms, t_token *tk, int *i)
-{
-	char	*key;
-	char	*left;
-	char	*right;
-	char	*value;
-	size_t	len;
-
-	key = get_var(tk->content + *i);
-	if (find_env_node(ms->env, key))
-	{
-		len = ft_strlen(tk->content) - *i - ft_strlen(key) - 1;
-		left = ft_substr(tk->content, 0, *i, FALSE);
-		value = find_env_value(ms->env, key);
-		right = ft_substr(tk->content, *i + ft_strlen(key) + 1, len, FALSE);
-		tk->content = ft_strjoin(left, value, FALSE);
-		tk->content = ft_strjoin(tk->content, right, FALSE);
-		tk->expanded = 1;
-		*i += ft_strlen(value) - 1;
-	}
-	else
-		delete_var_name(key, tk, i);
-}
-
-void	expand_pid_number(t_token *tk, int *i)
-{
-	char	*pid;
-	char	*left;
-	char	*right;
-	size_t	len;
-
-	len = ft_strlen(tk->content) - *i - 2;
-	left = ft_substr(tk->content, 0, *i, FALSE);
-	pid = ft_itoa(getpid(), FALSE);
-	right = ft_substr(tk->content, *i + 2, len, FALSE);
-	tk->content = ft_strjoin(left, pid, FALSE);
-	tk->content = ft_strjoin(tk->content, right, FALSE);
-	tk->expanded = 1;
-	*i += ft_strlen(pid) - 2;
-}
-
-void	expand_exit_code(t_ms *ms, t_token *tk, int *i)
-{
-	char	*exit_code;
-	char	*left;
-	char	*right;
-	size_t	len;
-
-	len = ft_strlen(tk->content) - *i - 2;
-	left = ft_substr(tk->content, 0, *i, FALSE);
-	exit_code = ft_itoa(ms->exit_code, FALSE);
-	right = ft_substr(tk->content, *i + 2, len, FALSE);
-	tk->content = ft_strjoin(left, exit_code, FALSE);
-	tk->content = ft_strjoin(tk->content, right, FALSE);
-	tk->expanded = 1;
-	*i += ft_strlen(exit_code) - 2;
-}
-
-void	remove_empty_nodes(t_ms *ms)
-{
-	t_token	*tk;
-	t_token	*temp;
-
-	tk = ms->token_lexed;
 	while (tk)
 	{
 		if (!tk->content[0] && !tk->next && !tk->prev)
@@ -123,14 +33,14 @@ void	remove_empty_nodes(t_ms *ms)
 			&& (!temp->next || (temp->next && temp->next->content[0] == '|'))))
 				;
 			else
-				tk_delone(&ms->token_lexed, temp);
+				tk_delone(&head, temp);
 		}
 		else
 			tk = tk->next;
 	}
 }
 
-void	skip_invalid_identifier(t_token *tk, int *i)
+static void	skip_invalid_identifier(t_token *tk, int *i)
 {
 	while (tk->content[*i])
 	{
@@ -154,11 +64,10 @@ void	expander(t_ms *ms, t_token *tk, int i)
 {
 	if (!tk)
 		return ;
-	tk_lstprint(ms, &ms->token_lexed);
 	while (tk)
 	{
 		i = 0;
-		while (tk && tk->content && tk->content[i]) // NEED HELP HERE
+		while (tk && tk->content && tk->content[i])
 		{
 			if (tk->content[i] && tk->content[i] == '$' && tk->squote == 0)
 			{
@@ -184,8 +93,8 @@ void	expander(t_ms *ms, t_token *tk, int i)
 				}
 				else if (!tk->content[i + 1])
 					break ;
-				if (tk->content[i + 1] && !ft_isalpha(tk->content[i + 1]) && \
-				tk->content[i + 1] != '$' && (tk->content[i + 1] != '?' \
+				else if (tk->content[i + 1] && !ft_isalpha(tk->content[i + 1]) \
+				&& tk->content[i + 1] != '$' && (tk->content[i + 1] != '?' \
 				&& tk->content[i + 1] != '_'))
 					skip_invalid_identifier(tk, &i);
 				else
@@ -196,6 +105,5 @@ void	expander(t_ms *ms, t_token *tk, int i)
 		}
 		tk = tk->next;
 	}
-	tk_lstprint(ms, &ms->token_lexed);
-	remove_empty_nodes(ms);
+	remove_empty_nodes(ms->token_lexed, ms->token_lexed, NULL);
 }
