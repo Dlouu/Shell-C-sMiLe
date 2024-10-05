@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:56:22 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/04 18:39:24 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/05 21:08:04 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	manage_heredoc(t_pipex *px, t_token *tk)
 	if (pipe(px->heredoc) == -1)
 		ft_perror("pipe failed", 1);
 	set_signals(HEREDOC);
-	printf("signal = HEREDOC / pid %d \n", getpid());
+	//printf("signal = HEREDOC / pid %d \n", getpid());
 	while (1)
 	{
 		write(STDOUT_FILENO, "> ", 2);

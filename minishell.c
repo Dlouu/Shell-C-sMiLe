@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/05 20:46:06 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/05 21:07:53 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	minishell_loop(t_ms *ms)
 		ms->heredoc_count = 0;
 		ms->command_count = 0;
 		ms->i = 0;
-		printf("signal = READLINE / pid %d \n", getpid());
+		//printf("signal = READLINE / pid %d \n", getpid());
 		set_signals(READLINE);
 		prompt = readline(MAUVE"<Shell-C_sMiLe> "END"$ ");
 		if (!prompt)
