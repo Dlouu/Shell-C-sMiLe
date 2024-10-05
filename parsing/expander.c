@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:06:12 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/05 20:58:37 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/05 21:14:19 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,8 @@ void	expander(t_ms *ms, t_token *tk, int i)
 					expand_var(ms, tk, &i);
 				tk->expanded = 2;
 			}
-			i++;
+			if (tk->content[i])
+				i++;
 		}
 		tk = tk->next;
 	}
