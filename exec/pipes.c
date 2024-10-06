@@ -3,22 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 18:05:42 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/04 18:06:44 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/06 18:27:06 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-void	ft_close_pipe(int *pipe)
-{
-	if (pipe[0] != -1)
-		close(pipe[0]);
-	if (pipe[1] != -1)
-		close(pipe[1]);
-}
 
 static void	add_back_pipe(t_pipex **px, t_pipex *new)
 {

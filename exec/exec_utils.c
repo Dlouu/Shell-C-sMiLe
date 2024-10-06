@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:54:36 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/04 15:00:35 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/06 16:52:28 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ void	ft_execlp(t_ms *ms, char **cmd)
 
 void	find_builtin(t_pipex *px, t_token *token)
 {
-	open_and_dup(px, token, 0);
+	if (px->pid != 0)
+		open_and_dup(px, token, 0);
 	if (ft_strcmp(token->content, "cd") == 0)
 		ft_cd(px->ms, token);
 	else if (ft_strcmp(token->content, "echo") == 0)

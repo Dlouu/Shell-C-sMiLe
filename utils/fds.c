@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   fds.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:29:45 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/03 18:22:54 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/06 18:47:39 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void	close_heredoc(t_pipex *px)
+{
+	if (px->heredoc[0] != -1)
+		close(px->heredoc[0]);
+	if (px->heredoc[1] != -1)
+		close(px->heredoc[1]);
+	px->heredoc[0] = -1;
+	px->heredoc[1] = -1;
+}
 
 int	get_fds(t_ms *ms, int fd)
 {
@@ -45,7 +55,7 @@ void	ft_close_fds_builtins(t_ms *ms)
 		close(fds[1]);
 }
 
-void	ft_close_fds(t_pipex *px)
+void	ft_close_everything(t_pipex *px)
 {
 	if (!px)
 		return ;
@@ -57,6 +67,14 @@ void	ft_close_fds(t_pipex *px)
 			close(px->pipefd[0]);
 		if (px->pipefd[1] != 1 && px->pipefd[1] != -1)
 			close(px->pipefd[1]);
+		if (px->heredoc[0] != -1)
+			close(px->heredoc[0]);
+		if (px->heredoc[1] != -1)
+			close(px->heredoc[1]);
+		px->pipefd[0] = -1;
+		px->pipefd[1] = -1;
+		px->heredoc[0] = -1;
+		px->heredoc[1] = -1;
 		px = px->next;
 	}
 }

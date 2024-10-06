@@ -6,22 +6,53 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:57:32 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/04 17:01:13 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/10/06 18:47:34 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+static int	to_do_heredoc_or_not_to_do(t_pipex *px, int fdin)
+{
+	t_token	*tk;
+	int		check;
+
+	tk = find_my_token(px, DELIMITER);
+	if (!tk)
+		return (0);
+	check = 0;
+	while (tk)
+	{
+		if (tk->type == DELIMITER)
+			check = 0;
+		else if (tk->type == REDIR_LEFT)
+			check = 1;
+		tk = tk->next;
+	}
+	if (check)
+		return (0);
+	if (fdin != -1)
+		close(fdin);
+	if (dup2(px->heredoc[0], STDIN_FILENO) == -1)
+		return (ft_close_everything(px), ft_perror("dup2 failed", 1), 1);
+	return (1);
+}
+
 static void	verif_redir(t_pipex *px, int save_in, int save_out)
 {
-	if (save_in != -1)
+	int	check;
+
+	check = to_do_heredoc_or_not_to_do(px, save_in);
+	if (!check && save_in != -1)
 	{
 		if (dup2(save_in, STDIN_FILENO) == -1)
 			return (perror("dup2 error\n"), exit(1));
-		if (px->pipefd[0] != -1)
+		if (px->pipefd[0] > 0)
 			close(px->pipefd[0]);
 		px->pipefd[0] = save_in;
 	}
+	if (!check)
+		close_heredoc(px);
 	if (save_out != -1)
 	{
 		if (dup2(save_out, STDOUT_FILENO) == -1)
@@ -67,9 +98,7 @@ void	open_and_dup(t_pipex *px, t_token *tk, int is_subprocess)
 	save_out = -1;
 	while (tk)
 	{
-		if (tk->type == REDIR_DOUBLE_LEFT)
-			manage_heredoc(px, tk);
-		else if (tk->type == REDIR_LEFT)
+		if (tk->type == REDIR_LEFT)
 			redir_in(tk->next->content, &save_in);
 		else if (tk->type == REDIR_RIGHT || tk->type == REDIR_DOUBLE_RIGHT)
 			redir_out(tk->next->content, tk->type, &save_out);

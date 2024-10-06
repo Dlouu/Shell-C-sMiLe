@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/05 21:04:08 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/06 18:37:38 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	manage_execve(t_pipex *px, char **cmd, char **envp)
 {
 	char	*cmd_path;
 
+	if (!find_my_token(px, COMMAND))
+		clean_exit(0, NULL);
 	if (px->token->type == BUILTIN)
 		find_builtin(px, px->token);
 	cmd_path = find_path(cmd[0], envp, px->ms);
@@ -78,7 +80,7 @@ void	ft_exec(t_pipex *px)
 		i++;
 		px = px->next;
 	}
-	ft_close_fds(tmp);
+	ft_close_everything(tmp);
 }
 
 int	exec_main(t_ms *ms)
@@ -89,6 +91,7 @@ int	exec_main(t_ms *ms)
 
 	status = 0;
 	px = setup_pipe(ms); // si allocation echoue, free tout (prochaine MAJ)
+	init_heredoc(px);
 	tmp = px;
 	ft_exec(px);
 	while (tmp)
