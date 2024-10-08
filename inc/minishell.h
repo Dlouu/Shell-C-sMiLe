@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:02:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/04 13:00:48 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/08 13:26:12 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 
-extern int	g_signal;
+extern char	g_signal;
 
 typedef enum e_signal
 {

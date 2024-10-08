@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_child.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:45:50 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/06 18:49:10 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/10/08 13:48:30 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ static void	ft_exec_last_processus(t_pipex *px)
 void	exec_sub_processus(t_pipex *px, int i)
 {
 	set_signals(FORK);
-	//printf("signal = FORK / pid %d \n", getpid());
 	if (i == px->ms->pipe_count)
 		ft_exec_last_processus(px);
 	else if (i == 0)

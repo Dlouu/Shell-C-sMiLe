@@ -6,13 +6,13 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/08 12:51:02 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/08 13:44:33 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/minishell.h"
 
-int	g_signal = 0;
+char	g_signal = 0;
 
 /*
 TRUCS A CHECK
@@ -83,7 +83,6 @@ int	minishell_loop(t_ms *ms)
 		ms->heredoc_count = 0;
 		ms->command_count = 0;
 		ms->i = 0;
-		//printf("signal = READLINE / pid %d \n", getpid());
 		set_signals(READLINE);
 		prompt = readline(MAUVE"<Shell-C_sMiLe> "END"$ ");
 		if (!prompt)
@@ -116,7 +115,6 @@ int	main(int argc, char **argv, char **envp)
 	minishell_init(ms, argv, envp);
 	exit_code = minishell_loop(ms);
 	rl_clear_history();
-	//exit_code = ms->exit_code;
 	wclear(1);
 	return (exit_code);
 }

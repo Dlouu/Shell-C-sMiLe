@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 00:12:48 by dlou              #+#    #+#             */
-/*   Updated: 2024/10/05 13:58:10 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/08 13:56:38 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ void	readline_signal_handler(int signum)
 {
 	if (signum == SIGINT)
 	{
-		write(STDOUT_FILENO, "^R\n", 3);
+		write(STDOUT_FILENO, "^C\n", 3);
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
-		g_signal = 130;
+		g_signal = SIGINT;
 	}
 }
 
@@ -39,21 +39,10 @@ void	heredoc_signal_handler(int signum)
 {
 	if (signum == SIGINT)
 	{
-		//write(STDOUT_FILENO, "^H\n", 3);
-		//rl_replace_line("", 0);
-		// rl_on_new_line();
-		rl_redisplay();
+		write(STDOUT_FILENO, "^C", 2);
 		close(STDIN_FILENO);
-		g_signal = 130;
+		g_signal = SIGINT;
 	}
-	// if (signum == SIGQUIT)
-	// {
-	// 	//(void)signum;
-	// 	//write(STDOUT_FILENO, "\r>   ", 6);
-	// 	//rl_replace_line("\r>     test", 12);
-	// 	//close(STDIN_FILENO);
-	// 	//g_signal = 131;
-	// }
 }
 
 /* FORK */
@@ -65,18 +54,9 @@ void	heredoc_signal_handler(int signum)
 void	fork_signal_handler(int signum)
 {
 	if (signum == SIGINT)
-	{
-		write(STDOUT_FILENO, "^F\n", 3);
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
-		g_signal = 130;
-	}
+		g_signal = SIGINT;
 	if (signum == SIGQUIT)
-	{
-		write(STDOUT_FILENO, "Quit\n", 5);
-		g_signal = 131;
-	}
+		g_signal = SIGQUIT;
 }
 
 void	set_signals(t_signal_type mode)
