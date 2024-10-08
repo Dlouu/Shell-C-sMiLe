@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/08 19:20:28 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/08 19:36:17 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ int	minishell_loop(t_ms *ms)
 		if (empty_prompt(ms->prompt) || !lexer(ms, ms->prompt, NULL) || \
 		tokenizer(ms) || !parser(ms))
 			continue ;
-		tk_lstprint(ms, ms->token);
 		ms->exit_code = exec_main(ms);
 		wclear(0);
 	}

@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:06:12 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/08 19:26:41 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/08 19:36:14 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ static void	expander_while_loop(t_ms *ms, t_token *tk, int i)
 
 void	expander(t_ms *ms, t_token *tk, int i)
 {
-	tk_lstprint(ms, &ms->token_lexed);
 	if (!tk)
 		return ;
 	while (tk)
@@ -82,5 +81,4 @@ void	expander(t_ms *ms, t_token *tk, int i)
 		tk = tk->next;
 	}
 	remove_empty_nodes(ms->token_lexed, ms->token_lexed, NULL);
-	tk_lstprint(ms, &ms->token_lexed);
 }
