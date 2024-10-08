@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:11:21 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/08 18:02:13 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/08 18:27:19 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*get_var(char *var)
 	char	*key;
 
 	i = 1;
-	while (var[i] && *var && ft_isalnum(var[i]) && var[i] != '$'
+	while (*var && var[i] && ft_isalnum(var[i]) && var[i] != '$'
 		&& var[i] != '=' && !ft_issplitable(var[i]))
 		i++;
 	key = ft_substr(var, 1, i - 1, FALSE);
