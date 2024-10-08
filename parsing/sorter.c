@@ -6,11 +6,39 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:21:41 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/09/24 15:53:55 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/08 17:58:46 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void	remove_empty_nodes(t_token *head, t_token *tk, t_token *temp)
+{
+	while (tk)
+	{
+		if (!tk->content[0] && !tk->next && !tk->prev)
+		{
+			tk->blank_before = 2;
+			tk->blank_after = 2;
+			tk->type = COMMAND;
+			return ;
+		}
+		if (!tk->content[0])
+		{
+			temp = tk;
+			tk = tk->next;
+			if ((temp->next && temp->next->content[0] == '|' \
+			&& (!temp->prev || (temp->prev && temp->prev->content[0] == '|'))) \
+			|| (temp->prev && temp->prev->content[0] == '|' \
+			&& (!temp->next || (temp->next && temp->next->content[0] == '|'))))
+				;
+			else
+				tk_delone(&head, temp);
+		}
+		else
+			tk = tk->next;
+	}
+}
 
 void	move_token_to_front(t_token **to_move)
 {

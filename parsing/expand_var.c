@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expander_var.c                                     :+:      :+:    :+:   */
+/*   expand_var.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:06:12 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/05 20:53:13 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/08 18:12:34 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	expand_var(t_ms *ms, t_token *tk, int *i)
 		delete_var_name(key, tk, i);
 }
 
-void	expand_pid_number(t_token *tk, int *i)
+static void	expand_pid_number(t_token *tk, int *i)
 {
 	char	*pid;
 	char	*left;
@@ -75,7 +75,7 @@ void	expand_pid_number(t_token *tk, int *i)
 	*i += ft_strlen(pid) - 2;
 }
 
-void	expand_exit_code(t_ms *ms, t_token *tk, int *i)
+static void	expand_exit_code(t_ms *ms, t_token *tk, int *i)
 {
 	char	*exit_code;
 	char	*left;
@@ -90,4 +90,20 @@ void	expand_exit_code(t_ms *ms, t_token *tk, int *i)
 	tk->content = ft_strjoin(tk->content, right, FALSE);
 	tk->expanded = 1;
 	*i += ft_strlen(exit_code) - 2;
+}
+
+void	expand_pid_exit_code_and_dollar_quoted(t_ms *ms, t_token *tk, int *i)
+{
+	if (tk->content[*i] && tk->content[*i] == '$' && tk->content[*i + 1] \
+	&& tk->content[*i + 1] == '?')
+		expand_exit_code(ms, tk, i);
+	else if (tk->content[*i] && tk->content[*i] == '$' && tk->content[*i + 1] \
+	&& tk->content[*i + 1] == '$')
+		expand_pid_number(tk, i);
+	else if (tk->next && (tk->next->squote || tk->next->dquote) \
+	&& tk->content[0] == '$' && !tk->content[*i + 1])
+	{
+		tk_delone(&ms->token_lexed, tk);
+		(*i)++;
+	}
 }

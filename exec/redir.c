@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:57:32 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/08 16:09:11 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/10/08 17:33:06 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static void	redir_out(char *file, int redir, int *save_out)
 	else if (redir == REDIR_DOUBLE_RIGHT)
 		*save_out = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (*save_out == -1)
-		return (perror("open error\n"), exit(1));
+		return (ft_perror("open error\n", 1));
 }
 
 static void	redir_in(char *file, int *save_in)
@@ -86,7 +86,7 @@ static void	redir_in(char *file, int *save_in)
 		close(*save_in);
 	*save_in = open(file, O_RDONLY);
 	if (*save_in == -1)
-		return (perror("open error\n"), exit(1));
+		return (ft_perror("open error\n", 1));
 }
 
 void	open_and_dup(t_pipex *px, t_token *tk, int is_subprocess)
