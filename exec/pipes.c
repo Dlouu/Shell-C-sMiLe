@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 18:05:42 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/06 18:27:06 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/10/08 16:06:30 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,6 @@ static t_pipex	*add_new_pipe(t_ms *ms, t_token *token)
 	new = walloc(sizeof(t_pipex), TRUE);
 	if (!new)
 		return (NULL);
-	new->fd_in = STDIN_FILENO;
-	new->fd_out = STDOUT_FILENO;
-	new->status = 0;
 	new->pipefd[0] = -1;
 	new->pipefd[1] = -1;
 	new->heredoc[0] = -1;

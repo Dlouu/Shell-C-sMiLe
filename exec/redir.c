@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:57:32 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/06 18:47:34 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/10/08 16:09:11 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	verif_redir(t_pipex *px, int save_in, int save_out)
 	if (!check && save_in != -1)
 	{
 		if (dup2(save_in, STDIN_FILENO) == -1)
-			return (perror("dup2 error\n"), exit(1));
+			return (ft_perror("dup2 error\n", 1));
 		if (px->pipefd[0] > 0)
 			close(px->pipefd[0]);
 		px->pipefd[0] = save_in;
@@ -56,7 +56,7 @@ static void	verif_redir(t_pipex *px, int save_in, int save_out)
 	if (save_out != -1)
 	{
 		if (dup2(save_out, STDOUT_FILENO) == -1)
-			return (perror("dup2 error\n"), exit(1));
+			return (ft_perror("dup2 error\n", 1));
 		if (px->pipefd[1] != -1)
 			close(px->pipefd[1]);
 		px->pipefd[1] = save_out;

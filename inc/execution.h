@@ -6,7 +6,7 @@
 /*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:59 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/06 18:47:47 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/10/08 16:06:20 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@
 
 typedef struct s_pipex
 {
-	int				fd_in;
-	int				fd_out;
-	int				status;
 	int				pipefd[2];
 	int				heredoc[2];
 	int				pid;
