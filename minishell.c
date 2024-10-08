@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/05 21:07:53 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/08 12:51:02 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,9 @@ int	minishell_loop(t_ms *ms)
 		if (!prompt)
 			clean_exit(-1, NULL);
 		ms->prompt = ft_strdup(prompt, 0);
+		if (prompt)
+			add_history(prompt);
 		free(prompt);
-		add_history(ms->prompt);
 		if (empty_prompt(ms->prompt) || !lexer(ms, ms->prompt, NULL) || \
 		tokenizer(ms) || !parser(ms))
 			continue ;
