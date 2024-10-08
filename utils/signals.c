@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 00:12:48 by dlou              #+#    #+#             */
-/*   Updated: 2024/10/08 13:56:38 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/08 14:34:44 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,10 @@ void	heredoc_signal_handler(int signum)
 void	fork_signal_handler(int signum)
 {
 	if (signum == SIGINT)
+	{
+		write(STDOUT_FILENO, "\n", 1);
 		g_signal = SIGINT;
+	}
 	if (signum == SIGQUIT)
 		g_signal = SIGQUIT;
 }

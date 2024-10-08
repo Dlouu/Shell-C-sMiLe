@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:56:22 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/08 14:24:17 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/08 14:40:08 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	ft_error_heredoc(t_pipex *px, t_token *tk)
 		clean_exit(130, NULL);
 	else
 		ft_error("warning: here-document delimited by EOF wanted",
-			tk->content, 1, 1);
+			tk->content, 0, 1);
 }
 
 void	manage_heredoc(t_pipex *px, t_token *tk)
