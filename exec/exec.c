@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/08 14:28:14 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/09 00:36:37 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,31 +24,14 @@ grep "Videos" < infile | cat -e > outfile good
 tr a-z A-Z > first_file << oui | tr A-Z a-z > second_file << non
 */
 
-/*Voir avec Theo en auoi c'etait important de unlink avant execve*/
-// a voir si on delete totalement ca de l'allocateur
-// static void	unlink_ptr_for_execve(char *path, char **cmd, char **envp)
-// {
-// 	int	i;
-
-// 	i = -1;
-// 	wunlink(path);
-// 	while (cmd && cmd[++i])
-// 		wunlink(cmd[i]);
-// 	wunlink(cmd);
-// 	i = -1;
-// 	while (envp && envp[++i])
-// 		wunlink(envp[i]);
-// 	wunlink(envp);
-// }
-
 void	manage_execve(t_pipex *px, char **cmd, char **envp)
 {
 	char	*cmd_path;
 
-	if (!find_my_token(px, COMMAND))
-		clean_exit(0, NULL);
 	if (px->token->type == BUILTIN)
 		find_builtin(px, px->token);
+	if (!find_my_token(px, COMMAND) && !find_my_token(px, BUILTIN))
+		clean_exit(0, NULL);
 	cmd_path = find_path(cmd[0], envp, px->ms);
 	if ((!cmd_path || (!px->token->content[0] && !px->token->expanded)) && \
 	cmd[0])

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fds.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:29:45 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/06 18:47:39 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/10/09 00:38:32 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	close_heredoc(t_pipex *px)
 
 int	get_fds(t_ms *ms, int fd)
 {
+	if (!ms)
+		return (-1);
 	if (fd == 0)
 	{
 		if (!ms)
@@ -47,6 +49,8 @@ void	ft_close_fds_builtins(t_ms *ms)
 {
 	int	fds[2];
 
+	if (!ms)
+		return ;
 	fds[0] = get_fds(ms, STDIN_FILENO);
 	fds[1] = get_fds(ms, STDOUT_FILENO);
 	if (fds[0] != STDIN_FILENO && fds[0] != -1)
