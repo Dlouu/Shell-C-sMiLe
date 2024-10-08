@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:06:12 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/08 18:13:23 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/08 19:26:41 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ static void	skip_invalid_identifier(t_token *tk, int *i)
 
 static int	is_invalid_identifier(t_token *tk, int *i)
 {
-	if (tk->content[*i] && !ft_isalpha(tk->content[*i]) \
-	&& tk->content[*i] != '$' && (tk->content[*i] != '?' \
-	&& tk->content[*i] != '_'))
+	if (tk->content[*i + 1] && !ft_isalpha(tk->content[*i + 1]) \
+	&& tk->content[*i + 1] != '$' && (tk->content[*i + 1] != '?' \
+	&& tk->content[*i + 1] != '_'))
 		return (1);
 	return (0);
 }
@@ -48,8 +48,9 @@ static void	expander_while_loop(t_ms *ms, t_token *tk, int i)
 	{
 		if (tk->content[i] && tk->content[i] == '$' && tk->squote == 0)
 		{
-			expand_pid_exit_code_and_dollar_quoted(ms, tk, &i);
-			if (is_empty_quote(tk, &i))
+			if (expand_pid_exit_code_and_dollar_quoted(ms, tk, &i))
+				;
+			else if (is_empty_quote(tk, &i))
 			{
 				if (expand_empty_quote(tk, &i))
 					continue ;
@@ -71,6 +72,9 @@ static void	expander_while_loop(t_ms *ms, t_token *tk, int i)
 
 void	expander(t_ms *ms, t_token *tk, int i)
 {
+	tk_lstprint(ms, &ms->token_lexed);
+	if (!tk)
+		return ;
 	while (tk)
 	{
 		i = 0;
@@ -78,4 +82,5 @@ void	expander(t_ms *ms, t_token *tk, int i)
 		tk = tk->next;
 	}
 	remove_empty_nodes(ms->token_lexed, ms->token_lexed, NULL);
+	tk_lstprint(ms, &ms->token_lexed);
 }

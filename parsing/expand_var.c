@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:06:12 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/08 18:12:34 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/08 19:30:22 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,52 +58,60 @@ void	expand_var(t_ms *ms, t_token *tk, int *i)
 		delete_var_name(key, tk, i);
 }
 
-static void	expand_pid_number(t_token *tk, int *i)
+static void	expand_pid_number(t_token *tk, int **i)
 {
 	char	*pid;
 	char	*left;
 	char	*right;
 	size_t	len;
 
-	len = ft_strlen(tk->content) - *i - 2;
-	left = ft_substr(tk->content, 0, *i, FALSE);
+	len = ft_strlen(tk->content) - **i - 2;
+	left = ft_substr(tk->content, 0, **i, FALSE);
 	pid = ft_itoa(getpid(), FALSE);
-	right = ft_substr(tk->content, *i + 2, len, FALSE);
+	right = ft_substr(tk->content, **i + 2, len, FALSE);
 	tk->content = ft_strjoin(left, pid, FALSE);
 	tk->content = ft_strjoin(tk->content, right, FALSE);
 	tk->expanded = 1;
-	*i += ft_strlen(pid) - 2;
+	**i += ft_strlen(pid) - 2;
 }
 
-static void	expand_exit_code(t_ms *ms, t_token *tk, int *i)
+static void	expand_exit_code(t_ms *ms, t_token *tk, int **i)
 {
 	char	*exit_code;
 	char	*left;
 	char	*right;
 	size_t	len;
 
-	len = ft_strlen(tk->content) - *i - 2;
-	left = ft_substr(tk->content, 0, *i, FALSE);
+	len = ft_strlen(tk->content) - **i - 2;
+	left = ft_substr(tk->content, 0, **i, FALSE);
 	exit_code = ft_itoa(ms->exit_code, FALSE);
-	right = ft_substr(tk->content, *i + 2, len, FALSE);
+	right = ft_substr(tk->content, **i + 2, len, FALSE);
 	tk->content = ft_strjoin(left, exit_code, FALSE);
 	tk->content = ft_strjoin(tk->content, right, FALSE);
 	tk->expanded = 1;
-	*i += ft_strlen(exit_code) - 2;
+	**i += ft_strlen(exit_code) - 2;
 }
 
-void	expand_pid_exit_code_and_dollar_quoted(t_ms *ms, t_token *tk, int *i)
+int	expand_pid_exit_code_and_dollar_quoted(t_ms *ms, t_token *tk, int *i)
 {
 	if (tk->content[*i] && tk->content[*i] == '$' && tk->content[*i + 1] \
 	&& tk->content[*i + 1] == '?')
-		expand_exit_code(ms, tk, i);
+	{
+		expand_exit_code(ms, tk, &i);
+		return (1);
+	}
 	else if (tk->content[*i] && tk->content[*i] == '$' && tk->content[*i + 1] \
 	&& tk->content[*i + 1] == '$')
-		expand_pid_number(tk, i);
+	{
+		expand_pid_number(tk, &i);
+		return (1);
+	}
 	else if (tk->next && (tk->next->squote || tk->next->dquote) \
 	&& tk->content[0] == '$' && !tk->content[*i + 1])
 	{
 		tk_delone(&ms->token_lexed, tk);
 		(*i)++;
+		return (1);
 	}
+	return (0);
 }

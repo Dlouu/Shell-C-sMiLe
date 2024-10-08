@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:13:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/08 18:12:57 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/08 19:04:59 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	remove_empty_nodes(t_token *head, t_token *tk, t_token *temp);
 //expander
 int		expand_empty_quote(t_token *tk, int *i);
 void	expand_var(t_ms *ms, t_token *tk, int *i);
-void	expand_pid_exit_code_and_dollar_quoted(t_ms *ms, t_token *tk, int *i);
+int		expand_pid_exit_code_and_dollar_quoted(t_ms *ms, t_token *tk, int *i);
 
 //env
 t_list	*get_envp(t_ms *ms, char **envp);
