@@ -1,5 +1,5 @@
 {
-   <readline supp>
+   < READLINE NATURAL STILL REACHABLE LEAKS >
    Memcheck:Leak
    match-leak-kinds: reachable
    ...
@@ -7,7 +7,7 @@
    ...
 }
 {
-   <ls supp>
+   < LS NATURAL STILL REACHABLE LEAKS >
    Memcheck:Leak
    match-leak-kinds: reachable
    ...
@@ -15,16 +15,15 @@
    fun:(below main)
 }
 {
-   <cat supp>
+   < CAT NATURAL STILL REACHABLE LEAKS >
    Memcheck:Leak
    match-leak-kinds: reachable
-   fun:malloc
    ...
    obj:/usr/bin/cat
    fun:(below main)
 }
 {
-   <add_history>
+   < ADD_HISTORY NATURAL STILL REACHABLE LEAKS >
     Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
@@ -34,7 +33,7 @@
    fun:main
 }
 {
-   <insert_a_suppression_name_here>
+   < CLEAR NATURAL STILL REACHABLE LEAKS >
    Memcheck:Leak
    match-leak-kinds: reachable
    ...
