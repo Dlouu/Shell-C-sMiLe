@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:12 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/09 14:30:03 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/10/09 16:56:12 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static int	too_many_args(t_ms *ms, t_token *tk)
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd(tk->content, STDERR_FILENO);
 	ft_putendl_fd(": too many arguments", STDERR_FILENO);
-	printf("dans too many args: %d \n", ms->exit_code);
 	return (1);
 }
 

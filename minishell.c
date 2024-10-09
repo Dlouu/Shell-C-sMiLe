@@ -3,28 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/09 15:46:15 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/10/09 17:35:56 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/minishell.h"
 
 char	g_signal = 0;
-
-/*
-TRUCS A CHECK
-[_]	path si on en trouve pas au lancement, faut qu'on en assign un genre de 
-	base genre /bin/bash ?
-[_] si on unset PATH il faut que ca ne marche pas mais no segfault
-[_] signaux
-[_] heredoc no expansion
-[_]	heredoc kill
-[_] exit-code
-[_] free
-*/
 
 void	increase_shlvl(t_ms *ms)
 {
@@ -40,19 +28,31 @@ void	increase_shlvl(t_ms *ms)
 		replace_env_value(ms->env, "SHLVL", "1");
 }
 
-void	configure_terminal(void)
+void	configure_terminal_and_critic_env(t_ms *ms)
 {
 	struct termios	termios;
+	char			*temp;
+	char			*key_and_value;
 
 	tcgetattr(STDIN_FILENO, &termios);
 	termios.c_lflag &= ~ECHOCTL;
 	tcsetattr(STDIN_FILENO, TCSANOW, &termios);
+	if (!find_env_node(ms->env, "OLDPWD"))
+		add_env_node(ms, "OLDPWD");
+	if (!find_env_node(ms->env, "PWD"))
+	{
+		temp = getcwd(NULL, 0);
+		key_and_value = ft_strjoin("PWD=", temp, FALSE);
+		add_env_node(ms, key_and_value);
+	}
+	if (!find_env_node(ms->env, "PATH"))
+		add_env_node(ms, \
+	"PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin");
 }
 
 void	minishell_init(t_ms *ms, char **argv, char **envp)
 {
 	(void)argv;
-	configure_terminal();
 	ms->exit_code = 0;
 	ms->blank_before = 0;
 	ms->blank_after = 0;
@@ -66,6 +66,7 @@ void	minishell_init(t_ms *ms, char **argv, char **envp)
 	ms->dont_touch = 0;
 	get_envp(ms, envp);
 	increase_shlvl(ms);
+	configure_terminal_and_critic_env(ms);
 	rl_catch_signals = 0;
 	ft_putstr_fd("42 project | minishell | as beautiful as a shell~\n", 1);
 	ft_putstr_fd("    ___ _        _ _   ___      __  __ _ _\n", 1);
@@ -96,7 +97,6 @@ int	minishell_loop(t_ms *ms)
 		tokenizer(ms) || !parser(ms))
 			continue ;
 		ms->exit_code = exec_main(ms);
-		printf("exit code : %d\n", ms->exit_code);
 		wclear(0);
 	}
 	return (ms->exit_code);

@@ -6,17 +6,12 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 00:12:48 by dlou              #+#    #+#             */
-/*   Updated: 2024/10/09 15:55:33 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/09 17:17:19 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-/* READLINE */
-// ETAT		OK
-// Ctrl C	dans le prompt = ^C\n  (quitte le prompt, = newline)
-// Ctrl D	dans le prompt = exit\n  (quitte le programme)
-// CTrl \	(ne fait rien)
 void	readline_signal_handler(int signum)
 {
 	if (signum == SIGINT)
@@ -29,12 +24,6 @@ void	readline_signal_handler(int signum)
 	}
 }
 
-/* HEREDOC */
-// ETAT	 	J'ai des signaux a mute je comprend pas ALED
-// Ctrl C	dans le prompt = ^C\n  (quitte le heredoc)
-// Ctrl D	quitte  + message d'erreur
-//bash: warning: here-document at line 2 delimited by end-of-file (wanted `lol')
-// CTrl \	(ne fait rien)
 void	heredoc_signal_handler(int signum)
 {
 	if (signum == SIGINT)
@@ -56,12 +45,6 @@ void	heredoc_sigaction_handler(void)
 	sigaction(SIGINT, &sa, NULL);
 }
 
-/* FORK */
-// ETAT		OK
-// Ctrl C	dans un block = ^C\n
-// Ctrl \	(cat|cat|ls  ^\ sans newline
-//			grep '' = ^\Quit\n avec newline
-// Ctrl D	quite le prompt avec juste une newline
 void	fork_signal_handler(int signum)
 {
 	if (signum == SIGINT)

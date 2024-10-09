@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:13:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/09 12:03:21 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/09 16:27:03 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	recombiner(t_token *tk);
 t_list	*get_envp(t_ms *ms, char **envp);
 t_list	*find_env_node(t_list *env, char *key);
 void	add_env_node(t_ms *ms, char *key_and_value);
+void	del_env_node(t_list **env_lst, char *key);
 char	*find_env_value(t_list *env, char *key);
 void	replace_env_value(t_list *env, char *key, char *value);
 char	*get_var(char *var);

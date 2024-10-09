@@ -6,24 +6,11 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/09 15:54:35 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/09 17:11:55 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-/*
-ls -l > oui | cat < oui | echo bite > non
-
-ls -l > infile > outfile > infile (outfile vide mais infile remplie) good
-
-grep "login.sh" < infile > outfile (outfile recupere le grep) good
-
-grep "Videos" < infile | cat -e > outfile good
-
-tr a-z A-Z > first_file << oui | tr A-Z a-z > second_file << non
-*/
-
 
 void	find_builtin(t_pipex *px, t_token *token)
 {
@@ -99,26 +86,17 @@ int	exec_main(t_ms *ms)
 	init_heredoc(px);
 	tmp = px;
 	ft_exec(px);
-	printf("dans exec main avant waitpid: %d\n", ms->exit_code);
 	while (tmp)
 	{
 		waitpid(tmp->pid, &status, 0);
 		tmp = tmp->next;
 	}
-	printf("dans exec main apres waitpid: %d\n", ms->exit_code);
 	if (g_signal == SIGQUIT)
 		ft_putendl_fd("^\\Quit", STDERR_FILENO);
 	g_signal = 0;
-	printf("dans exec main avant wifexited: %d\n", ms->exit_code);
 	if (WIFEXITED(status) && ms->dont_touch == 0)
-	{
 		ms->exit_code = WEXITSTATUS(status);
-		printf("dans exec main wifexited: %d\n", ms->exit_code);
-	}
 	else if (WIFSIGNALED(status) && !(ms->dont_touch))
-	{
 		ms->exit_code = WTERMSIG(status) + 128;
-		printf("dans exec main wifsignaled: %d\n", ms->exit_code);
-	}
 	return (ms->exit_code);
 }

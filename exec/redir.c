@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:57:32 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/08 17:33:06 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/09 17:05:22 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void	redir_in(char *file, int *save_in)
 {
 	if (access(file, F_OK) == -1)
 	{
-		perror("File does not exist\n");
+		ft_perror(file, 0);
 		return ;
 	}
 	if (*save_in != -1)

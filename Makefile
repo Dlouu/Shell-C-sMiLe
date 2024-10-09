@@ -6,7 +6,7 @@
 #    By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/06 13:02:03 by mbaumgar          #+#    #+#              #
-#    Updated: 2024/10/09 11:18:46 by mbaumgar         ###   ########.fr        #
+#    Updated: 2024/10/09 17:02:26 by mbaumgar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ END			= \033[m
 # ╚═╝╚═╝╚═╝╩╚═╚═╝╚═╝╚═╝
 
 SRC_DIR		= ./src/
-OUT_DIR		= ./bin/
+OUT_DIR		= ./objects/
 
 SRC			= minishell.c \
 			parsing/lexer.c \

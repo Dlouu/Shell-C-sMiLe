@@ -6,13 +6,13 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 14:03:41 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/09 11:45:50 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/09 17:16:26 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	set_quote_info(t_token *tk)
+static void	set_quote_info(t_token *tk)
 {
 	int	len;
 
@@ -37,7 +37,7 @@ void	set_quote_info(t_token *tk)
 	}
 }
 
-void	set_command_type(t_token *tk, int *command, int i)
+static void	set_command_type(t_token *tk, int *command, int i)
 {
 	static char	*builtin_cmd[] = \
 			{"cd", "echo", "env", "exit", "export", "pwd", "unset", NULL};

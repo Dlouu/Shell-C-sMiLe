@@ -6,13 +6,13 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:20 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/09 11:13:21 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/09 16:54:56 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-static void	del_env_node(t_list **env_lst, char *key)
+void	del_env_node(t_list **env_lst, char *key)
 {
 	t_list	*current;
 	t_list	*to_del;

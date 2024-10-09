@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+         #
+#    By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/17 15:23:09 by mbaumgar          #+#    #+#              #
-#    Updated: 2024/08/29 16:22:30 by niabraha         ###   ########.fr        #
+#    Updated: 2024/10/09 17:15:28 by mbaumgar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ END		= \033[m# remove style
 # ╚═╝╚═╝╚═╝╩╚═╚═╝╚═╝╚═╝
 
 SRC_DIR	= ./src/
-OUT_DIR	= ./bin/
+OUT_DIR	= ./objects/
 
 SRC		= ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
 		ft_isquote.c ft_ischevron.c ft_isblank.c ft_islove.c ft_ispunct.c \
@@ -58,30 +58,30 @@ SRC		= ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
 		pf_arg_hex.c pf_arg_uint.c pf_arg_pcent.c \
 		ft_alloc.c ft_alloc_wraper.c ft_alloc_lst.c
 		
-OBJ		= ${SRC:%.c=${OUT_DIR}%.o}
+OBJ		= $(SRC:%.c=$(OUT_DIR)%.o)
 
 # ╦═╗╦ ╦╦  ╔═╗╔═╗
 # ╠╦╝║ ║║  ║╣ ╚═╗
 # ╩╚═╚═╝╩═╝╚═╝╚═╝
 
-all: ${NAME}
+all: $(NAME)
 
-${NAME}: ${OBJ}
-	@${AR} ${ARFLAGS} ${NAME} ${OBJ} 
+$(NAME): $(OBJ)
+	@$(AR) $(ARFLAGS) $(NAME) $(OBJ) 
 
-${OUT_DIR}%.o: ${SRC_DIR}%.c
-	@mkdir -p ${OUT_DIR}
-	@${CC} ${CFLAGS} -c $< -o $@
+$(OUT_DIR)%.o: $(SRC_DIR)%.c
+	@mkdir -p $(OUT_DIR)
+	@cc $(CFLAGS) -c $< -o $@
 
 clean:
-	@${RM} ${OUT_DIR}
+	@$(RM) $(OUT_DIR)
 
 fclean: clean
-	@${RM} ${NAME}
+	@$(RM) $(NAME)
 
 re: fclean all
 
 uwu: re
-	@${MAKE} clean --no-print-directory
+	@$(MAKE) clean --no-print-directory
 
 .PHONY: all clean fclean re uwu
