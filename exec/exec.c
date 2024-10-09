@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/09 11:29:51 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/09 12:06:09 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ int	exec_main(t_ms *ms)
 	int		status;
 
 	status = 0;
-	px = setup_pipe(ms); // si allocation echoue, free tout (prochaine MAJ)
+	px = setup_pipe(ms);
 	init_heredoc(px);
 	tmp = px;
 	ft_exec(px);

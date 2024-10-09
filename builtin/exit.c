@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:12 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/06 18:26:45 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/10/09 12:07:11 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,6 @@ void	clean_exit(int exit_code, char *error)
 	wclear(1);
 	exit(exit_code);
 }
-
-// static void	exit_too_many_args(t_ms *ms)
-// {
-// 	ft_putstr_fd("minishell: exit: too many arguments\n", STDERR_FILENO);
-// 	ms->exit_code = 1;
-// }
 
 static void	exit_not_number(t_ms *ms, char *str)
 {

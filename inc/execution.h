@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:59 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/09 11:18:17 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/09 12:07:46 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int		get_fds(t_ms *ms, int fd);
 int		exec_main(t_ms *ms);
 void	open_and_dup(t_pipex *px, t_token *tk, int is_subprocess);
 void	find_builtin(t_pipex *px, t_token *token);
-// void	ft_execlp(t_ms *ms, char **cmd);
 void	manage_heredoc(t_pipex *px, t_token *token);
 char	*find_path(char *cmd, char **envp, t_ms *ms);
 void	ft_close_everything(t_pipex *px);
@@ -45,6 +44,7 @@ void	init_heredoc(t_pipex *px);
 t_pipex	*setup_pipe(t_ms *ms);
 t_token	*find_my_token(t_pipex *px, int type);
 void	close_heredoc(t_pipex *px);
+// void	ft_execlp(t_ms *ms, char **cmd);
 
 //ft_cd
 int		ft_cd(t_ms *ms, t_token *tk);

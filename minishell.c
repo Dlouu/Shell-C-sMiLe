@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/09 10:46:35 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/09 12:06:44 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,6 @@ int	minishell_loop(t_ms *ms)
 	return (ms->exit_code);
 }
 
-//voir le exit(0) du exec a changer pour le recuperer ici et free
-
 int	main(int argc, char **argv, char **envp)
 {
 	t_ms		*ms;
@@ -107,8 +105,3 @@ int	main(int argc, char **argv, char **envp)
 	wclear(1);
 	return (exit_code);
 }
-
-//faut check si quand ya pas de cmd et juste des redir
-//ca fout pas la merde dans l'execution
-//check pour add le prompt a la struc et la free direct
-//ou bien le mettre dans le garbage
