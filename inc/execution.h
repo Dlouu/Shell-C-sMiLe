@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:59 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/09 13:03:01 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/09 14:42:42 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,13 @@ void	ft_close_everything(t_pipex *px);
 void	ft_close_fds_builtins(t_ms *ms);
 void	exec_sub_processus(t_pipex *px, int i);
 void	manage_execve(t_pipex *px, char **cmd, char **envp);
+void	ft_error_no_exit(char *error, char *details, t_ms *ms, int exit_code);
 void	ft_perror(char *error, int critical);
 void	ft_error(char *error, char *details, int critical, int exit_code);
 void	init_heredoc(t_pipex *px);
 t_pipex	*setup_pipe(t_ms *ms);
 t_token	*find_my_token(t_pipex *px, int type);
 void	close_heredoc(t_pipex *px);
-// void	ft_execlp(t_ms *ms, char **cmd);
 
 //ft_cd
 int		ft_cd(t_ms *ms, t_token *tk);

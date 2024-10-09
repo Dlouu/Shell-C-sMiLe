@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/09 12:06:44 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/09 14:30:29 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	minishell_init(t_ms *ms, char **argv, char **envp)
 	ms->prompt = NULL;
 	ms->old_path = NULL;
 	ms->new_path = NULL;
+	ms->dont_touch = 0;
 	get_envp(ms, envp);
 	increase_shlvl(ms);
 	rl_catch_signals = 0;
@@ -85,6 +86,7 @@ int	minishell_loop(t_ms *ms)
 		tokenizer(ms) || !parser(ms))
 			continue ;
 		ms->exit_code = exec_main(ms);
+		printf("exit code : %d\n", ms->exit_code);
 		wclear(0);
 	}
 	return (ms->exit_code);

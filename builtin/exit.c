@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:12 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/09 12:07:11 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/09 14:30:03 by niabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+static int	too_many_args(t_ms *ms, t_token *tk)
+{
+	ms->exit_code = 1;
+	ms->dont_touch = 1;
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd(tk->content, STDERR_FILENO);
+	ft_putendl_fd(": too many arguments", STDERR_FILENO);
+	printf("dans too many args: %d \n", ms->exit_code);
+	return (1);
+}
 
 static int	check_number(char *s)
 {
@@ -68,7 +79,7 @@ int	ft_exit(t_ms *ms, t_token *tk)
 
 	ft_putendl_fd("exit", STDOUT_FILENO);
 	if (tk->next && tk->next->next && tk->next->next->type == ARG)
-		ft_error("exit", "too many arguments", 1, 1);
+		return (too_many_args(ms, tk->next->next));
 	if (tk && tk->next && tk->next->type == ARG)
 	{
 		if (check_number(tk->next->content) == 0)
