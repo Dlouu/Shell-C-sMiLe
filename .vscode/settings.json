@@ -7,7 +7,8 @@
 		"ft_printf.h": "c",
 		"libft.h": "c",
 		"limits.h": "c",
-		"signal.h": "c"
+		"signal.h": "c",
+		"types.h": "c"
 	},
 	"C_Cpp.errorSquiggles": "disabled",
 	"makefile.configureOnOpen": false

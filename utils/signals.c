@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 00:12:48 by dlou              #+#    #+#             */
-/*   Updated: 2024/10/09 13:13:41 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/09 15:19:40 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,20 @@ void	heredoc_signal_handler(int signum)
 	if (signum == SIGINT)
 	{
 		g_signal = SIGINT;
-		write(STDOUT_FILENO, "^C", 2);
-		printf("\nOk, mais appuye sur [Enter]\n");
+		write(STDOUT_FILENO, "^C\n", 3);
 	}
+	if (signum == SIGQUIT)
+		g_signal = SIGQUIT;
+}
+
+void	heredoc_sigaction_handler(void)
+{
+	struct sigaction	sa;
+
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = SA_SIGINFO;
+	sa.sa_handler = heredoc_signal_handler;
+	sigaction(SIGINT, &sa, NULL);
 }
 
 /* FORK */
@@ -69,11 +80,6 @@ void	set_signals(t_signal_type mode)
 		signal(SIGINT, readline_signal_handler);
 		signal(SIGQUIT, SIG_IGN);
 	}
-	else if (mode == HEREDOC)
-	{
-		signal(SIGINT, heredoc_signal_handler);
-		signal(SIGQUIT, SIG_IGN);
-	}
 	else if (mode == FORK)
 	{
 		signal(SIGINT, fork_signal_handler);
@@ -82,6 +88,11 @@ void	set_signals(t_signal_type mode)
 	else if (mode == SILENCE)
 	{
 		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
+	}
+	else if (mode == HEREDOC)
+	{
+		heredoc_sigaction_handler();
 		signal(SIGQUIT, SIG_IGN);
 	}
 }
