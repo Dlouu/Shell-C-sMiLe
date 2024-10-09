@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:04 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/09 17:13:25 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/09 17:45:00 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ int	ft_cd(t_ms *ms, t_token *tk)
 		return (ft_error_no_exit("cd", "too many arguments", ms, 1), 1);
 	if (!tk->next || ft_strcmp(tk->next->content, "~") == 0)
 	{
-		if (chdir(find_env_value(ms->env, "HOME")) == -1)
+		if (!find_env_node(ms->env, "HOME")
+			|| chdir(find_env_value(ms->env, "HOME")) == -1)
 			return (ft_error_no_exit("cd", "HOME not set", ms, 1), 1);
 	}
 	else if (chdir(tk->next->content) == -1)

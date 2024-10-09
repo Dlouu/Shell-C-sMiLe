@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:15 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/02 15:45:58 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/09 18:46:05 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,28 +58,28 @@ t_list	*sort_list(t_list *current, t_list *sorted,
 	return (sorted);
 }
 
-t_list	*ft_lstdup(t_list *lst)
+t_list	*ft_lstdup(t_list *lst, t_list *head, t_list *tmp, t_list *env)
 {
-	t_list	*head;
-	t_list	*tmp;
-	t_env	*env;
-
-	head = NULL;
 	while (lst)
 	{
 		tmp = ft_lstnew(ft_strdup(lst->data, FALSE), FALSE);
 		env = walloc(sizeof(t_env), FALSE);
 		tmp->data = env;
 		if (!tmp)
-		{
-			ft_lstclear(&head, wfree);
-			return (NULL);
-		}
+			return (ft_lstclear(&head, wfree), NULL);
 		((t_env *)tmp->data)->key = \
 		ft_strdup(((t_env *)lst->data)->key, FALSE);
-		((t_env *)tmp->data)->value = \
-		ft_strdup(((t_env *)lst->data)->value, FALSE);
-		ft_lstadd_back(&head, tmp);
+		if (((t_env *)lst->data)->value)
+		{
+			((t_env *)tmp->data)->value = \
+			ft_strdup(((t_env *)lst->data)->value, FALSE);
+			ft_lstadd_back(&head, tmp);
+		}
+		else if (((t_env *)lst->data)->value == NULL)
+		{
+			((t_env *)tmp->data)->value = NULL;
+			ft_lstadd_back(&head, tmp);
+		}
 		lst = lst->next;
 		tmp = tmp->next;
 	}
@@ -90,7 +90,7 @@ void	ft_putstr_export(t_ms *ms, char *key, char *value)
 {
 	ft_putstr_fd("declare -x ", get_fds(ms, STDOUT_FILENO));
 	ft_putstr_fd(key, get_fds(ms, STDOUT_FILENO));
-	if (value[0] != 26)
+	if (value != NULL)
 	{
 		ft_putstr_fd("=\"", get_fds(ms, STDOUT_FILENO));
 		ft_putstr_fd(value, get_fds(ms, STDOUT_FILENO));

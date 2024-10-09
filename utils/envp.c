@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:32:45 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/09 11:35:30 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/09 18:15:51 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ void	add_env_node(t_ms *ms, char *key_and_value)
 	{
 		new_env = (t_env *)walloc(sizeof(t_env), TRUE);
 		new_env->key = ft_substr(key_and_value, 0, len, TRUE);
-		new_env->value = ft_substr("", 0, 0, TRUE);
-		new_env->value[0] = 26;
+		new_env->value = NULL;
 	}
 	else
 	{

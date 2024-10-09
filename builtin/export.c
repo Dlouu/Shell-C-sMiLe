@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:15 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/02 14:49:59 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/09 18:44:10 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	update_or_create_var(t_ms *ms, t_token **token)
 {
 	t_list	*env;
 	t_list	*env_to_update;
-	size_t	equals;
+	int		equals;
 	size_t	len;
 	char	*extracted_key;
 
@@ -36,7 +36,9 @@ void	update_or_create_var(t_ms *ms, t_token **token)
 	len = ft_strlen((*token)->content);
 	equals = find_index((*token)->content, '=');
 	extracted_key = ft_substr((*token)->content, 0, equals, FALSE);
-	if (find_env_node(env, extracted_key) != NULL)
+	if (equals == -1 && find_env_node(env, extracted_key))
+		;
+	else if (find_env_node(env, extracted_key) != NULL)
 	{
 		env_to_update = find_env_node(env, extracted_key);
 		if (((t_env *)env_to_update->data)->value)
@@ -64,6 +66,7 @@ unsigned char	*ft_add_var(t_ms *ms)
 			ft_putstr_fd((*token)->content, STDERR_FILENO);
 			ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
 			ms->exit_code = 1;
+			ms->dont_touch = 1;
 		}
 		*token = (*token)->next;
 	}
@@ -75,7 +78,7 @@ int	ft_export(t_ms *ms, t_token *token)
 	t_list	*unsorted_env;
 	t_list	*sorted_env;
 
-	unsorted_env = ft_lstdup(ms->env);
+	unsorted_env = ft_lstdup(ms->env, NULL, NULL, NULL);
 	sorted_env = sort_list(unsorted_env, NULL, ft_strcmp);
 	if (!token->next || (token->next->type >= REDIR_LEFT
 			&& token->next->type <= REDIR_DOUBLE_RIGHT))

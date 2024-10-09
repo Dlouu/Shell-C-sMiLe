@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/09 17:35:56 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/09 18:02:38 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,10 @@ void	configure_terminal_and_critic_env(t_ms *ms)
 	if (!find_env_node(ms->env, "PWD"))
 	{
 		temp = getcwd(NULL, 0);
-		key_and_value = ft_strjoin("PWD=", temp, FALSE);
+		key_and_value = ft_strjoin("PWD=", temp, TRUE);
+		printf("key_and_value = %s\n", key_and_value);
 		add_env_node(ms, key_and_value);
+		free(temp);
 	}
 	if (!find_env_node(ms->env, "PATH"))
 		add_env_node(ms, \
