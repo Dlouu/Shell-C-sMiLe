@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:02:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/08 13:26:12 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/09 11:02:37 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,10 @@ typedef enum e_token
 	DELIMITER
 }	t_token_code;
 
-//content : echo, cmd...
-//type : COMMAND, BUILTIN, ARG... enum de 0 a 9 t_token_code
-//index : echo -n -nnn. echo = 0, -n = 1, -nnn = 2
+// content : echo, cmd...
+// type : COMMAND, BUILTIN, ARG... enum de 0 a 9 t_token_code
+// index : echo -n -nnn. echo = 0, -n = 1, -nnn = 2
+// blank_info : for lexer/recombiner purpose
 typedef struct s_token
 {
 	char			*content;
@@ -77,6 +78,7 @@ typedef struct s_token
 	struct s_token	*prev;
 }	t_token;
 
+// example :
 //	*key	PATH
 //	*value	/usr/bin:/bin:/usr/sbin:/sbin
 typedef struct s_env
@@ -107,7 +109,6 @@ typedef struct s_ms
 	int				dollar;
 	int				command_count;
 	int				pipe_count;
-	int				heredoc_count;
 	struct s_pipex	*px;
 	char			*old_path;
 	char			*new_path;
@@ -118,11 +119,6 @@ typedef struct s_ms
 
 # define MAUVE "\033[0;34m"
 # define END "\033[m"
-
-# define SIG_REST_SIGINFO 0
-# define SIG_DEFAULT 1
-# define SIG_IGNORE 2
-# define SIG_INTERACTIVE 3
 
 # define SQUOTE 1
 # define DQUOTE 2

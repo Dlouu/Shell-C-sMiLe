@@ -6,13 +6,13 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:18:28 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/09/21 16:39:01 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/09 10:47:06 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	count_heredoc_and_command(t_ms *ms)
+static int	count_command(t_ms *ms)
 {
 	t_token	**tk_lst;
 	t_token	*tk;
@@ -27,8 +27,6 @@ int	count_heredoc_and_command(t_ms *ms)
 		{
 			if (tk->type == COMMAND)
 				ms->command_count += 1;
-			if (tk->type == REDIR_DOUBLE_LEFT)
-				ms->heredoc_count += 1;
 			tk = tk->next;
 		}
 		i++;
@@ -57,7 +55,7 @@ void	update_index(t_ms *ms)
 	}
 }
 
-int	check_types(t_token *token)
+static int	check_types(t_token *token)
 {
 	t_token	*tk;
 
@@ -108,6 +106,6 @@ int	parser(t_ms *ms)
 	pipe_splitter(ms);
 	sort_token(ms);
 	update_index(ms);
-	count_heredoc_and_command(ms);
+	count_command(ms);
 	return (1);
 }

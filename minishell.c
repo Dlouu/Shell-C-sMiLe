@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/09 01:34:38 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/09 10:46:35 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,9 @@ TRUCS A CHECK
 [_]	path si on en trouve pas au lancement, faut qu'on en assign un genre de 
 	base genre /bin/bash ?
 [_] si on unset PATH il faut que ca ne marche pas mais no segfault
-- - - - - - -
-PARSING
-[_] $""aa$"" a fixer
-[_] expand dollar a refaire
 [_] signaux
 [_] heredoc no expansion
-- - - - - - -
-EXECUTION
-[_]	heredoc
-- - - - - - -
-COMMON
+[_]	heredoc kill
 [_] exit-code
 [_] free
 */
@@ -50,12 +42,12 @@ void	increase_shlvl(t_ms *ms)
 
 void	minishell_init(t_ms *ms, char **argv, char **envp)
 {
+	(void)argv;
 	ms->exit_code = 0;
 	ms->blank_before = 0;
 	ms->blank_after = 0;
 	ms->dollar = 0;
 	ms->pipe_count = 0;
-	ms->heredoc_count = 0;
 	ms->i = 0;
 	ms->command_count = 0;
 	ms->prompt = NULL;
@@ -70,7 +62,6 @@ void	minishell_init(t_ms *ms, char **argv, char **envp)
 	ft_putstr_fd("👀 \\__ \\ ' \\/ -_) | || (__  (_-< |\\/| | | |_/ -_)\n", 1);
 	ft_putstr_fd("😃 |___/_||_\\___|_|_| \\___| /__/_|  |_|_|___\\___|\n", 1);
 	ft_putstr_fd("                           by niabraha & mbaumgar\n", 1);
-	(void)argv;
 }
 
 int	minishell_loop(t_ms *ms)
@@ -80,7 +71,6 @@ int	minishell_loop(t_ms *ms)
 	while (1)
 	{
 		ms->pipe_count = 0;
-		ms->heredoc_count = 0;
 		ms->command_count = 0;
 		ms->i = 0;
 		set_signals(READLINE);

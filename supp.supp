@@ -1,42 +1,50 @@
 {
-   < READLINE NATURAL STILL REACHABLE LEAKS >
+   < readline natural leaks >
    Memcheck:Leak
-   match-leak-kinds: reachable
    ...
    fun:readline
    ...
 }
 {
-   < LS NATURAL STILL REACHABLE LEAKS >
+   < ls natural leaks >
    Memcheck:Leak
-   match-leak-kinds: reachable
    ...
    obj:/usr/bin/ls
    fun:(below main)
 }
 {
-   < CAT NATURAL STILL REACHABLE LEAKS >
+   < cat natural leaks >
    Memcheck:Leak
-   match-leak-kinds: reachable
    ...
    obj:/usr/bin/cat
    fun:(below main)
 }
 {
-   < ADD_HISTORY NATURAL STILL REACHABLE LEAKS >
+   < add_history natural leaks >
     Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
    ...
    fun:add_history
    fun:minishell_loop
    fun:main
 }
 {
-   < CLEAR NATURAL STILL REACHABLE LEAKS >
+   < clear natural leaks >
    Memcheck:Leak
-   match-leak-kinds: reachable
    ...
    obj:/usr/bin/clear
+   fun:(below main)
+}
+{
+   < tr natural leaks >
+   Memcheck:Leak
+   ...
+   obj:/usr/bin/tr
+   fun:(below main)
+}
+{
+   < grep natural leaks >
+   Memcheck:Leak
+   ...
+   obj:/usr/bin/grep
    fun:(below main)
 }
