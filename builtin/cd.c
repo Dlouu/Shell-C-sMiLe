@@ -6,22 +6,26 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:04 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/09 17:45:00 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/09 21:18:32 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-static void	file_not_found_or_permission_denied(t_token *tk)
+static void	file_not_found_or_permission_denied(t_token *tk, t_ms *ms)
 {
-	if (errno == 13)
+	if (access(tk->next->content, R_OK) == -1)
 	{
+		ms->exit_code = 1;
+		ms->dont_touch = 1;
 		ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
 		ft_putstr_fd(tk->next->content, STDERR_FILENO);
 		ft_putendl_fd(": Permission denied", STDERR_FILENO);
 	}
 	else
 	{
+		ms->exit_code = 1;
+		ms->dont_touch = 1;
 		ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
 		ft_putstr_fd(tk->next->content, STDERR_FILENO);
 		ft_putendl_fd(": No such file or directory", STDERR_FILENO);
@@ -75,18 +79,18 @@ int	ft_cd(t_ms *ms, t_token *tk)
 	temp = getcwd(NULL, 0);
 	ms->old_path = ft_strdup(temp, FALSE);
 	free(temp);
-	ms->exit_code = 1;
 	if (tk->next && tk->next->type == ARG && \
 	tk->next->next && tk->next->next->type == ARG)
 		return (ft_error_no_exit("cd", "too many arguments", ms, 1), 1);
 	if (!tk->next || ft_strcmp(tk->next->content, "~") == 0)
 	{
-		if (!find_env_node(ms->env, "HOME")
-			|| chdir(find_env_value(ms->env, "HOME")) == -1)
+		if (!find_env_node(ms->env, "HOME"))
 			return (ft_error_no_exit("cd", "HOME not set", ms, 1), 1);
+		else
+			chdir(find_env_value(ms->env, "HOME"));
 	}
 	else if (chdir(tk->next->content) == -1)
-		return (file_not_found_or_permission_denied(tk), ms->exit_code);
+		return (file_not_found_or_permission_denied(tk, ms), ms->exit_code);
 	if (!update_pwds)
 		ft_update_pwds(ms);
 	ms->exit_code = 0;

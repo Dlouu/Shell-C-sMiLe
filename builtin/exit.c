@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:12 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/09 16:56:12 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/09 20:13:51 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,19 +77,19 @@ int	ft_exit(t_ms *ms, t_token *tk)
 	long	nbr;
 
 	ft_putendl_fd("exit", STDOUT_FILENO);
-	if (tk->next && tk->next->next && tk->next->next->type == ARG)
-		return (too_many_args(ms, tk->next->next));
 	if (tk && tk->next && tk->next->type == ARG)
 	{
-		if (check_number(tk->next->content) == 0)
+		if (check_number(tk->next->content))
+			exit_not_number(ms, tk->next->content);
+		else
 		{
 			if (!ft_long_ovcheck(tk->next->content))
 				return (exit_not_number(ms, tk->next->content), 1);
+			else if (tk->next && tk->next->next && tk->next->next->type == ARG)
+				return (too_many_args(ms, tk->next->next));
 			nbr = ft_atol(tk->next->content);
 			ms->exit_code = nbr % 256;
 		}
-		else
-			exit_not_number(ms, tk->next->content);
 	}
 	else
 		ms->exit_code = 0;

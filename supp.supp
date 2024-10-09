@@ -48,3 +48,18 @@
    obj:/usr/bin/grep
    fun:(below main)
 }
+{
+   < expr natural leaks >
+   Memcheck:Leak
+   ...
+   obj:/usr/bin/expr
+   fun:(below main)
+}
+{
+   < wc leaks >
+   Memcheck:Leak
+   ...
+   obj:/usr/bin/wc
+   fun:(below main)
+}
+
