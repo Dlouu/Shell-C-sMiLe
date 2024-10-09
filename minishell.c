@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/09 12:06:44 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/09 15:19:10 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,19 @@ void	increase_shlvl(t_ms *ms)
 		replace_env_value(ms->env, "SHLVL", "1");
 }
 
+void	configure_terminal(void)
+{
+	struct termios	termios;
+
+	tcgetattr(STDIN_FILENO, &termios);
+	termios.c_lflag &= ~ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSANOW, &termios);
+}
+
 void	minishell_init(t_ms *ms, char **argv, char **envp)
 {
 	(void)argv;
+	configure_terminal();
 	ms->exit_code = 0;
 	ms->blank_before = 0;
 	ms->blank_after = 0;

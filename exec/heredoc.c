@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:56:22 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/09 14:48:20 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/09 15:18:02 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void	manage_heredoc(t_pipex *px, t_token *tk, char *buff)
 		ft_putstr_fd("🤙> ", STDOUT_FILENO);
 		buff = get_next_line(STDOUT_FILENO, 0, FALSE);
 		buff = ft_strtrim(buff, "\n", FALSE);
+		if (g_signal == SIGQUIT)
+			buff = get_next_line(STDOUT_FILENO, TRUE, FALSE);
 		if (!buff || g_signal == SIGINT)
 		{
 			signals_heredoc(tk);

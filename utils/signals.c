@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 00:12:48 by dlou              #+#    #+#             */
-/*   Updated: 2024/10/09 14:56:16 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/09 15:19:40 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,10 @@ void	heredoc_signal_handler(int signum)
 	if (signum == SIGINT)
 	{
 		g_signal = SIGINT;
-		write(STDOUT_FILENO, "\n", 1);
+		write(STDOUT_FILENO, "^C\n", 3);
 	}
+	if (signum == SIGQUIT)
+		g_signal = SIGQUIT;
 }
 
 void	heredoc_sigaction_handler(void)
@@ -52,8 +54,6 @@ void	heredoc_sigaction_handler(void)
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_handler = heredoc_signal_handler;
 	sigaction(SIGINT, &sa, NULL);
-	// sa.sa_handler = SIG_IGN;
-	// sigaction(SIGQUIT, &sa, NULL);
 }
 
 /* FORK */
