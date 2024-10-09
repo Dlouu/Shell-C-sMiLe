@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 00:12:48 by dlou              #+#    #+#             */
-/*   Updated: 2024/10/09 15:19:40 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/09 15:55:33 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	fork_signal_handler(int signum)
 {
 	if (signum == SIGINT)
 	{
-		write(STDOUT_FILENO, "\n", 1);
+		write(STDOUT_FILENO, "^C\n", 3);
 		g_signal = SIGINT;
 	}
 	if (signum == SIGQUIT)

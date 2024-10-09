@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/09 14:36:31 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/10/09 15:54:35 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	exec_main(t_ms *ms)
 	}
 	printf("dans exec main apres waitpid: %d\n", ms->exit_code);
 	if (g_signal == SIGQUIT)
-		ft_putendl_fd("Quit", STDERR_FILENO);
+		ft_putendl_fd("^\\Quit", STDERR_FILENO);
 	g_signal = 0;
 	printf("dans exec main avant wifexited: %d\n", ms->exit_code);
 	if (WIFEXITED(status) && ms->dont_touch == 0)

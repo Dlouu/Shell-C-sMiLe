@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:56:22 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/09 15:18:02 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/09 16:02:03 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,20 @@ t_token	*find_my_token(t_pipex *px, int type)
 	return (NULL);
 }
 
-static void	signals_heredoc(t_token *tk)
+static void	signals_heredoc(t_ms *ms, t_token *tk)
 {
 	if (g_signal == SIGINT)
+	{
 		g_signal = 0;
+		ms->exit_code = 130;
+		ms->dont_touch = 1;
+	}
 	else
 	{
 		ft_putstr_fd("\nminishell: warning: here-document ", STDERR_FILENO);
 		ft_putstr_fd("delimited by EOF wanted: ", STDERR_FILENO);
 		ft_putendl_fd(tk->content, STDERR_FILENO);
+		ms->exit_code = 0;
 	}
 }
 
@@ -56,7 +61,7 @@ void	manage_heredoc(t_pipex *px, t_token *tk, char *buff)
 			buff = get_next_line(STDOUT_FILENO, TRUE, FALSE);
 		if (!buff || g_signal == SIGINT)
 		{
-			signals_heredoc(tk);
+			signals_heredoc(px->ms, tk);
 			break ;
 		}
 		px->buff = ft_strdup(buff, 0);
