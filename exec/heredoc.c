@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:56:22 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/08 14:40:08 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/09 13:13:40 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,15 @@ t_token	*find_my_token(t_pipex *px, int type)
 	return (NULL);
 }
 
-static void	ft_error_heredoc(t_pipex *px, t_token *tk)
+static void	ft_error_heredoc(t_token *tk)
 {
-	ft_close_everything(px);
-	if (g_signal == SIGINT)
-		clean_exit(130, NULL);
-	else
-		ft_error("warning: here-document delimited by EOF wanted",
-			tk->content, 0, 1);
+	ft_putstr_fd("minishell: warning: here-document ", STDERR_FILENO);
+	ft_putstr_fd("delimited by EOF wanted: ", STDERR_FILENO);
+	ft_putendl_fd(tk->content, STDERR_FILENO);
 }
 
-void	manage_heredoc(t_pipex *px, t_token *tk)
+void	manage_heredoc(t_pipex *px, t_token *tk, char *buff)
 {
-	char	*buff;
-
 	if (px->heredoc[0] != -1)
 		close(px->heredoc[0]);
 	if (px->heredoc[1] != -1)
@@ -49,9 +44,17 @@ void	manage_heredoc(t_pipex *px, t_token *tk)
 	set_signals(HEREDOC);
 	while (1)
 	{
+		if (g_signal == SIGINT)
+		{
+			printf("oblige de faire touche [Enter] pour quitter, why ?\n\n");
+			break ;
+		}
 		buff = readline("> ");
 		if (!buff)
-			ft_error_heredoc(px, tk);
+		{
+			ft_error_heredoc(tk);
+			break ;
+		}
 		px->buff = ft_strdup(buff, 0);
 		free(buff);
 		if (px->buff && ft_strcmp(px->buff, tk->content) == 0)
@@ -73,7 +76,7 @@ void	init_heredoc(t_pipex *px)
 		while (tk)
 		{
 			if (tk->type == DELIMITER)
-				manage_heredoc(px, tk);
+				manage_heredoc(px, tk, NULL);
 			tk = tk->next;
 		}
 		px = px->next;

@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 00:12:48 by dlou              #+#    #+#             */
-/*   Updated: 2024/10/08 14:34:44 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/09 13:13:41 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ void	heredoc_signal_handler(int signum)
 {
 	if (signum == SIGINT)
 	{
-		write(STDOUT_FILENO, "^C", 2);
-		close(STDIN_FILENO);
 		g_signal = SIGINT;
+		write(STDOUT_FILENO, "^C", 2);
+		printf("\nOk, mais appuye sur [Enter]\n");
 	}
 }
 
@@ -83,10 +83,5 @@ void	set_signals(t_signal_type mode)
 	{
 		signal(SIGINT, SIG_IGN);
 		signal(SIGQUIT, SIG_IGN);
-	}
-	else
-	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
 	}
 }
