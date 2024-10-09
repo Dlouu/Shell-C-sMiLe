@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:06:12 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/08 19:30:22 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/09 11:59:15 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int	expand_pid_exit_code_and_dollar_quoted(t_ms *ms, t_token *tk, int *i)
 	&& tk->content[0] == '$' && !tk->content[*i + 1])
 	{
 		tk_delone(&ms->token_lexed, tk);
-		(*i)++;
+		*i += 1;
 		return (1);
 	}
 	return (0);

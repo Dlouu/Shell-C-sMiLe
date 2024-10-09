@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:06:12 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/08 19:36:14 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/09 11:47:25 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	is_empty_quote(t_token *tk, int *i)
 
 static void	expander_while_loop(t_ms *ms, t_token *tk, int i)
 {
-	while (tk && tk->content && *tk->content && tk->content[i])
+	while (i > -1 && tk && tk->content && *tk->content && tk->content[i])
 	{
 		if (tk->content[i] && tk->content[i] == '$' && tk->squote == 0)
 		{
@@ -65,13 +65,16 @@ static void	expander_while_loop(t_ms *ms, t_token *tk, int i)
 				expand_var(ms, tk, &i);
 			tk->expanded = 2;
 		}
-		if (*tk->content && tk->content[i])
+		if (i > -1 && tk && tk->content && *tk->content && tk->content[i])
 			i++;
 	}
 }
 
-void	expander(t_ms *ms, t_token *tk, int i)
+void	expander(t_ms *ms, t_token *tk)
 {
+	int		i;
+
+	i = 0;
 	if (!tk)
 		return ;
 	while (tk)

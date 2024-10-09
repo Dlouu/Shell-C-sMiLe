@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:13:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/09 11:13:15 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/09 12:03:21 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,18 @@ typedef struct s_ms		t_ms;
 //parsing
 int		lexer(t_ms *ms, char *prompt, t_token *token_lst);
 int		tokenizer(t_ms *ms);
-void	recombiner(t_token *tk);
-void	word_splitter(t_ms *ms, int i);
 int		parser(t_ms *ms);
 void	pipe_splitter(t_ms *ms);
 void	sort_token(t_ms *ms);
-void	remove_empty_nodes(t_token *head, t_token *tk, t_token *temp);
 
 //expander
-void	expander(t_ms *ms, t_token *tk, int i);
-int		expand_empty_quote(t_token *tk, int *i);
+void	expander(t_ms *ms, t_token *tk);
 void	expand_var(t_ms *ms, t_token *tk, int *i);
+int		expand_empty_quote(t_token *tk, int *i);
 int		expand_pid_exit_code_and_dollar_quoted(t_ms *ms, t_token *tk, int *i);
+void	word_splitter(t_ms *ms, int i);
+void	remove_empty_nodes(t_token *head, t_token *tk, t_token *temp);
+void	recombiner(t_token *tk);
 
 //env
 t_list	*get_envp(t_ms *ms, char **envp);
