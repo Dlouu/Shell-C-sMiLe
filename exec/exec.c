@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/09 11:15:18 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/09 11:29:51 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,33 +24,33 @@ grep "Videos" < infile | cat -e > outfile good
 tr a-z A-Z > first_file << oui | tr A-Z a-z > second_file << non
 */
 
-void	ft_execlp(t_ms *ms, char **cmd)
-{
-	char	*path;
-	char	**envp;
+// void	ft_execlp(t_ms *ms, char **cmd)
+// {
+// 	char	*path;
+// 	char	**envp;
 
-	envp = env_lst_to_tab(ms);
-	path = find_path(cmd[0], envp, ms);
-	if (!path)
-	{
-		ms->exit_code = 127;
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(cmd[0], 2);
-		ft_putstr_fd(": no such file or directory\n", 2);
-		clean_exit(ms->exit_code, NULL);
-	}
-	else
-	{
-		if (execve(path, cmd, envp) == -1)
-		{
-			ms->exit_code = 126;
-			ft_putstr_fd("minishell: ", 2);
-			ft_putstr_fd(cmd[0], 2);
-			ft_putstr_fd(": permission denied\n", 2);
-			clean_exit(ms->exit_code, NULL);
-		}
-	}
-}
+// 	envp = env_lst_to_tab(ms);
+// 	path = find_path(cmd[0], envp, ms);
+// 	if (!path)
+// 	{
+// 		ms->exit_code = 127;
+// 		ft_putstr_fd("minishell: ", 2);
+// 		ft_putstr_fd(cmd[0], 2);
+// 		ft_putstr_fd(": no such file or directory\n", 2);
+// 		clean_exit(ms->exit_code, NULL);
+// 	}
+// 	else
+// 	{
+// 		if (execve(path, cmd, envp) == -1)
+// 		{
+// 			ms->exit_code = 126;
+// 			ft_putstr_fd("minishell: ", 2);
+// 			ft_putstr_fd(cmd[0], 2);
+// 			ft_putstr_fd(": permission denied\n", 2);
+// 			clean_exit(ms->exit_code, NULL);
+// 		}
+// 	}
+// }
 
 void	find_builtin(t_pipex *px, t_token *token)
 {
