@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:59 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/08 16:06:20 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/10/09 11:18:17 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		get_fds(t_ms *ms, int fd);
 int		exec_main(t_ms *ms);
 void	open_and_dup(t_pipex *px, t_token *tk, int is_subprocess);
 void	find_builtin(t_pipex *px, t_token *token);
-void	ft_execlp(t_ms *ms, char **cmd);
+// void	ft_execlp(t_ms *ms, char **cmd);
 void	manage_heredoc(t_pipex *px, t_token *token);
 char	*find_path(char *cmd, char **envp, t_ms *ms);
 void	ft_close_everything(t_pipex *px);

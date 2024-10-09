@@ -6,7 +6,7 @@
 #    By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/06 13:02:03 by mbaumgar          #+#    #+#              #
-#    Updated: 2024/10/05 20:59:16 by mbaumgar         ###   ########.fr        #
+#    Updated: 2024/10/09 11:18:46 by mbaumgar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,8 +54,6 @@ SRC			= minishell.c \
 			parsing/parser.c \
 			parsing/splitter.c \
 			parsing/sorter.c \
-			parsing/envp.c \
-			parsing/var.c \
 			parsing/expand_var.c \
 			parsing/quotes.c \
 			builtin/cd.c \
@@ -68,16 +66,18 @@ SRC			= minishell.c \
 			builtin/unset.c \
 			exec/exec.c \
 			exec/exec_child.c \
-			exec/exec_utils.c \
 			exec/heredoc.c \
 			exec/redir.c \
 			exec/pipes.c \
 			utils/signals.c \
 			utils/error.c \
 			utils/fds.c \
+			utils/var.c \
+			utils/envp.c \
 			utils/token_lst.c \
 			utils/token_print.c \
-			utils/tab_converter.c
+			utils/tab_converter.c \
+			utils/path.c
 
 OBJ			= $(SRC:%.c=$(OUT_DIR)%.o)
 

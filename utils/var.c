@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:11:21 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/08 18:27:19 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/09 11:09:03 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,4 @@ char	*get_var(char *var)
 		i++;
 	key = ft_substr(var, 1, i - 1, FALSE);
 	return (key);
-}
-
-void	replace_env_value(t_list *env, char *key, char *value)
-{
-	t_list	*tmp;
-
-	tmp = find_env_node(env, key);
-	if (tmp)
-	{
-		wfree(((t_env *)tmp->data)->value);
-		((t_env *)tmp->data)->value = ft_strdup(value, TRUE);
-	}
 }

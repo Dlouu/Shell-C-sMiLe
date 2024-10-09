@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:13:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/08 19:04:59 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/09 11:13:15 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ typedef struct s_ms		t_ms;
 //parsing
 int		lexer(t_ms *ms, char *prompt, t_token *token_lst);
 int		tokenizer(t_ms *ms);
-void	expander(t_ms *ms, t_token *tk, int i);
 void	recombiner(t_token *tk);
 void	word_splitter(t_ms *ms, int i);
 int		parser(t_ms *ms);
@@ -33,6 +32,7 @@ void	sort_token(t_ms *ms);
 void	remove_empty_nodes(t_token *head, t_token *tk, t_token *temp);
 
 //expander
+void	expander(t_ms *ms, t_token *tk, int i);
 int		expand_empty_quote(t_token *tk, int *i);
 void	expand_var(t_ms *ms, t_token *tk, int *i);
 int		expand_pid_exit_code_and_dollar_quoted(t_ms *ms, t_token *tk, int *i);
@@ -40,14 +40,11 @@ int		expand_pid_exit_code_and_dollar_quoted(t_ms *ms, t_token *tk, int *i);
 //env
 t_list	*get_envp(t_ms *ms, char **envp);
 t_list	*find_env_node(t_list *env, char *key);
-char	*find_env_value(t_list *env, char *key);
 void	add_env_node(t_ms *ms, char *key_and_value);
-void	del_env_node(t_list **env, char *key);
-char	*get_var(char *var);
-int		env_node_exist(t_list *env, char *key);
-void	delete_var_name(char *key, t_token *tk, int *i);
+char	*find_env_value(t_list *env, char *key);
 void	replace_env_value(t_list *env, char *key, char *value);
-char	**env_lst_to_tab(t_ms *ms);
+char	*get_var(char *var);
+void	delete_var_name(char *key, t_token *tk, int *i);
 
 //token lst_utils
 t_token	*tk_lstnew(char *content);
@@ -68,8 +65,9 @@ int		empty_prompt(char *prompt);
 void	set_signals(t_signal_type mode);
 int		find_index(char *str, char c);
 void	update_index(t_ms *ms);
-char	**cmd_to_tab(t_ms *ms, t_token *tk);
 int		check_quotes(t_ms *ms, char *prompt, int *i);
 int		check_unclosed_quote(char *prompt);
+char	**env_lst_to_tab(t_ms *ms);
+char	**cmd_to_tab(t_ms *ms, t_token *tk);
 
 #endif
