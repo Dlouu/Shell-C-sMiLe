@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:57:32 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/10 12:24:24 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/10 13:17:21 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	verif_redir(t_pipex *px, int save_in, int save_out)
 	if (!check && save_in != -1)
 	{
 		if (dup2(save_in, STDIN_FILENO) == -1)
-			return (ft_perror("dup2 error\n", 1));
+			return (ft_perror("dup2 error", 1));
 		if (px->pipefd[0] > 0)
 			close(px->pipefd[0]);
 		px->pipefd[0] = save_in;
@@ -56,40 +56,46 @@ static void	verif_redir(t_pipex *px, int save_in, int save_out)
 	if (save_out != -1)
 	{
 		if (dup2(save_out, STDOUT_FILENO) == -1)
-			return (ft_perror("dup2 error\n", 1));
+			return (ft_perror("dup2 error", 1));
 		if (px->pipefd[1] != -1)
 			close(px->pipefd[1]);
 		px->pipefd[1] = save_out;
 	}
 }
 
-static void	redir_out(char *file, int redir, int *save_out)
+static void	redir_out(char *file, int redir, int *save_out, t_pipex *px)
 {
 	if (*save_out != -1)
 		close(*save_out);
-	if (redir == REDIR_RIGHT)
+	if (px->exec_builtin && redir == REDIR_RIGHT)
 		*save_out = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	else if (redir == REDIR_DOUBLE_RIGHT)
+	else if (px->exec_builtin && redir == REDIR_DOUBLE_RIGHT)
 		*save_out = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	if (*save_out == -1)
-		return (ft_perror("open error\n", 1));
+	if (px->exec_builtin && *save_out == -1)
+	{
+		px->exec_builtin = 0;
+		return (ft_perror(file, px->is_subprocess));
+	}
 }
 
-static void	redir_in(char *file, int *save_in, t_token *tk, int is_sub)
+static void	redir_in(char *file, int *save_in, t_token *tk, t_pipex *px)
 {
-	if (access(file, X_OK) == -1)
+	if (px->exec_builtin && access(file, X_OK) == -1)
 	{
-		ft_perror(file, is_sub);
+		px->exec_builtin = 0;
+		ft_perror(file, px->is_subprocess);
 		return ;
 	}
 	if (tk->next && *save_in != -1)
 		close(*save_in);
 	else
 	{
-		printf("lelelekejrjrgjhhttjtjht\n");
 		*save_in = open(file, O_RDONLY);
 		if (*save_in == -1)
-			return (ft_perror("open error", 1));
+		{
+			px->exec_builtin = 0;
+			return (ft_perror("open error", px->is_subprocess));
+		}
 	}
 }
 
@@ -100,12 +106,13 @@ void	open_and_dup(t_pipex *px, t_token *tk, int is_subprocess)
 
 	save_in = -1;
 	save_out = -1;
+	px->is_subprocess = is_subprocess;
 	while (tk)
 	{
 		if (tk->type == REDIR_LEFT)
-			redir_in(tk->next->content, &save_in, tk, is_subprocess);
+			redir_in(tk->next->content, &save_in, tk, px);
 		else if (tk->type == REDIR_RIGHT || tk->type == REDIR_DOUBLE_RIGHT)
-			redir_out(tk->next->content, tk->type, &save_out);
+			redir_out(tk->next->content, tk->type, &save_out, px);
 		tk = tk->next;
 	}
 	if (is_subprocess)

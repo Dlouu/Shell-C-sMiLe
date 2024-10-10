@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:59 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/09 18:31:58 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/10 12:51:36 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ typedef struct s_pipex
 	int				heredoc[2];
 	int				pid;
 	char			*buff;
+	int				is_subprocess;
+	int				exec_builtin;
 	struct s_ms		*ms;
 	struct s_token	*token;
 	struct s_pipex	*next;
