@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:58:46 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/02 17:08:47 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/10 15:01:37 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int			ft_putstr(char *s);
 
 int			ft_int_ovcheck(const char *number);
 int			ft_long_ovcheck(const char *number);
+int			check_long_long_overflow(const char *number);
 int			ft_atoi(const char *nptr);
 long int	ft_atol(const char *nptr);
 long long	ft_atoll(const char *nptr);

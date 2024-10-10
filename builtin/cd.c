@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:04 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/10 12:02:59 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/10 14:35:41 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,8 @@ void	handle_cd_home(t_ms *ms, char *content)
 	}
 }
 
-int	ft_cd(t_ms *ms, t_token *tk)
+int	ft_cd(t_ms *ms, t_token *tk, char *temp)
 {
-	char	*temp;
 	int		update_oldpwd;
 
 	update_oldpwd = 1;
@@ -86,6 +85,7 @@ int	ft_cd(t_ms *ms, t_token *tk)
 		update_oldpwd = 0;
 	temp = getcwd(NULL, 0);
 	ms->old_path = ft_strdup(temp, FALSE);
+	free(temp);
 	if (tk->next && tk->next->type == ARG && \
 	tk->next->next && tk->next->next->type == ARG)
 		return (ft_error_no_exit("cd", "too many arguments", ms, 1), 1);

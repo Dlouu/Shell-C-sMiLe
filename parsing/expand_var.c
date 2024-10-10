@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:06:12 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/09 11:59:15 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/10 14:27:10 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	expand_var(t_ms *ms, t_token *tk, int *i)
 	size_t	len;
 
 	key = get_var(tk->content + *i);
-	if (find_env_node(ms->env, key))
+	if (find_env_node(ms->env, key) && find_env_value(ms->env, key) != NULL)
 	{
 		len = ft_strlen(tk->content) - *i - ft_strlen(key) - 1;
 		left = ft_substr(tk->content, 0, *i, FALSE);

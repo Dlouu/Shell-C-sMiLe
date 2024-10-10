@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/10 13:10:45 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/10 14:31:27 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	find_builtin(t_pipex *px, t_token *token)
 	if (px->pid != 0)
 		open_and_dup(px, token, 0);
 	if (px->exec_builtin && ft_strcmp(token->content, "cd") == 0)
-		ft_cd(px->ms, token);
+		ft_cd(px->ms, token, NULL);
 	else if (px->exec_builtin && ft_strcmp(token->content, "echo") == 0)
 		ft_echo(px->ms, token);
 	else if (px->exec_builtin && ft_strcmp(token->content, "env") == 0)

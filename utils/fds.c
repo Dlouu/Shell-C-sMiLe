@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:29:45 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/09 00:38:32 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/10 15:24:09 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	ft_close_fds_builtins(t_ms *ms)
 {
 	int	fds[2];
 
+	fds[0] = -1;
+	fds[1] = -1;
 	if (!ms)
 		return ;
 	fds[0] = get_fds(ms, STDIN_FILENO);

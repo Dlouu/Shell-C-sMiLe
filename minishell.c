@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/10 11:53:16 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/10 15:23:33 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ void	minishell_init(t_ms *ms, char **argv, char **envp)
 	ms->new_path = NULL;
 	ms->home = getenv("HOME");
 	ms->dont_touch = 0;
+	ms->fds_builtins[0] = -1;
+	ms->fds_builtins[1] = -1;
 	get_envp(ms, envp);
 	increase_shlvl(ms);
 	configure_terminal_and_critic_env(ms);

@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:12 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/09 20:13:51 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/10 15:03:50 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static void	exit_not_number(t_ms *ms, char *str)
 
 int	ft_exit(t_ms *ms, t_token *tk)
 {
-	long	nbr;
+	long long int	nbr;
 
 	ft_putendl_fd("exit", STDOUT_FILENO);
 	if (tk && tk->next && tk->next->type == ARG)
@@ -83,11 +83,11 @@ int	ft_exit(t_ms *ms, t_token *tk)
 			exit_not_number(ms, tk->next->content);
 		else
 		{
-			if (!ft_long_ovcheck(tk->next->content))
+			if (check_long_long_overflow(tk->next->content))
 				return (exit_not_number(ms, tk->next->content), 1);
 			else if (tk->next && tk->next->next && tk->next->next->type == ARG)
 				return (too_many_args(ms, tk->next->next));
-			nbr = ft_atol(tk->next->content);
+			nbr = ft_atoll(tk->next->content);
 			ms->exit_code = nbr % 256;
 		}
 	}

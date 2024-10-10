@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:49:59 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/10 12:51:36 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/10 14:19:29 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_token	*find_my_token(t_pipex *px, int type);
 void	close_heredoc(t_pipex *px);
 
 //ft_cd
-int		ft_cd(t_ms *ms, t_token *tk);
+int		ft_cd(t_ms *ms, t_token *tk, char *temp);
 
 //ft_echo
 int		ft_echo(t_ms *ms, t_token *tk);
