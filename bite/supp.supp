@@ -1,0 +1,65 @@
+{
+   < readline natural leaks >
+   Memcheck:Leak
+   ...
+   fun:readline
+   ...
+}
+{
+   < ls natural leaks >
+   Memcheck:Leak
+   ...
+   obj:/usr/bin/ls
+   fun:(below main)
+}
+{
+   < cat natural leaks >
+   Memcheck:Leak
+   ...
+   obj:/usr/bin/cat
+   fun:(below main)
+}
+{
+   < add_history natural leaks >
+    Memcheck:Leak
+   ...
+   fun:add_history
+   fun:minishell_loop
+   fun:main
+}
+{
+   < clear natural leaks >
+   Memcheck:Leak
+   ...
+   obj:/usr/bin/clear
+   fun:(below main)
+}
+{
+   < tr natural leaks >
+   Memcheck:Leak
+   ...
+   obj:/usr/bin/tr
+   fun:(below main)
+}
+{
+   < grep natural leaks >
+   Memcheck:Leak
+   ...
+   obj:/usr/bin/grep
+   fun:(below main)
+}
+{
+   < expr natural leaks >
+   Memcheck:Leak
+   ...
+   obj:/usr/bin/expr
+   fun:(below main)
+}
+{
+   < wc leaks >
+   Memcheck:Leak
+   ...
+   obj:/usr/bin/wc
+   fun:(below main)
+}
+
