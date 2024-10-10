@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/09 18:02:38 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/10 11:53:16 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	configure_terminal_and_critic_env(t_ms *ms)
 	{
 		temp = getcwd(NULL, 0);
 		key_and_value = ft_strjoin("PWD=", temp, TRUE);
-		printf("key_and_value = %s\n", key_and_value);
 		add_env_node(ms, key_and_value);
 		free(temp);
 	}
@@ -65,6 +64,7 @@ void	minishell_init(t_ms *ms, char **argv, char **envp)
 	ms->prompt = NULL;
 	ms->old_path = NULL;
 	ms->new_path = NULL;
+	ms->home = getenv("HOME");
 	ms->dont_touch = 0;
 	get_envp(ms, envp);
 	increase_shlvl(ms);

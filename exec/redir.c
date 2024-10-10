@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:57:32 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/09 17:05:22 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/10 12:24:24 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,18 +75,22 @@ static void	redir_out(char *file, int redir, int *save_out)
 		return (ft_perror("open error\n", 1));
 }
 
-static void	redir_in(char *file, int *save_in)
+static void	redir_in(char *file, int *save_in, t_token *tk, int is_sub)
 {
-	if (access(file, F_OK) == -1)
+	if (access(file, X_OK) == -1)
 	{
-		ft_perror(file, 0);
+		ft_perror(file, is_sub);
 		return ;
 	}
-	if (*save_in != -1)
+	if (tk->next && *save_in != -1)
 		close(*save_in);
-	*save_in = open(file, O_RDONLY);
-	if (*save_in == -1)
-		return (ft_perror("open error\n", 1));
+	else
+	{
+		printf("lelelekejrjrgjhhttjtjht\n");
+		*save_in = open(file, O_RDONLY);
+		if (*save_in == -1)
+			return (ft_perror("open error", 1));
+	}
 }
 
 void	open_and_dup(t_pipex *px, t_token *tk, int is_subprocess)
@@ -99,7 +103,7 @@ void	open_and_dup(t_pipex *px, t_token *tk, int is_subprocess)
 	while (tk)
 	{
 		if (tk->type == REDIR_LEFT)
-			redir_in(tk->next->content, &save_in);
+			redir_in(tk->next->content, &save_in, tk, is_subprocess);
 		else if (tk->type == REDIR_RIGHT || tk->type == REDIR_DOUBLE_RIGHT)
 			redir_out(tk->next->content, tk->type, &save_out);
 		tk = tk->next;

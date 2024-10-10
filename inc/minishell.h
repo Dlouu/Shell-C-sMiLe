@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niabraha <niabraha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:02:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/09 15:45:38 by niabraha         ###   ########.fr       */
+/*   Updated: 2024/10/10 11:40:48 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ typedef struct s_ms
 	struct s_pipex	*px;
 	char			*old_path;
 	char			*new_path;
+	char			*home;
 	int				fds_builtins[2];
 	int				i;
 	int				dont_touch;
