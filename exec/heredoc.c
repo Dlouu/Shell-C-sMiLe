@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:56:22 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/10 16:27:37 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/10 16:36:51 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,60 +43,8 @@ static void	signals_heredoc(t_ms *ms, t_token *tk)
 	}
 }
 
-void	delete_heredoc_var_name(char *key, t_pipex *px, int *i)
-{
-	char	*left;
-	char	*right;
-	size_t	len;
-
-	len = ft_strlen(px->buff) - *i - ft_strlen(key) - 1;
-	left = ft_substr(px->buff, 0, *i, TRUE);
-	right = ft_substr(px->buff, *i + ft_strlen(key) + 1, len, TRUE);
-	px->buff = ft_strjoin(left, right, TRUE);
-	*i -= 1;
-}
-
-void	expand_heredoc(t_pipex *px, int i)
-{
-	char	*key;
-	char	*left;
-	char	*right;
-	char	*value;
-	size_t	len;
-
-	key = NULL;
-	while (i > -1 && px && px->buff && *px->buff && px->buff[i])
-	{
-		if (px->buff[i] == '$')
-		{
-			key = get_var(px->buff + i);
-			if (find_env_node(px->ms->env, key) && \
-			find_env_value(px->ms->env, key) != NULL)
-			{
-				len = ft_strlen(px->buff) - i - ft_strlen(key) - 1;
-				left = ft_substr(px->buff, 0, i, TRUE);
-				value = find_env_value(px->ms->env, key);
-				right = ft_substr(px->buff, i + ft_strlen(key) + 1, len, TRUE);
-				px->buff = ft_strjoin(left, value, TRUE);
-				px->buff = ft_strjoin(px->buff, right, TRUE);
-				i += ft_strlen(value) - 1;
-			}
-			else
-				delete_heredoc_var_name(key, px, &i);
-		}
-		if (i > -1 && px && px->buff && *px->buff && px->buff[i])
-			i++;
-	}
-}
-
 void	manage_heredoc(t_pipex *px, t_token *tk, char *buff)
 {
-	if (px->heredoc[0] != -1)
-		close(px->heredoc[0]);
-	if (px->heredoc[1] != -1)
-		close(px->heredoc[1]);
-	if (pipe(px->heredoc) == -1)
-		ft_perror("pipe failed", 1);
 	set_signals(HEREDOC);
 	while (1)
 	{
@@ -132,7 +80,15 @@ void	init_heredoc(t_pipex *px)
 		while (tk)
 		{
 			if (tk->type == DELIMITER)
+			{
+				if (px->heredoc[0] != -1)
+					close(px->heredoc[0]);
+				if (px->heredoc[1] != -1)
+					close(px->heredoc[1]);
+				if (pipe(px->heredoc) == -1)
+					ft_perror("pipe failed", 1);
 				manage_heredoc(px, tk, NULL);
+			}
 			tk = tk->next;
 		}
 		px = px->next;

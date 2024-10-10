@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:13:44 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/10 15:53:35 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/10 16:44:20 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef enum e_signal	t_signal_type;
 typedef struct s_token	t_token;
 typedef struct s_env	t_env;
 typedef struct s_ms		t_ms;
+typedef struct s_pipex	t_pipex;
 
 //parsing
 int		lexer(t_ms *ms, char *prompt, t_token *token_lst);
@@ -36,6 +37,7 @@ int		expand_pid_exit_code_and_dollar_quoted(t_ms *ms, t_token *tk, int *i);
 void	word_splitter(t_ms *ms, int i);
 void	remove_empty_nodes(t_token *head, t_token *tk, t_token *temp);
 void	recombiner(t_token *tk);
+void	expand_heredoc(t_pipex *px, int i);
 
 //env
 t_list	*get_envp(t_ms *ms, char **envp);

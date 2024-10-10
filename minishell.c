@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:42:53 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/10 15:23:33 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/10 17:06:35 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,13 @@ void	configure_terminal_and_critic_env(t_ms *ms)
 	char			*temp;
 	char			*key_and_value;
 
-	tcgetattr(STDIN_FILENO, &termios);
-	termios.c_lflag &= ~ECHOCTL;
-	tcsetattr(STDIN_FILENO, TCSANOW, &termios);
+	if (tcgetattr(STDIN_FILENO, &termios) == 0)
+	{
+		termios.c_lflag &= ~ECHOCTL;
+		tcsetattr(STDIN_FILENO, TCSANOW, &termios);
+	}
+	else
+		ft_perror("tcgetattr failed", 1);
 	if (!find_env_node(ms->env, "OLDPWD"))
 		add_env_node(ms, "OLDPWD");
 	if (!find_env_node(ms->env, "PWD"))
