@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:24:33 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/10 14:31:27 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/11 10:34:05 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	find_builtin(t_pipex *px, t_token *token)
 {
+	px->exec_builtin = 1;
 	if (px->pid != 0)
 		open_and_dup(px, token, 0);
 	if (px->exec_builtin && ft_strcmp(token->content, "cd") == 0)
@@ -31,6 +32,7 @@ void	find_builtin(t_pipex *px, t_token *token)
 	else if (px->exec_builtin && ft_strcmp(token->content, "unset") == 0)
 		ft_unset(px->ms, token);
 	ft_close_fds_builtins(px->ms);
+	ft_close_everything(px);
 	if (px->pid == 0)
 		clean_exit(px->ms->exit_code, NULL);
 }
@@ -94,6 +96,8 @@ int	exec_main(t_ms *ms)
 	}
 	if (g_signal == SIGQUIT)
 		ft_putendl_fd("^\\Quit", STDERR_FILENO);
+	else if (g_signal == SIGINT)
+		ft_putendl_fd("^C", STDERR_FILENO);
 	g_signal = 0;
 	if (WIFEXITED(status) && ms->dont_touch == 0)
 		ms->exit_code = WEXITSTATUS(status);

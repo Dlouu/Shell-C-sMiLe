@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/01 00:12:48 by dlou              #+#    #+#             */
-/*   Updated: 2024/10/09 17:17:19 by mbaumgar         ###   ########.fr       */
+/*   Created: 2024/10/10 17:24:34 by mbaumgar          #+#    #+#             */
+/*   Updated: 2024/10/11 10:33:40 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,7 @@ void	heredoc_sigaction_handler(void)
 void	fork_signal_handler(int signum)
 {
 	if (signum == SIGINT)
-	{
-		write(STDOUT_FILENO, "^C\n", 3);
 		g_signal = SIGINT;
-	}
 	if (signum == SIGQUIT)
 		g_signal = SIGQUIT;
 }
@@ -67,11 +64,6 @@ void	set_signals(t_signal_type mode)
 	{
 		signal(SIGINT, fork_signal_handler);
 		signal(SIGQUIT, fork_signal_handler);
-	}
-	else if (mode == SILENCE)
-	{
-		signal(SIGINT, SIG_IGN);
-		signal(SIGQUIT, SIG_IGN);
 	}
 	else if (mode == HEREDOC)
 	{

@@ -6,27 +6,31 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 14:03:41 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/09 17:16:26 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/10 18:04:30 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-static void	set_quote_info(t_token *tk)
+static void	set_quote_info(t_token *tk, int flag)
 {
 	int	len;
 
 	while (tk)
 	{
+		flag = 0;
 		len = ft_strlen(tk->content);
-		if (tk->content[0] == '\'' && tk->content[len - 1] == '\'')
+		if (*(tk)->content && tk->content[len - 1]
+			&& tk->content[0] == '\'' && tk->content[len - 1] == '\'')
 		{
 			tk->squote = 1;
 			tk->content = ft_substr(tk->content, 1, len - 2, FALSE);
+			flag = 1;
 		}
 		else
 			tk->squote = 0;
-		if (tk->content[0] == '\"' && tk->content[len - 1] == '\"')
+		if (!flag && *(tk)->content && tk->content[len - 1]
+			&& tk->content[0] == '\"' && tk->content[len - 1] == '\"')
 		{
 			tk->dquote = 1;
 			tk->content = ft_substr(tk->content, 1, len - 2, FALSE);
@@ -101,7 +105,7 @@ int	tokenizer(t_ms *ms)
 
 	tk = ms->token_lexed;
 	command = 1;
-	set_quote_info(ms->token_lexed);
+	set_quote_info(ms->token_lexed, 0);
 	expander(ms, ms->token_lexed);
 	word_splitter(ms, 0);
 	while (tk)

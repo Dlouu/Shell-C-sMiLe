@@ -6,7 +6,7 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:57:32 by niabraha          #+#    #+#             */
-/*   Updated: 2024/10/10 13:17:21 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/11 11:19:50 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,15 +74,17 @@ static void	redir_out(char *file, int redir, int *save_out, t_pipex *px)
 	if (px->exec_builtin && *save_out == -1)
 	{
 		px->exec_builtin = 0;
+		ft_close_everything(px);
 		return (ft_perror(file, px->is_subprocess));
 	}
 }
 
 static void	redir_in(char *file, int *save_in, t_token *tk, t_pipex *px)
 {
-	if (px->exec_builtin && access(file, X_OK) == -1)
+	if (px->exec_builtin && access(file, R_OK) == -1)
 	{
 		px->exec_builtin = 0;
+		ft_close_everything(px);
 		ft_perror(file, px->is_subprocess);
 		return ;
 	}
@@ -94,7 +96,8 @@ static void	redir_in(char *file, int *save_in, t_token *tk, t_pipex *px)
 		if (*save_in == -1)
 		{
 			px->exec_builtin = 0;
-			return (ft_perror("open error", px->is_subprocess));
+			ft_close_everything(px);
+			return (ft_perror(file, px->is_subprocess));
 		}
 	}
 }

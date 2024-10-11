@@ -6,17 +6,11 @@
 /*   By: mbaumgar <mbaumgar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:32:45 by mbaumgar          #+#    #+#             */
-/*   Updated: 2024/10/09 18:15:51 by mbaumgar         ###   ########.fr       */
+/*   Updated: 2024/10/10 17:23:07 by mbaumgar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-//if the user has not set a value for the key, the value will be set to 26
-//26 is the "substitute" character in ascii table
-//this is done to avoid setting the value to NULL
-//in ft_env and ft_putstr_export functions, we will check if the value is 26
-//if it is, we will not print the value
 
 void	replace_env_value(t_list *env, char *key, char *value)
 {
